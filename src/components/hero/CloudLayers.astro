@@ -1,0 +1,114 @@
+---
+/**
+ * Cloud planes — PLACEHOLDERS for the Higgsfield assets.
+ *
+ *   .plane--near  → HG-01  (frontmost bank, IN FRONT of the devices)
+ *   .plane--mid   → HG-02
+ *   .plane--far   → HG-03
+ *   .plane--exit  → HG-04  (the bank the hero passes through on the way out)
+ *
+ * Swapping a placeholder for the real asset means replacing the
+ * `background` of one rule with a `background-image: url(...)`. Geometry,
+ * z-index, parallax depth and the debug boxes all come from tokens.css
+ * and stay untouched — no component needs rewriting.
+ *
+ * Silhouette note for HG-01: the mass must sit in the two BOTTOM CORNERS
+ * with a low, sparse centre. A continuous white wall flattens the frame
+ * and swallows the device cluster. Each puff is drawn twice — a cool
+ * blue-grey underside offset downward under a warm white crown — because
+ * that two-tone read is what separates a volumetric cloud from fog.
+ */
+---
+
+<div class="clouds" aria-hidden="true">
+  <div class="plane plane--far is-placeholder" data-layer="L1" data-asset="HG-03" data-parallax="0.05"></div>
+  <div class="plane plane--mid is-placeholder" data-layer="L2" data-asset="HG-02" data-parallax="0.16"></div>
+  <div class="plane plane--near is-placeholder" data-layer="L4" data-asset="HG-01" data-parallax="0.34"></div>
+  <div class="plane plane--exit is-placeholder" data-layer="L4" data-asset="HG-04"></div>
+</div>
+
+<style>
+  .clouds {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .plane {
+    position: absolute;
+    left: -6vw;
+    width: 112vw;
+    will-change: transform;
+  }
+
+  /* --- L1 · far: thin, pale, barely there --------------------------- */
+  .plane--far {
+    top: var(--cloud-far-top);
+    height: var(--cloud-far-h);
+    z-index: 1;
+    opacity: 0.5;
+    filter: blur(10px);
+    background:
+      radial-gradient(ellipse 14% 46% at 12% 56%, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0) 74%),
+      radial-gradient(ellipse 11% 36% at 33% 44%, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0) 76%),
+      radial-gradient(ellipse 16% 50% at 62% 60%, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0) 74%),
+      radial-gradient(ellipse 12% 38% at 84% 48%, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0) 76%);
+  }
+
+  /* --- L2 · mid ----------------------------------------------------- */
+  .plane--mid {
+    top: var(--cloud-mid-top);
+    height: var(--cloud-mid-h);
+    z-index: 2;
+    opacity: 0.95;
+    filter: blur(6px);
+    background:
+      radial-gradient(ellipse 10% 40% at 9% 50%, #fffefb 0%, rgba(255, 254, 251, 0.9) 54%, rgba(255, 254, 251, 0) 80%),
+      radial-gradient(ellipse 14% 48% at 27% 60%, #fffefb 0%, rgba(255, 254, 251, 0.9) 50%, rgba(255, 254, 251, 0) 78%),
+      radial-gradient(ellipse 9% 34% at 46% 46%, #fffefb 0%, rgba(255, 254, 251, 0.86) 54%, rgba(255, 254, 251, 0) 82%),
+      radial-gradient(ellipse 15% 50% at 68% 58%, #fffefb 0%, rgba(255, 254, 251, 0.9) 50%, rgba(255, 254, 251, 0) 78%),
+      radial-gradient(ellipse 11% 38% at 90% 48%, #fffefb 0%, rgba(255, 254, 251, 0.88) 52%, rgba(255, 254, 251, 0) 80%),
+      radial-gradient(ellipse 12% 30% at 27% 78%, #cbdae7 0%, rgba(203, 218, 231, 0.46) 60%, rgba(203, 218, 231, 0) 86%),
+      radial-gradient(ellipse 13% 32% at 68% 76%, #cbdae7 0%, rgba(203, 218, 231, 0.46) 60%, rgba(203, 218, 231, 0) 86%);
+  }
+
+  /* --- L4 · near: frontmost bank, corner-weighted -------------------- */
+  .plane--near {
+    top: var(--cloud-near-top);
+    height: var(--cloud-near-h);
+    z-index: 4;
+    filter: blur(3px);
+    background:
+      radial-gradient(ellipse 15% 48% at 9% 40%, #fffefb 0%, rgba(255, 254, 251, 0.97) 52%, rgba(255, 254, 251, 0) 78%),
+      radial-gradient(ellipse 12% 38% at 19% 54%, #fffdf8 0%, rgba(255, 253, 248, 0.95) 52%, rgba(255, 253, 248, 0) 79%),
+      radial-gradient(ellipse 10% 30% at 29% 68%, #fffdf8 0%, rgba(255, 253, 248, 0.92) 54%, rgba(255, 253, 248, 0) 81%),
+      radial-gradient(ellipse 13% 22% at 47% 88%, #fffdf8 0%, rgba(255, 253, 248, 0.82) 56%, rgba(255, 253, 248, 0) 84%),
+      radial-gradient(ellipse 9% 18% at 62% 92%, #fffdf8 0%, rgba(255, 253, 248, 0.76) 58%, rgba(255, 253, 248, 0) 86%),
+      radial-gradient(ellipse 11% 32% at 74% 66%, #fffdf8 0%, rgba(255, 253, 248, 0.93) 54%, rgba(255, 253, 248, 0) 80%),
+      radial-gradient(ellipse 14% 44% at 84% 48%, #fffefb 0%, rgba(255, 254, 251, 0.96) 50%, rgba(255, 254, 251, 0) 77%),
+      radial-gradient(ellipse 16% 50% at 92% 38%, #fffefb 0%, rgba(255, 254, 251, 0.97) 50%, rgba(255, 254, 251, 0) 77%),
+      radial-gradient(ellipse 16% 40% at 9% 62%, #c3d5e4 0%, rgba(195, 213, 228, 0.62) 56%, rgba(195, 213, 228, 0) 82%),
+      radial-gradient(ellipse 13% 32% at 20% 76%, #c3d5e4 0%, rgba(195, 213, 228, 0.55) 58%, rgba(195, 213, 228, 0) 84%),
+      radial-gradient(ellipse 15% 38% at 86% 70%, #c3d5e4 0%, rgba(195, 213, 228, 0.58) 56%, rgba(195, 213, 228, 0) 82%),
+      radial-gradient(ellipse 17% 42% at 92% 58%, #c3d5e4 0%, rgba(195, 213, 228, 0.6) 56%, rgba(195, 213, 228, 0) 82%),
+      linear-gradient(to top, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.5) 12%, rgba(255, 255, 255, 0) 40%);
+  }
+
+  /* --- HG-04 · the exit bank ----------------------------------------
+     Parked below the fold and pulled up over everything in the last
+     stretch, so the hero ends by passing THROUGH cloud rather than
+     cutting to a white background. */
+  .plane--exit {
+    top: 100vh;
+    height: 78vh;
+    z-index: 8;
+    filter: blur(9px);
+    opacity: 0;
+    background:
+      radial-gradient(ellipse 22% 40% at 12% 62%, #ffffff 0%, rgba(255, 255, 255, 0.96) 50%, rgba(255, 255, 255, 0) 78%),
+      radial-gradient(ellipse 26% 46% at 40% 54%, #ffffff 0%, rgba(255, 255, 255, 0.97) 48%, rgba(255, 255, 255, 0) 76%),
+      radial-gradient(ellipse 24% 42% at 68% 60%, #ffffff 0%, rgba(255, 255, 255, 0.96) 50%, rgba(255, 255, 255, 0) 78%),
+      radial-gradient(ellipse 22% 40% at 92% 56%, #ffffff 0%, rgba(255, 255, 255, 0.96) 50%, rgba(255, 255, 255, 0) 78%),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 34%, #ffffff 62%);
+  }
+</style>

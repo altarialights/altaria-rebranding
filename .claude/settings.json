@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run check)",
+      "Bash(npm run build)",
+      "Bash(npm run preview)",
+      "Bash(npm run dev)",
+      "Bash(npm run shoot)",
+      "Bash(npm install)",
+      "Bash(npm ci)",
+      "Bash(npx astro check)",
+      "Bash(npx astro build)",
+      "Bash(node scripts/shoot.mjs)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(ls:*)",
+      "Read(//home/**)"
+    ]
+  }
+}

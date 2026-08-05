@@ -1,0 +1,88 @@
+---
+import { growthBeat, flow } from '../../data/hero';
+import FlowNode from './FlowNode.astro';
+
+/**
+ * Beat 3 — the connected system.
+ *
+ * Two parts: the copy block on the left (L5) and the node cluster on the
+ * right (L3). The nodes are real anchors: hoverable, focusable, and each
+ * one navigates to its article in "Cómo funciona". Nothing here is a
+ * metric — there is not a single number, invented or otherwise.
+ *
+ * The connector SVG shares the cluster's coordinate space (520 × 430) so
+ * the curves land on the node edges without magic offsets.
+ */
+---
+
+<div class="beat" data-beat-copy="growth" data-obj="copy-growth">
+  <h2 class="beat__title">
+    {
+      growthBeat.title.map((line) => (
+        <span class="ln">
+          <span data-beat-line>{line}</span>
+        </span>
+      ))
+    }
+  </h2>
+  <p class="beat__sub" data-beat-sub>{growthBeat.sub}</p>
+</div>
+
+<div class="obj obj--flow" data-obj="flow" data-layer="L3">
+  <div class="obj__float" data-float="flow">
+    <div class="flow" data-flow-cluster>
+      <svg class="flow__wires" viewBox="0 0 520 430" fill="none" aria-hidden="true">
+        <path class="flow__wire" data-wire="1" d="M150 118 C 210 118, 216 66, 268 62"
+          stroke="url(#flowGrad)" stroke-width="2" stroke-linecap="round"></path>
+        <path class="flow__wire" data-wire="2" d="M300 96 C 300 150, 250 158, 244 214"
+          stroke="url(#flowGrad)" stroke-width="2" stroke-linecap="round"></path>
+        <path class="flow__wire" data-wire="3" d="M244 248 C 244 306, 172 306, 158 350"
+          stroke="url(#flowGrad)" stroke-width="2" stroke-linecap="round"></path>
+        <circle class="flow__spark" data-flow-spark r="4.5" fill="var(--accent)" opacity="0"></circle>
+        <defs>
+          <linearGradient id="flowGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.9"></stop>
+            <stop offset="100%" stop-color="var(--accent)" stop-opacity="0.4"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      {flow.map((node, i) => <FlowNode node={node} index={i} />)}
+    </div>
+  </div>
+</div>
+
+<style>
+  .obj--flow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--flow-w);
+    z-index: 3;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  .obj__float {
+    will-change: transform;
+  }
+
+  .flow {
+    position: relative;
+    aspect-ratio: 520 / 430;
+  }
+
+  .flow__wires {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .flow__wire {
+    stroke-dasharray: var(--len, 220);
+    stroke-dashoffset: var(--len, 220);
+  }
+</style>

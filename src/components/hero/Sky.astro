@@ -1,0 +1,74 @@
+---
+/**
+ * L0 — sky and sun. 100% CSS, zero bytes.
+ *
+ * Everything here is driven by custom properties, which is what will make
+ * the weather easter egg a transition rather than a video later on.
+ * The upper-left and centre-left stay clean: that is where the headline
+ * lives and nothing may reduce its legibility.
+ */
+---
+
+<div class="sky" data-layer="L0" aria-hidden="true">
+  <div class="sky__gradient" data-sky-gradient></div>
+  <div class="sky__sun" data-sky-sun></div>
+  <div class="sky__horizon"></div>
+</div>
+
+<style>
+  .sky {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .sky__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      var(--sky-top) 0%,
+      var(--sky-mid) 40%,
+      var(--sky-low) 72%,
+      var(--sky-haze) 100%
+    );
+  }
+
+  /* Two stacked radials: a small hot core and a wide warm reach.
+     Deliberately restrained — a huge white blob would flatten the frame
+     and kill the depth we are building with the cloud planes. */
+  .sky__sun {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background:
+      radial-gradient(
+        circle at var(--sun-x) var(--sun-y),
+        var(--sun-core) 0%,
+        rgba(255, 250, 235, 0.62) 2%,
+        rgba(255, 233, 189, 0.22) 5.5%,
+        rgba(255, 233, 189, 0) 15%
+      ),
+      radial-gradient(
+        ellipse var(--sun-reach) calc(var(--sun-reach) * 0.78) at var(--sun-x) var(--sun-y),
+        rgba(255, 240, 214, 0.3) 0%,
+        rgba(255, 240, 214, 0.08) 46%,
+        rgba(255, 240, 214, 0) 100%
+      );
+  }
+
+  /* Atmospheric perspective at the horizon — the thing that makes a flat
+     gradient read as distance. */
+  .sky__horizon {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 38%;
+    background: linear-gradient(
+      to top,
+      rgba(255, 250, 240, 0.4) 0%,
+      rgba(255, 250, 240, 0.14) 46%,
+      rgba(255, 250, 240, 0) 100%
+    );
+  }
+</style>

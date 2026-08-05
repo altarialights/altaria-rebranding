@@ -1,0 +1,16 @@
+---
+import { webBeat } from '../../data/hero';
+---
+
+<div class="beat" data-beat-copy="web" data-obj="copy-web">
+  <h2 class="beat__title">
+    {
+      webBeat.title.map((line) => (
+        <span class="ln">
+          <span data-beat-line>{line}</span>
+        </span>
+      ))
+    }
+  </h2>
+  <p class="beat__sub" data-beat-sub>{webBeat.sub}</p>
+</div>

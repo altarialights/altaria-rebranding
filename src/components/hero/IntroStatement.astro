@@ -1,0 +1,160 @@
+---
+import { intro } from '../../data/hero';
+
+/**
+ * Full-bleed opening statement — the first thing on the page and, for a
+ * moment, the only thing.
+ *
+ * The dissolve is not an opacity fade. Each line carries a duplicate
+ * "vapour" copy behind it that blurs and drifts independently, and the
+ * whole block runs through an SVG turbulence displacement whose scale is
+ * animated by the timeline. The result reads as the letters breaking up
+ * into the sky rather than switching off.
+ *
+ * It stays real HTML throughout: selectable, indexable, translatable.
+ */
+---
+
+<div class="intro" data-intro>
+  <h1 class="intro__text" data-intro-text>
+    {
+      intro.lines.map((line, i) => (
+        <span class="intro__lineWrap">
+          <span class="intro__line" data-intro-line={i}>
+            <span class="intro__vapour" aria-hidden="true">
+              {line}
+            </span>
+            {line}
+          </span>
+        </span>
+      ))
+    }
+  </h1>
+
+  <p class="intro__cue" data-intro-cue>
+    <span>{intro.cue}</span>
+    <svg viewBox="0 0 12 22" aria-hidden="true"><path d="M6 1v19m0 0 4.4-4.6M6 20l-4.4-4.6" /></svg>
+  </p>
+
+  {/* Displacement filter used by the dissolve. baseFrequency stays low so
+      the letterforms stay legible until they are meant to break up. */}
+  <svg class="intro__defs" aria-hidden="true" focusable="false">
+    <filter id="vapour">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.014 0.028"
+        numOctaves="2"
+        seed="7"
+        result="noise"></feTurbulence>
+      <feDisplacementMap
+        in="SourceGraphic"
+        in2="noise"
+        scale="0"
+        data-vapour-map
+        xChannelSelector="R"
+        yChannelSelector="G"></feDisplacementMap>
+    </filter>
+  </svg>
+</div>
+
+<style>
+  .intro {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+
+  .intro__defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
+  .intro__text {
+    /* 47–52 % of the viewport: the statement owns the whole screen. */
+    position: absolute;
+    top: 49%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(92vw, 1900px);
+    margin: 0;
+    text-align: center;
+    font-family: var(--font-cloud);
+    /* --intro-fit is written by fitIntro() in hero-timeline.ts: it scales
+       the statement so the LONGEST line fills the available width on one
+       line. Copy is edited centrally in data/hero.ts, so the size has to
+       follow the copy rather than be hard-coded. */
+    font-size: calc(var(--step-intro) * var(--intro-fit, 1));
+    font-weight: 900;
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    color: #ffffff;
+    filter: url(#vapour);
+    will-change: transform, opacity, filter;
+  }
+
+  .intro__lineWrap {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.04em;
+    margin-bottom: -0.04em;
+  }
+
+  .intro__line {
+    position: relative;
+    display: block;
+    /* Two lines, always. The fit routine guarantees they fit. */
+    white-space: nowrap;
+    will-change: transform, opacity;
+    /* Soft volume so it reads as cloud rather than flat white type,
+       without losing legibility against the blue. */
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.6),
+      0 8px 26px rgba(120, 170, 215, 0.5),
+      0 2px 3px rgba(70, 120, 170, 0.28);
+  }
+
+  /* The vapour twin: same glyphs, blurred, sitting just behind. During
+     the dissolve it drifts and swells while the crisp copy fades. */
+  .intro__vapour {
+    position: absolute;
+    inset: 0;
+    color: #ffffff;
+    filter: blur(14px);
+    opacity: 0.75;
+    will-change: transform, opacity, filter;
+  }
+
+  /* --- Discreet cue -------------------------------------------------- */
+  .intro__cue {
+    position: absolute;
+    left: 50%;
+    bottom: 5.5vh;
+    transform: translateX(-50%);
+    display: grid;
+    justify-items: center;
+    gap: 0.65rem;
+    margin: 0;
+    opacity: 0;
+    font-size: 0.72rem;
+    font-weight: 650;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 1px 10px rgba(60, 110, 160, 0.45);
+  }
+
+  .intro__cue svg {
+    width: 11px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>

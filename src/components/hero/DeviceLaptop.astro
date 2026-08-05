@@ -1,0 +1,155 @@
+---
+import ScreenDeZamorano from '../ScreenDeZamorano.astro';
+import { hasCapture } from '../../lib/capture';
+
+/**
+ * Unbranded laptop, CSS 3D. Same three-wrapper transform discipline as
+ * the phone. Lid and deck are two planes hinged at the lid base.
+ *
+ * The screen holds the REAL De Zamorano capture once it exists on disk;
+ * the inner track scroll of beat 2 is gated on that, because scrolling a
+ * placeholder that exactly fills the bezel would only reveal black.
+ */
+---
+
+<div class="obj obj--laptop" data-obj="laptop" data-layer="L3">
+  <div class="obj__float" data-float="laptop">
+    <div class="obj__point" data-point="laptop">
+      <div class="laptop">
+        <div class="laptop__lid">
+          <div class="laptop__bezel">
+            <div
+              class="laptop__track"
+              data-laptop-track
+              data-has-capture={hasCapture() ? '1' : '0'}
+            >
+              <ScreenDeZamorano />
+            </div>
+            <div class="laptop__glare" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div class="laptop__deck" aria-hidden="true">
+          <div class="laptop__keys"></div>
+          <div class="laptop__pad"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="obj__haze" aria-hidden="true"></div>
+</div>
+
+<style>
+  .obj--laptop {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: clamp(var(--laptop-w-min), var(--laptop-w), var(--laptop-w-max));
+    z-index: 3;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  .obj__float,
+  .obj__point {
+    will-change: transform;
+  }
+
+  .laptop {
+    transform-style: preserve-3d;
+  }
+
+  .laptop__lid {
+    position: relative;
+    padding: 1% 1% 0;
+    border-radius: 1.1% / 1.6%;
+    background: linear-gradient(148deg, #eaedf0 0%, #ced4d9 32%, #aeb6bd 70%, #929ba3 100%);
+    box-shadow:
+      0 2px 0 rgba(255, 255, 255, 0.7) inset,
+      0 46px 90px -34px rgba(30, 56, 84, 0.58);
+  }
+
+  .laptop__bezel {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: 0.6% / 1%;
+    background: #0b0d10;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
+
+  .laptop__track {
+    position: absolute;
+    inset: 0;
+    will-change: transform;
+  }
+
+  .laptop__track :global(img) {
+    width: 100%;
+    height: auto;
+  }
+
+  .laptop__glare {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      116deg,
+      rgba(255, 255, 255, 0) 48%,
+      rgba(255, 255, 255, 0.06) 63%,
+      rgba(255, 255, 255, 0.12) 72%,
+      rgba(255, 255, 255, 0) 85%
+    );
+    pointer-events: none;
+  }
+
+  /* Deck: a second plane hinged at the lid base, folded toward camera. */
+  .laptop__deck {
+    position: relative;
+    height: 0;
+    padding-bottom: 26%;
+    transform-origin: top center;
+    transform: rotateX(-68deg);
+    border-radius: 0 0 2% 2% / 0 0 10% 10%;
+    background: linear-gradient(to bottom, #9aa3ac 0%, #c3cad0 15%, #dde2e6 52%, #b2bac1 100%);
+    box-shadow: 0 30px 56px -24px rgba(30, 56, 84, 0.55);
+  }
+
+  .laptop__keys {
+    position: absolute;
+    inset: 12% 9% 34% 9%;
+    border-radius: 3px;
+    opacity: 0.5;
+    background:
+      repeating-linear-gradient(to right, rgba(112, 126, 138, 0.42) 0 1px, transparent 1px 6.6%),
+      repeating-linear-gradient(to bottom, rgba(112, 126, 138, 0.42) 0 1px, transparent 1px 24%);
+  }
+
+  .laptop__pad {
+    position: absolute;
+    left: 50%;
+    bottom: 8%;
+    width: 26%;
+    height: 20%;
+    transform: translateX(-50%);
+    border-radius: 4px;
+    background: linear-gradient(to bottom, #d1d7dc, #e5e9ec);
+    box-shadow: inset 0 0 0 1px rgba(112, 126, 138, 0.32);
+  }
+
+  /* Contact haze, not a hard shadow: the laptop emerges from a cloud
+     layer, it does not rest on a surface. */
+  .obj__haze {
+    position: absolute;
+    left: 50%;
+    bottom: -14%;
+    width: 96%;
+    height: 26%;
+    transform: translateX(-50%);
+    background: radial-gradient(
+      ellipse 50% 50% at 50% 50%,
+      rgba(120, 150, 178, 0.34) 0%,
+      rgba(120, 150, 178, 0) 72%
+    );
+    filter: blur(18px);
+    pointer-events: none;
+  }
+</style>

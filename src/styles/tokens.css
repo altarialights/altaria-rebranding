@@ -1,0 +1,122 @@
+@import './fonts.css';
+
+/* =====================================================================
+   ALTARIA LIGHTS — design tokens + stage geometry
+   ---------------------------------------------------------------------
+   Coordinate convention for the hero stage: every animated object is
+   positioned by its CENTRE, in viewport units. The GSAP timeline converts
+   vw/vh → px on every refresh, so 1440 / 1920 / 2560 share one codepath.
+   ===================================================================== */
+
+:root {
+  /* ---- Sky (pure CSS, zero bytes, animatable) --------------------- */
+  --sky-top: #2b81d4;
+  --sky-mid: #7dbcea;
+  --sky-low: #c9e3f6;
+  --sky-haze: #eaf4fb;
+
+  --sun-x: 87%;
+  --sun-y: 8%;
+  --sun-core: #fffdf6;
+  --sun-reach: 34vw;
+
+  /* Storm state — reserved for the "problema" section and the weather
+     easter egg. Same DOM, same assets, different numbers. */
+  --storm-top: #141a24;
+  --storm-mid: #26313f;
+  --storm-low: #3a4553;
+
+  /* ---- Brand (provisional — awaiting USR-05) ---------------------- */
+  --ink: #0e1620;
+  --ink-soft: #42556a;
+  --ink-faint: #7e94aa;
+  --paper: #ffffff;
+  --accent: #1d6fc0;
+  --accent-deep: #14508c;
+  --gold: #c9a35a;
+  --gold-deep: #9a7530;
+
+  /* De Zamorano palette — used ONLY to give the pending screen its real
+     tonal weight. No De Zamorano content is reproduced. */
+  --dz-black: #14100c;
+  --dz-gold: #c9a35a;
+  --dz-cream: #f2e6d0;
+
+  /* ---- Type ------------------------------------------------------- */
+  --font-sans: 'Geist Variable', 'Inter Tight', 'Inter', -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  /* Reserved for the opening statement and the future «¿Lo ves?» block.
+     Never for body copy. */
+  --font-cloud: 'Altaria Cloud', 'Arial Black', 'Geist Variable', sans-serif;
+
+  --step--2: clamp(0.68rem, 0.64rem + 0.14vw, 0.78rem);
+  --step--1: clamp(0.8rem, 0.76rem + 0.18vw, 0.94rem);
+  --step-0: clamp(0.95rem, 0.9rem + 0.24vw, 1.12rem);
+  --step-1: clamp(1.06rem, 0.95rem + 0.4vw, 1.34rem);
+  --step-2: clamp(1.3rem, 1.1rem + 0.7vw, 1.75rem);
+
+  /* Beat headlines: big, short, high contrast, negative tracking. */
+  --step-beat: clamp(48px, 4vw, 78px);
+  /* Opening statement: dominates the viewport. */
+  --step-intro: clamp(58px, 8.8vw, 172px); /* ceiling; fitIntro() scales down */
+
+  /* ---- Layout ----------------------------------------------------- */
+  --gutter: clamp(2.5rem, 0.8rem + 3.4vw, 4.5rem);
+  --hero-scroll: 520vh;
+  --copy-x: 7vw;
+
+  --header-w: min(1180px, calc(100vw - 96px));
+  --header-h: 68px;
+  --header-top: 28px;
+
+  /* ---- Object geometry (centre coords, viewport units) ------------ */
+  --phone-w: 17.5vw;
+  --phone-w-max: 350px;
+  --phone-w-min: 290px;
+
+  --laptop-w: 43vw;
+  --laptop-w-max: 900px;
+  --laptop-w-min: 720px;
+
+  --flow-w: clamp(430px, 30vw, 600px);
+
+  /* ---- Cloud planes ----------------------------------------------
+     L1 far · L2 mid · L4 near. The near plane sits IN FRONT of the
+     devices, which is what lets the laptop emerge through it. */
+  --cloud-far-top: 50vh;
+  --cloud-far-h: 26vh;
+  --cloud-mid-top: 61vh;
+  --cloud-mid-h: 30vh;
+  --cloud-near-top: 71vh;
+  --cloud-near-h: 38vh;
+
+  /* ---- Motion ----------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* 2560 — more negative space; objects must NOT scale up proportionally
+   and the header is capped so it never spans the full width. */
+@media (min-width: 2200px) {
+  :root {
+    --gutter: 5.5vw;
+    --copy-x: 8.5vw;
+    --phone-w: 12.5vw;
+    --laptop-w: 34vw;
+    --flow-w: 620px;
+    --sun-reach: 30vw;
+    --header-w: min(1320px, calc(100vw - 160px));
+    --step-intro: clamp(58px, 7.6vw, 196px);
+  }
+}
+
+/* 1440 — tighter, still desktop. Never a tablet layout. */
+@media (max-width: 1520px) {
+  :root {
+    --phone-w: 20vw;
+    --laptop-w: 46vw;
+    --laptop-w-min: 600px;
+    --flow-w: 430px;
+    --step-beat: clamp(42px, 3.6vw, 60px);
+  }
+}

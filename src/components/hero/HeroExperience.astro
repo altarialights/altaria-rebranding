@@ -1,0 +1,68 @@
+---
+import Sky from './Sky.astro';
+import CloudLayers from './CloudLayers.astro';
+import IntroStatement from './IntroStatement.astro';
+import DevicePhone from './DevicePhone.astro';
+import DeviceLaptop from './DeviceLaptop.astro';
+import SocialBeat from './SocialBeat.astro';
+import WebBeat from './WebBeat.astro';
+import GrowthBeat from './GrowthBeat.astro';
+import HeroDebugOverlay from './HeroDebugOverlay.astro';
+
+/**
+ * The hero: a tall scroll track with one sticky 100svh stage.
+ *
+ * Depth planes, back to front:
+ *   L0 sky and sun · L1 far clouds · L2 mid clouds · L3 devices and nodes
+ *   L4 near clouds and the exit bank · L5 interface and copy · L6 intro
+ *
+ * A single master GSAP timeline drives everything (scripts/hero-timeline).
+ * No scroll hijacking, no snap: normal scrolling, scrubbed.
+ */
+---
+
+<section class="hero" data-hero id="top">
+  <div class="hero__track">
+    <div class="hero__stage" data-stage data-beat="0">
+      <Sky />
+      <CloudLayers />
+
+      <div class="hero__objects">
+        <DeviceLaptop />
+        <DevicePhone />
+        <GrowthBeat />
+      </div>
+
+      <SocialBeat />
+      <WebBeat />
+
+      <IntroStatement />
+      <HeroDebugOverlay />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+  }
+
+  .hero__track {
+    height: var(--hero-scroll);
+  }
+
+  .hero__stage {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--sky-haze);
+  }
+
+  .hero__objects {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+  }
+</style>

@@ -1,0 +1,109 @@
+---
+import { socialBeat } from '../../data/hero';
+
+/**
+ * Unbranded phone, CSS 3D. No Higgsfield, no third-party mockup, no
+ * trademark.
+ *
+ * Three nested wrappers, each owning exactly ONE transform so they never
+ * fight: .obj (timeline) → .obj__float (idle drift) → .obj__point
+ * (cursor parallax). The frame and the screen share the innermost
+ * context, so the reel stays registered to the bezel with no matrix3d.
+ *
+ * The bezel reserves its box with aspect-ratio, so the video can never
+ * cause layout shift.
+ */
+---
+
+<div class="obj obj--phone" data-obj="phone" data-layer="L3">
+  <div class="obj__float" data-float="phone">
+    <div class="obj__point" data-point="phone">
+      <div class="phone__bezel">
+        <div class="phone__screen">
+          <video
+            data-reel
+            src="/media/reel-altaria.mp4"
+            poster="/media/reel-poster.jpg"
+            width="720"
+            height="1280"
+            muted
+            loop
+            playsinline
+            preload="none"
+            aria-label={socialBeat.reelLabel}></video>
+        </div>
+        <div class="phone__notch" aria-hidden="true"></div>
+        <div class="phone__glare" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .obj--phone {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: clamp(var(--phone-w-min), var(--phone-w), var(--phone-w-max));
+    z-index: 3;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  .obj__float,
+  .obj__point {
+    will-change: transform;
+  }
+
+  .phone__bezel {
+    position: relative;
+    aspect-ratio: 9 / 19.5;
+    padding: 2.5%;
+    border-radius: 13% / 6.2%;
+    background: linear-gradient(150deg, #f2f4f6 0%, #ccd2d8 28%, #99a2aa 66%, #7c858c 100%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.8) inset,
+      0 34px 60px -24px rgba(30, 56, 84, 0.6);
+  }
+
+  .phone__screen {
+    position: relative;
+    height: 100%;
+    border-radius: 10.5% / 5%;
+    overflow: hidden;
+    background: #0b0d10;
+  }
+
+  .phone__screen video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .phone__notch {
+    position: absolute;
+    top: 3.3%;
+    left: 50%;
+    width: 26%;
+    height: 1.8%;
+    transform: translateX(-50%);
+    border-radius: 99px;
+    background: #0b0d10;
+  }
+
+  /* Rim light on the right edge — the sun is upper-right. Without it the
+     device reads as a flat sticker pasted on the sky. */
+  .phone__glare {
+    position: absolute;
+    inset: 2.5%;
+    border-radius: 10.5% / 5%;
+    background: linear-gradient(
+      118deg,
+      rgba(255, 255, 255, 0) 54%,
+      rgba(255, 255, 255, 0.1) 68%,
+      rgba(255, 255, 255, 0.18) 76%,
+      rgba(255, 255, 255, 0) 88%
+    );
+    pointer-events: none;
+  }
+</style>

@@ -1,0 +1,233 @@
+---
+import { beats } from '../../data/hero';
+
+/**
+ * Two independent debug layers, both hidden by default so review captures
+ * come out clean.
+ *
+ *   B → asset boxes: the exact rectangles HG-01/02/03/04 will occupy.
+ *   G → stage HUD: global progress, active beat, local progress, and live
+ *       bounding boxes for intro, header, copy, devices, nodes and exit.
+ */
+
+const assetBoxes = [
+  { id: 'HG-01', name: 'Nubes cercanas (L4)', cls: 'ab--near' },
+  { id: 'HG-02', name: 'Nubes intermedias (L2)', cls: 'ab--mid' },
+  { id: 'HG-03', name: 'Nubes lejanas (L1)', cls: 'ab--far' },
+  { id: 'HG-04', name: 'Banco de salida', cls: 'ab--exit' },
+];
+
+const tracked = [
+  ['intro', 'Frase'],
+  ['header', 'Header'],
+  ['copy-social', 'Texto redes'],
+  ['copy-web', 'Texto web'],
+  ['copy-growth', 'Texto sistema'],
+  ['phone', 'Móvil'],
+  ['laptop', 'Portátil'],
+  ['flow', 'Nodos'],
+  ['exit', 'Salida'],
+];
+---
+
+<div class="ab" data-asset-overlay hidden aria-hidden="true">
+  {
+    assetBoxes.map((b) => (
+      <div class={`ab__box ${b.cls}`}>
+        <span class="ab__tag">
+          <strong>{b.id}</strong> · {b.name}
+          <em data-ab-dims={b.id} />
+        </span>
+      </div>
+    ))
+  }
+  <p class="ab__hint">Cajas de asset · <kbd>B</kbd></p>
+</div>
+
+<div class="hud" data-hud hidden aria-hidden="true">
+  <div class="hud__panel">
+    <p class="hud__row"><span>Progreso global</span><b data-hud-progress>0.000</b></p>
+    <p class="hud__row"><span>Beat</span><b data-hud-beat>—</b></p>
+    <p class="hud__row"><span>Progreso local</span><b data-hud-local>0.000</b></p>
+    <p class="hud__row"><span>Rango</span><b data-hud-range>—</b></p>
+    <hr />
+    {
+      tracked.map(([key, label]) => (
+        <p class="hud__row hud__row--bb">
+          <span>{label}</span>
+          <b data-hud-bb={key}>—</b>
+        </p>
+      ))
+    }
+    <hr />
+    <p class="hud__row"><span>Beats</span><b>{beats.length}</b></p>
+    <p class="hud__foot"><kbd>G</kbd> ocultar · <kbd>B</kbd> cajas de asset</p>
+  </div>
+  <div class="hud__boxes" data-hud-boxes></div>
+</div>
+
+<style>
+  [hidden] {
+    display: none !important;
+  }
+
+  .ab {
+    position: absolute;
+    inset: 0;
+    z-index: 70;
+    pointer-events: none;
+  }
+
+  .ab__box {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    border: 2px dashed rgba(214, 40, 90, 0.9);
+    background: rgba(214, 40, 90, 0.06);
+  }
+
+  .ab__tag {
+    position: absolute;
+    top: 4px;
+    left: 6px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(214, 40, 90, 0.94);
+    color: #fff;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .ab__tag em {
+    margin-left: 8px;
+    font-style: normal;
+    opacity: 0.85;
+  }
+
+  .ab--near {
+    top: var(--cloud-near-top);
+    height: var(--cloud-near-h);
+  }
+
+  .ab--mid {
+    top: var(--cloud-mid-top);
+    height: var(--cloud-mid-h);
+    border-color: rgba(232, 122, 22, 0.9);
+    background: rgba(232, 122, 22, 0.05);
+  }
+  .ab--mid .ab__tag {
+    background: rgba(232, 122, 22, 0.94);
+  }
+
+  .ab--far {
+    top: var(--cloud-far-top);
+    height: var(--cloud-far-h);
+    border-color: rgba(22, 140, 96, 0.9);
+    background: rgba(22, 140, 96, 0.05);
+  }
+  .ab--far .ab__tag {
+    background: rgba(22, 140, 96, 0.94);
+  }
+
+  .ab--exit {
+    top: 62vh;
+    height: 38vh;
+    border-color: rgba(70, 60, 160, 0.85);
+    background: rgba(70, 60, 160, 0.04);
+  }
+  .ab--exit .ab__tag {
+    top: auto;
+    bottom: 4px;
+    background: rgba(70, 60, 160, 0.94);
+  }
+
+  .ab__hint {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: rgba(15, 23, 32, 0.86);
+    color: #fff;
+    font-size: 11px;
+  }
+
+  .hud {
+    position: absolute;
+    inset: 0;
+    z-index: 71;
+    pointer-events: none;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hud__panel {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    width: 286px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: rgba(12, 20, 30, 0.9);
+    color: #eaf2f8;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .hud__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .hud__row span {
+    opacity: 0.66;
+  }
+
+  .hud__row b {
+    font-weight: 600;
+    color: #8fd0ff;
+  }
+
+  .hud__row--bb b {
+    color: #ffd48f;
+    font-weight: 500;
+  }
+
+  .hud__panel hr {
+    margin: 8px 0;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .hud__foot {
+    margin-top: 8px;
+    opacity: 0.55;
+  }
+
+  .hud kbd {
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.18);
+    font-family: inherit;
+  }
+
+  .hud__boxes :global(.bb) {
+    position: absolute;
+    border: 1.5px solid rgba(255, 190, 60, 0.95);
+    background: rgba(255, 190, 60, 0.06);
+  }
+
+  .hud__boxes :global(.bb::after) {
+    content: attr(data-label);
+    position: absolute;
+    top: -18px;
+    left: 0;
+    padding: 1px 6px;
+    border-radius: 3px;
+    background: rgba(255, 190, 60, 0.95);
+    color: #241a02;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+</style>

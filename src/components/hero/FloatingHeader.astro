@@ -1,0 +1,117 @@
+---
+import { header } from '../../data/hero';
+
+/**
+ * Floating capsule header. Absent from the first frame — not even the
+ * wordmark — and drops in from above while the opening statement
+ * dissolves.
+ *
+ * It arrives already compact: a fixed-width capsule, narrower than the
+ * viewport and centred. Because the width never animates, the morph costs
+ * zero layout shift (the previous build's entire CLS budget came from
+ * animating a header's width).
+ *
+ * The wordmark is TEMPORARY HTML. No logo is proposed or generated; the
+ * slot keeps a fixed box so the final SVG drops in without moving
+ * anything.
+ */
+---
+
+<header class="hdr" data-header>
+  <div class="hdr__capsule" data-header-capsule>
+    <a class="hdr__brand" href="#top" aria-label={`${header.wordmark} — inicio`}>
+      {/* USR-05 slot → replace with <img src="/brand/logo.svg" alt=""> */}
+      <span class="hdr__word">{header.wordmark}</span>
+    </a>
+
+    <nav class="hdr__nav" aria-label="Principal">
+      {header.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+
+    <a class="hdr__cta" href={header.cta.href}>{header.cta.label}</a>
+  </div>
+</header>
+
+<style>
+  .hdr {
+    position: fixed;
+    inset: var(--header-top) 0 auto 0;
+    z-index: 60;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .hdr__capsule {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.2rem, 0.5rem + 1.4vw, 2.6rem);
+    width: var(--header-w);
+    height: var(--header-h);
+    padding: 0 0.6rem 0 1.9rem;
+    border-radius: 999px;
+    background: rgba(255, 253, 250, 0.72);
+    backdrop-filter: blur(14px);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.62),
+      0 18px 44px -22px rgba(20, 60, 100, 0.42);
+    pointer-events: auto;
+
+    /* Entry state; the timeline animates to 0 / 1 / 1. */
+    opacity: 0;
+    transform: translateY(-130%) scale(0.96);
+    will-change: transform, opacity;
+  }
+
+  .hdr__brand {
+    display: flex;
+    align-items: center;
+    min-width: 190px;
+    height: 30px;
+    margin-right: auto;
+    text-decoration: none;
+  }
+
+  .hdr__word {
+    font-size: clamp(0.86rem, 0.8rem + 0.2vw, 1rem);
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .hdr__nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 0.4rem + 1.2vw, 2.1rem);
+    font-size: var(--step--1);
+    font-weight: 500;
+  }
+
+  .hdr__nav a {
+    text-decoration: none;
+    color: var(--ink);
+    opacity: 0.78;
+    transition: opacity 200ms var(--ease-out);
+  }
+
+  .hdr__nav a:hover {
+    opacity: 1;
+  }
+
+  .hdr__cta {
+    padding: 0.72em 1.5em;
+    border-radius: 999px;
+    font-size: var(--step--1);
+    font-weight: 650;
+    text-decoration: none;
+    color: #fff;
+    background: var(--accent-deep);
+    box-shadow: 0 10px 24px -12px rgba(20, 80, 140, 0.9);
+    transition: transform 200ms var(--ease-out);
+  }
+
+  .hdr__cta:hover {
+    transform: translateY(-1px);
+  }
+</style>

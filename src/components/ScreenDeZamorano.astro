@@ -1,0 +1,54 @@
+---
+import { CAPTURE_SRC, hasCapture } from '../lib/capture';
+
+/**
+ * The laptop screen.
+ *
+ * When public/media/dezamorano-home.png exists, the real capture is used
+ * and nothing else is rendered. While it is missing, this shows a dark
+ * surface carrying only De Zamorano's tonal weight (near-black ground,
+ * gold, cream) so the hero's contrast and balance can still be judged —
+ * plus one discreet corner marker, because a screen that silently looks
+ * finished would misrepresent the state of the work.
+ *
+ * No De Zamorano content is reproduced or invented in either case.
+ */
+
+const ready = hasCapture();
+---
+
+{
+  ready ? (
+    <img src={CAPTURE_SRC} alt="Captura de la web de De Zamorano" />
+  ) : (
+    <div
+      class="pending"
+      role="img"
+      aria-label="Espacio reservado para la captura real de la web de De Zamorano, pendiente de recibir"
+    >
+      <span class="pending__mark">captura pendiente</span>
+    </div>
+  )
+}
+
+<style>
+  .pending {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(ellipse 54% 46% at 74% 20%, rgba(201, 163, 90, 0.3) 0%, rgba(201, 163, 90, 0) 62%),
+      radial-gradient(ellipse 80% 60% at 30% 88%, rgba(90, 66, 38, 0.34) 0%, rgba(90, 66, 38, 0) 70%),
+      linear-gradient(168deg, #3a2c1c 0%, #241a10 38%, var(--dz-black) 74%, #0a0705 100%);
+  }
+
+  .pending__mark {
+    position: absolute;
+    right: 2.2%;
+    bottom: 3%;
+    font-size: clamp(0.42rem, 0.8cqw, 0.62rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(242, 230, 208, 0.34);
+  }
+</style>

@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import FloatingHeader from '../components/hero/FloatingHeader.astro';
+import HeroExperience from '../components/hero/HeroExperience.astro';
+import HowItWorks from '../components/sections/HowItWorks.astro';
+---
+
+<Base title="Altaria Lights — hero (revisión v4)">
+  <FloatingHeader />
+  <main>
+    <HeroExperience />
+    <HowItWorks />
+
+    {/* Everything past "Cómo funciona" is still out of scope. */}
+    <section class="after" id="contacto">
+      <p>
+        Fin de la revisión v4. El resto de la home (problema, transformación,
+        «¿LO&nbsp;VES?», servicios, precios, caso real, equipo y CTA final) no
+        forma parte de esta entrega.
+      </p>
+    </section>
+  </main>
+</Base>
+
+<script>
+  import { initHero } from '../scripts/hero-timeline';
+  import { initFlowInteractions } from '../scripts/flow-interactions';
+
+  initHero();
+  initFlowInteractions();
+</script>
+
+<style>
+  .after {
+    display: grid;
+    place-items: center;
+    min-height: 40vh;
+    padding: 5rem var(--gutter);
+    background: var(--sky-haze);
+  }
+
+  .after p {
+    max-width: 48ch;
+    text-align: center;
+    font-size: var(--step--1);
+    line-height: 1.6;
+    color: var(--ink-faint);
+  }
+</style>

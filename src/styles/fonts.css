@@ -1,0 +1,25 @@
+/* =====================================================================
+   Tipografía — Altaria Lights
+   ===================================================================== */
+
+/* Geist Variable: titulares de beat y cuerpo. Servida en local, sin
+   peticiones a terceros. */
+@font-face {
+  font-family: 'Geist Variable';
+  src: url('/fonts/geist-variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Tipografía nube — SOLO para la frase de apertura y el futuro bloque
+   «¿Lo ves?».
+   Nota: el archivo todavía NO existe en el proyecto. La declaración queda
+   preparada tal y como se pidió; hasta que se deposite
+   public/fonts/altaria-cloud.woff2 el navegador cae al respaldo pesado
+   definido en --font-cloud, que mantiene la caja y el peso visual. */
+@font-face {
+  font-family: 'Altaria Cloud';
+  src: url('/fonts/altaria-cloud.woff2') format('woff2');
+  font-display: swap;
+}

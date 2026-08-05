@@ -1,0 +1,16 @@
+---
+import { socialBeat } from '../../data/hero';
+---
+
+<div class="beat" data-beat-copy="social" data-obj="copy-social">
+  <h2 class="beat__title">
+    {
+      socialBeat.title.map((line) => (
+        <span class="ln">
+          <span data-beat-line>{line}</span>
+        </span>
+      ))
+    }
+  </h2>
+  <p class="beat__sub" data-beat-sub>{socialBeat.sub}</p>
+</div>

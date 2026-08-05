@@ -1,0 +1,70 @@
+---
+interface Props {
+  id: string;
+  body: string;
+}
+const { id, body } = Astro.props;
+
+/**
+ * Floating explanation card for a flow node. Not a browser tooltip and
+ * not a tiny bubble: 300 px of real, readable copy.
+ *
+ * Shown on hover AND on keyboard focus, dismissed with Escape, opened by
+ * tap on touch devices. It is a sibling of the node's label rather than
+ * an overlay on top of it, so it never covers the node that triggered it.
+ */
+---
+
+<div class="tip" id={`tip-${id}`} data-flow-tip={id} role="tooltip">
+  <p>{body}</p>
+</div>
+
+<style>
+  .tip {
+    position: absolute;
+    /* Placed to the LEFT of the node so it never leaves the viewport on
+       the right-hand edge, where the cluster lives. JS flips it when
+       there is not enough room. */
+    right: calc(100% + 14px);
+    top: 50%;
+    width: 300px;
+    /* The node sets white-space:nowrap for its own label; without this the
+       card inherits it, refuses to wrap, and overflows across the node. */
+    white-space: normal;
+    padding: 0.95rem 1.1rem;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(14px);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.95) inset,
+      0 0 0 1px rgba(29, 111, 192, 0.14),
+      0 22px 46px -20px rgba(20, 60, 100, 0.5);
+    font-size: var(--step--1);
+    line-height: 1.5;
+    color: var(--ink-soft);
+
+    opacity: 0;
+    transform: translateY(calc(-50% + 10px));
+    pointer-events: none;
+    transition:
+      opacity 220ms var(--ease-out),
+      transform 220ms var(--ease-out);
+    z-index: 12;
+  }
+
+  .tip.is-flipped {
+    right: auto;
+    left: calc(100% + 14px);
+  }
+
+  .tip.is-open {
+    opacity: 1;
+    transform: translateY(-50%);
+    /* Stays reachable so the pointer can travel from node to card. */
+    pointer-events: auto;
+  }
+
+  .tip p {
+    margin: 0;
+  }
+</style>
