@@ -12,12 +12,31 @@
   font-display: swap;
 }
 
-/* Tipografía nube — SOLO para la frase de apertura y el futuro bloque
-   «¿Lo ves?».
-   Nota: el archivo todavía NO existe en el proyecto. La declaración queda
-   preparada tal y como se pidió; hasta que se deposite
-   public/fonts/altaria-cloud.woff2 el navegador cae al respaldo pesado
-   definido en --font-cloud, que mantiene la caja y el peso visual. */
+/* Puffy — tipografía de display. La frase de apertura y los titulares de
+   cada beat.
+   ---------------------------------------------------------------------
+   Es una fuente ESTÁTICA de un solo corte (no tiene tabla `fvar`), y ese
+   corte ya es el más gordo que existe: la familia no publica un Bold por
+   encima. El rango 100–900 aquí no inventa pesos, hace lo contrario —
+   mapea cualquier `font-weight` que pida el CSS a este mismo archivo para
+   que el navegador NUNCA aplique negrita sintética. En una redonda tan
+   gruesa la síntesis emborrona los empalmes de los trazos y le come los
+   contra­formas.
+   410 glifos / 92 idiomas: acentos, ñ y signos de apertura incluidos.
+
+   `swap` y no `block` a propósito: la frase de apertura es lo primero que
+   se ve, y prefiero verla con el respaldo un instante a ver el hueco. */
+@font-face {
+  font-family: 'Puffy';
+  src: url('/fonts/Puffy.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Reservado desde v4 para la frase de apertura. Puffy ocupa ahora ese
+   puesto; la declaración se queda como último respaldo por si algún día
+   llega el archivo propio. */
 @font-face {
   font-family: 'Altaria Cloud';
   src: url('/fonts/altaria-cloud.woff2') format('woff2');

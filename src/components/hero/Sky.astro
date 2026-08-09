@@ -12,6 +12,7 @@
 <div class="sky" data-layer="L0" aria-hidden="true">
   <div class="sky__gradient" data-sky-gradient></div>
   <div class="sky__sun" data-sky-sun></div>
+  <div class="sky__wash"></div>
   <div class="sky__horizon"></div>
 </div>
 
@@ -42,6 +43,12 @@
     position: absolute;
     inset: 0;
     opacity: 0;
+    /* The sun is painted INSIDE a full-bleed layer, so scaling that layer
+       about its own centre would slide the sun across the sky. Anchoring
+       the origin on the sun itself means a scale grows the halo around
+       it and moves nothing — which is what the hover and the press need.
+       Inert at scale 1; nothing about the normal state changes. */
+    transform-origin: var(--sun-x) var(--sun-y);
     background:
       radial-gradient(
         circle at var(--sun-x) var(--sun-y),
@@ -56,6 +63,41 @@
         rgba(255, 240, 214, 0.08) 46%,
         rgba(255, 240, 214, 0) 100%
       );
+  }
+
+  /* The air itself, breathing.
+     ------------------------------------------------------------------
+     A very wide, very weak warm wash hanging off the sun's corner, on a
+     44-second swell. It is the cheapest thing in the scene — one element,
+     opacity and scale, no blur — and it does more for "this sky is alive"
+     than any amount of extra cloud, because it changes the LIGHT rather
+     than adding another object to look at.
+
+     0.2 alpha at its peak, and it moves by 5 %: at that amplitude nobody
+     ever catches it moving, they just stop reading the sky as a
+     photograph. Anything stronger and it becomes a pulsing vignette. */
+  .sky__wash {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 68% 54% at 80% 3%,
+      rgba(255, 246, 228, 0.2) 0%,
+      rgba(255, 246, 228, 0.07) 44%,
+      rgba(255, 246, 228, 0) 74%
+    );
+    transform-origin: 80% 3%;
+    animation: sky-breathe 44s ease-in-out infinite alternate;
+  }
+
+  @keyframes sky-breathe {
+    from {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1.05);
+    }
   }
 
   /* Atmospheric perspective at the horizon — the thing that makes a flat

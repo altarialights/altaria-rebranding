@@ -48,7 +48,9 @@ import { header } from '../../data/hero';
     gap: clamp(1.2rem, 0.5rem + 1.4vw, 2.6rem);
     width: var(--header-w);
     height: var(--header-h);
-    padding: 0 0.6rem 0 1.9rem;
+    /* Tight on the left so the wordmark sits close to the capsule edge,
+       which is the same vertical line the headline starts on. */
+    padding: 0 0.6rem 0 1.35rem;
     border-radius: 999px;
     background: rgba(255, 253, 250, 0.72);
     backdrop-filter: blur(14px);

@@ -1,0 +1,34 @@
+---
+import CopyCloud from './CopyCloud.astro';
+
+interface Props {
+  id: string;
+  title: readonly string[];
+  sub: string;
+  variant: 1 | 2 | 3 | 4 | 5;
+}
+const { id, title, sub, variant } = Astro.props;
+
+/**
+ * One service message: its cloud, its headline, its line of copy.
+ *
+ * The five beats used to repeat this markup five times, which is how the
+ * cloud would have ended up in four of them and not the fifth. One
+ * component, five variants.
+ */
+---
+
+<div class="beat" data-beat-copy={id} data-obj={`copy-${id}`}>
+  <CopyCloud variant={variant} />
+
+  <h2 class="beat__title">
+    {
+      title.map((line) => (
+        <span class="ln">
+          <span data-beat-line>{line}</span>
+        </span>
+      ))
+    }
+  </h2>
+  <p class="beat__sub" data-beat-sub>{sub}</p>
+</div>

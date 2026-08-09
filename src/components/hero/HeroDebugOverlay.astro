@@ -22,9 +22,13 @@ const tracked = [
   ['header', 'Header'],
   ['copy-social', 'Texto redes'],
   ['copy-web', 'Texto web'],
+  ['copy-software', 'Texto software'],
+  ['copy-brand', 'Texto marca'],
   ['copy-growth', 'Texto sistema'],
   ['phone', 'Móvil'],
   ['laptop', 'Portátil'],
+  ['monitor', 'Monitor'],
+  ['tablet', 'Tablet'],
   ['flow', 'Nodos'],
   ['exit', 'Salida'],
 ];
@@ -51,6 +55,19 @@ const tracked = [
     <p class="hud__row"><span>Progreso local</span><b data-hud-local>0.000</b></p>
     <p class="hud__row"><span>Rango</span><b data-hud-range>—</b></p>
     <hr />
+    <p class="hud__row hud__row--dev"><span>Móvil X/Y/Z</span><b data-hud-rot="phone">—</b></p>
+    <p class="hud__row hud__row--dev"><span>Portátil X/Y/Z</span><b data-hud-rot="laptop">—</b></p>
+    <p class="hud__row hud__row--dev"><span>Monitor X/Y/Z</span><b data-hud-rot="monitor">—</b></p>
+    <p class="hud__row hud__row--dev"><span>Tablet X/Y/Z</span><b data-hud-rot="tablet">—</b></p>
+    <p class="hud__row hud__row--dev"><span>Tapa</span><b data-hud-lid>—</b></p>
+    <p class="hud__row hud__row--dev"><span>Entrada móvil</span><b data-hud-entry="phone">—</b></p>
+    <p class="hud__row hud__row--dev"><span>Entrada portátil</span><b data-hud-entry="laptop">—</b></p>
+    <p class="hud__row hud__row--dev"><span>Entrada monitor</span><b data-hud-entry="monitor">—</b></p>
+    <p class="hud__row hud__row--dev"><span>Entrada tablet</span><b data-hud-entry="tablet">—</b></p>
+    <p class="hud__row hud__row--dev"><span>Stack</span><b data-hud-stack>—</b></p>
+    <p class="hud__row hud__row--dev"><span>Reel</span><b data-hud-reel>—</b></p>
+    <p class="hud__row hud__row--dev"><span>Scroll De Zamorano</span><b data-hud-dz>—</b></p>
+    <hr />
     {
       tracked.map(([key, label]) => (
         <p class="hud__row hud__row--bb">
@@ -61,7 +78,9 @@ const tracked = [
     }
     <hr />
     <p class="hud__row"><span>Beats</span><b>{beats.length}</b></p>
-    <p class="hud__foot"><kbd>G</kbd> ocultar · <kbd>B</kbd> cajas de asset</p>
+    <p class="hud__foot">
+      <kbd>G</kbd> ocultar · <kbd>B</kbd> cajas de asset · <kbd>F</kbd> caras 3D
+    </p>
   </div>
   <div class="hud__boxes" data-hud-boxes></div>
 </div>
@@ -164,7 +183,7 @@ const tracked = [
     position: absolute;
     left: 16px;
     bottom: 16px;
-    width: 286px;
+    width: 320px;
     padding: 12px 14px;
     border-radius: 10px;
     background: rgba(12, 20, 30, 0.9);
@@ -190,6 +209,12 @@ const tracked = [
 
   .hud__row--bb b {
     color: #ffd48f;
+    font-weight: 500;
+  }
+
+  /* Device telemetry: rotations, entry progress, reel and inner scroll. */
+  .hud__row--dev b {
+    color: #a8f0c4;
     font-weight: 500;
   }
 

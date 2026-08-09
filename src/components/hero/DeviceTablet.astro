@@ -1,0 +1,392 @@
+---
+import { brandBeat } from '../../data/hero';
+
+/**
+ * Unbranded tablet, CSS 3D. Built like the phone — a closed solid with a
+ * front, a back, four walls and a faceted rim — because it makes the same
+ * kind of entrance: a turn that shows its back before it shows its
+ * screen, so every angle needs a real surface.
+ *
+ * The rim geometry is derived here exactly as in DevicePhone.astro, only
+ * with this body's own radius and aspect. Twenty facets plus four walls
+ * make a 24-sided rim that never opens up mid-rotation.
+ *
+ * ON THE CONTENTS OF THE SCREEN
+ * ---------------------------------------------------------------------
+ * The canvas shows a symbol being CONSTRUCTED — circles, guides and the
+ * grid a designer works over — not a finished mark. Altaria Lights has no
+ * logo yet (USR-05), and drawing one here would quietly invent it. A
+ * construction in progress says "we design identity" without asserting
+ * any particular identity, which is the honest version of this beat.
+ */
+const RX = 5.6; // corner radius, % of width
+const RY = 7.8; // corner radius, % of height
+const ASPECT = 10 / 14.3; // height / width  (landscape tablet)
+const SEG = 5; // facets per corner
+const OVERLAP = 1.08;
+
+interface Bevel {
+  x: number;
+  y: number;
+  l: number;
+  a: number;
+}
+
+const bevels: Bevel[] = [];
+for (const [sx, sy] of [
+  [-1, -1],
+  [1, -1],
+  [1, 1],
+  [-1, 1],
+]) {
+  const cx = sx > 0 ? 100 - RX : RX;
+  const cy = sy > 0 ? 100 - RY : RY;
+  const at = (deg: number) => {
+    const t = (deg * Math.PI) / 180;
+    return { x: cx + sx * RX * Math.cos(t), y: cy + sy * RY * Math.sin(t) };
+  };
+  for (let i = 0; i < SEG; i++) {
+    const p1 = at((i * 90) / SEG);
+    const p2 = at(((i + 1) * 90) / SEG);
+    const dx = p2.x - p1.x;
+    const dy = (p2.y - p1.y) * ASPECT; // into width units
+    bevels.push({
+      x: (p1.x + p2.x) / 2,
+      y: (p1.y + p2.y) / 2,
+      l: Math.hypot(dx, dy) * OVERLAP,
+      a: (Math.atan2(dy, dx) * 180) / Math.PI,
+    });
+  }
+}
+
+const swatches = ['#1d6fc0', '#0e1620', '#c9a35a', '#e8eef5', '#5aa9e6'];
+---
+
+<div class="obj obj--tablet" data-obj="tablet" data-layer="L3">
+  <div class="obj__stage">
+    <div class="obj__float" data-float="tablet">
+      <div class="obj__point" data-point="tablet">
+        <div class="obj__spin" data-spin="tablet">
+          <div class="tablet__object">
+            <div class="tablet__side tablet__side--left" aria-hidden="true"></div>
+            <div class="tablet__side tablet__side--right" aria-hidden="true"></div>
+            <div class="tablet__side tablet__side--top" aria-hidden="true"></div>
+            <div class="tablet__side tablet__side--bottom" aria-hidden="true"></div>
+
+            {
+              bevels.map((b) => (
+                <div
+                  class="tablet__bevel"
+                  aria-hidden="true"
+                  style={`--bx:${b.x.toFixed(3)}%;--by:${b.y.toFixed(3)}%;--bl:${b.l.toFixed(3)}%;--ba:${b.a.toFixed(3)}deg`}
+                />
+              ))
+            }
+
+            <div class="tablet__core" aria-hidden="true"></div>
+
+            <div class="tablet__back" aria-hidden="true">
+              <span class="tablet__lens"></span>
+              <span class="tablet__backlight"></span>
+            </div>
+
+            <div class="tablet__front">
+              <div class="tablet__screen" role="img" aria-label={brandBeat.screenLabel}>
+                <!-- The construction of a symbol, drawn by the timeline. -->
+                <svg class="brand__canvas" viewBox="0 0 286 200" fill="none" aria-hidden="true">
+                  <!-- Designer's guides -->
+                  <g class="brand__guides" data-brand-guides>
+                    <path d="M143 26v148M69 100h148" stroke="rgba(29,111,192,.28)" stroke-width="1"
+                      stroke-dasharray="4 5"></path>
+                    <circle cx="143" cy="100" r="62" stroke="rgba(29,111,192,.22)" stroke-width="1"
+                      stroke-dasharray="4 5"></circle>
+                    <rect x="81" y="38" width="124" height="124" rx="10"
+                      stroke="rgba(29,111,192,.18)" stroke-width="1" stroke-dasharray="4 5"></rect>
+                  </g>
+                  <!-- The mark itself: an abstract construction, NOT a logo -->
+                  <g class="brand__mark">
+                    <path class="brand__stroke" data-brand-stroke
+                      d="M143 42 C 186 42, 205 74, 199 104 C 193 136, 165 158, 143 158 C 121 158, 93 136, 87 104 C 81 74, 100 42, 143 42 Z"
+                      stroke="var(--accent)" stroke-width="3" stroke-linecap="round"></path>
+                    <path class="brand__stroke brand__stroke--2" data-brand-stroke
+                      d="M110 122 C 126 96, 160 96, 176 122" stroke="var(--gold)" stroke-width="3"
+                      stroke-linecap="round"></path>
+                  </g>
+                </svg>
+
+                <!-- Palette -->
+                <span class="brand__palette" aria-hidden="true">
+                  {swatches.map((c, i) => (
+                    <i data-brand-swatch style={`--c:${c};--i:${i}`} />
+                  ))}
+                </span>
+
+                <!-- Type specimen, as weight bars rather than fake words -->
+                <span class="brand__type" aria-hidden="true">
+                  <i style="--w:62%;--t:9%"></i>
+                  <i style="--w:44%;--t:5%"></i>
+                  <i style="--w:78%;--t:3%"></i>
+                </span>
+
+                <div class="tablet__off" data-tablet-off aria-hidden="true"></div>
+              </div>
+              <div class="tablet__glass" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .obj--tablet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: clamp(var(--tablet-w-min), var(--tablet-w), var(--tablet-w-max));
+    z-index: 3;
+    opacity: 0;
+    will-change: transform;
+  }
+
+  .obj__stage {
+    perspective: var(--tablet-persp);
+    perspective-origin: 50% 50%;
+  }
+
+  .obj__float,
+  .obj__point,
+  .obj__spin,
+  .tablet__object {
+    transform-style: preserve-3d;
+  }
+
+  .tablet__object {
+    position: relative;
+    aspect-ratio: 14.3 / 10;
+  }
+
+  .tablet__front,
+  .tablet__back {
+    position: absolute;
+    inset: 0;
+    border-radius: 5.6% / 7.8%;
+    backface-visibility: hidden;
+    transform-style: flat;
+    overflow: hidden;
+  }
+
+  .tablet__front {
+    padding: 2.4% 1.9%;
+    transform: translateZ(calc(var(--tablet-t) / 2));
+    background: linear-gradient(150deg, #f0f3f6 0%, #ccd3d9 30%, #9aa4ac 70%, #7d868e 100%);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+  }
+
+  .tablet__back {
+    transform: translateZ(calc(var(--tablet-t) / -2)) rotateY(180deg);
+    background:
+      radial-gradient(ellipse 62% 46% at 74% 16%, rgba(255, 255, 255, 0.46) 0%, rgba(255, 255, 255, 0) 62%),
+      linear-gradient(206deg, #e8ecf0 0%, #c6ccd3 34%, #9aa3ab 72%, #79828a 100%);
+  }
+
+  .tablet__lens {
+    position: absolute;
+    top: 5%;
+    right: 5.5%;
+    width: 7.5%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 36% 30%, #47515c 0%, #1a2027 46%, #070a0d 100%);
+    box-shadow:
+      0 0 0 1.5px rgba(226, 232, 238, 0.7),
+      0 0 0 2.5px rgba(120, 132, 145, 0.55);
+  }
+
+  .tablet__backlight {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      62deg,
+      rgba(255, 255, 255, 0) 46%,
+      rgba(255, 255, 255, 0.14) 64%,
+      rgba(255, 255, 255, 0) 82%
+    );
+  }
+
+  .tablet__core {
+    position: absolute;
+    inset: 0;
+    border-radius: 5.6% / 7.8%;
+    background: linear-gradient(150deg, #cfd6dc 0%, #9aa3ab 46%, #79828a 100%);
+  }
+
+  /* Walls stop exactly at the corner radius; the bevels take over there. */
+  .tablet__side {
+    position: absolute;
+    background: linear-gradient(
+      to right,
+      #6f787f 0%,
+      #aeb6bd 22%,
+      #eef1f4 48%,
+      #a7afb6 74%,
+      #6b747b 100%
+    );
+  }
+
+  .tablet__side--left,
+  .tablet__side--right {
+    top: 7.8%;
+    height: 84.4%;
+    width: var(--tablet-t);
+    border-radius: 45% / 3%;
+  }
+
+  .tablet__side--left {
+    left: 0;
+    transform-origin: left center;
+    transform: rotateY(90deg) translateX(calc(var(--tablet-t) / -2));
+  }
+
+  .tablet__side--right {
+    right: 0;
+    transform-origin: right center;
+    transform: rotateY(-90deg) translateX(calc(var(--tablet-t) / 2));
+  }
+
+  .tablet__side--top,
+  .tablet__side--bottom {
+    left: 5.6%;
+    width: 88.8%;
+    height: var(--tablet-t);
+    border-radius: 3% / 45%;
+    background: linear-gradient(
+      to bottom,
+      #6f787f 0%,
+      #aeb6bd 24%,
+      #e8ecef 50%,
+      #a7afb6 76%,
+      #6b747b 100%
+    );
+  }
+
+  .tablet__side--top {
+    top: 0;
+    transform-origin: center top;
+    transform: rotateX(-90deg) translateY(calc(var(--tablet-t) / -2));
+  }
+
+  .tablet__side--bottom {
+    bottom: 0;
+    transform-origin: center bottom;
+    transform: rotateX(90deg) translateY(calc(var(--tablet-t) / 2));
+  }
+
+  .tablet__bevel {
+    position: absolute;
+    left: var(--bx);
+    top: var(--by);
+    width: var(--bl);
+    height: var(--tablet-t);
+    transform: translate(-50%, -50%) rotateZ(var(--ba)) rotateX(90deg);
+    background: linear-gradient(
+      to bottom,
+      #6f787f 0%,
+      #aeb6bd 24%,
+      #e8ecef 50%,
+      #a7afb6 76%,
+      #6b747b 100%
+    );
+  }
+
+  /* --- Branding canvas ------------------------------------------------ */
+  .tablet__screen {
+    position: relative;
+    height: 100%;
+    border-radius: 3.6% / 5%;
+    overflow: hidden;
+    background: linear-gradient(168deg, #ffffff 0%, #f2f6fa 58%, #e6eef6 100%);
+  }
+
+  /* Laid out like a real identity board: the mark under construction
+     fills the left two thirds, the palette runs along the bottom of it,
+     and the type specimen sits in the right-hand column. */
+  .brand__canvas {
+    position: absolute;
+    left: 4%;
+    top: 5%;
+    width: 62%;
+    height: 68%;
+  }
+
+  .brand__stroke {
+    fill: none;
+    stroke-dasharray: var(--len, 520);
+    stroke-dashoffset: var(--len, 520);
+  }
+
+  .brand__guides {
+    opacity: 0;
+  }
+
+  .brand__palette {
+    position: absolute;
+    left: 7%;
+    bottom: 9%;
+    display: flex;
+    gap: 3.4%;
+    width: 56%;
+  }
+
+  .brand__palette i {
+    flex: 1;
+    aspect-ratio: 1;
+    border-radius: 18%;
+    background: var(--c);
+    opacity: 0;
+    box-shadow:
+      0 1px 3px rgba(20, 40, 62, 0.2),
+      0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  }
+
+  .brand__type {
+    position: absolute;
+    right: 6%;
+    top: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16%;
+    width: 24%;
+  }
+
+  .brand__type i {
+    display: block;
+    width: var(--w);
+    height: var(--t);
+    min-height: 3px;
+    border-radius: 2px;
+    background: rgba(14, 22, 32, 0.42);
+  }
+
+  .tablet__off {
+    position: absolute;
+    inset: 0;
+    background: #06080b;
+  }
+
+  .tablet__glass {
+    position: absolute;
+    inset: 2.2%;
+    border-radius: 3.6% / 5%;
+    background: linear-gradient(
+      118deg,
+      rgba(255, 255, 255, 0) 54%,
+      rgba(255, 255, 255, 0.09) 68%,
+      rgba(255, 255, 255, 0.16) 76%,
+      rgba(255, 255, 255, 0) 88%
+    );
+    pointer-events: none;
+  }
+</style>

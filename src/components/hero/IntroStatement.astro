@@ -82,26 +82,34 @@ import { intro } from '../../data/hero';
     width: min(92vw, 1900px);
     margin: 0;
     text-align: center;
-    font-family: var(--font-cloud);
+    font-family: var(--font-display);
     /* --intro-fit is written by fitIntro() in hero-timeline.ts: it scales
        the statement so the LONGEST line fills the available width on one
        line. Copy is edited centrally in data/hero.ts, so the size has to
        follow the copy rather than be hard-coded. */
     font-size: calc(var(--step-intro) * var(--intro-fit, 1));
     font-weight: 900;
-    line-height: 0.88;
-    letter-spacing: -0.035em;
+    /* Puffy needs air where Geist needed tightening: the strokes are fat
+       and rounded, so -0.035em welded the letters together. fitIntro()
+       measures the rendered line, so widening the tracking just makes it
+       settle on a slightly smaller size — the statement still fills the
+       width exactly. */
+    line-height: 0.95;
+    letter-spacing: -0.005em;
     text-transform: uppercase;
     color: #ffffff;
     filter: url(#vapour);
     will-change: transform, opacity, filter;
   }
 
+  /* No mask here either. This one had the worst job of the three: it had
+     to clear Puffy's overshoot AND the 14 px blur of the vapour twin AND
+     the displacement filter that drives the dissolve, all of which move
+     outside the line box by design. Nothing to clip means nothing to get
+     wrong. */
   .intro__lineWrap {
     display: block;
-    overflow: hidden;
-    padding-bottom: 0.04em;
-    margin-bottom: -0.04em;
+    overflow: visible;
   }
 
   .intro__line {

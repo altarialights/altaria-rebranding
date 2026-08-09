@@ -33,11 +33,57 @@ function collect(): NodeRef[] {
     .filter(Boolean) as NodeRef[];
 }
 
-/** Keeps the card inside the viewport by flipping it to the other side. */
+const MARGIN = 12;
+/** How far the card may slide before it starts covering its own node. */
+const MAX_NUDGE = 52;
+
+/**
+ * Keeps the card inside the viewport without giving up its side.
+ *
+ * The preferred side lives in CSS (`data-side`), chosen so the card opens
+ * onto empty space rather than onto a neighbour. Flipping is the last
+ * resort, not the first: a near miss gets slid back inside instead.
+ *
+ * That distinction is not academic. At 1366 the ring's right edge leaves
+ * room for Web's card to within TWO pixels — flipping there would send it
+ * back on top of Software, which is the whole bug, over a rounding error.
+ * It only flips when the overflow is big enough that sliding would put
+ * the card over the node that opened it.
+ */
 function place(ref: NodeRef): void {
-  ref.tip.classList.remove('is-flipped');
-  const r = ref.tip.getBoundingClientRect();
-  if (r.left < 12) ref.tip.classList.add('is-flipped');
+  const tip = ref.tip;
+  tip.classList.remove('is-flipped');
+  tip.style.setProperty('--tip-nudge', '0px');
+
+  const over = overflow(tip);
+  if (over === 0) return;
+
+  if (Math.abs(over) <= MAX_NUDGE) {
+    tip.style.setProperty('--tip-nudge', `${-over}px`);
+    return;
+  }
+
+  // Too far to slide. Try the other side, and if that is no better, keep
+  // the preferred one and slide it as far as it will go.
+  tip.classList.add('is-flipped');
+  const flipped = overflow(tip);
+  if (flipped === 0) return;
+  if (Math.abs(flipped) > Math.abs(over)) tip.classList.remove('is-flipped');
+
+  const rest = overflow(tip);
+  tip.style.setProperty('--tip-nudge', `${-clamp(rest, MAX_NUDGE)}px`);
+}
+
+/** Signed pixels outside the viewport: negative past the left edge. */
+function overflow(tip: HTMLElement): number {
+  const r = tip.getBoundingClientRect();
+  if (r.left < MARGIN) return r.left - MARGIN;
+  if (r.right > window.innerWidth - MARGIN) return r.right - (window.innerWidth - MARGIN);
+  return 0;
+}
+
+function clamp(v: number, limit: number): number {
+  return Math.max(-limit, Math.min(limit, v));
 }
 
 function highlight(target: HTMLElement): void {

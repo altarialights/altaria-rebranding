@@ -20,6 +20,12 @@ const { title, description = 'Altaria Lights — prototipo de hero (Puerta 0).' 
     {/* Favicon slot reserved for USR-05. Intentionally an empty SVG so the
         request never 404s and the final mark drops in without markup edits. */}
     <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml" />
+    {/* The opening statement is the first paint and it is set in Puffy.
+        Without this the browser only discovers the font after parsing the
+        stylesheet, and the phrase appears in the fallback and then jumps.
+        `crossorigin` is required on font preloads even same-origin — omit
+        it and the file is fetched twice. */}
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/Puffy.woff2" crossorigin />
   </head>
   <body>
     <slot />

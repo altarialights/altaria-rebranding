@@ -1,11 +1,17 @@
 ---
 import Sky from './Sky.astro';
 import CloudLayers from './CloudLayers.astro';
+import SkyEvents from './SkyEvents.astro';
+import SunSignature from './SunSignature.astro';
 import IntroStatement from './IntroStatement.astro';
 import DevicePhone from './DevicePhone.astro';
 import DeviceLaptop from './DeviceLaptop.astro';
+import DeviceMonitor from './DeviceMonitor.astro';
+import DeviceTablet from './DeviceTablet.astro';
 import SocialBeat from './SocialBeat.astro';
 import WebBeat from './WebBeat.astro';
+import SoftwareBeat from './SoftwareBeat.astro';
+import BrandBeat from './BrandBeat.astro';
 import GrowthBeat from './GrowthBeat.astro';
 import HeroDebugOverlay from './HeroDebugOverlay.astro';
 
@@ -13,8 +19,9 @@ import HeroDebugOverlay from './HeroDebugOverlay.astro';
  * The hero: a tall scroll track with one sticky 100svh stage.
  *
  * Depth planes, back to front:
- *   L0 sky and sun · L1 far clouds · L2 mid clouds · L3 devices and nodes
- *   L4 near clouds and the exit bank · L5 interface and copy · L6 intro
+ *   L0 sky and sun · L1 far clouds and drifters · L2 mid clouds and sky
+ *   events · L3 devices and nodes · L4 near clouds and the exit bank
+ *   L5 interface and copy · L6 intro
  *
  * A single master GSAP timeline drives everything (scripts/hero-timeline).
  * No scroll hijacking, no snap: normal scrolling, scrubbed.
@@ -26,15 +33,31 @@ import HeroDebugOverlay from './HeroDebugOverlay.astro';
     <div class="hero__stage" data-stage data-beat="0">
       <Sky />
       <CloudLayers />
+      {/* After CloudLayers on purpose: the events share z-index 2 with
+          the mid bank, so DOM order is what puts them in front of it and
+          still behind the devices. */}
+      <SkyEvents />
 
+      <!-- Paint order matters: the four devices end up overlapping in the
+           top-right stack, and the one shown LAST must sit in front. So
+           they are listed oldest first — laptop, phone, monitor, tablet —
+           which is also the order the beats reveal them. -->
       <div class="hero__objects">
-        <DeviceLaptop />
         <DevicePhone />
+        <DeviceLaptop />
+        <DeviceMonitor />
+        <DeviceTablet />
         <GrowthBeat />
       </div>
 
       <SocialBeat />
       <WebBeat />
+      <SoftwareBeat />
+      <BrandBeat />
+
+      {/* Above the reaction layer, below the header: the message owns the
+          middle of the sky for two seconds and never the interface. */}
+      <SunSignature />
 
       <IntroStatement />
       <HeroDebugOverlay />
@@ -64,5 +87,12 @@ import HeroDebugOverlay from './HeroDebugOverlay.astro';
     position: absolute;
     inset: 0;
     z-index: 3;
+    /* A full-bleed box at z-index 3 over the whole stage. Nothing in here
+       is meant to be clicked except the five closing cards, which opt
+       back in themselves — but as a plain container it was absorbing
+       every pointer event on the page above the sky, which is what made
+       the sky elements untouchable. Same failure as the copy blocks: an
+       invisible rectangle is still a rectangle. */
+    pointer-events: none;
   }
 </style>

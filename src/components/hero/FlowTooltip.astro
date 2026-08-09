@@ -6,6 +6,29 @@ interface Props {
 const { id, body } = Astro.props;
 
 /**
+ * Which side the card opens on by default.
+ *
+ * Not "always left" and not "always outward": each card opens toward
+ * whatever is actually empty next to it.
+ *
+ *   web       right — the two bottom cards sit 38 % of the box apart and
+ *                     are 24 % wide, so there is ~14 % of gap between
+ *                     them and a 300 px card cannot fit in it. Opening
+ *                     left dropped the explanation straight onto
+ *                     Software, which is the bug this fixes.
+ *   contacto  right — to its left is the headline column.
+ *   marca     left  — the middle of the ring is empty, and there is no
+ *                     room to its right: the cluster ends ~130 px from
+ *                     the viewport edge.
+ *   contenido left  — twelve o'clock, clear on that side.
+ *   software  left  — outward, away from Web.
+ *
+ * JS overrides this only when the chosen side would leave the viewport.
+ */
+const RIGHT_SIDE = new Set(['web', 'contacto']);
+const side = RIGHT_SIDE.has(id) ? 'right' : 'left';
+
+/**
  * Floating explanation card for a flow node. Not a browser tooltip and
  * not a tiny bubble: 300 px of real, readable copy.
  *
@@ -15,19 +38,27 @@ const { id, body } = Astro.props;
  */
 ---
 
-<div class="tip" id={`tip-${id}`} data-flow-tip={id} role="tooltip">
+<div class="tip" id={`tip-${id}`} data-flow-tip={id} data-side={side} role="tooltip">
   <p>{body}</p>
 </div>
 
 <style>
   .tip {
     position: absolute;
-    /* Placed to the LEFT of the node so it never leaves the viewport on
-       the right-hand edge, where the cluster lives. JS flips it when
-       there is not enough room. */
-    right: calc(100% + 14px);
+    /* Side comes from `data-side` (see the frontmatter): outward from the
+       centre of the ring, so the card never opens onto its neighbour. JS
+       only overrides this when the chosen side would leave the viewport.
+
+       v10 opened every card to the left unconditionally, and Web — bottom
+       right — put its explanation straight underneath Software. */
+    right: calc(100% + var(--tip-gap));
     top: 50%;
-    width: 300px;
+    /* 270 rather than v10's 300, and a 12 px gap rather than 14. The
+       cluster ends about 130 px short of the viewport edge at 1920, so
+       those 32 px are exactly what lets Web open to the right instead of
+       being flipped back onto Software. Still three comfortable lines. */
+    --tip-gap: 12px;
+    width: 270px;
     /* The node sets white-space:nowrap for its own label; without this the
        card inherits it, refuses to wrap, and overflows across the node. */
     white-space: normal;
@@ -44,7 +75,9 @@ const { id, body } = Astro.props;
     color: var(--ink-soft);
 
     opacity: 0;
-    transform: translateY(calc(-50% + 10px));
+    /* --tip-nudge is written by place(): the horizontal correction that
+       keeps the card on its preferred side instead of flipping it. */
+    transform: translate(var(--tip-nudge, 0px), calc(-50% + 10px));
     pointer-events: none;
     transition:
       opacity 220ms var(--ease-out),
@@ -52,14 +85,23 @@ const { id, body } = Astro.props;
     z-index: 12;
   }
 
-  .tip.is-flipped {
+  /* `data-side` is the default, `.is-flipped` is the viewport override.
+     Two attributes rather than one so the JS never has to know which side
+     a given card prefers. */
+  .tip[data-side='right'],
+  .tip[data-side='left'].is-flipped {
     right: auto;
-    left: calc(100% + 14px);
+    left: calc(100% + var(--tip-gap));
+  }
+
+  .tip[data-side='right'].is-flipped {
+    left: auto;
+    right: calc(100% + var(--tip-gap));
   }
 
   .tip.is-open {
     opacity: 1;
-    transform: translateY(-50%);
+    transform: translate(var(--tip-nudge, 0px), -50%);
     /* Stays reachable so the pointer can travel from node to card. */
     pointer-events: auto;
   }

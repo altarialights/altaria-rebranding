@@ -15,8 +15,18 @@
   --sky-low: #c9e3f6;
   --sky-haze: #eaf4fb;
 
-  --sun-x: 87%;
-  --sun-y: 8%;
+  /* The sun sits BELOW the header capsule, not behind it.
+     ------------------------------------------------------------------
+     When the header became as wide as the canvas it arrived on top of
+     the sun: the disc's centre was inside the capsule, so the only part
+     you could actually press was a sliver underneath, and before the
+     header dropped in you could press it and afterwards you could not.
+     Moved right and, more importantly, DOWN — its centre now clears the
+     capsule's lower edge at every width from 1020 up, so the halo reads
+     as a whole circle and the whole circle is live. Still the top-right
+     corner; it just stopped fighting the interface for the same pixels. */
+  --sun-x: 91%;
+  --sun-y: 13%;
   --sun-core: #fffdf6;
   --sun-reach: 34vw;
 
@@ -33,6 +43,10 @@
   --paper: #ffffff;
   --accent: #1d6fc0;
   --accent-deep: #14508c;
+  /* Navy for the beat headlines. Deliberately darker and less saturated
+     than --accent-deep: that one is an interface blue and reads as a link
+     at 78px. This one reads as ink that happens to be blue. */
+  --ink-navy: #0f2c56;
   --gold: #c9a35a;
   --gold-deep: #9a7530;
 
@@ -45,9 +59,10 @@
   /* ---- Type ------------------------------------------------------- */
   --font-sans: 'Geist Variable', 'Inter Tight', 'Inter', -apple-system,
     BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  /* Reserved for the opening statement and the future «¿Lo ves?» block.
-     Never for body copy. */
-  --font-cloud: 'Altaria Cloud', 'Arial Black', 'Geist Variable', sans-serif;
+  /* Display: the opening statement and the beat headlines. Never body
+     copy — Puffy has no text cut, and at 18px it stops being legible and
+     starts being decoration. */
+  --font-display: 'Puffy', 'Altaria Cloud', 'Arial Black', 'Geist Variable', sans-serif;
 
   --step--2: clamp(0.68rem, 0.64rem + 0.14vw, 0.78rem);
   --step--1: clamp(0.8rem, 0.76rem + 0.18vw, 0.94rem);
@@ -55,40 +70,126 @@
   --step-1: clamp(1.06rem, 0.95rem + 0.4vw, 1.34rem);
   --step-2: clamp(1.3rem, 1.1rem + 0.7vw, 1.75rem);
 
-  /* Beat headlines: big, short, high contrast, negative tracking. */
-  --step-beat: clamp(48px, 4vw, 78px);
+  /* Beat headlines. The ceiling used to be 78px, reached at 1950 and then
+     never moving again: at 2560 the headline was the same size as on a
+     laptop with a third more sky around it, which is most of why the big
+     screens read as empty. It keeps climbing now. */
+  --step-beat: clamp(46px, 4.2vw, 104px);
   /* Opening statement: dominates the viewport. */
   --step-intro: clamp(58px, 8.8vw, 172px); /* ceiling; fitIntro() scales down */
 
   /* ---- Layout ----------------------------------------------------- */
   --gutter: clamp(2.5rem, 0.8rem + 3.4vw, 4.5rem);
-  --hero-scroll: 520vh;
-  --copy-x: 7vw;
+  /* The single lever for the whole hero's pace.
+     ---------------------------------------------------------------
+     Every cue in hero-timeline.ts is a FRACTION of a timeline normalised
+     to exactly 1, so this number — and only this number — decides how
+     many pixels of scrolling each beat is worth. Nothing has to be
+     retimed to change the tempo.
+       520vh  v4, three beats
+       580vh  v7, the laptop's open state needed a longer hold
+       820vh  v8, two more services
+      1120vh  v10, everything ~1.4× slower per unit of scroll. The beats
+              were legible but hurried: a brisk scroll went through a
+              whole service before you had read it. */
+  --hero-scroll: 1120vh;
 
-  --header-w: min(1180px, calc(100vw - 96px));
+  /* ---- The horizontal grid ----------------------------------------
+     ONE useful width, shared by the header, the copy column and the
+     right-hand pole. Before this the header had a width of its own
+     (min(1180px, …)) that agreed with nothing, and on a wide screen it
+     floated inside a composition it was supposed to be bracketing.
+
+     Everything horizontal now derives from --canvas-inset: the header
+     spans the canvas exactly, and the copy starts on its left edge, so
+     the start of the header and the start of the headline are the same
+     vertical line at every width.
+
+     Capped at 300px so the margins stop growing before the canvas does:
+     past ~2500 the extra width goes to the content, not to the gutters,
+     which is the difference between "designed for a big monitor" and
+     "a 1440 layout centred in one". */
+  --canvas-inset: min(12vw, 300px);
+  --canvas-w: calc(100vw - var(--canvas-inset) * 2);
+  --copy-x: var(--canvas-inset);
+
+  --header-w: var(--canvas-w);
   --header-h: 68px;
   --header-top: 28px;
 
-  /* ---- Object geometry (centre coords, viewport units) ------------ */
-  --phone-w: 17.5vw;
-  --phone-w-max: 350px;
-  --phone-w-min: 290px;
+  /* ---- Object geometry (centre coords, viewport units) ------------
+     --dev-k scales BOTH devices together for short viewports. Width
+     breakpoints below decide the proportions; --dev-k decides whether
+     they fit vertically. Keeping them separate is what lets a 1366×768
+     laptop screen run the full choreography instead of a cut-down one. */
+  --dev-k: 1;
 
-  --laptop-w: 43vw;
-  --laptop-w-max: 900px;
-  --laptop-w-min: 720px;
+  /* Extra vh of headroom for the phone's entry, read by the timeline.
+     The floating header is a FIXED pixel height, so it eats 5.6vh at
+     1080 but 9.4vh at 640 — a trajectory in vh that clears it on a big
+     screen runs straight through it on a short one. Unitless: the
+     timeline adds it to its own vh() values. */
+  --dev-top-clear: 0;
 
-  --flow-w: clamp(430px, 30vw, 600px);
+  --phone-w: calc(19vw * var(--dev-k));
+  --phone-w-max: calc(386px * var(--dev-k));
+  --phone-w-min: calc(290px * var(--dev-k));
+
+  --laptop-w: calc(38vw * var(--dev-k));
+  --laptop-w-max: calc(1000px * var(--dev-k));
+  --laptop-w-min: calc(720px * var(--dev-k));
+
+  /* Monitor: wider and shorter than the laptop lid, so the software beat
+     does not read as "the laptop again". Tablet: between the phone and
+     the laptop, landscape. */
+  --monitor-w: calc(34vw * var(--dev-k));
+  --monitor-w-max: calc(790px * var(--dev-k));
+  --monitor-w-min: calc(560px * var(--dev-k));
+
+  --tablet-w: calc(31vw * var(--dev-k));
+  --tablet-w-max: calc(660px * var(--dev-k));
+  --tablet-w-min: calc(460px * var(--dev-k));
+
+  /* ---- Device 3D --------------------------------------------------
+     Body thickness. Both devices are real solids, not planes: the phone
+     is ~9 % of its width (an actual phone is 8.25/70.6 mm) and the lid a
+     hair over 0.5 %. translateZ takes no percentages, hence the clamps.
+
+     Perspective sits on each object's own wrapper, so its origin follows
+     the device across the stage instead of smearing at the edges. Roughly
+     2.2× the phone's width (a strong, close camera — it has to sell a
+     198° turn) and 1.6× the laptop's (calmer, product-shot camera). */
+  --phone-t: clamp(20px, 1.5vw, 30px);
+  --lid-t: clamp(3px, 0.34vw, 6px);
+  --base-t: clamp(9px, 1vw, 18px);
+  --phone-persp: clamp(680px, 40vw, 900px);
+  /* ~3× the laptop's own width — a long lens, not a wide angle. The deck
+     is a horizontal plane running 60 % of the width TOWARDS the camera,
+     so a short perspective magnifies its near edge by ~1.7× and the
+     machine reads as an ironing board. At 3× that drops to ~1.25×, which
+     is what a real product shot looks like. Set per breakpoint because
+     the object's width is not a fixed fraction of the viewport. */
+  --laptop-persp: 2450px;
+  --monitor-t: clamp(10px, 0.9vw, 18px);
+  --monitor-persp: 2200px;
+  --tablet-t: clamp(12px, 0.95vw, 19px);
+  --tablet-persp: clamp(900px, 52vw, 1250px);
+
+  --flow-w: clamp(560px, 38vw, 980px);
 
   /* ---- Cloud planes ----------------------------------------------
      L1 far · L2 mid · L4 near. The near plane sits IN FRONT of the
      devices, which is what lets the laptop emerge through it. */
   --cloud-far-top: 50vh;
-  --cloud-far-h: 26vh;
-  --cloud-mid-top: 61vh;
-  --cloud-mid-h: 30vh;
+  --cloud-far-h: 30vh;
+  --cloud-mid-top: 59vh;
+  --cloud-mid-h: 34vh;
+  /* The near bank holds the bottom of the frame. Taller than it was, but
+     the TOP edge does not move: 71vh is where the laptop's base emerges
+     through it, and lifting it would start eating the keyboard. All the
+     extra height goes downward, where there was nothing. */
   --cloud-near-top: 71vh;
-  --cloud-near-h: 38vh;
+  --cloud-near-h: 44vh;
 
   /* ---- Motion ----------------------------------------------------- */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -100,23 +201,154 @@
 @media (min-width: 2200px) {
   :root {
     --gutter: 5.5vw;
-    --copy-x: 8.5vw;
-    --phone-w: 12.5vw;
-    --laptop-w: 34vw;
-    --flow-w: 620px;
+    /* The margins stop here; from 2500 up the canvas keeps widening. */
+    --canvas-inset: min(11.5vw, 300px);
+    --phone-w: 15vw;
+    --laptop-w: 35vw;
+    --flow-w: 1080px;
     --sun-reach: 30vw;
-    --header-w: min(1320px, calc(100vw - 160px));
     --step-intro: clamp(58px, 7.6vw, 196px);
+    /* vw-based perspective would go slack here and flatten both devices. */
+    --phone-persp: 760px;
+    --laptop-persp: 2600px;
+    --monitor-w: 31vw;
+    --monitor-persp: 2350px;
+    --tablet-w: 28vw;
+    --tablet-persp: 1300px;
   }
 }
 
 /* 1440 — tighter, still desktop. Never a tablet layout. */
 @media (max-width: 1520px) {
   :root {
-    --phone-w: 20vw;
-    --laptop-w: 46vw;
-    --laptop-w-min: 600px;
-    --flow-w: 430px;
-    --step-beat: clamp(42px, 3.6vw, 60px);
+    --canvas-inset: 9vw;
+    --phone-w: calc(20vw * var(--dev-k));
+    --laptop-w: calc(40vw * var(--dev-k));
+    --laptop-w-min: calc(600px * var(--dev-k));
+    --laptop-w-max: calc(760px * var(--dev-k));
+    --monitor-w-max: calc(700px * var(--dev-k));
+    --tablet-w-max: calc(600px * var(--dev-k));
+    --flow-w: 620px;
+    --step-beat: clamp(42px, 4.2vw, 64px);
+    --laptop-persp: 2050px;
+  }
+}
+
+/* =====================================================================
+   1200 – 1439 · desktop medio
+   The full experience, tightened. Nothing is removed.
+   ===================================================================== */
+@media (max-width: 1439px) {
+  :root {
+    --phone-w: calc(19vw * var(--dev-k));
+    --phone-w-min: calc(250px * var(--dev-k));
+    --phone-w-max: calc(310px * var(--dev-k));
+    --laptop-w: calc(42vw * var(--dev-k));
+    --laptop-w-min: calc(560px * var(--dev-k));
+    --laptop-w-max: calc(680px * var(--dev-k));
+    --laptop-persp: 1900px;
+    --phone-persp: 680px;
+    --monitor-w: calc(37vw * var(--dev-k));
+    --monitor-w-min: calc(520px * var(--dev-k));
+    --monitor-w-max: calc(640px * var(--dev-k));
+    --monitor-persp: 1800px;
+    --tablet-w: calc(32vw * var(--dev-k));
+    --tablet-w-min: calc(390px * var(--dev-k));
+    --tablet-w-max: calc(470px * var(--dev-k));
+    --flow-w: 580px;
+    --canvas-inset: 7.5vw;
+    --step-beat: clamp(40px, 4vw, 58px);
+  }
+}
+
+/* =====================================================================
+   1020 – 1199 · portátil pequeño / desktop compacto
+   Still the FULL hero: statement, phone turn, reel, laptop opening,
+   keyboard, growth. Only the proportions give way.
+   ===================================================================== */
+@media (max-width: 1199px) {
+  :root {
+    --phone-w: calc(21vw * var(--dev-k));
+    --phone-w-min: calc(205px * var(--dev-k));
+    --phone-w-max: calc(255px * var(--dev-k));
+    --laptop-w: calc(49vw * var(--dev-k));
+    --laptop-w-min: calc(465px * var(--dev-k));
+    --laptop-w-max: calc(575px * var(--dev-k));
+    --laptop-persp: 1650px;
+    --phone-persp: 590px;
+    --monitor-w: calc(46vw * var(--dev-k));
+    --monitor-w-min: calc(440px * var(--dev-k));
+    --monitor-w-max: calc(540px * var(--dev-k));
+    --monitor-persp: 1550px;
+    --tablet-w: calc(35vw * var(--dev-k));
+    --tablet-w-min: calc(330px * var(--dev-k));
+    --tablet-w-max: calc(400px * var(--dev-k));
+    --flow-w: 560px;
+    --canvas-inset: 5.5vw;
+    --gutter: 4vw;
+    --step-beat: clamp(34px, 3.5vw, 48px);
+    --step-intro: clamp(48px, 8.2vw, 118px);
+    --header-h: 60px;
+    --header-top: 20px;
+  }
+}
+
+/* =====================================================================
+   Short viewports — 1366×768, 1280×720, 1152×720, 1020×640
+   These are real laptop screens, not phones: the experience stays, the
+   objects shrink so the base never falls out of frame and the keyboard
+   never ends up under the fold.
+   ===================================================================== */
+@media (max-height: 840px) {
+  :root {
+    --dev-k: 0.9;
+    --dev-top-clear: 5;
+  }
+}
+
+@media (max-height: 740px) {
+  :root {
+    --dev-k: 0.8;
+    --dev-top-clear: 9;
+    --header-h: 60px;
+    --header-top: 18px;
+  }
+}
+
+@media (max-height: 660px) {
+  :root {
+    --dev-k: 0.7;
+    --dev-top-clear: 13;
+    --step-intro: clamp(42px, 7.4vw, 104px);
+    --step-beat: clamp(32px, 3vw, 44px);
+  }
+}
+
+/* =====================================================================
+   Under 1020 · the only place the choreography is genuinely simplified
+   (see the `compact` branch of hero-timeline.ts).
+   ===================================================================== */
+@media (max-width: 1019px) {
+  :root {
+    --dev-k: 1;
+    --phone-w: 44vw;
+    --phone-w-min: 190px;
+    --phone-w-max: 280px;
+    --laptop-w: 92vw;
+    --laptop-w-min: 280px;
+    --laptop-w-max: 620px;
+    --phone-t: clamp(12px, 3.4vw, 22px);
+    --phone-persp: 900px;
+    --laptop-persp: 1600px;
+    --monitor-w: 92vw;
+    --monitor-w-min: 280px;
+    --monitor-w-max: 600px;
+    --monitor-persp: 1500px;
+    --tablet-w: 78vw;
+    --tablet-w-min: 250px;
+    --tablet-w-max: 480px;
+    --tablet-persp: 1100px;
+    --canvas-inset: 6vw;
+    --step-beat: clamp(32px, 6vw, 48px);
   }
 }

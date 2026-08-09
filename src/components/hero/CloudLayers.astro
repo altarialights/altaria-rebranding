@@ -8,23 +8,90 @@
  *   .plane--exit  → HG-04  (the bank the hero passes through on the way out)
  *
  * Swapping a placeholder for the real asset means replacing the
- * `background` of one rule with a `background-image: url(...)`. Geometry,
- * z-index, parallax depth and the debug boxes all come from tokens.css
- * and stay untouched — no component needs rewriting.
+ * `background` of one `.plane__body` rule with a `background-image:
+ * url(...)`. Geometry, z-index, parallax depth and the debug boxes all come
+ * from tokens.css and stay untouched — no component needs rewriting.
  *
  * Silhouette note for HG-01: the mass must sit in the two BOTTOM CORNERS
  * with a low, sparse centre. A continuous white wall flattens the frame
  * and swallows the device cluster. Each puff is drawn twice — a cool
  * blue-grey underside offset downward under a warm white crown — because
  * that two-tone read is what separates a volumetric cloud from fog.
+ *
+ * TWO NODES PER PLANE, one transform each — the same discipline the 3D
+ * devices follow, for the same reason.
+ *   .plane        → scroll parallax, written by the timeline
+ *   .plane__body  → the drift, a CSS animation
+ * A CSS animation on `transform` beats an inline style, so putting both on
+ * one node does not "combine" them: the drift silently deletes the
+ * parallax. The blur and the background live on the inner node so the
+ * compositor translates an already-blurred layer instead of re-running a
+ * 120vw blur every frame.
  */
+
+/* Free-drifting clouds — the layer that stops the sky reading as a
+   backdrop.
+   ---------------------------------------------------------------------
+   The four banks are a fixed composition: they sink with the camera but
+   their shapes never change relative to each other, and after a few
+   seconds the eye files them as scenery. These cross the frame instead,
+   each on its own speed, direction, altitude, size and density, so no two
+   are ever in the same relationship twice.
+
+   They live in the 6–30vh band, which is empty in every beat (the copy
+   starts at 34vh, the header ends at ~9vh), plus one very large, very
+   faint one down at the horizon. Kept translucent and heavily blurred:
+   this high in a #2b81d4 sky the honest reference is cirrus, not cumulus,
+   and cirrus is what stays out of the way of the headline.
+
+   speed is a full crossing in seconds; delay is negative so they are
+   already spread across the sky on the first frame instead of filing in
+   from one side. */
+const drifters = [
+  { i: 1, top: 6.5, w: 30, h: 9, o: 0.3, blur: 16, dir: 'rl', speed: 236, delay: -38, breathe: false },
+  { i: 2, top: 13.5, w: 20, h: 7, o: 0.24, blur: 12, dir: 'lr', speed: 178, delay: -119, breathe: true },
+  { i: 3, top: 20.5, w: 42, h: 13, o: 0.23, blur: 22, dir: 'rl', speed: 292, delay: -203, breathe: false },
+  /* Moved down out of the high band into the middle of the frame. At
+     1920 and above there is a column of empty sky between the copy and
+     the device that nothing ever crosses; this is the smallest, closest
+     and fastest of the five, and sending it through there gives that gap
+     something happening in it without putting an object in it. Fainter
+     than it was, because down here it has company. */
+  { i: 4, top: 36, w: 16, h: 6, o: 0.24, blur: 10, dir: 'lr', speed: 124, delay: -57, breathe: false },
+  { i: 5, top: 59, w: 46, h: 16, o: 0.18, blur: 26, dir: 'lr', speed: 320, delay: -241, breathe: true },
+] as const;
 ---
 
 <div class="clouds" aria-hidden="true">
-  <div class="plane plane--far is-placeholder" data-layer="L1" data-asset="HG-03" data-parallax="0.05"></div>
-  <div class="plane plane--mid is-placeholder" data-layer="L2" data-asset="HG-02" data-parallax="0.16"></div>
-  <div class="plane plane--near is-placeholder" data-layer="L4" data-asset="HG-01" data-parallax="0.34"></div>
-  <div class="plane plane--exit is-placeholder" data-layer="L4" data-asset="HG-04"></div>
+  <div class="drifters" data-drifters data-layer="L1">
+    {
+      drifters.map((d) => (
+        <span
+          class:list={[
+            'drifter',
+            `drifter--${d.i}`,
+            `drifter--${d.dir}`,
+            d.breathe && 'drifter--breathe',
+          ]}
+          style={`--top:${d.top}vh; --w:${d.w}vw; --h:${d.h}vh; --o:${d.o};
+                  --blur:${d.blur}px; --speed:${d.speed}s; --delay:${d.delay}s`}
+        />
+      ))
+    }
+  </div>
+
+  <div class="plane plane--far is-placeholder" data-layer="L1" data-asset="HG-03" data-parallax="0.05">
+    <span class="plane__body"></span>
+  </div>
+  <div class="plane plane--mid is-placeholder" data-layer="L2" data-asset="HG-02" data-parallax="0.16">
+    <span class="plane__body"></span>
+  </div>
+  <div class="plane plane--near is-placeholder" data-layer="L4" data-asset="HG-01" data-parallax="0.34">
+    <span class="plane__body"></span>
+  </div>
+  <div class="plane plane--exit is-placeholder" data-layer="L4" data-asset="HG-04">
+    <span class="plane__body"></span>
+  </div>
 </div>
 
 <style>
@@ -36,9 +103,67 @@
 
   .plane {
     position: absolute;
-    left: -6vw;
-    width: 112vw;
+    /* Wider than the viewport by 10vw a side. That margin is what the
+       drift spends: at ±5vw the plane's own edge never reaches the frame,
+       so the bank can move without revealing that it ends. */
+    left: -10vw;
+    width: 120vw;
     will-change: transform;
+  }
+
+  /* Astro scopes @keyframes by rewriting the names, and it can only
+     rewrite a name it can see. Reaching one through `animation-name:
+     var(--dir)` hands it a string it never renamed, so the animation
+     silently resolves to nothing — the sky just sits there. Hence every
+     animation-name below is written out literally, and per-instance
+     variation goes through a class rather than a custom property. */
+  .plane__body {
+    position: absolute;
+    inset: 0;
+    display: block;
+    /* No will-change: a running CSS transform animation is composited by
+       the browser anyway, and asking for a permanent layer on top of that
+       only keeps it alive while the plane is off screen. */
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
+  /* Each bank sways on its own period, amplitude and direction — and the
+     three speeds are ORDERED: near fastest, far slowest, because that is
+     what parallax means. The first pass had it backwards (the far bank
+     was the quickest thing on screen) and the depth the planes are there
+     to build came apart.
+
+     All three are still measured in minutes, because these are the big
+     masses: this is the register where you never catch the sky moving,
+     you just notice it is not the same sky as a minute ago. The drifters
+     are what carry the motion you can actually see. Periods are
+     deliberately not multiples of each other, so the three never realign
+     into a pattern. */
+  @keyframes bank-far {
+    from {
+      transform: translate3d(-3vw, 0.6vh, 0);
+    }
+    to {
+      transform: translate3d(3vw, -0.6vh, 0);
+    }
+  }
+  @keyframes bank-mid {
+    from {
+      transform: translate3d(3.6vw, -0.4vh, 0) scale(1.014);
+    }
+    to {
+      transform: translate3d(-3.6vw, 0.4vh, 0) scale(1);
+    }
+  }
+  @keyframes bank-near {
+    from {
+      transform: translate3d(-4.2vw, 0, 0);
+    }
+    to {
+      transform: translate3d(4.2vw, 0, 0);
+    }
   }
 
   /* --- L1 · far: thin, pale, barely there --------------------------- */
@@ -47,6 +172,11 @@
     height: var(--cloud-far-h);
     z-index: 1;
     opacity: 0.5;
+  }
+
+  .plane--far .plane__body {
+    animation-name: bank-far;
+    animation-duration: 268s;
     filter: blur(10px);
     background:
       radial-gradient(ellipse 14% 46% at 12% 56%, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0) 74%),
@@ -61,6 +191,11 @@
     height: var(--cloud-mid-h);
     z-index: 2;
     opacity: 0.95;
+  }
+
+  .plane--mid .plane__body {
+    animation-name: bank-mid;
+    animation-duration: 178s;
     filter: blur(6px);
     background:
       radial-gradient(ellipse 10% 40% at 9% 50%, #fffefb 0%, rgba(255, 254, 251, 0.9) 54%, rgba(255, 254, 251, 0) 80%),
@@ -77,6 +212,11 @@
     top: var(--cloud-near-top);
     height: var(--cloud-near-h);
     z-index: 4;
+  }
+
+  .plane--near .plane__body {
+    animation-name: bank-near;
+    animation-duration: 132s;
     filter: blur(3px);
     background:
       radial-gradient(ellipse 15% 48% at 9% 40%, #fffefb 0%, rgba(255, 254, 251, 0.97) 52%, rgba(255, 254, 251, 0) 78%),
@@ -97,18 +237,159 @@
   /* --- HG-04 · the exit bank ----------------------------------------
      Parked below the fold and pulled up over everything in the last
      stretch, so the hero ends by passing THROUGH cloud rather than
-     cutting to a white background. */
+     cutting to a white background. No drift: this one is only on screen
+     for a couple of seconds and it is moving fast already. */
   .plane--exit {
     top: 100vh;
     height: 78vh;
     z-index: 8;
-    filter: blur(9px);
     opacity: 0;
+  }
+
+  .plane--exit .plane__body {
+    filter: blur(9px);
     background:
       radial-gradient(ellipse 22% 40% at 12% 62%, #ffffff 0%, rgba(255, 255, 255, 0.96) 50%, rgba(255, 255, 255, 0) 78%),
       radial-gradient(ellipse 26% 46% at 40% 54%, #ffffff 0%, rgba(255, 255, 255, 0.97) 48%, rgba(255, 255, 255, 0) 76%),
       radial-gradient(ellipse 24% 42% at 68% 60%, #ffffff 0%, rgba(255, 255, 255, 0.96) 50%, rgba(255, 255, 255, 0) 78%),
       radial-gradient(ellipse 22% 40% at 92% 56%, #ffffff 0%, rgba(255, 255, 255, 0.96) 50%, rgba(255, 255, 255, 0) 78%),
       linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 34%, #ffffff 62%);
+  }
+
+  /* =================================================================
+     Free-drifting clouds
+     ================================================================= */
+  .drifters {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    /* The camera rises through the whole hero and the banks sink with it
+       (see ATMOSPHERE in hero-timeline.ts). These are the farthest thing
+       in the scene, so the timeline gives them the smallest sink of all —
+       enough that they belong to the same camera, little enough that they
+       still read as distance. */
+    will-change: transform;
+  }
+
+  .drifter {
+    position: absolute;
+    left: 0;
+    top: var(--top);
+    width: var(--w);
+    height: var(--h);
+    opacity: var(--o);
+    filter: blur(var(--blur));
+    animation-duration: var(--speed);
+    animation-delay: var(--delay);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .drifter--lr {
+    animation-name: drift-lr;
+  }
+  .drifter--rl {
+    animation-name: drift-rl;
+  }
+
+  /* The travel is wider than the viewport on both sides, so a cloud is
+     fully off frame when the loop wraps and there is no seam to see. */
+  @keyframes drift-lr {
+    from {
+      transform: translate3d(-42vw, 0, 0);
+    }
+    to {
+      transform: translate3d(142vw, 0, 0);
+    }
+  }
+  @keyframes drift-rl {
+    from {
+      transform: translate3d(142vw, 0, 0);
+    }
+    to {
+      transform: translate3d(-42vw, 0, 0);
+    }
+  }
+
+  /* Five different compositions, not one shape at five sizes. Number of
+     puffs, their spacing, how asymmetric the mass is and whether it
+     carries a cool underside all change — that is what keeps them from
+     reading as copies of each other passing by. */
+  .drifter--1 {
+    background:
+      radial-gradient(ellipse 26% 62% at 16% 56%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 72%),
+      radial-gradient(ellipse 20% 48% at 40% 44%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 74%),
+      radial-gradient(ellipse 30% 54% at 68% 58%, rgba(255, 255, 255, 0.86) 0%, rgba(255, 255, 255, 0) 70%),
+      radial-gradient(ellipse 18% 40% at 90% 50%, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 76%);
+  }
+
+  .drifter--2 {
+    background:
+      radial-gradient(ellipse 34% 66% at 30% 52%, #fffefb 0%, rgba(255, 254, 251, 0) 72%),
+      radial-gradient(ellipse 40% 74% at 64% 46%, #fffefb 0%, rgba(255, 254, 251, 0) 70%),
+      radial-gradient(ellipse 30% 40% at 52% 78%, rgba(198, 216, 232, 0.5) 0%, rgba(198, 216, 232, 0) 80%);
+  }
+
+  .drifter--3 {
+    background:
+      radial-gradient(ellipse 22% 52% at 10% 60%, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 74%),
+      radial-gradient(ellipse 26% 60% at 32% 46%, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0) 72%),
+      radial-gradient(ellipse 20% 44% at 52% 62%, rgba(255, 255, 255, 0.56) 0%, rgba(255, 255, 255, 0) 76%),
+      radial-gradient(ellipse 28% 58% at 74% 50%, rgba(255, 255, 255, 0.64) 0%, rgba(255, 255, 255, 0) 72%),
+      radial-gradient(ellipse 18% 40% at 93% 60%, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 78%);
+  }
+
+  .drifter--4 {
+    background:
+      radial-gradient(ellipse 44% 72% at 38% 50%, #fffdf8 0%, rgba(255, 253, 248, 0) 70%),
+      radial-gradient(ellipse 34% 56% at 70% 58%, #fffdf8 0%, rgba(255, 253, 248, 0) 74%),
+      radial-gradient(ellipse 30% 34% at 54% 82%, rgba(190, 210, 228, 0.55) 0%, rgba(190, 210, 228, 0) 82%);
+  }
+
+  .drifter--5 {
+    background:
+      radial-gradient(ellipse 18% 48% at 12% 56%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 76%),
+      radial-gradient(ellipse 24% 56% at 34% 48%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 74%),
+      radial-gradient(ellipse 20% 46% at 56% 58%, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 76%),
+      radial-gradient(ellipse 26% 52% at 80% 50%, rgba(255, 255, 255, 0.58) 0%, rgba(255, 255, 255, 0) 74%);
+  }
+
+  /* Two of them also breathe: the mass thickens and thins on a period
+     unrelated to its own crossing, which is what stops a drifting cloud
+     from reading as a decal being slid across the sky. Opacity only — a
+     second transform would need a second node. */
+  .drifter--breathe.drifter--lr {
+    animation-name: drift-lr, drifter-breathe;
+  }
+  .drifter--breathe.drifter--rl {
+    animation-name: drift-rl, drifter-breathe;
+  }
+
+  .drifter--breathe {
+    animation-duration: var(--speed), 47s;
+    animation-delay: var(--delay), -11s;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite, infinite;
+    animation-direction: normal, alternate;
+  }
+
+  @keyframes drifter-breathe {
+    from {
+      opacity: calc(var(--o) * 0.6);
+    }
+    to {
+      opacity: var(--o);
+    }
+  }
+
+  /* Below the full desktop experience the sky carries less: four drifters
+     instead of five, and the horizon one goes — at that width it is most
+     of the frame and it competes with the copy, which sits at 12vh here
+     rather than 34vh. */
+  @media (max-width: 1019px) {
+    .drifter--3,
+    .drifter--5 {
+      display: none;
+    }
   }
 </style>

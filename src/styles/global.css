@@ -74,45 +74,168 @@ a {
    ===================================================================== */
 .beat {
   position: absolute;
+  /* --copy-x IS the canvas's left edge, so the headline starts on exactly
+     the same vertical line the header capsule starts on. */
   left: var(--copy-x);
   top: 34vh;
   z-index: 5;
-  width: min(52vw, 760px);
+  width: min(46vw, 980px);
   opacity: 0;
+  /* The exit dissipates from the anchor rather than from the middle of
+     the block, so the copy appears to drift away from where it came in. */
+  transform-origin: 8% 50%;
   will-change: transform, opacity;
+  /* The five copy blocks are stacked on the same spot and four of them
+     are invisible at any moment — but invisible is not intangible, and at
+     z-index 5 (SocialBeat…BrandBeat are siblings of .hero__objects, which
+     is 3) they were blanketing the left half of the stage and swallowing
+     every hover and click underneath. At 1366 and below that is exactly
+     where the Contacto card lands, and it was unhoverable and
+     unclickable. There is nothing interactive in here — a headline and a
+     line of copy — so it has no business hit-testing at all. */
+  pointer-events: none;
 }
 
 .beat__title {
+  position: relative;
   margin: 0;
-  max-width: 740px;
+  max-width: none;
+  font-family: var(--font-display);
   font-size: var(--step-beat);
-  font-weight: 800;
-  line-height: 0.92;
-  letter-spacing: -0.045em;
-  color: var(--ink);
+  /* Puffy is a single static cut and the @font-face maps every weight to
+     it, so this number only matters for the fallback while the file
+     loads. Kept at 900 so the swap does not jump in weight. */
+  font-weight: 900;
+  /* Geist took -0.045em because it is a tight grotesque. Puffy is a fat
+     rounded face: at negative tracking the bowls touch and the words turn
+     into a single blob. Just off zero. */
+  line-height: 0.98;
+  letter-spacing: -0.005em;
+  color: var(--ink-navy);
+  /* The last bit of weight the family can give. Puffy has no bolder cut,
+     and synthetic bold would smear the joins, so the stroke thickens the
+     outline symmetrically in the same ink instead. Small on purpose —
+     above ~0.02em the counters start closing. */
+  -webkit-text-stroke: 0.012em var(--ink-navy);
 }
 
+/* NO OVERFLOW. This used to be a reveal mask with padding tuned to just
+   clear the glyphs, and "just clear" is not a rule, it is a bet that gets
+   lost the first time someone writes a word with a diaeresis or the
+   entry animation gains a transform. A mask cannot crop what it does not
+   have, so the reveal is done with y and opacity instead and the element
+   never clips anything.
+   The same decision is applied everywhere the display face is set — see
+   .intro__lineWrap and .sig__line. */
 .beat__title .ln {
   display: block;
-  overflow: hidden;
-  padding-bottom: 0.06em;
-  margin-bottom: -0.06em;
 }
 
 .beat__title .ln > span {
   display: block;
+  position: relative;
+  /* max-content, not a block filling the column: the line's box is then
+     the line's ACTUAL width, which is what the composition needs to be
+     measurable. With a block box every headline reports the same width
+     and there is no way to tell whether the last letter clears the
+     laptop. */
+  width: max-content;
   /* Two lines maximum, always: the line breaks come from data/hero.ts,
      never from the container running out of room. */
   white-space: nowrap;
-  will-change: transform;
+  will-change: transform, opacity;
 }
 
 .beat__sub {
-  margin-top: 1.15rem;
-  max-width: 380px;
-  font-size: clamp(18px, 1.1vw, 22px);
-  line-height: 1.45;
+  position: relative;
+  /* Tied to the headline, not to the viewport. At a flat 18px it was the
+     same size next to a 36px headline and next to a 104px one, which is
+     why it read as text dropped onto the cloud rather than as the second
+     line of a pair. The margin scales with it, so the gap between the two
+     stays the same gap. */
+  margin-top: calc(var(--step-beat) * 0.22);
+  /* Tied to the headline like everything else here. A fixed measure let
+     the longest sub-copy run out past the point where the cloud's belly
+     starts lifting on the narrow breakpoints; this makes it wrap there
+     instead, and only there. */
+  max-width: calc(var(--step-beat) * 6.2);
+  font-size: clamp(15px, calc(var(--step-beat) * 0.26), 28px);
+  line-height: 1.38;
   color: var(--ink-soft);
+}
+
+/* =====================================================================
+   Face debug — `?faces=1`, or the F key.
+   ---------------------------------------------------------------------
+   Tints every surface of both solids so a still frame answers "which
+   faces exist and which one is the renderer actually showing me". These
+   have to live in the global sheet: Astro scopes component styles, and
+   the classes being tinted belong to two different components.
+   ===================================================================== */
+[data-faces='1'] .phone__front,
+[data-faces='1'] .laptop__screen-frame {
+  background: rgba(38, 132, 255, 0.72) !important;
+}
+[data-faces='1'] .phone__back,
+[data-faces='1'] .laptop__lid-back {
+  background: rgba(232, 74, 95, 0.72) !important;
+}
+[data-faces='1'] .phone__side,
+[data-faces='1'] .laptop__lid-edge {
+  background: rgba(255, 190, 40, 0.92) !important;
+}
+[data-faces='1'] .laptop__deck {
+  background: rgba(52, 199, 123, 0.72) !important;
+}
+[data-faces='1'] .laptop__base-front {
+  background: rgba(255, 122, 30, 0.92) !important;
+}
+[data-faces='1'] .laptop__base-left,
+[data-faces='1'] .laptop__base-right {
+  background: rgba(168, 85, 247, 0.92) !important;
+}
+[data-faces='1'] .laptop__base-bottom {
+  background: rgba(70, 70, 90, 0.85) !important;
+}
+[data-faces='1'] .phone__screen,
+[data-faces='1'] .laptop__bezel {
+  outline: 1px solid rgba(255, 255, 255, 0.6);
+}
+/* The cover would hide the tinted frame underneath it. */
+[data-faces='1'] .laptop__cover,
+[data-faces='1'] .phone__off,
+[data-faces='1'] .phone__glass,
+[data-faces='1'] .laptop__glass {
+  opacity: 0 !important;
+}
+
+/* Small screens: the copy sits at the top and the devices are carried
+   low (see buildDevicesCompact), so the two never share the same band. */
+@media (max-width: 1019px) {
+  .beat {
+    top: 12vh;
+    width: min(70vw, 460px);
+  }
+
+  .beat__sub {
+    margin-top: 0.8rem;
+    max-width: 62vw;
+  }
+}
+
+/* `?still=1` — review harness only.
+   ---------------------------------------------------------------------
+   hero-timeline.ts already freezes the idle float and the cursor
+   parallax under this flag so a probe can capture the same frame twice
+   and compare it byte for byte. Since v11 part of the atmosphere is
+   animated in CSS instead of GSAP — the cloud drift, the bird flap, the
+   light breathing — and none of that would hold still for the camera.
+   One rule, everything inside the stage, rather than a list that has to
+   be maintained every time the sky gains a moving part. */
+[data-still='1'] *,
+[data-still='1'] *::before,
+[data-still='1'] *::after {
+  animation-play-state: paused !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

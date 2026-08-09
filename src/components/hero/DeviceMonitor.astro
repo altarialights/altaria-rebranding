@@ -1,0 +1,648 @@
+---
+import { softwareBeat } from '../../data/hero';
+
+/**
+ * Unbranded desktop monitor, CSS 3D. Same construction rules as the phone,
+ * the laptop and the tablet — a closed solid, never a plane leaning on
+ * backface-visibility:
+ *
+ *   .obj            position / scale / opacity   (master timeline)
+ *   .obj__stage     perspective, no transform
+ *   .obj__float     idle drift
+ *   .obj__point     cursor parallax
+ *   .obj__spin      entry rotation               (master timeline)
+ *     .monitor__object   preserve-3d, the solid
+ *
+ * v9 rebuilt the shell in the SAME aluminium as the other three. The dark
+ * plastic slab it had before was the one object in the hero that looked
+ * like it came from a different catalogue, and next to a silver laptop
+ * that reads as cheap however good the animation is. Bezel, back, edges,
+ * neck and foot now use the same gradients as .laptop__screen-frame.
+ *
+ * The stand is the part that carries the "premium" read at this size, so
+ * it is three real pieces rather than a peg on a slab: a tapered neck, a
+ * shallow elliptical foot laid flat, and a front wall giving that foot
+ * actual thickness.
+ *
+ * The panel face is transform-style: FLAT, so the whole interface is
+ * painted INTO it instead of floating as coplanar siblings in the 3D
+ * space — the mistake that made the laptop keyboard flicker.
+ *
+ * ON THE CONTENTS OF THE SCREEN
+ * ---------------------------------------------------------------------
+ * Light, not dark. And deliberately abstract: shapes, not data. No
+ * numbers, no percentages, no axis labels, no invented KPIs — a dashboard
+ * is exactly where a fake figure would sneak in, and the project rule is
+ * that nothing here may state something unverifiable. Tiles, a plotted
+ * area, bars, module rows and code runs say "internal tool built for your
+ * company" without asserting anything.
+ *
+ * The life in it is driven by monitorLife() in hero-timeline.ts, on its
+ * own clock rather than on the scroll: a system that only moves while you
+ * drag the scrollbar is not a system, it is a picture of one.
+ */
+---
+
+<div class="obj obj--monitor" data-obj="monitor" data-layer="L3">
+  <div class="obj__stage">
+    <div class="obj__float" data-float="monitor">
+      <div class="obj__point" data-point="monitor">
+        <div class="obj__spin" data-spin="monitor">
+          <div class="monitor__object">
+            <div class="monitor__panel">
+              <div class="monitor__bezel">
+                <div class="monitor__ui" role="img" aria-label={softwareBeat.screenLabel}>
+                  <!-- Chrome: window bar + module rail -->
+                  <span class="ui__bar" aria-hidden="true">
+                    <i></i><i></i><i></i>
+                    <b class="ui__live" data-ui-live></b>
+                  </span>
+
+                  <span class="ui__rail" aria-hidden="true">
+                    <i class="is-on"></i><i></i><i></i><i></i><i></i>
+                  </span>
+
+                  <span class="ui__board" aria-hidden="true">
+                    <!-- Three tiles, each breathing on its own clock -->
+                    <span class="ui__tiles">
+                      <i data-ui-tile><b style="--w:62%"></b><u style="--w:38%"></u></i>
+                      <i data-ui-tile><b style="--w:48%"></b><u style="--w:56%"></u></i>
+                      <i data-ui-tile><b style="--w:70%"></b><u style="--w:30%"></u></i>
+                    </span>
+
+                    <!-- Plotted area. The line draws on scroll; the whole
+                         plot then drifts on its own clock. -->
+                    <span class="ui__plot">
+                      <!-- The plot is inset inside its own viewBox — the
+                           line used to run to x=238 of 240 and the end
+                           marker was clipped against the edge. It now
+                           stops at 226,14 with room to breathe, and the
+                           marker is an HTML element sitting over that
+                           exact point: preserveAspectRatio="none" stretches
+                           the SVG to the panel, which would have squashed
+                           an SVG circle into an ellipse. -->
+                      <svg viewBox="0 0 240 84" fill="none" preserveAspectRatio="none">
+                        <path
+                          class="ui__grid"
+                          d="M10 26h220M10 46h220M10 64h220"
+                          stroke="rgba(29,111,192,.14)"
+                          stroke-width="1"></path>
+                        <path
+                          class="ui__area"
+                          data-ui-area
+                          d="M14 72 C 38 70, 46 50, 70 48 S 104 60, 126 44 S 164 22, 190 30 S 216 17, 226 14 L226 84 L14 84 Z"
+                          fill="url(#uiFill)"></path>
+                        <path
+                          class="ui__line"
+                          data-ui-line
+                          d="M14 72 C 38 70, 46 50, 70 48 S 104 60, 126 44 S 164 22, 190 30 S 216 17, 226 14"
+                          stroke="url(#uiStroke)"
+                          stroke-width="2.6"
+                          stroke-linecap="round"></path>
+                        <defs>
+                          <linearGradient id="uiStroke" x1="0" y1="1" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#3f8fdd"></stop>
+                            <stop offset="100%" stop-color="#25b79a"></stop>
+                          </linearGradient>
+                          <linearGradient id="uiFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="rgba(61,143,221,.28)"></stop>
+                            <stop offset="100%" stop-color="rgba(61,143,221,0)"></stop>
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                      <!-- 226/240 and 14/84 of the box: the line's end. -->
+                      <i class="ui__dot" data-ui-dot></i>
+                    </span>
+
+                    <!-- Bars: each one breathes independently -->
+                    <span class="ui__bars">
+                      <i data-ui-bar style="--h:42%"></i>
+                      <i data-ui-bar style="--h:66%"></i>
+                      <i data-ui-bar style="--h:50%"></i>
+                      <i data-ui-bar style="--h:80%"></i>
+                      <i data-ui-bar style="--h:58%"></i>
+                      <i data-ui-bar style="--h:90%"></i>
+                      <i data-ui-bar style="--h:68%"></i>
+                      <i data-ui-bar style="--h:46%"></i>
+                    </span>
+                  </span>
+
+                  <!-- Side column: module rows and code runs -->
+                  <span class="ui__side" aria-hidden="true">
+                    <span class="ui__rows">
+                      <i data-ui-row><b></b><u style="--w:58%"></u></i>
+                      <i data-ui-row><b></b><u style="--w:74%"></u></i>
+                      <i data-ui-row><b></b><u style="--w:44%"></u></i>
+                      <i data-ui-row><b></b><u style="--w:66%"></u></i>
+                    </span>
+                    <span class="ui__code">
+                      <span class="ui__scan" data-ui-scan></span>
+                      <i style="--w:54%"></i>
+                      <i style="--w:78%; --i:1"></i>
+                      <i style="--w:41%; --i:2"></i>
+                      <i style="--w:66%; --i:1"></i>
+                      <i style="--w:86%"></i>
+                      <i style="--w:33%; --i:2"></i>
+                      <i style="--w:71%; --i:1"></i>
+                    </span>
+                  </span>
+                </div>
+                <div class="monitor__glass" aria-hidden="true"></div>
+              </div>
+              <div class="monitor__chin" aria-hidden="true"></div>
+            </div>
+
+            <div class="monitor__back" aria-hidden="true"></div>
+            <div class="monitor__edge monitor__edge--top" aria-hidden="true"></div>
+            <div class="monitor__edge monitor__edge--bottom" aria-hidden="true"></div>
+            <div class="monitor__edge monitor__edge--left" aria-hidden="true"></div>
+            <div class="monitor__edge monitor__edge--right" aria-hidden="true"></div>
+
+            <!-- Stand: tapered neck, flat elliptical foot, front wall. -->
+            <div class="monitor__neck" aria-hidden="true"></div>
+            <div class="monitor__foot" aria-hidden="true">
+              <span class="monitor__foot-face"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="monitor__shadow" data-monitor-shadow aria-hidden="true"></div>
+</div>
+
+<style>
+  .obj--monitor {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: clamp(var(--monitor-w-min), var(--monitor-w), var(--monitor-w-max));
+    z-index: 3;
+    opacity: 0;
+    /* Promoted once, permanently, above the perspective. Never toggled —
+       see the note in hero-timeline.ts. */
+    will-change: transform;
+  }
+
+  .obj__stage {
+    perspective: var(--monitor-persp);
+    perspective-origin: 50% 44%;
+  }
+
+  .obj__float,
+  .obj__point,
+  .obj__spin,
+  .monitor__object {
+    transform-style: preserve-3d;
+  }
+
+  .monitor__object {
+    position: relative;
+  }
+
+  /* --- Slab, in the family aluminium --------------------------------- */
+  .monitor__panel {
+    position: relative;
+    padding: 0.85%;
+    border-radius: 0.9% / 1.4%;
+    transform: translateZ(calc(var(--monitor-t) / 2));
+    backface-visibility: hidden;
+    transform-style: flat;
+    background: linear-gradient(148deg, #eef1f4 0%, #d2d8dd 32%, #b2bac1 70%, #96a0a8 100%);
+    box-shadow:
+      0 2px 0 rgba(255, 255, 255, 0.75) inset,
+      0 0 0 1px rgba(96, 112, 128, 0.34);
+  }
+
+  .monitor__bezel {
+    position: relative;
+    aspect-ratio: 16 / 9.6;
+    border-radius: 0.4% / 0.7%;
+    overflow: hidden;
+    background: #dfe7ef;
+    box-shadow: inset 0 0 0 1px rgba(96, 112, 128, 0.34);
+  }
+
+  .monitor__chin {
+    position: absolute;
+    left: 50%;
+    bottom: -1.6%;
+    width: 8%;
+    height: 1.1%;
+    transform: translateX(-50%);
+    border-radius: 99px;
+    background: rgba(120, 134, 148, 0.45);
+  }
+
+  .monitor__back {
+    position: absolute;
+    inset: 0;
+    transform: translateZ(calc(var(--monitor-t) / -2)) rotateY(180deg);
+    backface-visibility: hidden;
+    border-radius: 0.9% / 1.4%;
+    background:
+      radial-gradient(ellipse 58% 42% at 28% 16%, rgba(255, 255, 255, 0.44) 0%, rgba(255, 255, 255, 0) 64%),
+      linear-gradient(206deg, #e8ecf0 0%, #c6ccd3 36%, #9aa3ab 74%, #7a838b 100%);
+    box-shadow: 0 0 0 1px rgba(96, 112, 128, 0.3);
+  }
+
+  .monitor__edge {
+    position: absolute;
+    background: linear-gradient(to bottom, #f0f3f5 0%, #b9c1c8 55%, #8b949c 100%);
+  }
+
+  .monitor__edge--top,
+  .monitor__edge--bottom {
+    left: 0.5%;
+    right: 0.5%;
+    height: var(--monitor-t);
+  }
+
+  .monitor__edge--top {
+    top: 0;
+    transform-origin: center top;
+    transform: rotateX(-90deg) translateY(calc(var(--monitor-t) / -2));
+  }
+
+  .monitor__edge--bottom {
+    bottom: 0;
+    transform-origin: center bottom;
+    transform: rotateX(90deg) translateY(calc(var(--monitor-t) / 2));
+  }
+
+  .monitor__edge--left,
+  .monitor__edge--right {
+    top: 0.8%;
+    bottom: 0.8%;
+    width: var(--monitor-t);
+    background: linear-gradient(to right, #eef1f4 0%, #b9c1c8 55%, #8b949c 100%);
+  }
+
+  .monitor__edge--left {
+    left: 0;
+    transform-origin: left center;
+    transform: rotateY(90deg) translateX(calc(var(--monitor-t) / -2));
+  }
+
+  .monitor__edge--right {
+    right: 0;
+    transform-origin: right center;
+    transform: rotateY(-90deg) translateX(calc(var(--monitor-t) / 2));
+  }
+
+  /* --- Stand ---------------------------------------------------------- *
+     Tapered neck, then a shallow foot laid flat towards the camera with a
+     real front wall. The taper is what stops it reading as a peg: a
+     clip-path costs nothing and does more for the "premium" read at this
+     size than any amount of gradient work on a rectangle. */
+  .monitor__neck {
+    position: absolute;
+    left: 50%;
+    top: 98.5%;
+    width: 24%;
+    height: 20%;
+    transform: translateX(-50%) translateZ(calc(var(--monitor-t) / -2.4));
+    /* A gentle taper, not a spike. Narrower clips turned the neck into a
+       stalk and the stand read as a screen floating over a saucer. */
+    clip-path: polygon(20% 0, 80% 0, 66% 100%, 34% 100%);
+    border-radius: 0 0 30% 30% / 0 0 14% 14%;
+    background: linear-gradient(
+      to right,
+      #7f888f 0%,
+      #b9c1c8 16%,
+      #eef2f5 42%,
+      #dbe1e6 58%,
+      #adb5bd 80%,
+      #79828a 100%
+    );
+    box-shadow: inset 0 -2px 6px -3px rgba(30, 50, 70, 0.4);
+  }
+
+  /* Foot: one piece, horizontal, running towards the camera from the base
+     of the neck. v9 tried to give it thickness with a separate front wall
+     that carried no rotation, so it stayed in the panel's vertical plane
+     and floated below the machine as a second ellipse. The thickness is
+     now a rim on this element instead — cheaper and, unlike the wall,
+     actually attached. */
+  .monitor__foot {
+    position: absolute;
+    left: 19%;
+    right: 19%;
+    top: 117%;
+    height: 0;
+    padding-bottom: 18%;
+    transform-origin: 50% 0;
+    transform: rotateX(90deg) translateZ(calc(var(--monitor-t) / -2.4));
+    transform-style: flat;
+    border-radius: 40% 40% 46% 46% / 44% 44% 56% 56%;
+    background: linear-gradient(
+      to bottom,
+      #9ea7af 0%,
+      #d4dbe1 18%,
+      #f2f5f8 46%,
+      #dde3e8 72%,
+      #b4bcc4 100%
+    );
+    /* The stacked offsets are the foot's thickness: a rim of darker metal
+       under the top face, then the contact shade. */
+    box-shadow:
+      0 0 0 1px rgba(96, 112, 128, 0.32),
+      0 4px 0 -1px rgba(150, 160, 171, 0.9),
+      0 8px 0 -2px rgba(116, 127, 139, 0.75),
+      0 14px 20px -8px rgba(30, 56, 84, 0.45);
+  }
+
+  /* A soft sheen across the foot so it reads as brushed metal, not card. */
+  .monitor__foot-face {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      104deg,
+      rgba(255, 255, 255, 0) 32%,
+      rgba(255, 255, 255, 0.55) 50%,
+      rgba(255, 255, 255, 0) 68%
+    );
+  }
+
+  /* --- Interface ------------------------------------------------------ *
+     Light. Shapes only — see the note at the top of this file. */
+  .monitor__ui {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 7% 1fr 26%;
+    grid-template-rows: 9% 1fr;
+    gap: 0 2.4%;
+    padding: 0 3.4% 3.6%;
+    background:
+      radial-gradient(ellipse 80% 60% at 18% 0%, rgba(61, 143, 221, 0.12) 0%, rgba(61, 143, 221, 0) 70%),
+      linear-gradient(168deg, #ffffff 0%, #f4f8fc 56%, #eaf1f8 100%);
+  }
+
+  .ui__bar {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 1.4%;
+    padding-top: 2.6%;
+  }
+
+  .ui__bar i {
+    width: 1.6%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: rgba(29, 111, 192, 0.22);
+  }
+
+  .ui__live {
+    margin-left: auto;
+    width: 2.2%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #25b79a;
+    box-shadow: 0 0 0 0 rgba(37, 183, 154, 0.5);
+  }
+
+  .ui__rail {
+    display: flex;
+    flex-direction: column;
+    gap: 11%;
+    padding-top: 4%;
+  }
+
+  .ui__rail i {
+    display: block;
+    height: 9%;
+    border-radius: 3px;
+    background: rgba(29, 111, 192, 0.14);
+  }
+
+  .ui__rail i.is-on {
+    background: linear-gradient(120deg, #3f8fdd, #25b79a);
+  }
+
+  .ui__board {
+    display: flex;
+    flex-direction: column;
+    gap: 4%;
+    min-width: 0;
+    padding-top: 3%;
+  }
+
+  .ui__tiles {
+    display: flex;
+    gap: 3%;
+    height: 17%;
+  }
+
+  .ui__tiles i {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14%;
+    padding: 0 7%;
+    border-radius: 5px;
+    background: #ffffff;
+    box-shadow:
+      0 0 0 1px rgba(29, 111, 192, 0.1),
+      0 4px 10px -6px rgba(20, 60, 100, 0.3);
+  }
+
+  .ui__tiles b {
+    display: block;
+    width: var(--w);
+    height: 15%;
+    min-height: 2px;
+    border-radius: 2px;
+    background: rgba(14, 22, 32, 0.42);
+  }
+
+  .ui__tiles u {
+    display: block;
+    width: var(--w);
+    height: 10%;
+    min-height: 2px;
+    border-radius: 2px;
+    background: rgba(29, 111, 192, 0.34);
+  }
+
+  .ui__plot {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    border-radius: 5px;
+    background: #ffffff;
+    box-shadow:
+      0 0 0 1px rgba(29, 111, 192, 0.1),
+      0 4px 10px -6px rgba(20, 60, 100, 0.3);
+    overflow: hidden;
+  }
+
+  .ui__plot svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .ui__line {
+    /* Length set by the timeline, which then draws it. */
+    stroke-dasharray: var(--len, 520);
+    stroke-dashoffset: var(--len, 520);
+  }
+
+  .ui__area {
+    opacity: 0;
+  }
+
+  /* An HTML marker, not an SVG circle: the SVG is stretched to fit the
+     panel, so a circle in it would render as an ellipse. */
+  .ui__dot {
+    position: absolute;
+    left: 94.2%;
+    top: 16.7%;
+    width: 2.6%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #1d6fc0;
+    box-shadow: 0 0 0 2.5px rgba(255, 255, 255, 0.95);
+  }
+
+  .ui__bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 2.4%;
+    height: 22%;
+  }
+
+  .ui__bars i {
+    flex: 1;
+    height: var(--h);
+    transform-origin: 50% 100%;
+    border-radius: 2px 2px 1px 1px;
+    background: linear-gradient(to top, rgba(61, 143, 221, 0.3), rgba(37, 183, 154, 0.75));
+  }
+
+  .ui__side {
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+    padding-top: 3%;
+    min-width: 0;
+  }
+
+  .ui__rows {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7%;
+    height: 38%;
+    padding: 5%;
+    border-radius: 5px;
+    background: #ffffff;
+    box-shadow:
+      0 0 0 1px rgba(29, 111, 192, 0.1),
+      0 4px 10px -6px rgba(20, 60, 100, 0.3);
+  }
+
+  .ui__rows i {
+    display: flex;
+    align-items: center;
+    gap: 8%;
+    height: 16%;
+  }
+
+  .ui__rows b {
+    width: 12%;
+    aspect-ratio: 1;
+    border-radius: 3px;
+    background: rgba(29, 111, 192, 0.28);
+  }
+
+  .ui__rows u {
+    width: var(--w);
+    height: 34%;
+    min-height: 2px;
+    border-radius: 2px;
+    background: rgba(14, 22, 32, 0.24);
+  }
+
+  .ui__code {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7%;
+    padding: 7% 6%;
+    border-radius: 5px;
+    overflow: hidden;
+    background: #f2f7fc;
+    box-shadow: inset 0 0 0 1px rgba(29, 111, 192, 0.12);
+  }
+
+  /* A highlight sweeping the block: the cheapest possible "it is running". */
+  .ui__scan {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 22%;
+    background: linear-gradient(
+      to bottom,
+      rgba(61, 143, 221, 0) 0%,
+      rgba(61, 143, 221, 0.13) 50%,
+      rgba(61, 143, 221, 0) 100%
+    );
+  }
+
+  .ui__code i {
+    display: block;
+    width: var(--w);
+    height: 7%;
+    min-height: 2px;
+    border-radius: 2px;
+    margin-left: calc(var(--i, 0) * 9%);
+    background: rgba(29, 111, 192, 0.4);
+  }
+
+  .ui__code i:nth-child(3n) {
+    background: rgba(37, 183, 154, 0.55);
+  }
+
+  .ui__code i:nth-child(4n + 3) {
+    background: rgba(201, 163, 90, 0.6);
+  }
+
+  .monitor__glass {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      116deg,
+      rgba(255, 255, 255, 0) 46%,
+      rgba(255, 255, 255, 0.24) 62%,
+      rgba(255, 255, 255, 0.4) 71%,
+      rgba(255, 255, 255, 0) 84%
+    );
+    pointer-events: none;
+  }
+
+  /* --- Shadow --------------------------------------------------------- */
+  .monitor__shadow {
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    width: 88%;
+    height: 16%;
+    margin-top: 34%;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(
+      ellipse 40% 48% at 50% 50%,
+      rgba(86, 120, 156, 0.42) 0%,
+      rgba(86, 120, 156, 0) 74%
+    );
+    filter: blur(11px);
+  }
+</style>

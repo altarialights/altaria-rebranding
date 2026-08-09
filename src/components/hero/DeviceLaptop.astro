@@ -3,39 +3,102 @@ import ScreenDeZamorano from '../ScreenDeZamorano.astro';
 import { hasCapture } from '../../lib/capture';
 
 /**
- * Unbranded laptop, CSS 3D. Same three-wrapper transform discipline as
- * the phone. Lid and deck are two planes hinged at the lid base.
+ * Unbranded laptop, CSS 3D. Same wrapper discipline as the phone.
  *
- * The screen holds the REAL De Zamorano capture once it exists on disk;
- * the inner track scroll of beat 2 is gated on that, because scrolling a
- * placeholder that exactly fills the bezel would only reveal black.
+ * THE BASE IS A BOX, NOT A PLANE.
+ * ---------------------------------------------------------------------
+ * v5 painted the deck as one plane and hung the keyboard, the well, the
+ * trackpad, the hinge and the front lip on it as untransformed children.
+ * Because that plane declared transform-style: preserve-3d, those
+ * children were NOT flattened into it — they sat in the same 3D space at
+ * exactly the same depth. The face census (scripts/diagnose-faces.mjs)
+ * reported base ≡ hinge ≡ well ≡ keys ≡ lip coplanar in 51 of 51 steps.
+ * Five painted surfaces at identical z, with an animated ancestor
+ * jittering the matrix by fractions of a pixel: the renderer breaks that
+ * tie differently from frame to frame, which is why the keyboard came
+ * and went.
+ *
+ * The fix is structural, not a hack:
+ *
+ *   · .laptop__deck is ONE flat surface (transform-style: flat), and the
+ *     keyboard, trackpad, well, hinge and lip are painted INTO it. They
+ *     can no longer fight, because they are no longer in the 3D space.
+ *   · the base is closed by five more real surfaces — bottom, front,
+ *     left, right — each separated in Z. That is what shuts the
+ *     bottom-left and bottom-right corners, which in v5 simply ended in
+ *     mid air because only a front strip existed.
+ *   · the lid gets the same treatment: .laptop__screen-frame is flat, so
+ *     track, glass and cover stop being coplanar siblings, and it carries
+ *     its own side walls so the silhouette never opens up mid-rotation.
+ *
+ * Geometry. .laptop__base-group is laid flat from the hinge line with
+ * rotateX(90deg) and extends TOWARDS the camera. Inside its local frame
+ * x is width, y is depth, and −z is world up — which is why the walls
+ * below rotate the way they do.
  */
+
+const captureReady = hasCapture();
 ---
 
 <div class="obj obj--laptop" data-obj="laptop" data-layer="L3">
-  <div class="obj__float" data-float="laptop">
-    <div class="obj__point" data-point="laptop">
-      <div class="laptop">
-        <div class="laptop__lid">
-          <div class="laptop__bezel">
-            <div
-              class="laptop__track"
-              data-laptop-track
-              data-has-capture={hasCapture() ? '1' : '0'}
-            >
-              <ScreenDeZamorano />
+  <div class="obj__stage">
+    <div class="obj__float" data-float="laptop">
+      <div class="obj__point" data-point="laptop">
+        <div class="obj__spin" data-spin="laptop">
+          <div class="laptop__object">
+            <!-- Lid. The pivot is the hinge line; 0 = open, −90 = shut. -->
+            <div class="laptop__pivot" data-laptop-lid>
+              <div class="laptop__lid">
+                <div class="laptop__screen-frame">
+                  <div class="laptop__bezel">
+                    <div
+                      class="laptop__track"
+                      data-laptop-track
+                      data-has-capture={captureReady ? '1' : '0'}
+                    >
+                      <ScreenDeZamorano />
+                    </div>
+                    <div class="laptop__glass" aria-hidden="true"></div>
+                    <!-- Opaque while the lid is shut: see the note below. -->
+                    <div class="laptop__cover" data-laptop-off aria-hidden="true"></div>
+                  </div>
+                  <div class="laptop__chin" aria-hidden="true"></div>
+                </div>
+
+                <div class="laptop__lid-back" aria-hidden="true"></div>
+                <div class="laptop__lid-edge laptop__lid-edge--top" aria-hidden="true"></div>
+                <div class="laptop__lid-edge laptop__lid-edge--left" aria-hidden="true"></div>
+                <div class="laptop__lid-edge laptop__lid-edge--right" aria-hidden="true"></div>
+              </div>
             </div>
-            <div class="laptop__glare" aria-hidden="true"></div>
+
+            <!-- Base: six surfaces, a closed box. -->
+            <div class="laptop__base-group" aria-hidden="true">
+              <div class="laptop__deck">
+                <div class="laptop__hinge"></div>
+                <div class="laptop__well"></div>
+                <div class="laptop__keys"></div>
+                <div class="laptop__pad"></div>
+                <div class="laptop__lip"></div>
+              </div>
+              <div class="laptop__base-bottom"></div>
+              <div class="laptop__base-front"></div>
+              <div class="laptop__base-left"></div>
+              <div class="laptop__base-right"></div>
+            </div>
           </div>
-        </div>
-        <div class="laptop__deck" aria-hidden="true">
-          <div class="laptop__keys"></div>
-          <div class="laptop__pad"></div>
         </div>
       </div>
     </div>
   </div>
-  <div class="obj__haze" aria-hidden="true"></div>
+
+  <!-- Contact shadow. Outside the 3D context on purpose: it belongs to the
+       cloud below, not to the object. Two layers cross-fade so the
+       far/near read changes without animating filter: blur() per frame. -->
+  <div class="laptop__shadow" data-laptop-shadow aria-hidden="true">
+    <span class="laptop__shadow-soft"></span>
+    <span class="laptop__shadow-tight"></span>
+  </div>
 </div>
 
 <style>
@@ -46,26 +109,57 @@ import { hasCapture } from '../../lib/capture';
     width: clamp(var(--laptop-w-min), var(--laptop-w), var(--laptop-w-max));
     z-index: 3;
     opacity: 0;
-    will-change: transform, opacity;
-  }
-
-  .obj__float,
-  .obj__point {
+    /* Promoted once, permanently, above the perspective. See the matching
+       note in DevicePhone.astro: toggling this around scroll events is
+       what produced the flicker, at 7 of 7 probe positions. */
     will-change: transform;
   }
 
-  .laptop {
+  .obj__stage {
+    perspective: var(--laptop-persp);
+    perspective-origin: 50% 46%;
+  }
+
+  .obj__float,
+  .obj__point,
+  .obj__spin,
+  .laptop__object,
+  .laptop__pivot,
+  .laptop__lid,
+  .laptop__base-group {
     transform-style: preserve-3d;
+  }
+
+  .laptop__object {
+    position: relative;
+  }
+
+  /* --- Lid ---------------------------------------------------------- */
+  .laptop__pivot {
+    position: relative;
+    transform-origin: 50% 100%;
+    /* rotationX is owned by the master timeline. Painted shut so the
+       first rendered frame is never an open laptop. */
+    transform: rotateX(-90deg);
   }
 
   .laptop__lid {
     position: relative;
-    padding: 1% 1% 0;
-    border-radius: 1.1% / 1.6%;
+  }
+
+  .laptop__screen-frame {
+    position: relative;
+    padding: 1.15% 1.15% 2.6%;
+    border-radius: 0.9% / 1.4%;
+    transform: translateZ(calc(var(--lid-t) / 2));
+    backface-visibility: hidden;
+    /* FLAT — bezel, capture, glass and cover are painted into this one
+       surface instead of competing as coplanar siblings. */
+    transform-style: flat;
     background: linear-gradient(148deg, #eaedf0 0%, #ced4d9 32%, #aeb6bd 70%, #929ba3 100%);
     box-shadow:
       0 2px 0 rgba(255, 255, 255, 0.7) inset,
-      0 46px 90px -34px rgba(30, 56, 84, 0.58);
+      0 0 0 1px rgba(96, 112, 128, 0.32);
   }
 
   .laptop__bezel {
@@ -80,7 +174,6 @@ import { hasCapture } from '../../lib/capture';
   .laptop__track {
     position: absolute;
     inset: 0;
-    will-change: transform;
   }
 
   .laptop__track :global(img) {
@@ -88,7 +181,7 @@ import { hasCapture } from '../../lib/capture';
     height: auto;
   }
 
-  .laptop__glare {
+  .laptop__glass {
     position: absolute;
     inset: 0;
     background: linear-gradient(
@@ -101,55 +194,265 @@ import { hasCapture } from '../../lib/capture';
     pointer-events: none;
   }
 
-  /* Deck: a second plane hinged at the lid base, folded toward camera. */
-  .laptop__deck {
-    position: relative;
+  /* A shut laptop must show aluminium, not the screen. Faded out by the
+     timeline as the lid clears ~55°, which also satisfies the rule that
+     the De Zamorano capture is never shown before the lid opens far
+     enough to see it. */
+  .laptop__cover {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(148deg, #e4e8ec 0%, #c8ced4 34%, #a8b0b8 72%, #8d959d 100%);
+  }
+
+  .laptop__chin {
+    position: absolute;
+    left: 50%;
+    bottom: 0.55%;
+    width: 9%;
+    height: 1.1%;
+    transform: translateX(-50%);
+    border-radius: 99px;
+    background: rgba(120, 134, 148, 0.5);
+  }
+
+  .laptop__lid-back {
+    position: absolute;
+    inset: 0;
+    transform: translateZ(calc(var(--lid-t) / -2)) rotateY(180deg);
+    backface-visibility: hidden;
+    border-radius: 0.9% / 1.4%;
+    background:
+      radial-gradient(ellipse 60% 44% at 26% 16%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0) 64%),
+      linear-gradient(206deg, #e6eaee 0%, #c4cbd2 36%, #99a2aa 74%, #7a838b 100%);
+    box-shadow: 0 0 0 1px rgba(96, 112, 128, 0.3);
+  }
+
+  /* Lid walls. Always painted, like the phone's: they hold the silhouette
+     through the frame where neither lid face is front-facing. */
+  .laptop__lid-edge {
+    position: absolute;
+    background: linear-gradient(to bottom, #f0f3f5 0%, #b9c1c8 55%, #8b949c 100%);
+  }
+
+  .laptop__lid-edge--top {
+    left: 0.4%;
+    right: 0.4%;
+    top: 0;
+    height: var(--lid-t);
+    transform-origin: center top;
+    transform: rotateX(-90deg) translateY(calc(var(--lid-t) / -2));
+  }
+
+  .laptop__lid-edge--left,
+  .laptop__lid-edge--right {
+    top: 0.4%;
+    bottom: 0.4%;
+    width: var(--lid-t);
+    background: linear-gradient(to right, #eef1f4 0%, #b9c1c8 55%, #8b949c 100%);
+  }
+
+  .laptop__lid-edge--left {
+    left: 0;
+    transform-origin: left center;
+    transform: rotateY(90deg) translateX(calc(var(--lid-t) / -2));
+  }
+
+  .laptop__lid-edge--right {
+    right: 0;
+    transform-origin: right center;
+    transform: rotateY(-90deg) translateX(calc(var(--lid-t) / 2));
+  }
+
+  /* --- Base --------------------------------------------------------- *
+     Laid flat from the hinge line, extending towards the camera. The
+     margin-top is hinge clearance: it keeps the shut lid from being
+     coplanar with the deck and reads as the seam of a closed machine.
+
+     Local frame inside this group: x = width, y = depth, −z = world up. */
+  .laptop__base-group {
+    position: absolute;
+    top: 100%;
+    margin-top: 0.7%;
+    left: 0;
+    width: 100%;
     height: 0;
-    padding-bottom: 26%;
-    transform-origin: top center;
-    transform: rotateX(-68deg);
-    border-radius: 0 0 2% 2% / 0 0 10% 10%;
-    background: linear-gradient(to bottom, #9aa3ac 0%, #c3cad0 15%, #dde2e6 52%, #b2bac1 100%);
-    box-shadow: 0 30px 56px -24px rgba(30, 56, 84, 0.55);
+    /* Deck depth, and it is a DERIVED number, not a taste call.
+       ---------------------------------------------------------------
+       A closed laptop has one footprint: the lid and the base cover
+       exactly the same rectangle. The lid here is 64.81 % of the width
+       tall — 1.15 % top padding + 61.06 % bezel (97.7 % wide at 16:10) +
+       2.6 % chin — so when it folds flat it reaches 64.81 % from the
+       hinge. At 60 % the base stopped short and the lid overhung it by
+       nearly 5 % of the width, which is what read as "the top is bigger
+       than the bottom" while the machine was still shut.
+       This group already sits 0.7 % past the hinge for clearance, so its
+       own depth is 64.81 − 0.7. Both edges now land together. */
+    padding-bottom: 64.1%;
+    transform-origin: 50% 0;
+    transform: rotateX(90deg);
+  }
+
+  /* The one painted top surface. FLAT, so everything below is drawn into
+     it and nothing can z-fight. */
+  .laptop__deck {
+    position: absolute;
+    inset: 0;
+    transform-style: flat;
+    border-radius: 0.6% 0.6% 1.6% 1.6% / 1% 1% 2.4% 2.4%;
+    background: linear-gradient(
+      to bottom,
+      #8b959e 0%,
+      #b2bac1 5%,
+      #ced5da 26%,
+      #dae0e4 62%,
+      #aeb6bd 100%
+    );
+  }
+
+  .laptop__base-bottom {
+    position: absolute;
+    inset: 0;
+    transform: translateZ(calc(var(--base-t) * -1));
+    border-radius: 0.6% 0.6% 1.6% 1.6% / 1% 1% 2.4% 2.4%;
+    background: linear-gradient(to bottom, #7d8790 0%, #98a1a9 40%, #aab2ba 100%);
+  }
+
+  /* Front wall — the base's own thickness, and the reason the machine
+     stops reading as a sheet of paper seen from 9° above. */
+  .laptop__base-front {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--base-t);
+    transform-origin: center bottom;
+    transform: rotateX(90deg);
+    border-radius: 0 0 5px 5px;
+    background: linear-gradient(to bottom, #dfe4e8 0%, #b7bfc6 55%, #939ca4 100%);
+  }
+
+  /* Left and right walls — what closes the bottom corners.
+     ---------------------------------------------------------------
+     THE TWO SIGNS ARE NOT THE SAME, and that is the whole point.
+     Inside this group −z is world UP. The left wall's box runs from its
+     origin in local +x, so rotateY(90deg) maps that to −z and the wall
+     drops BELOW the deck, which is correct. The right wall's box runs in
+     local −x from its own origin, so the same rotateY(90deg) maps it to
+     +z and the wall climbs ABOVE the deck instead — which is exactly the
+     detached, mis-registered corner that showed up on the bottom right.
+     rotateY(−90deg) sends it down, matching the left. */
+  .laptop__base-left,
+  .laptop__base-right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: var(--base-t);
+  }
+
+  .laptop__base-left {
+    left: 0;
+    transform-origin: left center;
+    transform: rotateY(90deg);
+    background: linear-gradient(to right, #cdd4da 0%, #a9b1b9 60%, #8d959d 100%);
+  }
+
+  .laptop__base-right {
+    right: 0;
+    transform-origin: right center;
+    transform: rotateY(-90deg);
+    background: linear-gradient(to left, #e3e8ec 0%, #bcc4cb 60%, #99a1a9 100%);
+  }
+
+  /* --- Deck detail (painted into .laptop__deck, never siblings) ------ */
+  .laptop__hinge {
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    top: 0;
+    height: 1.4%;
+    border-radius: 0 0 99px 99px;
+    background: linear-gradient(to bottom, #79838c, #a9b1b8);
+  }
+
+  .laptop__well {
+    position: absolute;
+    inset: 7% 5.5% 36% 5.5%;
+    border-radius: 4px;
+    background: linear-gradient(to bottom, #9aa3ab 0%, #b6bec5 40%, #c6ccd2 100%);
+    box-shadow:
+      inset 0 2px 3px rgba(58, 72, 86, 0.4),
+      0 1px 0 rgba(255, 255, 255, 0.55);
   }
 
   .laptop__keys {
     position: absolute;
-    inset: 12% 9% 34% 9%;
+    inset: 9% 7% 38% 7%;
     border-radius: 3px;
-    opacity: 0.5;
+    opacity: 0.85;
     background:
-      repeating-linear-gradient(to right, rgba(112, 126, 138, 0.42) 0 1px, transparent 1px 6.6%),
-      repeating-linear-gradient(to bottom, rgba(112, 126, 138, 0.42) 0 1px, transparent 1px 24%);
+      repeating-linear-gradient(to right, rgba(66, 80, 93, 0.55) 0 1.5px, transparent 1.5px 6.6%),
+      repeating-linear-gradient(to bottom, rgba(66, 80, 93, 0.55) 0 1.5px, transparent 1.5px 19%);
   }
 
   .laptop__pad {
     position: absolute;
     left: 50%;
-    bottom: 8%;
-    width: 26%;
-    height: 20%;
-    transform: translateX(-50%);
-    border-radius: 4px;
-    background: linear-gradient(to bottom, #d1d7dc, #e5e9ec);
-    box-shadow: inset 0 0 0 1px rgba(112, 126, 138, 0.32);
-  }
-
-  /* Contact haze, not a hard shadow: the laptop emerges from a cloud
-     layer, it does not rest on a surface. */
-  .obj__haze {
-    position: absolute;
-    left: 50%;
-    bottom: -14%;
-    width: 96%;
+    bottom: 9%;
+    width: 27%;
     height: 26%;
     transform: translateX(-50%);
+    border-radius: 5px;
+    background: linear-gradient(to bottom, #d4dade, #e7ebee);
+    box-shadow: inset 0 0 0 1px rgba(112, 126, 138, 0.3);
+  }
+
+  .laptop__lip {
+    position: absolute;
+    left: 40%;
+    right: 40%;
+    bottom: 0;
+    height: 1.6%;
+    border-radius: 99px 99px 0 0;
+    background: rgba(112, 126, 138, 0.3);
+  }
+
+  /* --- Shadow ------------------------------------------------------- */
+  .laptop__shadow {
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    width: 104%;
+    height: 26%;
+    margin-top: 22%;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .laptop__shadow span {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Far away: wide, weak, very diffuse. */
+  .laptop__shadow-soft {
     background: radial-gradient(
       ellipse 50% 50% at 50% 50%,
-      rgba(120, 150, 178, 0.34) 0%,
-      rgba(120, 150, 178, 0) 72%
+      rgba(116, 146, 176, 0.3) 0%,
+      rgba(116, 146, 176, 0) 74%
     );
-    filter: blur(18px);
-    pointer-events: none;
+    filter: blur(14px);
+  }
+
+  /* Close in: tighter, denser, offset down-left because the sun is
+     upper-right. */
+  .laptop__shadow-tight {
+    opacity: 0;
+    background: radial-gradient(
+      ellipse 38% 42% at 46% 54%,
+      rgba(72, 104, 137, 0.42) 0%,
+      rgba(72, 104, 137, 0.16) 52%,
+      rgba(72, 104, 137, 0) 78%
+    );
+    filter: blur(8px);
   }
 </style>

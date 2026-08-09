@@ -1,14 +1,100 @@
 ---
 import { socialBeat } from '../../data/hero';
 
+/* --------------------------------------------------------------------
+ * Rim bevels — the four corner arcs
+ * --------------------------------------------------------------------
+ * The four side walls are flat strips, so they can only cover the
+ * STRAIGHT run of each edge. That leaves the four rounded corners with no
+ * wall at all: at a shallow angle you look straight through them, and
+ * near edge-on the rim visibly forks into two prongs with a hole between.
+ * A plane at z = 0 (.phone__core) hides the hole from the front, but it
+ * is edge-on exactly when the corner matters, so it cannot close the rim.
+ *
+ * So the arc is faceted: SEG flat strips per corner, each spanning one
+ * chord of the arc, each the full body thickness. Twenty facets plus four
+ * walls make a 24-sided rim that reads as continuous at every angle of
+ * the 198° turn.
+ *
+ * The numbers are DERIVED, never eyeballed — the previous round proved
+ * how much a couple of per cent of error shows. Corner radius is the
+ * body's own 13 % / 6.2 %, and the chord is measured in width units
+ * (y is scaled by the aspect ratio) so lengths and angles are true.
+ */
+const RX = 13; // corner radius, % of width
+const RY = 6.2; // corner radius, % of height
+const ASPECT = 19.5 / 9; // height / width
+const SEG = 5; // facets per corner
+const OVERLAP = 1.08; // stretch each facet so joints overlap, never butt
+
+interface Bevel {
+  x: number;
+  y: number;
+  l: number;
+  a: number;
+}
+
+const bevels: Bevel[] = [];
+for (const [sx, sy] of [
+  [-1, -1],
+  [1, -1],
+  [1, 1],
+  [-1, 1],
+]) {
+  // Arc centre, and a point on the arc: θ = 0 is the tangent point on the
+  // vertical edge, θ = 90° the tangent point on the horizontal one.
+  const cx = sx > 0 ? 100 - RX : RX;
+  const cy = sy > 0 ? 100 - RY : RY;
+  const at = (deg: number) => {
+    const t = (deg * Math.PI) / 180;
+    return { x: cx + sx * RX * Math.cos(t), y: cy + sy * RY * Math.sin(t) };
+  };
+
+  for (let i = 0; i < SEG; i++) {
+    const p1 = at((i * 90) / SEG);
+    const p2 = at(((i + 1) * 90) / SEG);
+    const dx = p2.x - p1.x;
+    const dy = (p2.y - p1.y) * ASPECT; // into width units
+    bevels.push({
+      x: (p1.x + p2.x) / 2,
+      y: (p1.y + p2.y) / 2,
+      l: Math.hypot(dx, dy) * OVERLAP,
+      a: (Math.atan2(dy, dx) * 180) / Math.PI,
+    });
+  }
+}
+
 /**
  * Unbranded phone, CSS 3D. No Higgsfield, no third-party mockup, no
  * trademark.
  *
- * Three nested wrappers, each owning exactly ONE transform so they never
- * fight: .obj (timeline) → .obj__float (idle drift) → .obj__point
- * (cursor parallax). The frame and the screen share the innermost
- * context, so the reel stays registered to the bezel with no matrix3d.
+ * A CLOSED SOLID, not a pair of planes.
+ * ---------------------------------------------------------------------
+ * v5 built the body as front + rear + two side rims and leaned on
+ * backface-visibility to swap front for rear. The face census
+ * (scripts/diagnose-faces.mjs) showed the cost: across the entry sweep
+ * the rear was visible for 13 steps, the front for 28, out of 42 — one
+ * step where NEITHER rendered, at exactly the edge-on crossing, with only
+ * two side rims left to hold the silhouette. That is the frame the eye
+ * reads as a flicker, and no amount of easing hides it.
+ *
+ * So the body is now genuinely closed: six surfaces, each physically
+ * separated in Z, and the four side walls are always painted (no
+ * backface-visibility on them). At any angle of the 198° turn there is a
+ * real surface facing the camera. backface-visibility survives only on
+ * front and back, where its job is honest: stop the screen being seen
+ * mirrored through the shell.
+ *
+ *   .obj             position / scale / opacity   (master timeline)
+ *   .obj__stage      perspective, no transform
+ *   .obj__float      idle drift
+ *   .obj__point      cursor parallax
+ *   .obj__spin       the entry rotation           (master timeline)
+ *     .phone__object preserve-3d, the solid itself
+ *
+ * The front face is transform-style: FLAT on purpose. Screen, notch and
+ * glass are painted INTO it rather than floating as siblings at the same
+ * depth — the census flagged exactly that pairing as coplanar.
  *
  * The bezel reserves its box with aspect-ratio, so the video can never
  * cause layout shift.
@@ -16,24 +102,66 @@ import { socialBeat } from '../../data/hero';
 ---
 
 <div class="obj obj--phone" data-obj="phone" data-layer="L3">
-  <div class="obj__float" data-float="phone">
-    <div class="obj__point" data-point="phone">
-      <div class="phone__bezel">
-        <div class="phone__screen">
-          <video
-            data-reel
-            src="/media/reel-altaria.mp4"
-            poster="/media/reel-poster.jpg"
-            width="720"
-            height="1280"
-            muted
-            loop
-            playsinline
-            preload="none"
-            aria-label={socialBeat.reelLabel}></video>
+  <div class="obj__stage">
+    <div class="obj__float" data-float="phone">
+      <div class="obj__point" data-point="phone">
+        <div class="obj__spin" data-spin="phone">
+          <div class="phone__object">
+            <!-- Four side walls. Always painted: they are what keeps the
+                 silhouette closed through the edge-on crossing. -->
+            <div class="phone__side phone__side--left" aria-hidden="true"></div>
+            <div class="phone__side phone__side--right" aria-hidden="true"></div>
+            <div class="phone__side phone__side--top" aria-hidden="true"></div>
+            <div class="phone__side phone__side--bottom" aria-hidden="true"></div>
+
+            <!-- The four corner arcs, faceted. Geometry derived above. -->
+            {
+              bevels.map((b) => (
+                <div
+                  class="phone__bevel"
+                  aria-hidden="true"
+                  style={`--bx:${b.x.toFixed(3)}%;--by:${b.y.toFixed(3)}%;--bl:${b.l.toFixed(3)}%;--ba:${b.a.toFixed(3)}deg`}
+                />
+              ))
+            }
+
+            <!-- Solid core at z = 0. The four walls stop where the body's
+                 straight edges stop, so the rounded corners have no wall;
+                 this fills those gaps with metal instead of sky. -->
+            <div class="phone__core" aria-hidden="true"></div>
+
+            <div class="phone__back" aria-hidden="true">
+              <span class="phone__camera">
+                <span class="phone__cam phone__cam--a"></span>
+                <span class="phone__cam phone__cam--b"></span>
+                <span class="phone__cam phone__cam--c"></span>
+                <span class="phone__flash"></span>
+              </span>
+              <span class="phone__backlight"></span>
+            </div>
+
+            <div class="phone__front">
+              <div class="phone__screen">
+                <video
+                  data-reel
+                  src="/media/reel-altaria.mp4"
+                  poster="/media/reel-poster.jpg"
+                  width="720"
+                  height="1280"
+                  muted
+                  loop
+                  playsinline
+                  preload="none"
+                  aria-label={socialBeat.reelLabel}></video>
+                <!-- Screen is dark until the device has turned to camera;
+                     the timeline fades this out over the reveal. -->
+                <div class="phone__off" data-phone-off aria-hidden="true"></div>
+              </div>
+              <div class="phone__notch" aria-hidden="true"></div>
+              <div class="phone__glass" aria-hidden="true"></div>
+            </div>
+          </div>
         </div>
-        <div class="phone__notch" aria-hidden="true"></div>
-        <div class="phone__glare" aria-hidden="true"></div>
       </div>
     </div>
   </div>
@@ -47,25 +175,255 @@ import { socialBeat } from '../../data/hero';
     width: clamp(var(--phone-w-min), var(--phone-w), var(--phone-w-max));
     z-index: 3;
     opacity: 0;
-    will-change: transform, opacity;
-  }
-
-  .obj__float,
-  .obj__point {
+    /* Promoted ONCE, permanently, and only here — above the perspective,
+       so it never splits the 3D context. v5 toggled will-change on and
+       off around every scroll event, and the stability probe caught the
+       consequence: the first frame after a scroll rendered differently
+       from every frame after it, at 7 of 7 test positions. Creating and
+       destroying a compositing layer re-rasterises the 3D subtree, and
+       that churn IS the flicker. Never `will-change: opacity` here: that
+       would flatten the whole solid into one texture. */
     will-change: transform;
   }
 
-  .phone__bezel {
-    position: relative;
-    aspect-ratio: 9 / 19.5;
-    padding: 2.5%;
-    border-radius: 13% / 6.2%;
-    background: linear-gradient(150deg, #f2f4f6 0%, #ccd2d8 28%, #99a2aa 66%, #7c858c 100%);
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.8) inset,
-      0 34px 60px -24px rgba(30, 56, 84, 0.6);
+  .obj__stage {
+    perspective: var(--phone-persp);
+    perspective-origin: 50% 50%;
   }
 
+  .obj__float,
+  .obj__point,
+  .obj__spin,
+  .phone__object {
+    transform-style: preserve-3d;
+  }
+
+  .phone__object {
+    position: relative;
+    aspect-ratio: 9 / 19.5;
+  }
+
+  /* --- Front and back ----------------------------------------------- */
+  .phone__front,
+  .phone__back {
+    position: absolute;
+    inset: 0;
+    border-radius: 13% / 6.2%;
+    backface-visibility: hidden;
+    /* FLAT: children are painted into this surface instead of living as
+       siblings at the same depth in the parent's 3D space. */
+    transform-style: flat;
+    overflow: hidden;
+  }
+
+  .phone__front {
+    padding: 2.5%;
+    transform: translateZ(calc(var(--phone-t) / 2));
+    background: linear-gradient(150deg, #f2f4f6 0%, #ccd2d8 28%, #99a2aa 66%, #7c858c 100%);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+  }
+
+  .phone__back {
+    transform: translateZ(calc(var(--phone-t) / -2)) rotateY(180deg);
+    background:
+      radial-gradient(ellipse 70% 40% at 78% 12%, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 62%),
+      linear-gradient(206deg, #e9edf1 0%, #c6ccd3 34%, #9aa3ab 72%, #79828a 100%);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
+  }
+
+  /* --- Camera module ------------------------------------------------ *
+     A raised plateau with three real lenses and a flash. v7 painted the
+     lenses as radial gradients inside one element, which at this size
+     turned to mush and read as a flat grey block. Discrete elements keep
+     the glass crisp: dark well, bright machined ring, one specular
+     highlight each. Deliberately restrained — three circles and a dot,
+     no textures, nothing that tips into hyperrealism. */
+  .phone__camera {
+    position: absolute;
+    top: 3.4%;
+    left: 6%;
+    width: 27%;
+    aspect-ratio: 1;
+    border-radius: 27%;
+    background: linear-gradient(150deg, #d9dee3 0%, #b3bbc2 52%, #98a1a9 100%);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.5) inset,
+      0 1.5% 4% rgba(20, 34, 50, 0.4);
+  }
+
+  .phone__cam {
+    position: absolute;
+    width: 34%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 30%, #3d4650 0%, #161c23 44%, #05080b 100%);
+    /* Machined ring outside, dark well inside. */
+    box-shadow:
+      0 0 0 1.5px rgba(226, 232, 238, 0.85),
+      0 0 0 2.5px rgba(120, 132, 145, 0.7),
+      inset 0 0 3px rgba(0, 0, 0, 0.9);
+  }
+
+  /* One specular catch-light per lens — this is what makes it read as
+     glass rather than as a hole. */
+  .phone__cam::after {
+    content: '';
+    position: absolute;
+    top: 16%;
+    left: 20%;
+    width: 30%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 70%);
+  }
+
+  .phone__cam--a {
+    top: 9%;
+    left: 9%;
+  }
+  .phone__cam--b {
+    top: 9%;
+    right: 9%;
+  }
+  .phone__cam--c {
+    bottom: 9%;
+    left: 9%;
+  }
+
+  .phone__flash {
+    position: absolute;
+    right: 15%;
+    bottom: 15%;
+    width: 21%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #fffdf2 0%, #f0e2b8 55%, #c9b586 100%);
+    box-shadow: 0 0 0 1px rgba(120, 132, 145, 0.6);
+  }
+
+  .phone__backlight {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      62deg,
+      rgba(255, 255, 255, 0) 46%,
+      rgba(255, 255, 255, 0.16) 64%,
+      rgba(255, 255, 255, 0) 82%
+    );
+  }
+
+  /* --- Solid core ---------------------------------------------------- *
+     Sits at z = 0, the same size and radius as the two faces, painted in
+     the rim material. The four walls can only cover the STRAIGHT run of
+     each edge — a flat strip cannot follow a rounded corner — so the four
+     corner arcs have no wall of their own. Without this you look straight
+     through them at an angle, and the corner reads as a hole with a piece
+     coming loose. With it you see metal, and the body reads as one
+     machined shell. It is also the honest answer: that is what is inside
+     a phone. */
+  .phone__core {
+    position: absolute;
+    inset: 0;
+    border-radius: 13% / 6.2%;
+    background: linear-gradient(150deg, #cfd6dc 0%, #9aa3ab 46%, #79828a 100%);
+  }
+
+  /* --- Side walls ---------------------------------------------------- *
+     Each spans the body's full thickness at its own edge. No
+     backface-visibility: a side wall must render from both sides, because
+     during a 198° turn each one is seen from both.
+
+     The insets are NOT eyeballed — they are exactly the body's corner
+     radius, so each strip covers precisely the straight run of its edge
+     and stops where the arc begins. The old values overshot the arc by a
+     couple of per cent, and that overshoot was the little tab of metal
+     poking out past the silhouette at the bottom corner. The body radius
+     is 13% / 6.2%: 13% of the WIDTH horizontally, 6.2% of the HEIGHT
+     vertically. */
+  .phone__side {
+    position: absolute;
+    background: linear-gradient(
+      to right,
+      #6f787f 0%,
+      #aeb6bd 22%,
+      #eef1f4 48%,
+      #a7afb6 74%,
+      #6b747b 100%
+    );
+  }
+
+  .phone__side--left,
+  .phone__side--right {
+    top: 6.2%;
+    height: 87.6%;
+    width: var(--phone-t);
+    border-radius: 45% / 3%;
+  }
+
+  .phone__side--left {
+    left: 0;
+    transform-origin: left center;
+    transform: rotateY(90deg) translateX(calc(var(--phone-t) / -2));
+  }
+
+  .phone__side--right {
+    right: 0;
+    transform-origin: right center;
+    transform: rotateY(-90deg) translateX(calc(var(--phone-t) / 2));
+  }
+
+  /* Top and bottom read at the rotationX/rotationZ the entry uses; without
+     them the body opens up at the ends mid-turn. */
+  .phone__side--top,
+  .phone__side--bottom {
+    left: 13%;
+    width: 74%;
+    height: var(--phone-t);
+    border-radius: 3% / 45%;
+    background: linear-gradient(
+      to bottom,
+      #6f787f 0%,
+      #aeb6bd 24%,
+      #e8ecef 50%,
+      #a7afb6 76%,
+      #6b747b 100%
+    );
+  }
+
+  .phone__side--top {
+    top: 0;
+    transform-origin: center top;
+    transform: rotateX(-90deg) translateY(calc(var(--phone-t) / -2));
+  }
+
+  .phone__side--bottom {
+    bottom: 0;
+    transform-origin: center bottom;
+    transform: rotateX(90deg) translateY(calc(var(--phone-t) / 2));
+  }
+
+  /* One facet of a corner arc. Its box is chord-length × thickness;
+     rotateX(90deg) stands it up into a wall and rotateZ aims it along the
+     chord. translate(-50%, -50%) puts its centre on the chord midpoint,
+     which is also what centres it in Z — same as the four walls. */
+  .phone__bevel {
+    position: absolute;
+    left: var(--bx);
+    top: var(--by);
+    width: var(--bl);
+    height: var(--phone-t);
+    transform: translate(-50%, -50%) rotateZ(var(--ba)) rotateX(90deg);
+    background: linear-gradient(
+      to bottom,
+      #6f787f 0%,
+      #aeb6bd 24%,
+      #e8ecef 50%,
+      #a7afb6 76%,
+      #6b747b 100%
+    );
+  }
+
+  /* --- Screen -------------------------------------------------------- */
   .phone__screen {
     position: relative;
     height: 100%;
@@ -78,6 +436,12 @@ import { socialBeat } from '../../data/hero';
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  .phone__off {
+    position: absolute;
+    inset: 0;
+    background: #06080b;
   }
 
   .phone__notch {
@@ -93,7 +457,7 @@ import { socialBeat } from '../../data/hero';
 
   /* Rim light on the right edge — the sun is upper-right. Without it the
      device reads as a flat sticker pasted on the sky. */
-  .phone__glare {
+  .phone__glass {
     position: absolute;
     inset: 2.5%;
     border-radius: 10.5% / 5%;

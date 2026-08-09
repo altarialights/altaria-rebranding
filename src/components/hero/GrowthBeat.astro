@@ -1,5 +1,6 @@
 ---
 import { growthBeat, flow } from '../../data/hero';
+import BeatCopy from './BeatCopy.astro';
 import FlowNode from './FlowNode.astro';
 
 /**
@@ -15,37 +16,16 @@ import FlowNode from './FlowNode.astro';
  */
 ---
 
-<div class="beat" data-beat-copy="growth" data-obj="copy-growth">
-  <h2 class="beat__title">
-    {
-      growthBeat.title.map((line) => (
-        <span class="ln">
-          <span data-beat-line>{line}</span>
-        </span>
-      ))
-    }
-  </h2>
-  <p class="beat__sub" data-beat-sub>{growthBeat.sub}</p>
-</div>
+<BeatCopy id="growth" title={growthBeat.title} sub={growthBeat.sub} variant={5} />
 
 <div class="obj obj--flow" data-obj="flow" data-layer="L3">
   <div class="obj__float" data-float="flow">
     <div class="flow" data-flow-cluster>
-      <svg class="flow__wires" viewBox="0 0 520 430" fill="none" aria-hidden="true">
-        <path class="flow__wire" data-wire="1" d="M150 118 C 210 118, 216 66, 268 62"
-          stroke="url(#flowGrad)" stroke-width="2" stroke-linecap="round"></path>
-        <path class="flow__wire" data-wire="2" d="M300 96 C 300 150, 250 158, 244 214"
-          stroke="url(#flowGrad)" stroke-width="2" stroke-linecap="round"></path>
-        <path class="flow__wire" data-wire="3" d="M244 248 C 244 306, 172 306, 158 350"
-          stroke="url(#flowGrad)" stroke-width="2" stroke-linecap="round"></path>
-        <circle class="flow__spark" data-flow-spark r="4.5" fill="var(--accent)" opacity="0"></circle>
-        <defs>
-          <linearGradient id="flowGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.9"></stop>
-            <stop offset="100%" stop-color="var(--accent)" stop-opacity="0.4"></stop>
-          </linearGradient>
-        </defs>
-      </svg>
+      <!-- A soft aura where the ring is, so the middle of the circle is
+           not a hole. It is the only thing left in the centre now that the
+           connectors are gone, and it does the job a drawn line was doing
+           badly: giving the composition a centre of gravity. -->
+      <span class="flow__aura" data-flow-aura aria-hidden="true"></span>
 
       {flow.map((node, i) => <FlowNode node={node} index={i} />)}
     </div>
@@ -58,7 +38,14 @@ import FlowNode from './FlowNode.astro';
     left: 0;
     top: 0;
     width: var(--flow-w);
-    z-index: 3;
+    /* Above the growth copy block (5, its sibling here) so an open
+       explanation card PAINTS over the headline when it reaches left past
+       the ring, instead of the headline showing through it. Still below
+       the foreground cloud layer (8), like the devices.
+       Note this only settles the two of them: the other four beats live
+       outside .hero__objects and always paint above it. That is fine —
+       none of them is visible while the ring is on screen. */
+    z-index: 7;
     opacity: 0;
     will-change: transform, opacity;
   }
@@ -69,20 +56,29 @@ import FlowNode from './FlowNode.astro';
 
   .flow {
     position: relative;
-    aspect-ratio: 520 / 430;
+    aspect-ratio: 900 / 820;
+    /* The cards settle out of a slight backward tilt; without a
+       perspective here that rotationX would just squash them. */
+    perspective: 1600px;
   }
 
-  .flow__wires {
+  .flow__aura {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
+    left: 50%;
+    top: 50%;
+    /* Reaches just past the ring of cards, so the light itself carries
+       the circle. */
+    width: 80%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
     pointer-events: none;
-  }
-
-  .flow__wire {
-    stroke-dasharray: var(--len, 220);
-    stroke-dashoffset: var(--len, 220);
+    opacity: 0;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(238, 248, 255, 0.62) 24%,
+      rgba(190, 222, 249, 0.36) 46%,
+      rgba(190, 222, 249, 0) 70%
+    );
   }
 </style>

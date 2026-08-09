@@ -1,0 +1,244 @@
+---
+interface Props {
+  /** 1–5, one per service beat. */
+  variant: 1 | 2 | 3 | 4 | 5;
+}
+const { variant } = Astro.props;
+
+/**
+ * The graphic cloud behind each service headline.
+ *
+ * ------------------------------------------------------------------
+ * WHY IT IS BUILT OUT OF CIRCLES
+ * ------------------------------------------------------------------
+ * The brief asked for a cloud a child could have drawn — big curves, a
+ * simple silhouette, slightly wrong — reinterpreted as a design studio's
+ * graphic mark. The honest way to draw that is to actually draw it that
+ * way: a handful of overlapping ellipses sitting on one wide base.
+ *
+ * They merge into a single silhouette with no seams because the whole
+ * group is filled with ONE gradient in user space and the transparency
+ * is applied to the group, not to each shape. Per-shape opacity would
+ * show every overlap; an objectBoundingBox gradient would restart inside
+ * every ellipse. A soft Gaussian on the group is what turns the union of
+ * circles into something milky rather than a Venn diagram.
+ *
+ * This is deliberately the OPPOSITE of the sky behind it. The four banks
+ * and the five drifters are atmospheric: many puffs, cool undersides,
+ * heavy blur, no outline you could name. These are graphic: four or five
+ * lobes you could count, one flat base, one colour. That contrast is the
+ * point — the sky is weather, this is Altaria talking.
+ *
+ * ------------------------------------------------------------------
+ * WHAT IT MUST NEVER DO
+ * ------------------------------------------------------------------
+ * It is a background, never a container. It has no overflow, no mask and
+ * no clip: the headline sits ON it, it does not live INSIDE it, so no
+ * accent, stroke or entry transform can ever be cut by it. The text is
+ * free to overhang the silhouette and in three of the five variants it
+ * does.
+ */
+
+/* [cx, cy, rx, ry] in the variant's own viewBox.
+   One wide base plus four or five lobes. The family rule is: same base,
+   same lobe language, never the same profile twice — the tallest lobe
+   moves, the count changes by one, the whole thing gets wider or flatter
+   depending on how long the headline is. */
+const SHAPES: Record<number, { h: number; lobes: Array<[number, number, number, number]> }> = {
+  // Social · crown peaks at the third bump; the belly lifts steadily.
+  1: { h: 688, lobes: [[345,509,300,114],[110,363,125,225],[232,364,152,252],[368,346,162,252],[508,323,150,220],[642,290,146,191],[772,274,138,160],[882,265,112,130]] },
+  // Web · crown drifts right; the underside lifts late and hard.
+  2: { h: 612, lobes: [[340,453,300,98],[115,326,125,200],[235,324,150,221],[370,309,160,223],[510,290,150,200],[645,269,145,171],[775,248,140,155],[885,242,115,125]] },
+  // Software · the longest, flattest crown of the set.
+  3: { h: 688, lobes: [[350,507,305,112],[108,361,122,224],[228,366,148,246],[362,355,158,250],[500,330,152,235],[638,303,148,206],[772,283,142,174],[886,270,116,143]] },
+  // Brand · crown descends left to right, and the belly with it.
+  4: { h: 786, lobes: [[330,588,290,124],[112,393,128,283],[236,411,154,296],[372,402,158,278],[512,370,148,235],[646,338,144,196],[774,314,136,165],[882,299,110,141]] },
+  // Growth · a deliberate dip in the fourth bump, and a notch below.
+  5: { h: 644, lobes: [[342,477,300,104],[112,336,124,216],[234,333,152,242],[370,336,158,226],[508,319,146,193],[644,277,150,182],[776,261,140,156],[884,250,114,129]] },
+};
+
+const { h, lobes } = SHAPES[variant];
+const uid = `cc${variant}`;
+---
+
+<span class:list={['cc', `cc--${variant}`]} data-copy-cloud aria-hidden="true">
+  <svg viewBox={`0 0 1000 ${h}`} preserveAspectRatio="xMidYMid meet">
+    <defs>
+      {/* One gradient across the whole shape, in user space, so the union
+          of ellipses reads as a single body of cloud. */}
+      <linearGradient id={`${uid}-fill`} gradientUnits="userSpaceOnUse" x1="0" y1="60" x2="0" y2={h}>
+        <stop offset="0" stop-color="#ffffff" />
+        <stop offset="0.52" stop-color="#fbfdff" />
+        <stop offset="1" stop-color="#e6f0fb" />
+      </linearGradient>
+
+      <radialGradient id={`${uid}-sheen`} gradientUnits="userSpaceOnUse" cx="330" cy="180" r="330">
+        <stop offset="0" stop-color="#fffaf0" stop-opacity="0.85" />
+        <stop offset="1" stop-color="#fffaf0" stop-opacity="0" />
+      </radialGradient>
+
+      {/* THERE IS NO FADE ANY MORE, AND THAT IS THE FIX.
+          It started life as protection — the cloud used to reach across
+          the device and had to thin out before it got there. It does not
+          reach any more, so all the fade was still doing was ending the
+          shape in a straight vertical ramp: the "cut on the right" in the
+          reference shot was the gradient, not the silhouette. The cloud
+          now simply stops where its last bump stops. */}
+
+      {/* The soft edge. Small enough that the lobes stay countable. */}
+      <filter id={`${uid}-soft`} x="-20%" y="-28%" width="140%" height="156%">
+        <feGaussianBlur stdDeviation="5" />
+      </filter>
+      {/* The shadow is a blurred copy of the same shape, baked into the
+          SVG rather than a CSS drop-shadow: a CSS filter on the element
+          would have to be re-run every frame the cloud is scaled.
+
+          THE REGION IS THE WHOLE POINT. A filter region CLIPS its own
+          result, and the previous one (-24% / 152%) was narrower than
+          three sigma of a 26px blur: the shadow was being cut off flat,
+          which printed a hard horizontal line right across the sky
+          under every cloud — wider than the cloud itself, because the
+          region is wider than the shape. Sized with room to spare. */}
+      <filter id={`${uid}-cast`} x="-45%" y="-70%" width="190%" height="240%">
+        <feGaussianBlur stdDeviation="26" />
+      </filter>
+    </defs>
+
+    <g class="cc__cast" filter={`url(#${uid}-cast)`}>
+      {lobes.map(([cx, cy, rx, ry]) => <ellipse cx={cx} cy={cy + h * 0.05} rx={rx} ry={ry} />)}
+    </g>
+
+    <g class="cc__body" fill={`url(#${uid}-fill)`} filter={`url(#${uid}-soft)`}>
+      {lobes.map(([cx, cy, rx, ry]) => <ellipse cx={cx} cy={cy} rx={rx} ry={ry} />)}
+    </g>
+
+    {/* The one recurring detail: a warm bloom on the upper left, as if the
+        sun were catching the shoulder of every cloud from the same
+        direction it actually sits in. Not a star, not a sparkle — it
+        would have made the whole thing a sticker. */}
+    <g class="cc__sheen" fill={`url(#${uid}-sheen)`} filter={`url(#${uid}-soft)`}>
+      {lobes.slice(1, 3).map(([cx, cy, rx, ry]) => (
+        <ellipse cx={cx} cy={cy - ry * 0.18} rx={rx * 0.78} ry={ry * 0.62} />
+      ))}
+    </g>
+  </svg>
+</span>
+
+<style>
+  /* Sized off the copy column and deliberately bigger than it. The
+     headline is never centred in the shape: the cloud overhangs further
+     left than right and much further down than up, which is what keeps it
+     from reading as a rounded card with text in it. */
+  .cc {
+    position: absolute;
+    left: calc(var(--step-beat) * -1.3);
+    top: calc(var(--step-beat) * -1.85);
+    /* --cc-k is a per-breakpoint size multiplier. Below 1200 the sub-copy
+       hits its 15px floor while the headline keeps shrinking, so the
+       block stops being proportional to the headline and the cloud —
+       which is proportional to the headline — comes up short underneath
+       it. One number puts it back. */
+    width: calc(var(--cc-w) * var(--cc-k, 1));
+    display: block;
+    pointer-events: none;
+  }
+
+  .cc svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* Belt and braces: nothing about this element may ever clip what is
+       drawn on top of it. */
+    overflow: visible;
+  }
+
+  .cc__cast {
+    fill: rgba(41, 92, 152, 0.17);
+  }
+
+  /* Group opacity, never per-shape: at 0.94 on each ellipse every overlap
+     would print as a darker patch and the silhouette would fall apart
+     into the circles it is made of. */
+  .cc__body {
+    opacity: 0.95;
+  }
+
+  .cc__sheen {
+    opacity: 0.5;
+    mix-blend-mode: soft-light;
+  }
+
+  /* Per-variant placement, in multiples of the HEADLINE SIZE.
+     ------------------------------------------------------------------
+     It used to be a percentage of the copy block, which is the wrong
+     ruler: the block's height depends on how the sub-copy wraps, so the
+     cloud moved for reasons that had nothing to do with the words it was
+     supposed to be holding. The headline's own size is what sets how much
+     room the words need, so it sets the cloud too.
+
+     Seven lobes, and only their TOPS are constrained: it is not the peaks
+     that have to clear the headline, it is the valleys between them, so
+     they sit just over a radius apart and every dip stays shallow.
+
+     Their BOTTOMS are free, and that is where the shape stops being a
+     rounded card. Seven equal bumps on a flat base is a card with
+     scallops; a belly that hangs low under the words and lifts away to
+     the right is a cloud. Only the left of the underside is pinned — it
+     has to stay below the sub-copy — and everything right of that is
+     drawn for character. it is not the peaks that have to clear the headline, it is
+     the VALLEYS BETWEEN THEM. The headline is a straight line across the
+     whole width and the silhouette is not, so the shape was tall enough
+     on average and still let the last word poke out through the dip
+     between two bumps. Five or six lobes at just over one radius apart
+     keeps every valley within ~0.035 of the height of its neighbours.
+
+     The two shared constants come from solving for the two things that
+     must be true at once — the crown clearing the INK, and the base
+     sitting below the sub-copy. The ink, not the capitals: `Diseñamos`
+     carries a tilde that rides above cap height, and sizing to the caps
+     left exactly that one word poking out of exactly that one cloud.
+       height  = 6.05 × headline size — and because the height comes
+                 from the width through the viewBox, each variant's
+                 viewBox aspect is DERIVED from its width factor rather
+                 than drawn by eye. Getting that backwards is what left
+                 the sub-copy hanging off the bottom of the narrow ones.
+       top     = 1.03 × headline size above the block
+       left    = 1.30 × headline size before it
+
+     The WIDTH is per variant, and it is built rather than chosen:
+       1.30 (the left overhang) + the longest line + its own right
+       overhang, where the right overhang is the only free number and
+       runs from 0.95 to 1.75. That is where the family gets its
+       asymmetry — from the copy, not from decoration — and it is also
+       what guarantees the cloud stops before the device: a shape sized
+       to its words cannot sprawl across the stage. */
+  .cc--1 {
+    --cc-w: calc(var(--step-beat) * 9.4);
+  }
+  .cc--2 {
+    --cc-w: calc(var(--step-beat) * 9.84);
+  }
+  .cc--3 {
+    --cc-w: calc(var(--step-beat) * 9.3);
+  }
+  .cc--4 {
+    --cc-w: calc(var(--step-beat) * 9.1);
+  }
+  .cc--5 {
+    --cc-w: calc(var(--step-beat) * 9.5);
+  }
+
+  /* Compact desktop: the copy climbs to 12vh and the column narrows, so
+     the cloud comes in a little. Only the horizontal values — the
+     vertical proportions are tied to the headline and already scale. */
+  @media (max-width: 1199px) {
+    .cc {
+      /* Two numbers, and they pull in opposite directions: widening buys
+         room under the sub-copy but lowers the crown, because the height
+         comes from the width. So the cloud is both wider AND lifted. */
+      --cc-k: 1.18;
+      top: calc(var(--step-beat) * -2.16);
+      left: calc(var(--step-beat) * -1.05);
+    }
+  }
+</style>

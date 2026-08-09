@@ -1,0 +1,491 @@
+---
+/**
+ * Sky events — the things that HAPPEN, as opposed to the things that are
+ * always there.
+ *
+ * Four of them across the whole hero, and long quiet stretches in
+ * between. They are accents, and an accent that repeats is a texture.
+ *
+ * Everything here is drawn, not illustrated: silhouettes and vapour in
+ * the sky's own palette, sized as if they were far away. Nothing carries
+ * an outline, a face, or a colour the sky does not already have. The
+ * layer sits at z-index 2 — behind the devices and behind the near cloud
+ * bank — so an event can pass BEHIND the laptop or dissolve into a cloud
+ * instead of sliding over the top of the scene like a sticker.
+ *
+ * Placement was measured, not guessed. Sampling the stage every 2.5 % of
+ * the timeline gives two bands that are empty in every single beat:
+ *   · y 10–30vh across the full width (the copy starts at 34vh, the
+ *     header ends at ~9vh) — birds and the jet live here;
+ *   · x 0–33vw below y 54vh — the rocket climbs out of there.
+ * The only intrusions into the top band are the phone flying in
+ * (0.13–0.20) and the laptop and monitor leaving to the upper right
+ * (0.52, 0.67), and no event is scheduled near any of them.
+ *
+ * The motion is driven by src/scripts/sky-life.ts on its own clock, never
+ * by the scrub: a bird whose wings beat backwards when you scroll up is
+ * worse than no bird. Scroll position only decides WHEN each one starts.
+ */
+
+/* x offset in the flock, y offset, scale, flap period.
+   Irregular on every axis: a formation on a grid reads as a graphic. */
+const flockA = [
+  [0, 0, 1, 0.62],
+  [-3.4, 1.5, 0.82, 0.75],
+  [-5.6, -1.9, 0.9, 0.56],
+  [-9.1, 0.6, 0.7, 0.83],
+  [-12.4, 2.4, 0.62, 0.69],
+] as const;
+
+const flockB = [
+  [0, 0, 0.86, 0.58],
+  [-2.9, -1.6, 0.72, 0.71],
+  [-6.2, 0.9, 0.64, 0.64],
+] as const;
+---
+
+<div class="skyfx" aria-hidden="true">
+  {
+    [
+      ['birds-a', flockA],
+      ['birds-b', flockB],
+    ].map(([id, birds]) => (
+      <div class="flock" data-sky-event={id}>
+        {(birds as typeof flockA).map(([x, y, s, d]) => (
+          <span class="bird hit" data-bird style={`--bx:${x}em; --by:${y}em; --bs:${s}; --bd:${d}s`}>
+            <svg viewBox="0 0 24 9" preserveAspectRatio="none">
+              <path d="M1.2 7.4C4.8 1.5 8.2 1 12 5.2 15.8 1 19.2 1.5 22.8 7.4" />
+            </svg>
+          </span>
+        ))}
+      </div>
+    ))
+  }
+
+  <div class="jet" data-sky-event="jet">
+    <span class="jet__trail" data-jet-trail></span>
+    <span class="jet__craft hit" data-jet-craft>
+      <svg viewBox="0 0 48 24">
+        <path
+          d="M46 12 L28 10.4 L18 2 L14.4 3.2 L23.5 11 L8 11.2 L3 5.6 L1.4 6.6 L5.8 11.8 L2 12
+             L5.8 12.2 L1.4 17.4 L3 18.4 L8 12.8 L23.5 13 L14.4 20.8 L18 22 L28 13.6 Z"
+        />
+      </svg>
+    </span>
+  </div>
+
+  <div class="launch" data-sky-event="rocket">
+    <span class="launch__plume" data-launch-plume></span>
+    <span class="launch__glow"></span>
+    <span class="launch__craft hit" data-launch-craft>
+      <svg viewBox="0 0 12 34">
+        <path
+          d="M6 0.8C8.5 5.2 9.5 11 9.5 19v7.6l1.9 5.4-3.6-2h-3.6l-3.6 2 1.9-5.4V19C2.5 11 3.5 5.2 6 0.8Z"
+        />
+      </svg>
+    </span>
+  </div>
+</div>
+
+{/* Reactions.
+    ------------------------------------------------------------------
+    A fixed cast of nodes, reused for every reaction, sitting in their
+    own layer above the scene. Nothing is ever created or appended at
+    click time, so no amount of clicking can accumulate anything: a new
+    burst reuses the same eight puffs the last one used.
+
+    Absolute inside the sticky stage rather than fixed, because the stage
+    IS the pinned viewport box while the hero is on screen — same
+    coordinates, no dependency on whether some ancestor happens to be a
+    containing block. */}
+<div class="fx" data-fx aria-hidden="true">
+  <span class="fx__bubble" data-fx-bubble></span>
+  <span class="fx__ring" data-fx-ring></span>
+  <span class="fx__puffs" data-fx-puffs>
+    {Array.from({ length: 8 }, () => <i />)}
+  </span>
+</div>
+
+<style>
+  .skyfx {
+    position: absolute;
+    inset: 0;
+    /* Same layer as the mid cloud bank and after it in the DOM, so events
+       pass in front of the far sky and behind everything that matters.
+       There is no free integer between the mid bank (2) and the devices
+       (3), and there does not need to be. */
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .flock,
+  .jet,
+  .launch {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+
+  /* --- Touchable -----------------------------------------------------
+     Only the three silhouettes are clickable, and only while their event
+     is actually on screen: .is-live is added when it fires and removed
+     when it finishes. Without that gate the invisible parked elements
+     would be sitting there stealing clicks for the whole hero.
+
+     Everything else in the layer stays pointer-events: none, which
+     matters more than it sounds — the jet's contrail is 44vw wide and
+     the rocket's plume is 46vh tall. Either one taking clicks would put
+     a dead zone across the middle of the page.
+
+     The pad is the real hit target. The jet silhouette is 26 px and the
+     rocket is 12 px, both moving; asking someone to hit that is asking
+     them not to bother. 34 px of invisible margin makes it a fair catch
+     without making the reachable area obvious. */
+  [data-sky-event].is-live .hit {
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  .hit {
+    position: relative;
+    /* The individual `scale` property, NOT a transform.
+       GSAP owns `transform` on these nodes — the flock scatter, the jet's
+       shudder — and a CSS transition on a property being written every
+       frame smears it. `scale` composes with `transform` instead of
+       replacing it, so the hover cue and the reaction can share a node
+       without either one knowing about the other. */
+    transition: scale 220ms var(--ease-out);
+  }
+
+  .hit::after {
+    content: '';
+    position: absolute;
+    inset: -17px;
+  }
+
+  /* The jet and the rocket are one target each and they are the smallest
+     things on screen — 26 px and 12 px, both moving. The flock gets away
+     with less padding because it is five targets spread over ~190 px. */
+  .jet__craft::after,
+  .launch__craft::after {
+    inset: -23px;
+  }
+
+  /* The only invitation: it grows a little under the cursor. No
+     highlight, no ring, no tooltip — it should stay something you find,
+     not something you are told about. */
+  [data-sky-event].is-live .hit:hover {
+    scale: 1.28;
+  }
+
+  .bird.hit:hover {
+    scale: 1.35;
+  }
+
+  /* --- Birds ---------------------------------------------------------
+     Small, slate, and never black. A black bird on a #7dbcea sky is a
+     hole punched in the frame; this colour is the sky's own shadow value,
+     so they read as distance rather than as ink.
+
+     The flock is one moving node and the birds are placed inside it in em
+     units, so the whole formation scales with one font-size and the
+     spacing stays proportional. */
+  .flock {
+    font-size: 15px;
+    color: rgba(47, 82, 118, 0.5);
+  }
+
+  .bird {
+    position: absolute;
+    left: var(--bx);
+    top: var(--by);
+    display: block;
+    width: calc(1.5em * var(--bs));
+  }
+
+  /* The flap lives on the SVG, not on .bird.
+     A CSS animation on `transform` owns that property outright, so with
+     the flap on .bird there was nowhere left to put the scatter when the
+     flock gets startled. One node, one transform — the same rule the
+     devices follow. */
+  .bird svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    /* Each bird beats on its own period AND its own phase. In unison they
+       stop being five birds and become one shape opening and closing. */
+    animation: flap var(--bd) ease-in-out infinite;
+    animation-delay: calc(var(--bd) * -0.37 * var(--bs) * 7);
+  }
+
+  /* Startled: the wings go about twice as fast. Re-timing a running
+     animation does not restart it, so the beat speeds up mid-stroke
+     rather than snapping back to wings-up. */
+  .flock.is-startled .bird svg {
+    animation-duration: calc(var(--bd) * 0.46);
+  }
+
+  /* Wings down is a wider, flatter chevron; wings up is a deeper one. The
+     slight lift on the downbeat is what makes it read as effort. */
+  @keyframes flap {
+    0%,
+    100% {
+      transform: scaleY(1);
+    }
+    50% {
+      transform: scaleY(0.36) translateY(0.06em);
+    }
+  }
+
+  /* --- Jet -----------------------------------------------------------
+     26 px across at cruising altitude: roughly what an airliner actually
+     looks like from the ground, which is the whole point. Big enough to
+     recognise, small enough that it never becomes the subject. */
+  .jet {
+    width: 26px;
+    color: rgba(52, 88, 124, 0.42);
+  }
+
+  .jet__craft svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    fill: currentColor;
+  }
+
+  /* The contrail is the event, really — the aircraft is just what is
+     drawing it. It hangs off the tail and is scaled out from that end by
+     the timeline, so it appears to be produced rather than revealed. */
+  .jet__trail {
+    position: absolute;
+    right: 92%;
+    top: 50%;
+    width: 44vw;
+    height: 2.4px;
+    margin-top: -1.2px;
+    border-radius: 2px;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.22) 34%,
+      rgba(255, 255, 255, 0.62) 100%
+    );
+    filter: blur(1.6px);
+    transform-origin: 100% 50%;
+    transform: scaleX(0);
+  }
+
+  /* --- Rocket --------------------------------------------------------
+     The one element here that could go wrong, so it is built as the thing
+     a launch actually looks like from far away: not a cartoon with a
+     flame, but a bright speck on top of a long column of vapour that
+     widens and comes apart as it falls behind. That image is genuinely
+     beautiful and it is entirely made of the sky's own white.
+
+     No flames, no windows, no fins beyond the two the silhouette needs to
+     read as a rocket at 26 px tall. */
+  .launch {
+    width: 12px;
+  }
+
+  .launch__craft svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    fill: #fbfdff;
+    stroke: rgba(44, 76, 110, 0.34);
+    stroke-width: 0.7;
+  }
+
+  /* Narrow and bright where it leaves the engine, wide and gone by the
+     bottom — the column is a record of where the rocket has been, and the
+     oldest part of it has had the longest to disperse. */
+  .launch__plume {
+    position: absolute;
+    left: 50%;
+    top: 88%;
+    width: 130px;
+    height: 46vh;
+    margin-left: -65px;
+    clip-path: polygon(46.5% 0%, 53.5% 0%, 100% 100%, 0% 100%);
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.62) 0%,
+      rgba(255, 255, 255, 0.32) 26%,
+      rgba(255, 255, 255, 0.13) 58%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    filter: blur(6px);
+    transform-origin: 50% 0%;
+    transform: scaleY(0);
+  }
+
+  .launch__glow {
+    position: absolute;
+    left: 50%;
+    top: 84%;
+    width: 30px;
+    height: 30px;
+    margin-left: -15px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 226, 178, 0.75) 0%,
+      rgba(255, 210, 150, 0.28) 42%,
+      rgba(255, 210, 150, 0) 72%
+    );
+    filter: blur(2px);
+  }
+
+  /* =================================================================
+     Reactions
+     =================================================================
+     Restraint is the whole brief here. Everything below is white, soft
+     and gone inside a second — the joke is that the sky answers back at
+     all, not how loudly.
+     ================================================================= */
+  .fx {
+    position: absolute;
+    inset: 0;
+    /* Above the scene, below the header. Never takes a click: the layer
+       reacts to interaction, it does not receive it. */
+    z-index: 55;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .fx__bubble,
+  .fx__ring,
+  .fx__puffs {
+    position: absolute;
+    left: 0;
+    top: 0;
+    will-change: transform, opacity;
+  }
+
+  /* Only these two start hidden, because these two are what the timeline
+     animates. The puff HOST must not: it is a zero-sized anchor and the
+     eight blobs inside it are what fade in and out. It was in this rule
+     to begin with, and an opacity-0 parent hides children no matter what
+     their own opacity says — the puffs were being animated perfectly and
+     painting nothing, on the jet AND on the rocket. */
+  .fx__bubble,
+  .fx__ring {
+    opacity: 0;
+  }
+
+  /* --- Speech bubble -------------------------------------------------
+     Deadpan on purpose. Geist at 600, tight tracking, a hairline border
+     and almost no shadow: the same card language as the rest of the
+     site, just very small and saying something it should not. A comic
+     bubble with a fat tail would make it a cartoon; this makes it a
+     remark. */
+  .fx__bubble {
+    padding: 0.5rem 0.78rem 0.54rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.9) inset,
+      0 0 0 1px rgba(29, 111, 192, 0.14),
+      0 12px 26px -14px rgba(20, 60, 100, 0.45);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    line-height: 1.25;
+    white-space: nowrap;
+    color: var(--ink);
+    /* Both the tail and the origin of the pop follow --tail, written by
+       sky-life.ts: the bubble grows out of the point that was clicked
+       rather than out of a fixed corner. */
+    transform-origin: var(--tail, 16%) 100%;
+  }
+
+  /* The tail: a small rotated square, not a drawn triangle, so it picks
+     up the same border and shadow as the body for free. */
+  .fx__bubble::after {
+    content: '';
+    position: absolute;
+    left: var(--tail, 16%);
+    bottom: -4px;
+    width: 9px;
+    height: 9px;
+    background: inherit;
+    border-right: 1px solid rgba(29, 111, 192, 0.14);
+    border-bottom: 1px solid rgba(29, 111, 192, 0.14);
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  /* Clicked something too close to the top of the frame: the bubble goes
+     underneath and the tail turns over. */
+  .fx__bubble.is-under {
+    transform-origin: var(--tail, 16%) 0%;
+  }
+
+  .fx__bubble.is-under::after {
+    bottom: auto;
+    top: -4px;
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 1px solid rgba(29, 111, 192, 0.14);
+    border-top: 1px solid rgba(29, 111, 192, 0.14);
+  }
+
+  /* --- Vapour puffs --------------------------------------------------
+     Eight soft blobs, reused. Not particles and not smoke: no dark
+     values, no hard edges, and they inherit the same warm white the
+     clouds are made of, so a puff reads as a bit of the sky briefly
+     coming loose. */
+  .fx__puffs i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 34px;
+    height: 34px;
+    margin: -17px 0 0 -17px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 42% 38%,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.78) 34%,
+      rgba(238, 245, 251, 0.4) 62%,
+      rgba(226, 236, 245, 0.12) 82%,
+      rgba(226, 236, 245, 0) 100%
+    );
+    /* Blurred so the eight of them fuse into ONE puff of vapour. Without
+       it they stay eight readable circles, which is a bubble bath, not a
+       cloud. */
+    filter: blur(3px);
+    opacity: 0;
+  }
+
+  /* --- Shock ring ----------------------------------------------------
+     The rocket's alone. A single expanding hairline: it says "something
+     just happened here" in one gesture and is gone in 600 ms. */
+  .fx__ring {
+    width: 26px;
+    height: 26px;
+    margin: -13px 0 0 -13px;
+    border-radius: 50%;
+    border: 1.6px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.55);
+  }
+
+  /* Under 1020 the whole choreography is simplified and the copy moves up
+     into the band these events use. They would be crossing the headline,
+     so they do not run at all — see sky-life.ts, which is only built for
+     the full experience. This is the visual half of the same decision. */
+  @media (max-width: 1019px) {
+    .skyfx,
+    .fx {
+      display: none;
+    }
+  }
+</style>
