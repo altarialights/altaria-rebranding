@@ -108,6 +108,7 @@ const icons: Record<string, string> = {
   .card {
     position: absolute;
     width: 24%;
+    z-index: 5;
     display: flex;
     flex-direction: column;
     border-radius: 16px;
@@ -160,7 +161,9 @@ const icons: Record<string, string> = {
 
   .card:hover,
   .card:focus-within {
-    z-index: 20;
+    /* The explanation panel is allowed to cross the central business,
+       but must always paint as an intentional foreground layer. */
+    z-index: 30;
   }
 
   .card:hover,

@@ -252,6 +252,16 @@ const flockB = [
     color: rgba(52, 88, 124, 0.42);
   }
 
+  /* GSAP pitches this node after the click. It must be a transformable
+     box: as a plain inline span the rotation value existed in the style
+     attribute but the browser did not paint it. The pivot sits just aft
+     of centre so the nose follows the falling trajectory naturally. */
+  .jet__craft {
+    display: block;
+    transform-origin: 56% 50%;
+    will-change: transform;
+  }
+
   .jet__craft svg {
     display: block;
     width: 100%;

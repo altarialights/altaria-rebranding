@@ -9,7 +9,7 @@ causa del parpadeo que se corrigió en v7 están en
 [`docs/produccion/ARQUITECTURA-3D-DISPOSITIVOS.md`](docs/produccion/ARQUITECTURA-3D-DISPOSITIVOS.md).
 
 > **Higgsfield no ha sido invocado en ningún momento.** Cero generaciones,
-> cero créditos. Todas las nubes son *placeholders* en CSS, claramente
+> cero créditos. Todas las nubes son _placeholders_ en CSS, claramente
 > marcados y sustituibles sin reescribir componentes.
 
 ---
@@ -109,13 +109,13 @@ docs/produccion/
 
 ### Dónde está cada cosa
 
-| Qué | Dónde |
-|---|---|
-| **Todo el copy** | `src/data/hero.ts` |
-| **Reel** | `public/media/reel-altaria.mp4` (+ `reel-poster.jpg`) |
-| **Capturas de revisión** | `review/` |
-| **Tipografía de cuerpo** | `public/fonts/geist-variable.woff2` |
-| **Tipografía de display** | `public/fonts/Puffy.woff2` |
+| Qué                        | Dónde                                                             |
+| -------------------------- | ----------------------------------------------------------------- |
+| **Todo el copy**           | `src/data/hero.ts`                                                |
+| **Reel**                   | `public/media/reel-altaria.mp4` (+ `reel-poster.jpg`)             |
+| **Capturas de revisión**   | `review/`                                                         |
+| **Tipografía de cuerpo**   | `public/fonts/geist-variable.woff2`                               |
+| **Tipografía de display**  | `public/fonts/Puffy.woff2`                                        |
 | **Captura de De Zamorano** | `public/media/dezamorano-home.png` — **aún no existe**, ver abajo |
 
 ---
@@ -134,17 +134,18 @@ decoración.
 ```css
 /* src/styles/fonts.css */
 @font-face {
-  font-family: 'Puffy';
-  src: url('/fonts/Puffy.woff2') format('woff2');
-  font-weight: 100 900;   /* ver abajo */
-  font-display: swap;
+    font-family: "Puffy";
+    src: url("/fonts/Puffy.woff2") format("woff2");
+    font-weight: 100 900; /* ver abajo */
+    font-display: swap;
 }
 ```
 
 ```css
 /* src/styles/tokens.css */
---font-display: 'Puffy', 'Altaria Cloud', 'Arial Black', 'Geist Variable', sans-serif;
---ink-navy: #0f2c56;      /* color de los titulares de beat */
+--font-display:
+    "Puffy", "Altaria Cloud", "Arial Black", "Geist Variable", sans-serif;
+--ink-navy: #0f2c56; /* color de los titulares de beat */
 ```
 
 Tres cosas que conviene no deshacer:
@@ -200,11 +201,11 @@ sin barra de scroll.
 Los cuatro planos viven en `src/components/hero/CloudLayers.astro` y cada uno
 lleva su `data-asset`:
 
-| Plano | Asset | Papel |
-|---|---|---|
-| `.plane--near` | **HG-01** | Banco frontal, **por delante** de los dispositivos |
-| `.plane--mid` | **HG-02** | Término medio |
-| `.plane--far` | **HG-03** | Cirros lejanos |
+| Plano          | Asset     | Papel                                                    |
+| -------------- | --------- | -------------------------------------------------------- |
+| `.plane--near` | **HG-01** | Banco frontal, **por delante** de los dispositivos       |
+| `.plane--mid`  | **HG-02** | Término medio                                            |
+| `.plane--far`  | **HG-03** | Cirros lejanos                                           |
 | `.plane--exit` | **HG-04** | Banco por el que el hero sale hacia la siguiente sección |
 
 Cada plano son **dos nodos**: `.plane` lleva el parallax de scroll y
@@ -213,11 +214,11 @@ del interior**:
 
 ```css
 .plane--near .plane__body {
-  /* placeholder CSS eliminado */
-  background-image: url('/media/clouds/hg-01.avif');
-  background-size: cover;
-  background-position: bottom center;
-  filter: none;                /* el asset ya trae su propio detalle */
+    /* placeholder CSS eliminado */
+    background-image: url("/media/clouds/hg-01.avif");
+    background-size: cover;
+    background-position: bottom center;
+    filter: none; /* el asset ya trae su propio detalle */
 }
 ```
 
@@ -258,12 +259,12 @@ competiría con el titular.
 
 **Cuatro eventos puntuales**, repartidos y separados por silencios largos:
 
-| Progreso | Qué | Dónde |
-|---|---|---|
-| 0,09 | Bandada de cinco, de derecha a izquierda | 15vh, escenario vacío |
-| 0,31 | Avión lejano con estela | 14vh, entre dos titulares |
-| 0,58 | Tres pájaros, más pequeños y al revés | 13vh |
-| 0,77 | Cohete | Sube por el cuadrante inferior izquierdo |
+| Progreso | Qué                                      | Dónde                                    |
+| -------- | ---------------------------------------- | ---------------------------------------- |
+| 0,09     | Bandada de cinco, de derecha a izquierda | 15vh, escenario vacío                    |
+| 0,31     | Avión lejano con estela                  | 14vh, entre dos titulares                |
+| 0,58     | Tres pájaros, más pequeños y al revés    | 13vh                                     |
+| 0,77     | Cohete                                   | Sube por el cuadrante inferior izquierdo |
 
 La colocación está medida, no estimada: muestreando el escenario cada 2,5 % de
 la timeline salen dos franjas vacías en **todos** los beats — la banda 10–30vh
@@ -280,11 +281,11 @@ por debajo de 1020 px no existen.
 Un easter egg, no una función. No se anuncia en ninguna parte: la única pista
 es que el elemento crece un poco bajo el cursor.
 
-| Elemento | Reacción |
-|---|---|
-| Pájaros | Bocadillo «EY. CON LOS PÁJAROS NO.», la formación se rompe, baten más rápido y se van al doble y medio de velocidad |
-| Avión | Estalla una nube de vapor **encima**, la estela se deshace, y el avión entra en pérdida y cae en media parábola hasta perderse en el banco de nubes |
-| Cohete | Aro de vapor que se expande, ocho nubecillas, la columna se ensancha un instante y sale disparado |
+| Elemento | Reacción                                                                                                                                            |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pájaros  | Bocadillo «CUIDADO QUE LOS ASUSTAS!», la formación se rompe, baten más rápido y se van al doble y medio de velocidad                                |
+| Avión    | Estalla una nube de vapor **encima**, la estela se deshace, y el avión entra en pérdida y cae en media parábola hasta perderse en el banco de nubes |
+| Cohete   | Aro de vapor que se expande, ocho nubecillas, la columna se ensancha un instante y sale disparado                                                   |
 
 Y si alguien los toca los tres, un momento después: «Eso no estaba en el
 briefing.» Una sola vez por carga.
@@ -307,7 +308,7 @@ Detalles que lo sostienen:
   superficie de render y la destruiría dos segundos después — el mismo ciclo
   que causaba el parpadeo de v5.
 - **El barrido es un degradado recortado a las letras**, así que la luz pasa
-  *por dentro* de los glifos. Como eso deja el texto transparente, el
+  _por dentro_ de los glifos. Como eso deja el texto transparente, el
   resplandor va con `drop-shadow` y no con `text-shadow`, que lo imprimiría
   dentro de las letras.
 - **Solo la primera vez.** Después el sol responde únicamente con un pulso.
@@ -334,11 +335,11 @@ Tres reglas sostienen todo esto:
 
 ## Depuración
 
-| Tecla | Capa |
-|---|---|
-| **`B`** | Cajas de asset: rectángulos de HG-01/02/03/04 con dimensiones en vivo |
+| Tecla   | Capa                                                                                                                                                            |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`B`** | Cajas de asset: rectángulos de HG-01/02/03/04 con dimensiones en vivo                                                                                           |
 | **`G`** | HUD de escena: progreso, beat, rotaciones X/Y/Z de ambos dispositivos, ángulo de tapa, progreso de entrada, estado del reel y del scroll interno de De Zamorano |
-| **`F`** | Caras 3D: tiñe cada superficie de los dos sólidos, para ver cuáles existen y cuál está pintando el renderer |
+| **`F`** | Caras 3D: tiñe cada superficie de los dos sólidos, para ver cuáles existen y cuál está pintando el renderer                                                     |
 
 También por URL: `?boxes=1`, `?hud=1` y `?faces=1`. Ocultas por defecto, así que
 las capturas salen limpias.

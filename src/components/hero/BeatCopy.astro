@@ -9,6 +9,17 @@ interface Props {
 }
 const { id, title, sub, variant } = Astro.props;
 
+/* The cloud width is also the ruler used to centre the copy. Keeping the
+   factor here means the graphic and its text can never drift apart when
+   a headline changes length. */
+const CLOUD_WIDTH_FACTOR: Record<Props['variant'], number> = {
+  1: 9.4,
+  2: 9.84,
+  3: 9.3,
+  4: 9.1,
+  5: 9.7,
+};
+
 /**
  * One service message: its cloud, its headline, its line of copy.
  *
@@ -18,17 +29,70 @@ const { id, title, sub, variant } = Astro.props;
  */
 ---
 
-<div class="beat" data-beat-copy={id} data-obj={`copy-${id}`}>
+<div
+  class="beat"
+  data-beat-copy={id}
+  data-obj={`copy-${id}`}
+  style={`--cc-w: calc(var(--step-beat) * ${CLOUD_WIDTH_FACTOR[variant]});`}
+>
   <CopyCloud variant={variant} />
 
-  <h2 class="beat__title">
-    {
-      title.map((line) => (
-        <span class="ln">
-          <span data-beat-line>{line}</span>
-        </span>
-      ))
-    }
-  </h2>
-  <p class="beat__sub" data-beat-sub>{sub}</p>
+  <div class="beat__content">
+    <h2 class="beat__title">
+      {
+        title.map((line) => (
+          <span class="ln">
+            <span data-beat-line>{line}</span>
+          </span>
+        ))
+      }
+    </h2>
+    <p class="beat__sub" data-beat-sub>{sub}</p>
+  </div>
 </div>
+
+<style>
+  .beat {
+    --cc-k: 1;
+    --cc-left: calc(var(--step-beat) * -1.3);
+    --cc-copy-y: 0.2;
+  }
+
+  .beat[data-beat-copy='web'] {
+    --cc-copy-y: 0.57;
+  }
+
+  .beat[data-beat-copy='growth'] {
+    --cc-copy-y: 0.9;
+  }
+
+  /* Keep the copy left-aligned internally, but centre the whole group on
+     the cloud. max-content uses the longest real line as the group width,
+     so short and long headlines receive balanced side padding alike. */
+  @media (min-width: 1020px) {
+    .beat__content {
+      position: relative;
+      left: calc(var(--cc-left) + var(--cc-w) * var(--cc-k) * 0.5);
+      width: max-content;
+      transform: translate(-50%, calc(var(--step-beat) * var(--cc-copy-y)));
+    }
+  }
+
+  @media (min-width: 1020px) and (max-width: 1199px) {
+    .beat {
+      --cc-k: 1.18;
+      --cc-left: calc(var(--step-beat) * -1.05);
+    }
+
+    .beat[data-beat-copy='web'] {
+      --cc-copy-y: 0.72;
+    }
+
+    .beat[data-beat-copy='growth'] {
+      /* The left-most Contacto card is the limiting edge in the complete
+         ring. This compact width leaves a permanent safety corridor. */
+      --cc-w: calc(var(--step-beat) * 9.35);
+      --cc-copy-y: 0.85;
+    }
+  }
+</style>

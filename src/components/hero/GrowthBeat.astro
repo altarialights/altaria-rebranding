@@ -3,6 +3,11 @@ import { growthBeat, flow } from '../../data/hero';
 import BeatCopy from './BeatCopy.astro';
 import FlowNode from './FlowNode.astro';
 
+const networkPoints = [
+  [50, 0], [79.389, 9.549], [97.553, 34.549], [97.553, 65.451], [79.389, 90.451],
+  [50, 100], [20.611, 90.451], [2.447, 65.451], [2.447, 34.549], [20.611, 9.549],
+] as const;
+
 /**
  * Beat 3 — the connected system.
  *
@@ -22,10 +27,29 @@ import FlowNode from './FlowNode.astro';
   <div class="obj__float" data-float="flow">
     <div class="flow" data-flow-cluster>
       <!-- A soft aura where the ring is, so the middle of the circle is
-           not a hole. It is the only thing left in the centre now that the
-           connectors are gone, and it does the job a drawn line was doing
-           badly: giving the composition a centre of gravity. -->
+           luminous without turning into a hard interface panel. -->
       <span class="flow__aura" data-flow-aura aria-hidden="true"></span>
+
+      <!-- Pure CSS network: the local image supplies only the business;
+           every orbit, curved line and luminous point remains live UI. -->
+      <div class="flow__network" aria-hidden="true">
+        <span class="flow__orbit flow__orbit--outer" data-flow-orbit>
+          {
+            networkPoints.map(([x, y], i) => (
+              <span class:list={['flow__point', i % 2 === 0 && 'flow__point--key']} style={`--x:${x}%;--y:${y}%`} data-flow-point></span>
+            ))
+          }
+        </span>
+        <span class="flow__orbit flow__orbit--middle" data-flow-orbit></span>
+        <span class="flow__orbit flow__orbit--inner" data-flow-orbit></span>
+      </div>
+
+      <figure class="flow__core" aria-hidden="true">
+        <span class="flow__core-body" data-flow-core>
+          <span class="flow__core-glow"></span>
+          <img src="/media/centro-nodos.png" alt="" width="1536" height="1024" decoding="async" />
+        </span>
+      </figure>
 
       {flow.map((node, i) => <FlowNode node={node} index={i} />)}
     </div>
@@ -57,6 +81,7 @@ import FlowNode from './FlowNode.astro';
   .flow {
     position: relative;
     aspect-ratio: 900 / 820;
+    isolation: isolate;
     /* The cards settle out of a slight backward tilt; without a
        perspective here that rotationX would just squash them. */
     perspective: 1600px;
@@ -80,5 +105,127 @@ import FlowNode from './FlowNode.astro';
       rgba(190, 222, 249, 0.36) 46%,
       rgba(190, 222, 249, 0) 70%
     );
+    z-index: 0;
+  }
+
+  .flow__network {
+    position: absolute;
+    inset: 2%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .flow__orbit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border: 1px solid rgba(245, 251, 255, 0.78);
+    border-radius: 50%;
+    box-shadow:
+      0 0 14px rgba(255, 255, 255, 0.28),
+      inset 0 0 18px rgba(91, 168, 224, 0.08);
+    opacity: 0;
+  }
+
+  .flow__orbit--outer {
+    width: 91%;
+    aspect-ratio: 1.08;
+    transform: translate(-50%, -50%) rotate(7deg);
+  }
+
+  .flow__orbit--middle {
+    width: 72%;
+    aspect-ratio: 1.2;
+    transform: translate(-50%, -50%) rotate(-9deg);
+    border-color: rgba(230, 246, 255, 0.64);
+  }
+
+  .flow__orbit--inner {
+    width: 54%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%) rotate(14deg);
+    border-color: rgba(255, 255, 255, 0.72);
+  }
+
+  .flow__point {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: clamp(5px, 0.75vw, 11px);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow:
+      0 0 0 4px rgba(255, 255, 255, 0.08),
+      0 0 18px 5px rgba(255, 255, 255, 0.55);
+    opacity: 0;
+  }
+
+  .flow__point--key {
+    width: clamp(7px, 0.95vw, 14px);
+    background: #fff;
+  }
+
+  .flow__core {
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    width: 45%;
+    aspect-ratio: 1;
+    margin: 0;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .flow__core-body {
+    position: absolute;
+    inset: 0;
+    display: block;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  .flow__core-glow {
+    position: absolute;
+    inset: 18% 8% 5%;
+    border-radius: 50%;
+    background: radial-gradient(
+      ellipse at 50% 58%,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(216, 239, 255, 0.58) 36%,
+      rgba(125, 188, 234, 0) 72%
+    );
+    filter: blur(12px);
+  }
+
+  .flow__core img {
+    position: absolute;
+    left: 50%;
+    top: 49%;
+    width: 188%;
+    max-width: none;
+    height: auto;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 22px 20px rgba(31, 92, 145, 0.18));
+  }
+
+  @media (max-width: 1199px) and (min-width: 1020px) {
+    .flow__core {
+      width: 42%;
+    }
+
+    .flow__orbit--outer {
+      width: 88%;
+    }
+  }
+
+  /* The compact choreography stays exactly as it was. */
+  @media (max-width: 1019px) {
+    .flow__network,
+    .flow__core {
+      display: none;
+    }
   }
 </style>

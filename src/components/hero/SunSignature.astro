@@ -1,27 +1,15 @@
 ---
 import { sunSignature } from '../../data/hero';
 
+const sparkles = [
+  [8, 22], [14, 68], [23, 34], [31, 82], [39, 18], [48, 72], [57, 25],
+  [64, 79], [71, 37], [78, 67], [84, 29], [89, 57], [94, 76], [54, 12],
+] as const;
+
 /**
- * The sun, and what happens if you press it.
- *
- * The quietest of the easter eggs and the only one that is about the
- * studio rather than about the weather. The birds, the jet and the rocket
- * are jokes; this one is a signature. It gets no bubble, no card and no
- * panel — the brief for it was that the SKY becomes the place the message
- * appears, and a container of any kind would turn a moment into a
- * notification.
- *
- * Three parts:
- *   .sun-hit    an invisible disc over the sun. Sits below the header on
- *               purpose: from 1440 down the sun's centre is behind the
- *               capsule, and letting the header occlude the top of the
- *               disc costs a sliver of hit area and keeps the "Hablemos"
- *               button working. The rest of the disc is always clear.
- *   .sun-core   the halo's reaction. A warm disc that lives at the sun
- *               and only exists to have something small to animate — the
- *               real sun gradient is a full-bleed layer and cannot be
- *               scaled without moving the sun across the sky.
- *   .sig        the veil and the two lines.
+ * The sun easter egg lives above the hero scene and below the header.
+ * Its atmosphere is painted CSS: it never changes opacity on a parent of
+ * the CSS 3D devices and never competes with the master scroll timeline.
  */
 ---
 
@@ -29,42 +17,59 @@ import { sunSignature } from '../../data/hero';
   <span class="sun-core" data-sun-core aria-hidden="true"></span>
   <button class="sun-hit" data-sun-hit type="button" aria-label={sunSignature.label}></button>
 
-  <!-- The sky deepening around the message. Not a scrim: it is a soft
-       radial that is strongest where the words are and gone by the edges,
-       so it reads as light gathering rather than as an overlay. -->
-  <span class="sig__veil" data-sig-veil aria-hidden="true"></span>
+  <div class="sig__atmosphere" aria-hidden="true">
+    <span class="sig__veil" data-sig-veil></span>
+    <span class="sig__rays" data-sig-rays></span>
+    <span class="sig__flare" data-sig-flare></span>
+    <span class="sig__mist" data-sig-mist></span>
+
+    <span class="sig__cloud sig__cloud--left" data-sig-cloud></span>
+    <span class="sig__cloud sig__cloud--right" data-sig-cloud></span>
+    <span class="sig__cloud sig__cloud--bottom" data-sig-cloud></span>
+
+    <span class="sig__sparkles">
+      {
+        sparkles.map(([x, y], index) => (
+          <i style={`--sx:${x}%;--sy:${y}%;--delay:${(index % 5) * 0.13}s`} data-sig-particle></i>
+        ))
+      }
+    </span>
+  </div>
 
   <p class="sig" data-sig role="status" aria-live="polite">
     <span class="sig__intro" data-sig-intro>{sunSignature.intro}</span>
-    <span class="sig__line" data-sig-line>{sunSignature.line}</span>
+    <span class="sig__line" data-sig-line>
+      {sunSignature.line.map((row) => <span class="sig__line-row">{row}</span>)}
+    </span>
   </p>
+
+  <span class="sig__bubble" data-sig-bubble role="status">{sunSignature.encore}</span>
 </div>
 
 <style>
   .sun-layer {
     position: absolute;
     inset: 0;
-    /* Above the scene and the reaction layer, below the header. */
     z-index: 57;
     pointer-events: none;
   }
 
-  /* --- The sun's own reaction ---------------------------------------- */
   .sun-core {
     position: absolute;
     left: var(--sun-x);
     top: var(--sun-y);
-    width: 220px;
-    height: 220px;
-    margin: -110px 0 0 -110px;
+    z-index: 8;
+    width: clamp(220px, 18vw, 360px);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%) scale(0.86);
     border-radius: 50%;
     opacity: 0;
     background: radial-gradient(
       circle,
-      rgba(255, 253, 246, 0.9) 0%,
-      rgba(255, 244, 214, 0.5) 22%,
-      rgba(255, 233, 189, 0.22) 46%,
-      rgba(255, 233, 189, 0) 72%
+      rgba(255, 255, 248, 0.98) 0%,
+      rgba(255, 247, 218, 0.64) 20%,
+      rgba(255, 229, 171, 0.24) 48%,
+      rgba(255, 229, 171, 0) 72%
     );
     will-change: transform, opacity;
   }
@@ -73,6 +78,7 @@ import { sunSignature } from '../../data/hero';
     position: absolute;
     left: var(--sun-x);
     top: var(--sun-y);
+    z-index: 12;
     width: 176px;
     height: 176px;
     margin: -88px 0 0 -88px;
@@ -80,8 +86,6 @@ import { sunSignature } from '../../data/hero';
     border: 0;
     border-radius: 50%;
     background: none;
-    /* The only affordance is the cursor, and you have to be on it to see
-       that. Nothing about the sun says "button" until you touch it. */
     cursor: pointer;
     pointer-events: auto;
     -webkit-tap-highlight-color: transparent;
@@ -92,163 +96,271 @@ import { sunSignature } from '../../data/hero';
     outline-offset: 4px;
   }
 
-  /* The disc reaches down to about 16vh, which is the lane the jet and
-     the second flock fly through — they would be uncatchable while they
-     crossed it. Whatever is passing wins: it is the thing that is about
-     to be gone, and the sun is not going anywhere. sky-life.ts owns the
-     flag.
-
-     `:global()` on the ancestor because it is the stage, which belongs to
-     another component: Astro scopes every compound in a selector, so a
-     plain `[data-sky-busy] .sun-hit` compiles to a rule that requires the
-     stage to carry THIS component's scope id, and silently never
-     matches. */
   :global([data-sky-busy]) .sun-hit {
     pointer-events: none;
   }
 
-  /* --- The message ---------------------------------------------------- */
-  /* The veil is what makes the moment legible, and it is a PAINTED layer
-     for a reason: dimming the scene by tweening opacity on an ancestor of
-     the devices would wrap four preserve-3d subtrees in a render surface
-     and tear it down again two seconds later — the exact create/destroy
-     cycle that caused the v5 face flicker. A wash costs nothing and
-     touches no 3D sorting.
+  .sig__atmosphere {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+  }
 
-     Three stacked washes, and the coverage is deliberate: the first pass
-     of this was far too transparent and the scene went on competing with
-     the sentence — you could still read the headline and count the keys
-     on the laptop. This is the sky itself thickening until it is nearly
-     all you can see.
-
-       · a broad white-blue FOG, which is what takes the detail out of
-         whatever is underneath without darkening it;
-       · the sky's own blue over the top, deepest behind the words;
-       · a soft luminous bloom right where the sentence lands, so the
-         white type sits in light rather than on a flat field.
-
-     Blue and luminous, never grey and never black — three layers of
-     weather, not a modal scrim. And no backdrop-filter: reading the
-     backdrop through a filter would pull four preserve-3d subtrees into
-     a render surface, which is the one thing this project does not do. */
   .sig__veil {
     position: absolute;
     inset: 0;
     opacity: 0;
     background:
       radial-gradient(
-        ellipse 44% 32% at 57% 46%,
-        rgba(255, 255, 255, 0.22) 0%,
-        rgba(255, 255, 255, 0.08) 52%,
-        rgba(255, 255, 255, 0) 80%
+        circle 30vw at var(--sun-x) var(--sun-y),
+        rgba(255, 252, 224, 0.34) 0%,
+        rgba(125, 201, 255, 0.2) 28%,
+        rgba(34, 119, 203, 0) 72%
       ),
       radial-gradient(
-        ellipse 78% 66% at 57% 46%,
-        rgba(19, 64, 118, 0.8) 0%,
-        rgba(19, 64, 118, 0.72) 44%,
-        rgba(23, 76, 136, 0.6) 74%,
-        rgba(25, 82, 144, 0.52) 100%
+        ellipse 72% 70% at 50% 47%,
+        rgba(23, 104, 190, 0.78) 0%,
+        rgba(8, 70, 154, 0.88) 62%,
+        rgba(4, 44, 112, 0.96) 100%
       ),
-      linear-gradient(to bottom, rgba(28, 92, 158, 0.3), rgba(21, 70, 126, 0.34));
+      linear-gradient(145deg, rgba(5, 55, 137, 0.94), rgba(15, 105, 193, 0.9));
     will-change: opacity;
   }
 
-  /* Right of centre, clear of the headline column that runs 7–47vw in
-     every beat. It still crosses whatever device is on stage — there is
-     no gap in this composition wide enough for a five-word line — which
-     is what the veil is for. */
-  .sig {
+  .sig__rays,
+  .sig__flare {
     position: absolute;
-    left: 57%;
-    top: 46%;
-    transform: translate(-50%, -50%);
-    margin: 0;
-    width: max-content;
-    max-width: 88vw;
-    /* Left-aligned, not centred. Centring hangs the small line in the
-       middle of the block, which at 1920 is exactly where the phone is —
-       the credit disappeared onto a lit screen. Sitting it on the
-       shoulder of the big line also just reads better: a signature, not
-       a caption. */
-    text-align: left;
-    display: grid;
-    justify-items: start;
-    gap: 0.5rem;
-  }
-
-  /* Small, spaced, in the body sans: this is the credit line, not the
-     headline. It arrives first and gets out of the way. */
-  .sig__intro {
-    display: block;
+    left: var(--sun-x);
+    top: var(--sun-y);
+    border-radius: 50%;
     opacity: 0;
-    font-size: clamp(0.72rem, 0.62rem + 0.36vw, 0.98rem);
-    font-weight: 600;
-    letter-spacing: 0.3em;
-    text-indent: 0.3em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.9);
-    text-shadow: 0 2px 14px rgba(30, 74, 120, 0.5);
     will-change: transform, opacity;
   }
 
-  /* The protagonist. Puffy, big, and lit rather than coloured.
-     ------------------------------------------------------------------
-     The warm sweep is a gradient clipped to the glyphs, so the light
-     genuinely travels THROUGH the letters instead of a highlight sliding
-     over the top of them. Because that makes the text itself
-     transparent, the glow has to come from `filter: drop-shadow`, which
-     works off what was actually painted — a `text-shadow` would print
-     the halo inside the letterforms and turn them to mud. */
-  /* THE ACCENT BUG LIVED HERE.
-     `background-clip: text` paints the gradient only inside the element's
-     PADDING BOX and the glyphs are transparent, so any part of a letter
-     that sticks out of that box is not drawn at all — it does not get
-     clipped, it never gets painted. With line-height 1.02 the acute on
-     the Í of "TENÍA" rises straight out of the box and vanishes.
-     The padding is the fix, and it is generous on purpose: 0.3em of
-     headroom clears an acute over a cap, a diaeresis, and the tilde of an
-     Ñ with room to spare, for any sentence written here in future. The
-     negative margin gives the space back to the layout. */
-  .sig__line {
+  .sig__rays {
+    width: 105vmax;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%) rotate(-10deg) scale(0.82);
+    background: repeating-conic-gradient(
+      from 8deg,
+      rgba(255, 251, 221, 0.16) 0deg,
+      rgba(255, 251, 221, 0.03) 1.4deg,
+      rgba(255, 251, 221, 0) 4deg,
+      rgba(255, 251, 221, 0) 17deg
+    );
+    -webkit-mask-image: radial-gradient(circle, #000 0 5%, rgba(0, 0, 0, 0.82) 17%, transparent 61%);
+    mask-image: radial-gradient(circle, #000 0 5%, rgba(0, 0, 0, 0.82) 17%, transparent 61%);
+  }
+
+  .sig__flare {
+    width: min(58vw, 940px);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%) scale(0.82);
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 248, 0.88) 0%,
+      rgba(255, 245, 203, 0.34) 13%,
+      rgba(177, 222, 255, 0.16) 35%,
+      rgba(177, 222, 255, 0) 68%
+    );
+  }
+
+  .sig__mist {
+    position: absolute;
+    inset: 20% 8% 8%;
+    opacity: 0;
+    background:
+      radial-gradient(ellipse at 52% 44%, rgba(194, 230, 255, 0.2), transparent 54%),
+      linear-gradient(to bottom, transparent 15%, rgba(122, 196, 246, 0.12) 54%, rgba(223, 243, 255, 0.2));
+    filter: blur(18px);
+    will-change: opacity, transform;
+  }
+
+  .sig__backdrop {
+    position: absolute;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    opacity: 0;
+    font-family: var(--font-display);
+    font-size: clamp(4.5rem, 8vw, 10rem);
+    font-weight: 900;
+    line-height: 0.82;
+    text-align: center;
+    text-transform: uppercase;
+    color: rgba(213, 239, 255, 0.11);
+    white-space: nowrap;
+    will-change: transform, opacity;
+  }
+
+  .sig__backdrop--top {
+    top: 3%;
+  }
+
+  .sig__backdrop--bottom {
+    bottom: -5%;
+    width: 92vw;
+    font-size: clamp(4rem, 7.2vw, 9rem);
+    line-height: 0.78;
+    white-space: normal;
+  }
+
+  .sig__cloud {
+    position: absolute;
+    opacity: 0;
+    background:
+      radial-gradient(ellipse 31% 48% at 0% 68%, #fff 0%, rgba(255, 255, 255, 0.92) 48%, transparent 78%),
+      radial-gradient(ellipse 34% 52% at 18% 54%, #fff 0%, rgba(252, 254, 255, 0.92) 50%, transparent 79%),
+      radial-gradient(ellipse 38% 58% at 36% 44%, #fff 0%, rgba(247, 252, 255, 0.9) 48%, transparent 77%),
+      radial-gradient(ellipse 34% 50% at 53% 58%, #fff 0%, rgba(239, 249, 255, 0.84) 50%, transparent 80%),
+      radial-gradient(ellipse 29% 44% at 68% 70%, rgba(242, 251, 255, 0.94) 0%, rgba(220, 240, 253, 0.72) 50%, transparent 80%),
+      radial-gradient(ellipse 58% 38% at 35% 88%, rgba(224, 241, 253, 0.82) 0%, rgba(190, 220, 243, 0.42) 54%, transparent 84%);
+    filter: blur(7px) drop-shadow(0 -10px 28px rgba(217, 241, 255, 0.18));
+    will-change: transform, opacity;
+  }
+
+  .sig__cloud--left {
+    left: -18vw;
+    bottom: -10vh;
+    width: 68vw;
+    height: 64vh;
+  }
+
+  .sig__cloud--right {
+    right: -18vw;
+    bottom: -8vh;
+    width: 68vw;
+    height: 58vh;
+    transform: scaleX(-1);
+  }
+
+  .sig__cloud--bottom {
+    left: 16vw;
+    bottom: -25vh;
+    width: 72vw;
+    height: 44vh;
+  }
+
+  .sig__sparkles,
+  .sig__sparkles i {
+    position: absolute;
+  }
+
+  .sig__sparkles {
+    inset: 0;
+  }
+
+  .sig__sparkles i {
+    left: var(--sx);
+    top: var(--sy);
+    width: clamp(2px, 0.28vw, 5px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 5px 2px rgba(219, 245, 255, 0.72), 0 0 18px 6px rgba(128, 209, 255, 0.28);
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  .sig {
+    position: absolute;
+    left: 50%;
+    top: 51%;
+    z-index: 6;
+    transform: translate(-50%, -50%);
+    display: grid;
+    justify-items: center;
+    gap: clamp(0.65rem, 1.4vh, 1.15rem);
+    width: min(96vw, 1800px);
+    margin: 0;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .sig__intro {
     display: block;
+    opacity: 0;
+    font-size: clamp(0.78rem, 0.58rem + 0.58vw, 1.35rem);
+    font-weight: 750;
+    letter-spacing: 0.34em;
+    text-indent: 0.34em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.96);
+    text-shadow: 0 2px 18px rgba(1, 30, 76, 0.62), 0 0 18px rgba(215, 242, 255, 0.26);
+    will-change: transform, opacity;
+  }
+
+  .sig__line {
+    display: grid;
+    justify-items: center;
     opacity: 0;
     padding: 0.3em 0.16em 0.22em;
     margin: -0.3em -0.16em -0.22em;
     overflow: visible;
     font-family: var(--font-display);
-    /* Big enough to be the protagonist, small enough that the block stays
-       inside the right-hand two thirds instead of spanning the frame. */
-    font-size: clamp(1.9rem, 3.4vw, 4.3rem);
+    font-size: clamp(4.5rem, 9.4vw, 11.75rem);
     font-weight: 900;
-    line-height: 1.16;
-    letter-spacing: -0.005em;
+    line-height: 0.82;
+    letter-spacing: -0.018em;
     white-space: nowrap;
-    background: linear-gradient(
-      100deg,
-      #ffffff 0%,
-      #ffffff 34%,
-      #fff7e6 44%,
-      #ffeec9 50%,
-      #fff7e6 56%,
-      #ffffff 66%,
-      #ffffff 100%
-    );
-    background-size: 300% 100%;
-    background-position: 140% 0;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 3px 22px rgba(255, 236, 196, 0.5))
-      drop-shadow(0 1px 3px rgba(40, 84, 130, 0.28));
+    color: #fff;
+    text-shadow:
+      0 0 8px rgba(255, 255, 255, 0.4),
+      0 0 26px rgba(213, 240, 255, 0.56),
+      0 8px 36px rgba(0, 37, 94, 0.42);
     will-change: transform, opacity, filter;
   }
 
-  /* Below 1020 the hero is the simplified choreography and the copy
-     climbs to 12vh, where this would land on it. The sun keeps its
-     reaction; the message does not run. */
+  .sig__line-row {
+    display: block;
+  }
+
+  .sig__bubble {
+    position: absolute;
+    right: calc(100% - var(--sun-x) + clamp(1.5rem, 2.3vw, 3rem));
+    top: calc(var(--sun-y) + clamp(4.5rem, 6vw, 7rem));
+    z-index: 11;
+    padding: 0.72rem 0.95rem;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 14px 34px -16px rgba(3, 35, 82, 0.58), inset 0 1px 0 #fff;
+    color: var(--ink);
+    font-size: clamp(0.78rem, 0.72rem + 0.15vw, 0.92rem);
+    font-weight: 650;
+    line-height: 1.2;
+    white-space: nowrap;
+    opacity: 0;
+    transform-origin: 88% 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  .sig__bubble::after {
+    content: '';
+    position: absolute;
+    right: 1.15rem;
+    top: -5px;
+    width: 10px;
+    height: 10px;
+    border-left: 1px solid rgba(255, 255, 255, 0.7);
+    border-top: 1px solid rgba(255, 255, 255, 0.7);
+    background: inherit;
+    transform: rotate(45deg);
+  }
+
   @media (max-width: 1019px) {
     .sig,
-    .sig__veil {
+    .sig__atmosphere,
+    .sig__bubble {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sig__rays {
       display: none;
     }
   }

@@ -1,40 +1,24 @@
 import gsap from 'gsap';
 
 /**
- * The sun easter egg.
- *
- * ------------------------------------------------------------------
- * WHY THIS IS NOT IN sky-life.ts
- * ------------------------------------------------------------------
- * The birds, the jet and the rocket are scheduled: they exist for a few
- * seconds at four points of the scroll and are gone. The sun is on screen
- * for the whole hero and belongs to no beat, so it has no schedule and no
- * arming — it is simply always there, waiting.
- *
- * It also has to work where the sky events deliberately do not. Under
- * reduced motion the flock never flies, because a flock is motion for its
- * own sake; but the studio's signature is content, and removing content
- * because someone is sensitive to movement would be the wrong reading of
- * that preference. So the whole thing runs there too, on a shorter, flatter
- * version of the same sequence.
- *
- * ------------------------------------------------------------------
- * WHAT IT DOES NOT DO
- * ------------------------------------------------------------------
- * It never touches the master timeline, never moves the scroll, never
- * changes the opacity of anything the timeline owns. The dimming is a
- * separate veil painted over the scene — the moment a reaction writes to
- * a property the scrub also writes to, the next wheel tick undoes it and
- * the two fight for the rest of the page.
+ * The sun is independent from the scrubbed hero timeline. It paints a
+ * temporary atmosphere above the scene, then restores every node to its
+ * CSS starting state. No click creates DOM and no 3D ancestor is faded.
  */
 
 interface Nodes {
   hit: HTMLElement;
   core: HTMLElement;
   veil: HTMLElement;
-  sig: HTMLElement;
   intro: HTMLElement;
   line: HTMLElement;
+  rays: HTMLElement;
+  flare: HTMLElement;
+  mist: HTMLElement;
+  bubble: HTMLElement;
+  clouds: HTMLElement[];
+  particles: HTMLElement[];
+  backdrops: HTMLElement[];
   sun: HTMLElement | null;
 }
 
@@ -42,36 +26,48 @@ export interface SunSignature {
   dispose(): void;
 }
 
-/** How much scrolling it takes to decide the user has moved on. */
 const SCROLL_BAIL = 140;
 
 export function sunSignature(): SunSignature | null {
   const hit = document.querySelector<HTMLElement>('[data-sun-hit]');
   const core = document.querySelector<HTMLElement>('[data-sun-core]');
   const veil = document.querySelector<HTMLElement>('[data-sig-veil]');
-  const sig = document.querySelector<HTMLElement>('[data-sig]');
   const intro = document.querySelector<HTMLElement>('[data-sig-intro]');
   const line = document.querySelector<HTMLElement>('[data-sig-line]');
-  if (!hit || !core || !veil || !sig || !intro || !line) return null;
+  const rays = document.querySelector<HTMLElement>('[data-sig-rays]');
+  const flare = document.querySelector<HTMLElement>('[data-sig-flare]');
+  const mist = document.querySelector<HTMLElement>('[data-sig-mist]');
+  const bubble = document.querySelector<HTMLElement>('[data-sig-bubble]');
 
-  const n: Nodes = { hit, core, veil, sig, intro, line, sun: document.querySelector('[data-sky-sun]') };
+  if (!hit || !core || !veil || !intro || !line || !rays || !flare || !mist || !bubble) return null;
+
+  const n: Nodes = {
+    hit,
+    core,
+    veil,
+    intro,
+    line,
+    rays,
+    flare,
+    mist,
+    bubble,
+    clouds: Array.from(document.querySelectorAll<HTMLElement>('[data-sig-cloud]')),
+    particles: Array.from(document.querySelectorAll<HTMLElement>('[data-sig-particle]')),
+    backdrops: Array.from(document.querySelectorAll<HTMLElement>('[data-sig-backdrop]')),
+    sun: document.querySelector<HTMLElement>('[data-sky-sun]'),
+  };
+
   const calm = matchMedia('(prefers-reduced-motion: reduce)');
-  /* The message needs room. Below the full desktop experience the copy
-     climbs into the middle of the frame and there is nowhere to put a
-     five-word headline that is not on top of it, so the sun still reacts
-     but it does not speak. */
   const roomy = (): boolean => window.innerWidth >= 1020;
 
   let told = false;
-  let showing: gsap.core.Timeline | null = null;
+  let clickCount = 0;
   let hovering = false;
+  let showing: gsap.core.Timeline | null = null;
+  let boostTl: gsap.core.Timeline | null = null;
+  let bubbleTl: gsap.core.Timeline | null = null;
+  let scrollOrigin = 0;
 
-  /* --- Hover ------------------------------------------------------- *
-   * The whole affordance. The halo swells about four per cent and a
-   * warm disc comes up under it: enough that the sun looks like it
-   * noticed the cursor, not enough that anyone would call it a button.
-   * Deliberately slow on the way in and slower on the way out — a snappy
-   * hover state is exactly what would give it away. */
   const glow = (on: boolean): void => {
     if (showing) return;
     hovering = on;
@@ -82,6 +78,7 @@ export function sunSignature(): SunSignature | null {
       ease: on ? 'power2.out' : 'power2.inOut',
       overwrite: 'auto',
     });
+
     if (n.sun && !calm.matches) {
       gsap.to(n.sun, {
         scale: on ? 1.045 : 1,
@@ -92,147 +89,250 @@ export function sunSignature(): SunSignature | null {
     }
   };
 
-  /** The press itself — squash, then bloom. Used on every click. */
   const pulse = (): gsap.core.Timeline =>
     gsap
       .timeline()
-      .to(n.core, { scale: 0.88, opacity: 0.75, duration: 0.11, ease: 'power2.in' })
-      .to(n.core, { scale: 1.34, opacity: 0.82, duration: 0.34, ease: 'power2.out' })
-      .to(
-        n.core,
-        { scale: hovering ? 1 : 0.86, opacity: hovering ? 0.55 : 0, duration: 0.7, ease: 'power2.inOut' },
-        '>-0.05'
-      );
+      .to(n.core, { scale: 0.9, opacity: 0.78, duration: 0.1, ease: 'power2.in', overwrite: 'auto' })
+      .to(n.core, { scale: 1.34, opacity: 0.9, duration: 0.32, ease: 'power2.out' })
+      .to(n.core, {
+        scale: hovering ? 1 : 0.86,
+        opacity: hovering ? 0.55 : 0,
+        duration: 0.66,
+        ease: 'power2.inOut',
+      });
+
+  /** Later clicks acknowledge the user without replaying the reveal. */
+  const intensify = (): void => {
+    boostTl?.kill();
+    const active = Boolean(showing);
+    boostTl = gsap
+      .timeline({ onComplete: () => (boostTl = null) })
+      .to(n.flare, {
+        opacity: 0.96,
+        scale: 1.1,
+        duration: 0.18,
+        ease: 'power2.out',
+        overwrite: 'auto',
+      })
+      .to(n.rays, { opacity: active ? 0.68 : 0.26, duration: 0.16, ease: 'power2.out' }, 0)
+      .to(n.flare, {
+        opacity: active ? 0.58 : 0,
+        scale: 0.96,
+        duration: 0.55,
+        ease: 'power2.inOut',
+      })
+      .to(n.rays, { opacity: active ? 0.38 : 0, duration: 0.5, ease: 'power2.inOut' }, 0.2);
+
+    if (n.sun && !calm.matches) {
+      boostTl
+        .to(n.sun, { scale: 1.085, duration: 0.18, ease: 'power2.out', overwrite: 'auto' }, 0)
+        .to(n.sun, { scale: hovering ? 1.045 : 1, duration: 0.55, ease: 'power2.inOut' }, 0.18);
+    }
+  };
+
+  const showBubble = (): void => {
+    bubbleTl?.kill();
+    bubbleTl = gsap
+      .timeline({ onComplete: () => (bubbleTl = null) })
+      .set(n.bubble, { opacity: 0, scale: 0.84, y: -5, rotation: -2 })
+      .to(n.bubble, {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        rotation: 0,
+        duration: calm.matches ? 0.18 : 0.38,
+        ease: calm.matches ? 'power2.out' : 'back.out(2.2)',
+      })
+      .to(n.bubble, { y: 6, duration: 1.35, ease: 'sine.inOut' }, '>')
+      .to(n.bubble, { opacity: 0, scale: 0.96, duration: 0.32, ease: 'power2.in' }, '>-0.2')
+      .set(n.bubble, { clearProps: 'all' });
+  };
+
+  const onScrollAway = (): void => {
+    if (!showing || Math.abs(window.scrollY - scrollOrigin) < SCROLL_BAIL) return;
+    window.removeEventListener('scroll', onScrollAway);
+    gsap.to(showing, { timeScale: 2.8, duration: 0.28, ease: 'power2.in', overwrite: true });
+  };
 
   const say = (): void => {
     const soft = calm.matches;
+    const cloudsTarget = [0.72, 0.67, 0.48];
+    const decor = [...n.clouds, ...n.particles, ...n.backdrops, n.rays, n.flare, n.mist];
+
     const tl = gsap.timeline({
       onComplete: () => {
         showing = null;
         window.removeEventListener('scroll', onScrollAway);
+        gsap.set([n.intro, n.line, n.veil, ...decor], { clearProps: 'all' });
       },
     });
     showing = tl;
 
-    // 1 · the sun answers, and the halo opens up behind it.
-    tl.add(pulse(), 0);
+    tl.add(pulse(), 0)
+      .to(n.veil, { opacity: 1, duration: soft ? 0.28 : 0.72, ease: 'power2.out' }, 0.03)
+      .fromTo(
+        n.mist,
+        { opacity: 0, y: soft ? 0 : 18 },
+        { opacity: 1, y: 0, duration: soft ? 0.3 : 1.05, ease: 'power2.out' },
+        0.12
+      );
+
     if (n.sun && !soft) {
-      tl.to(n.sun, { scale: 1.13, duration: 0.5, ease: 'power2.out' }, 0).to(
+      tl.to(n.sun, { scale: 1.14, duration: 0.56, ease: 'power2.out' }, 0).to(
         n.sun,
-        { scale: hovering ? 1.045 : 1, duration: 1.1, ease: 'power2.inOut' },
-        0.5
+        { scale: hovering ? 1.045 : 1, duration: 1.15, ease: 'power2.inOut' },
+        0.56
       );
     }
 
-    // 2 · the sky settles. Never a black scrim — a soft deepening that
-    // is strongest where the words are about to be.
-    tl.to(n.veil, { opacity: 1, duration: soft ? 0.3 : 0.55, ease: 'power2.out' }, 0.05);
-
-    // 3 · the credit line, then the line that matters.
-    tl.fromTo(
-      n.intro,
-      { opacity: 0, y: soft ? 0 : 10 },
-      { opacity: 1, y: 0, duration: soft ? 0.3 : 0.5, ease: 'power2.out' },
-      0.24
-    );
-
-    if (soft) {
-      tl.fromTo(n.line, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: 'power2.out' }, 0.44);
-    } else {
-      /* Arrives slightly large and slightly out of focus and resolves —
-         the same "condensing out of the sky" idea the opening statement
-         dissolves INTO, run backwards. */
+    if (!soft) {
       tl.fromTo(
+        n.rays,
+        { opacity: 0, scale: 0.82, rotation: -10 },
+        { opacity: 0.3, scale: 1, rotation: 0, duration: 1.25, ease: 'power2.out' },
+        0.08
+      )
+        .fromTo(
+          n.flare,
+          { opacity: 0, scale: 0.78 },
+          { opacity: 0.58, scale: 0.96, duration: 0.92, ease: 'power2.out' },
+          0.08
+        )
+        .fromTo(
+          n.clouds,
+          { opacity: 0, y: 34 },
+          {
+            opacity: (index: number) => cloudsTarget[index] ?? 0.68,
+            y: 0,
+            duration: 1.15,
+            stagger: 0.09,
+            ease: 'power3.out',
+          },
+          0.16
+        )
+        .fromTo(
+          n.particles,
+          { opacity: 0, scale: 0.3 },
+          { opacity: 0.82, scale: 1, duration: 0.52, stagger: 0.035, ease: 'power2.out' },
+          0.5
+        );
+    } else {
+      tl.set(n.rays, { opacity: 0 })
+        .to(n.flare, { opacity: 0.5, duration: 0.25 }, 0.08)
+        .to(n.clouds, { opacity: (index: number) => cloudsTarget[index] ?? 0.68, duration: 0.28 }, 0.1)
+        .to(n.particles, { opacity: 0.66, duration: 0.25 }, 0.14);
+    }
+
+    tl.fromTo(
+      n.backdrops,
+      { opacity: 0, y: soft ? 0 : 12 },
+      { opacity: 0.76, y: 0, duration: soft ? 0.25 : 0.8, stagger: 0.1, ease: 'power2.out' },
+      0.38
+    )
+      .fromTo(
+        n.intro,
+        { opacity: 0, y: soft ? 0 : 12 },
+        { opacity: 1, y: 0, duration: soft ? 0.25 : 0.52, ease: 'power2.out' },
+        0.52
+      )
+      .fromTo(
         n.line,
-        { opacity: 0, scale: 1.06, filter: 'blur(14px)' },
+        { opacity: 0, scale: soft ? 1 : 1.055, y: soft ? 0 : 16, filter: soft ? 'none' : 'blur(16px)' },
         {
           opacity: 1,
           scale: 1,
+          y: 0,
           filter: 'blur(0px)',
-          duration: 0.66,
+          duration: soft ? 0.32 : 0.78,
           ease: 'power3.out',
         },
-        0.4
+        0.72
+      );
+
+    const hold = soft ? 3.3 : 5.4;
+    tl.to(n.intro, { opacity: 0, y: soft ? 0 : -8, duration: 0.42, ease: 'power2.in' }, hold)
+      .to(
+        n.line,
+        {
+          opacity: 0,
+          scale: soft ? 1 : 1.035,
+          y: soft ? 0 : -14,
+          filter: soft ? 'none' : 'blur(12px)',
+          duration: soft ? 0.42 : 0.76,
+          ease: 'power2.in',
+        },
+        hold + 0.08
       )
-        // 4 · sunlight crossing the letters. Once, quickly, warm.
-        .fromTo(
-          n.line,
-          { backgroundPosition: '140% 0' },
-          { backgroundPosition: '-40% 0', duration: 0.92, ease: 'power2.inOut' },
-          0.72
-        );
-    }
+      .to(n.backdrops, { opacity: 0, duration: 0.5, ease: 'power2.in' }, hold + 0.12)
+      .to(n.particles, { opacity: 0, scale: 0.4, duration: 0.46, stagger: 0.015, ease: 'power2.in' }, hold + 0.12)
+      .to(n.clouds, { opacity: 0, y: 24, duration: 0.72, ease: 'power2.inOut' }, hold + 0.18)
+      .to([n.rays, n.flare, n.mist], { opacity: 0, duration: 0.62, ease: 'power2.inOut' }, hold + 0.24)
+      .to(n.veil, { opacity: 0, duration: 0.78, ease: 'power2.inOut' }, hold + 0.34);
 
-    const hold = soft ? 2.1 : 2.35;
-    const out = soft ? 1.3 : 1.06;
-
-    /* 5 · it comes apart rather than switching off. The line loses
-       density and drifts up as it goes: vapour, not a fade. */
-    if (soft) {
-      tl.to(n.line, { opacity: 0, duration: 0.45, ease: 'power2.in' }, hold)
-        .to(n.intro, { opacity: 0, duration: 0.4, ease: 'power2.in' }, hold - 0.1);
-    } else {
-      tl.to(n.intro, { opacity: 0, y: -8, duration: 0.5, ease: 'power2.in' }, hold - 0.12)
-        .to(
-          n.line,
-          {
-            opacity: 0,
-            scale: 1.05,
-            y: -16,
-            filter: 'blur(16px)',
-            duration: 0.9,
-            ease: 'power2.in',
-          },
-          hold
-        );
-    }
-
-    tl.to(n.veil, { opacity: 0, duration: 0.7, ease: 'power2.inOut' }, hold + out * 0.35);
-    // Leave the nodes exactly as they were found.
-    tl.set([n.line, n.intro], { clearProps: 'all' });
-
-    /* If the user carries on scrolling, the moment gets out of the way
-       instead of hanging over a beat it no longer belongs to. It is not
-       cancelled — it finishes, just faster. */
-    let from = window.scrollY;
-    const onScrollAway = (): void => {
-      if (Math.abs(window.scrollY - from) < SCROLL_BAIL) return;
-      window.removeEventListener('scroll', onScrollAway);
-      gsap.to(tl, { timeScale: 2.6, duration: 0.3, ease: 'power2.in', overwrite: true });
-    };
-    from = window.scrollY;
+    scrollOrigin = window.scrollY;
     window.addEventListener('scroll', onScrollAway, { passive: true });
   };
 
-  const onClick = (e: MouseEvent): void => {
-    e.preventDefault();
-    // While it is speaking, further presses do nothing at all.
-    if (showing) return;
-    if (told || !roomy()) {
-      // Every press after the first: the sun acknowledges you and that
-      // is all. Saying it again would turn a signature into a toy.
+  const onClick = (event: MouseEvent): void => {
+    event.preventDefault();
+
+    if (!roomy()) {
       pulse();
       return;
     }
-    told = true;
-    say();
+
+    clickCount += 1;
+    if (!told) {
+      told = true;
+      say();
+      return;
+    }
+
+    intensify();
+    if (clickCount >= 3) showBubble();
   };
 
+  const onEnter = (): void => glow(true);
+  const onLeave = (): void => glow(false);
+
   hit.addEventListener('click', onClick);
-  hit.addEventListener('mouseenter', () => glow(true));
-  hit.addEventListener('mouseleave', () => glow(false));
-  hit.addEventListener('focus', () => glow(true));
-  hit.addEventListener('blur', () => glow(false));
+  hit.addEventListener('mouseenter', onEnter);
+  hit.addEventListener('mouseleave', onLeave);
+  hit.addEventListener('focus', onEnter);
+  hit.addEventListener('blur', onLeave);
 
   return {
     dispose(): void {
       hit.removeEventListener('click', onClick);
+      hit.removeEventListener('mouseenter', onEnter);
+      hit.removeEventListener('mouseleave', onLeave);
+      hit.removeEventListener('focus', onEnter);
+      hit.removeEventListener('blur', onLeave);
+      window.removeEventListener('scroll', onScrollAway);
+
       showing?.kill();
+      boostTl?.kill();
+      bubbleTl?.kill();
       showing = null;
-      gsap.killTweensOf([n.core, n.veil, n.line, n.intro, n.sun].filter(Boolean) as Element[]);
-      gsap.set([n.core, n.veil], { opacity: 0 });
-      gsap.set([n.line, n.intro], { clearProps: 'all' });
-      if (n.sun) gsap.set(n.sun, { scale: 1 });
+      boostTl = null;
+      bubbleTl = null;
+
+      const all = [
+        n.core,
+        n.veil,
+        n.intro,
+        n.line,
+        n.rays,
+        n.flare,
+        n.mist,
+        n.bubble,
+        ...n.clouds,
+        ...n.particles,
+        ...n.backdrops,
+        ...(n.sun ? [n.sun] : []),
+      ];
+      gsap.killTweensOf(all);
+      gsap.set(all, { clearProps: 'all' });
     },
   };
 }

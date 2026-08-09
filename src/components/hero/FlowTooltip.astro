@@ -6,27 +6,16 @@ interface Props {
 const { id, body } = Astro.props;
 
 /**
- * Which side the card opens on by default.
- *
- * Not "always left" and not "always outward": each card opens toward
- * whatever is actually empty next to it.
- *
- *   web       right — the two bottom cards sit 38 % of the box apart and
- *                     are 24 % wide, so there is ~14 % of gap between
- *                     them and a 300 px card cannot fit in it. Opening
- *                     left dropped the explanation straight onto
- *                     Software, which is the bug this fixes.
- *   contacto  right — to its left is the headline column.
- *   marca     left  — the middle of the ring is empty, and there is no
- *                     room to its right: the cluster ends ~130 px from
- *                     the viewport edge.
- *   contenido left  — twelve o'clock, clear on that side.
- *   software  left  — outward, away from Web.
- *
- * JS overrides this only when the chosen side would leave the viewport.
+ * On desktop panels open towards the nucleus whenever the card's
+ * position allows it: that controlled overlap is part of the connected-
+ * system scene. Compact retains its previous directions. The hovered
+ * anchor rises above the core, and JS still flips or nudges the panel if
+ * the preferred side would leave the viewport.
  */
-const RIGHT_SIDE = new Set(['web', 'contacto']);
-const side = RIGHT_SIDE.has(id) ? 'right' : 'left';
+const COMPACT_RIGHT_SIDE = new Set(['web', 'contacto']);
+const DESKTOP_RIGHT_SIDE = new Set(['software', 'contacto']);
+const side = COMPACT_RIGHT_SIDE.has(id) ? 'right' : 'left';
+const desktopSide = DESKTOP_RIGHT_SIDE.has(id) ? 'right' : 'left';
 
 /**
  * Floating explanation card for a flow node. Not a browser tooltip and
@@ -38,19 +27,22 @@ const side = RIGHT_SIDE.has(id) ? 'right' : 'left';
  */
 ---
 
-<div class="tip" id={`tip-${id}`} data-flow-tip={id} data-side={side} role="tooltip">
+<div
+  class="tip"
+  id={`tip-${id}`}
+  data-flow-tip={id}
+  data-side={side}
+  data-desktop-side={desktopSide}
+  role="tooltip"
+>
   <p>{body}</p>
 </div>
 
 <style>
   .tip {
     position: absolute;
-    /* Side comes from `data-side` (see the frontmatter): outward from the
-       centre of the ring, so the card never opens onto its neighbour. JS
-       only overrides this when the chosen side would leave the viewport.
-
-       v10 opened every card to the left unconditionally, and Web — bottom
-       right — put its explanation straight underneath Software. */
+    /* Side comes from `data-side` (see the frontmatter): primarily inward
+       towards the nucleus. JS overrides it only to protect the viewport. */
     right: calc(100% + var(--tip-gap));
     top: 50%;
     /* 270 rather than v10's 300, and a 12 px gap rather than 14. The
@@ -97,6 +89,30 @@ const side = RIGHT_SIDE.has(id) ? 'right' : 'left';
   .tip[data-side='right'].is-flipped {
     left: auto;
     right: calc(100% + var(--tip-gap));
+  }
+
+  /* Desktop panels favour the nucleus, where their overlap reads as part
+     of the system. Compact keeps the previous outward-facing defaults. */
+  @media (min-width: 1020px) {
+    .tip[data-desktop-side='left'] {
+      left: auto;
+      right: calc(100% + var(--tip-gap));
+    }
+
+    .tip[data-desktop-side='right'] {
+      right: auto;
+      left: calc(100% + var(--tip-gap));
+    }
+
+    .tip[data-desktop-side='left'].is-flipped {
+      right: auto;
+      left: calc(100% + var(--tip-gap));
+    }
+
+    .tip[data-desktop-side='right'].is-flipped {
+      left: auto;
+      right: calc(100% + var(--tip-gap));
+    }
   }
 
   .tip.is-open {

@@ -732,6 +732,16 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
   gsap.set(STAGE_OBJS, { xPercent: -50, yPercent: -50 });
   gsap.set('[data-laptop-shadow], [data-monitor-shadow]', { xPercent: -50, yPercent: -50 });
 
+  /* Prepare every copy before ScrollTrigger can render its first frame.
+     The old delayed `fromTo` setup initialised and rasterised Puffy in
+     the same frame that the scrub first revealed it, which caused the
+     small first-entry hitch. Fixed pixel translation also means a late
+     font-metric change cannot alter a percentage transform. */
+  gsap.set('[data-beat-copy]', { opacity: 0, y: 0, scale: 1 });
+  gsap.set('[data-copy-cloud]', { opacity: 0, scale: 0.93, y: 26 });
+  gsap.set('[data-beat-line]', { opacity: 0, y: 26, scale: 1, force3D: false });
+  gsap.set('[data-beat-sub]', { opacity: 0, y: 16, force3D: false });
+
   /* ---------- INTRO STATEMENT · 0 – 22 % --------------------------- */
   // Not an opacity fade: the crisp copy lifts and thins while its blurred
   // twin swells and drifts, and an SVG turbulence displacement ramps up so
@@ -793,9 +803,41 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
   tl.fromTo(
     '[data-obj="flow"]',
     { x: () => vw(70), y: () => vh(60), scale: 0.94, opacity: 0 },
-    { x: () => vw(68), y: () => vh(52), scale: 1, opacity: 1, duration: 0.04 },
+    {
+      x: () => vw(68),
+      y: () => vh(52 + topClear() * 0.35),
+      scale: 1,
+      opacity: 1,
+      duration: 0.04,
+    },
     0.786
-  ).to('[data-obj="flow"]', { y: () => vh(48), opacity: 0.94, duration: 0.04 }, 0.955);
+  ).to(
+    '[data-obj="flow"]',
+    { y: () => vh(48 + topClear() * 0.6), opacity: 0.94, duration: 0.04 },
+    0.955
+  );
+
+  /* The business is the stable nucleus. It settles first; the CSS orbit
+     and its light points activate around it, then the existing cards
+     arrive on the same stagger they have always used. */
+  tl.fromTo(
+    '[data-flow-core]',
+    { opacity: 0, scale: 0.82, y: 18 },
+    { opacity: 1, scale: 1, y: 0, duration: 0.072, ease: 'power3.out' },
+    0.79
+  )
+    .fromTo(
+      '[data-flow-orbit]',
+      { opacity: 0 },
+      { opacity: 1, duration: 0.065, stagger: 0.012, ease: 'power2.out' },
+      0.802
+    )
+    .fromTo(
+      '[data-flow-point]',
+      { opacity: 0 },
+      { opacity: 1, duration: 0.034, stagger: 0.005, ease: 'power2.out' },
+      0.818
+    );
 
   /* Nodes light up around the ring in the order the hero showed them,
      so the closing beat replays the sequence you have just scrolled
@@ -894,38 +936,43 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
      scrolling, and animating a filter across 45vh of wheel events means
      re-rasterising a 900px block on every one of them.
 
-     In lasts 0.038 and out 0.024, against windows of 0.11–0.15 — so
-     roughly seventy per cent of every beat is the copy sitting
-     completely still and completely readable, which was the brief. */
+     The ordered entrance completes in about 0.084 and the exit in 0.024;
+     every beat still retains a long, completely static reading hold. */
   for (const [id, tIn, tOut] of copyAt) {
     const q = (sel: string): string => `[data-beat-copy="${id}"] ${sel}`;
+    const lines = Array.from(document.querySelectorAll<HTMLElement>(q('[data-beat-line]')));
 
     tl.set(`[data-beat-copy="${id}"]`, { opacity: 1, y: 0, scale: 1 }, tIn)
-      .fromTo(
+      .to(
         q('[data-copy-cloud]'),
-        { opacity: 0, scale: 0.93, y: 26 },
         { opacity: 1, scale: 1, y: 0, duration: 0.05, ease: 'power3.out' },
         tIn
-      )
-      .fromTo(
-        q('[data-beat-line]'),
-        { opacity: 0, yPercent: 46, scale: 0.97 },
+      );
+
+    /* DOM order is choreography order. Giving each line its own tween
+       guarantees that line one starts gaining density before line two,
+       even on the first large wheel step. No scale means no glyph
+       re-rasterisation or tiny snap when the tween settles. */
+    lines.forEach((line, index) => {
+      tl.to(
+        line,
         {
           opacity: 1,
-          yPercent: 0,
-          scale: 1,
+          y: 0,
           duration: 0.038,
-          stagger: 0.011,
-          ease: 'power3.out',
+          ease: 'power2.out',
+          force3D: false,
+          lazy: false,
         },
-        tIn + 0.012
-      )
-      .fromTo(
-        q('[data-beat-sub]'),
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.026, ease: 'power2.out' },
-        tIn + 0.036
-      )
+        tIn + 0.012 + index * 0.016
+      );
+    });
+
+    tl.to(
+      q('[data-beat-sub]'),
+      { opacity: 1, y: 0, duration: 0.03, ease: 'power2.out', force3D: false, lazy: false },
+      tIn + 0.054
+    )
       /* Out as one piece: the block loses density, grows a hair and
          drifts, which reads as it going back into the sky rather than
          being switched off. transform-origin is on the copy's own anchor
@@ -1511,6 +1558,8 @@ function buildReduced(): void {
   gsap.set('[data-flow-node]', { opacity: 1 });
   for (const el of document.querySelectorAll<HTMLElement>('[data-flow-node]')) el.inert = false;
   gsap.set('[data-flow-aura]', { opacity: 1, scale: 1 });
+  gsap.set('[data-flow-core]', { opacity: 1, scale: 1, y: 0 });
+  gsap.set('[data-flow-orbit], [data-flow-point]', { opacity: 1 });
   gsap.set('[data-header-capsule]', { opacity: 1, y: 0, scale: 1 });
   gsap.set('[data-intro-text]', { opacity: 0 });
   gsap.set('[data-intro-cue]', { opacity: 0 });

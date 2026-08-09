@@ -13,75 +13,75 @@
  */
 
 export interface FlowNodeContent {
-  id: string;
-  /** Node label shown in the hero. */
-  label: string;
-  /** Micro-copy under the label — four words maximum. */
-  micro: string;
-  /** Body of the floating explanation card on hover/focus. */
-  tooltip: string;
-  /** Anchor in the "Cómo funciona" section. */
-  href: string;
-  /** Article heading. */
-  stepTitle: string;
-  /** Article body. */
-  stepBody: string;
+    id: string;
+    /** Node label shown in the hero. */
+    label: string;
+    /** Micro-copy under the label — four words maximum. */
+    micro: string;
+    /** Body of the floating explanation card on hover/focus. */
+    tooltip: string;
+    /** Anchor in the "Cómo funciona" section. */
+    href: string;
+    /** Article heading. */
+    stepTitle: string;
+    /** Article body. */
+    stepBody: string;
 }
 
 export const intro = {
-  /** Full-bleed opening statement. Two lines, cloud typeface. */
-  lines: ['Tu negocio no es uno más.', 'Su imagen tampoco debería serlo.'],
-  /** Discreet cue that appears ~1.5 s after load. */
-  cue: 'Descubre',
+    /** Full-bleed opening statement. Two lines, cloud typeface. */
+    lines: ["Tu negocio no es uno más.", "Su imagen tampoco debería serlo."],
+    /** Discreet cue that appears ~1.5 s after load. */
+    cue: "Descubre",
 } as const;
 
 export const header = {
-  wordmark: 'Altaria Lights',
-  nav: [
-    { label: 'Servicios', href: '#como-funciona' },
-    { label: 'Caso real', href: '#paso-web' },
-    { label: 'Proceso', href: '#como-funciona' },
-  ],
-  cta: { label: 'Hablemos', href: '#contacto' },
+    wordmark: "Altaria Lights",
+    nav: [
+        { label: "Servicios", href: "#como-funciona" },
+        { label: "Caso real", href: "#paso-web" },
+        { label: "Proceso", href: "#como-funciona" },
+    ],
+    cta: { label: "Hablemos", href: "#contacto" },
 } as const;
 
 export const socialBeat = {
-  title: ['Hacemos', 'que te vean.'],
-  sub: 'Contenido para tus redes.',
-  /** Accessible description for the reel. */
-  reelLabel: 'Ejemplo de reel vertical producido por Altaria Lights',
+    title: ["Hacemos", "que te vean."],
+    sub: "Contenido para tus redes.",
+    /** Accessible description for the reel. */
+    reelLabel: "Ejemplo de reel vertical producido por Altaria Lights",
 } as const;
 
 export const webBeat = {
-  title: ['Creamos', 'tu página web.'],
-  sub: 'Una web a tu altura.',
+    title: ["Creamos", "tu página web."],
+    sub: "Una web a tu altura.",
 } as const;
 
 export const softwareBeat = {
-  /* Was 'Hacemos software' / 'a medida.'. Two problems: it opened with
+    /* Was 'Hacemos software' / 'a medida.'. Two problems: it opened with
      the same verb as the social beat three beats earlier, and at sixteen
      characters it was the longest line in the hero by four — which is
      what set the ceiling on how big every headline could be before it
      ran into the laptop. Shorter, blunter, and it lets the whole set
      grow. */
-  title: ['Software', 'a tu medida.'],
-  sub: 'Herramientas para tu empresa.',
-  /** Accessible description for the abstract dashboard. */
-  screenLabel:
-    'Representación abstracta de un panel de software a medida: módulos, gráficas y código, sin datos reales',
+    title: ["Software", "a tu medida."],
+    sub: "Herramientas para tu empresa.",
+    /** Accessible description for the abstract dashboard. */
+    screenLabel:
+        "Representación abstracta de un panel de software a medida: módulos, gráficas y código, sin datos reales",
 } as const;
 
 export const brandBeat = {
-  title: ['Diseñamos', 'tu imagen.'],
-  sub: 'Tu marca, de principio a fin.',
-  /** Accessible description for the branding canvas. */
-  screenLabel:
-    'Representación abstracta de un proceso de identidad visual: construcción geométrica de un símbolo y paleta de color',
+    title: ["Diseñamos", "tu imagen."],
+    sub: "Tu marca, de principio a fin.",
+    /** Accessible description for the branding canvas. */
+    screenLabel:
+        "Representación abstracta de un proceso de identidad visual: construcción geométrica de un símbolo y paleta de color",
 } as const;
 
 export const growthBeat = {
-  title: ['Lo conectamos', 'todo.'],
-  sub: 'Contenido. Web. Software. Marca.',
+    title: ["Lo conectamos", "todo."],
+    sub: "Contenido. Web. Software. Marca.",
 } as const;
 
 /**
@@ -93,61 +93,64 @@ export const growthBeat = {
  * closed loop, so the last connector returns to the first.
  */
 export const flow: FlowNodeContent[] = [
-  {
-    id: 'contenido',
-    label: 'Contenido',
-    micro: 'Consigues atención.',
-    tooltip: 'Producimos y gestionamos el contenido que hace que te vean.',
-    href: '#paso-contenido',
-    stepTitle: 'Primero conseguimos atención.',
-    stepBody:
-      'Definimos el mensaje y producimos las piezas que hacen que alguien se detenga en lugar de seguir bajando.',
-  },
-  {
-    id: 'marca',
-    label: 'Marca',
-    micro: 'Te reconocen.',
-    tooltip: 'La imagen completa de tu negocio: símbolo, color, tipografía y aplicaciones.',
-    href: '#paso-marca',
-    stepTitle: 'La imagen sostiene todo lo demás.',
-    stepBody:
-      'Construimos la identidad visual y las reglas para aplicarla, de modo que todo lo que publiques se reconozca como tuyo.',
-  },
-  {
-    id: 'web',
-    label: 'Web',
-    micro: 'Generas confianza.',
-    tooltip: 'Una web clara y rápida que convierte la curiosidad en confianza.',
-    href: '#paso-web',
-    stepTitle: 'La web convierte la visita en confianza.',
-    stepBody:
-      'Diseñamos una experiencia rápida, clara y profesional que demuestra el valor real del negocio.',
-  },
-  {
-    id: 'software',
-    label: 'Software',
-    micro: 'Trabajas mejor.',
-    tooltip: 'Programas hechos a medida para cómo funciona tu empresa por dentro.',
-    href: '#paso-software',
-    stepTitle: 'Por dentro también hace falta orden.',
-    stepBody:
-      'Desarrollamos las herramientas internas que tu negocio necesita y automatizamos lo que hoy se hace a mano.',
-  },
-  {
-    id: 'contacto',
-    label: 'Contacto',
-    micro: 'Da el siguiente paso.',
-    tooltip: 'Contactar, comprar o reservar: rápido, sencillo y medible.',
-    href: '#paso-contacto',
-    stepTitle: 'Y el siguiente paso es fácil.',
-    stepBody:
-      'Contacto, compra, reserva o solicitud: reducimos la fricción y automatizamos lo que tenga sentido.',
-  },
+    {
+        id: "contenido",
+        label: "Contenido",
+        micro: "Consigues atención.",
+        tooltip: "Producimos y gestionamos el contenido que hace que te vean.",
+        href: "#paso-contenido",
+        stepTitle: "Primero conseguimos atención.",
+        stepBody:
+            "Definimos el mensaje y producimos las piezas que hacen que alguien se detenga en lugar de seguir bajando.",
+    },
+    {
+        id: "marca",
+        label: "Marca",
+        micro: "Te reconocen.",
+        tooltip:
+            "La imagen completa de tu negocio: símbolo, color, tipografía y aplicaciones.",
+        href: "#paso-marca",
+        stepTitle: "La imagen sostiene todo lo demás.",
+        stepBody:
+            "Construimos la identidad visual y las reglas para aplicarla, de modo que todo lo que publiques se reconozca como tuyo.",
+    },
+    {
+        id: "web",
+        label: "Web",
+        micro: "Generas confianza.",
+        tooltip:
+            "Una web clara y rápida que convierte la curiosidad en confianza.",
+        href: "#paso-web",
+        stepTitle: "La web convierte la visita en confianza.",
+        stepBody:
+            "Diseñamos una experiencia rápida, clara y profesional que demuestra el valor real del negocio.",
+    },
+    {
+        id: "software",
+        label: "Software",
+        micro: "Trabajas mejor.",
+        tooltip:
+            "Programas hechos a medida para cómo funciona tu empresa por dentro.",
+        href: "#paso-software",
+        stepTitle: "Por dentro también hace falta orden.",
+        stepBody:
+            "Desarrollamos las herramientas internas que tu negocio necesita y automatizamos lo que hoy se hace a mano.",
+    },
+    {
+        id: "contacto",
+        label: "Contacto",
+        micro: "Da el siguiente paso.",
+        tooltip: "Contactar, comprar o reservar: rápido, sencillo y medible.",
+        href: "#paso-contacto",
+        stepTitle: "Y el siguiente paso es fácil.",
+        stepBody:
+            "Contacto, compra, reserva o solicitud: reducimos la fricción y automatizamos lo que tenga sentido.",
+    },
 ];
 
 export const howItWorks = {
-  title: ['No son piezas sueltas.', 'Es un sistema.'],
-  sub: 'Cada paso prepara el siguiente.',
+    title: ["No son piezas sueltas.", "Es un sistema."],
+    sub: "Cada paso prepara el siguiente.",
 } as const;
 
 /**
@@ -158,9 +161,10 @@ export const howItWorks = {
  * are simply tabbing through, so it says what it is, not what it says.
  */
 export const sunSignature = {
-  label: 'El sol',
-  intro: 'Somos Altaria Lights.',
-  line: 'Alguna luz tenía que haber.',
+    label: "El sol",
+    intro: "Somos Altaria Lights y...",
+    line: ["NO DECORAMOS,", "HACEMOS MARCA."],
+    encore: "Parece que te gustó lo del Sol 😂",
 } as const;
 
 /**
@@ -174,11 +178,11 @@ export const sunSignature = {
  * the track is longer.
  */
 export const beats = [
-  { n: 0, id: 'intro', from: 0.0, to: 0.115, label: 'Apertura de marca' },
-  { n: 1, id: 'social', from: 0.115, to: 0.275, label: 'Contenido y redes' },
-  { n: 2, id: 'web', from: 0.275, to: 0.48, label: 'Página web' },
-  { n: 3, id: 'software', from: 0.48, to: 0.635, label: 'Software a medida' },
-  { n: 4, id: 'brand', from: 0.635, to: 0.775, label: 'Imagen de marca' },
-  { n: 5, id: 'system', from: 0.775, to: 0.945, label: 'Sistema conectado' },
-  { n: 6, id: 'exit', from: 0.945, to: 1.0, label: 'Salida' },
+    { n: 0, id: "intro", from: 0.0, to: 0.115, label: "Apertura de marca" },
+    { n: 1, id: "social", from: 0.115, to: 0.275, label: "Contenido y redes" },
+    { n: 2, id: "web", from: 0.275, to: 0.48, label: "Página web" },
+    { n: 3, id: "software", from: 0.48, to: 0.635, label: "Software a medida" },
+    { n: 4, id: "brand", from: 0.635, to: 0.775, label: "Imagen de marca" },
+    { n: 5, id: "system", from: 0.775, to: 0.945, label: "Sistema conectado" },
+    { n: 6, id: "exit", from: 0.945, to: 1.0, label: "Salida" },
 ] as const;
