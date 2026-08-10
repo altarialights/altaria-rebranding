@@ -2253,6 +2253,81 @@ function heroVisualLifecycle(stage: HTMLElement): void {
   sync();
 }
 
+/**
+ * Keep expensive, fully transparent scenes out of paint/compositing.
+ *
+ * GSAP continues to own every transform and opacity value. This only
+ * changes `visibility` outside deliberately padded windows, so a surface
+ * is restored while it is still transparent and before its entrance can
+ * paint. The overlapping mini-site windows preserve both sides of each
+ * cross-fade and make reverse scrolling/jumps follow the same path.
+ */
+function renderSurfaceLifecycle(full: boolean): {
+  update: (progress: number) => void;
+  dispose: () => void;
+} {
+  type SurfaceWindow = {
+    element: HTMLElement;
+    from: number;
+    to: number;
+    active: boolean | null;
+  };
+
+  const safety = full ? fullDuration(0.04) : 0.04;
+  const definitions: Array<[string, number, number]> = full
+    ? [
+        ['[data-intro]', 0, fullAt(0.128)],
+        ['[data-obj="phone"]', Math.max(0, PHONE_CUE.a - safety), PHONE_CUE.outTo + 2 / 1560],
+        ['[data-obj="laptop"]', Math.max(0, LAPTOP_CUE.a - safety), LAPTOP_CUE.outTo + 2 / 1560],
+        ['[data-obj="monitor"]', Math.max(0, MONITOR_CUE.a - safety), MONITOR_CUE.outTo + 2 / 1560],
+        ['[data-obj="tablet"]', Math.max(0, TABLET_CUE.a - safety), TABLET_CUE.outTo + 2 / 1560],
+        ['[data-obj="flow"]', Math.max(0, fullAt(0.786) - safety), 1],
+        [
+          '[data-web-scene="impact"]',
+          Math.max(0, WEB_MINI.start - safety),
+          WEB_MINI.transitionOneEnd + 8 / 1560,
+        ],
+        [
+          '[data-web-scene="benefits"]',
+          WEB_MINI.impactEnd - 8 / 1560,
+          WEB_MINI.transitionTwoEnd + 8 / 1560,
+        ],
+        [
+          '[data-web-scene="results"]',
+          WEB_MINI.benefitsHoldEnd - 8 / 1560,
+          LAPTOP_CUE.outTo + 2 / 1560,
+        ],
+      ]
+    : [
+        ['[data-intro]', 0, 0.128],
+        ['[data-obj="phone"]', 0.08, 0.327],
+        ['[data-obj="laptop"]', 0.24, 0.533],
+        ['[data-obj="monitor"]', 0.44, 0.687],
+        ['[data-obj="tablet"]', 0.59, 0.827],
+        ['[data-obj="flow"]', 0.74, 1],
+      ];
+
+  const surfaces: SurfaceWindow[] = definitions.flatMap(([selector, from, to]) => {
+    const element = q<HTMLElement>(selector);
+    return element ? [{ element, from, to, active: null }] : [];
+  });
+
+  const update = (progress: number): void => {
+    for (const surface of surfaces) {
+      const active = progress >= surface.from && progress <= surface.to;
+      if (active === surface.active) continue;
+      surface.active = active;
+      surface.element.style.visibility = active ? '' : 'hidden';
+    }
+  };
+
+  const dispose = (): void => {
+    for (const surface of surfaces) surface.element.style.removeProperty('visibility');
+  };
+
+  return { update, dispose };
+}
+
 /* ------------------------------------------------------------------ *
  * Boot
  * ------------------------------------------------------------------ */
@@ -2357,12 +2432,15 @@ export function initHero(): void {
          there is nowhere for them to go that is not on top of a headline.
          Reduced motion never reaches this branch at all. */
       const sky = full && !still ? skyLife(activity) : null;
+      const renderSurfaces = renderSurfaceLifecycle(full);
+      renderSurfaces.update(0);
 
       const spinPhone = q('[data-spin="phone"]');
       let lastBeat = -1;
 
       const onRender = (p: number): void => {
         progress = p;
+        renderSurfaces.update(p);
         flowImage.update(p);
         setTabletInteractive(
           full
@@ -2447,6 +2525,7 @@ export function initHero(): void {
 
       return () => {
         sky?.dispose();
+        renderSurfaces.dispose();
         pointer.dispose();
         activity.dispose();
         setTabletInteractive(false);

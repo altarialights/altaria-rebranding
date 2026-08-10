@@ -56,8 +56,10 @@ const desktopSide = DESKTOP_RIGHT_SIDE.has(id) ? 'right' : 'left';
     white-space: normal;
     padding: 0.95rem 1.1rem;
     border-radius: 14px;
+    /* The near-opaque panel already supplies the visual diffusion. The
+       border highlight and broad shadow retain the glass depth without
+       allocating another backdrop-filter surface on interaction. */
     background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(14px);
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.95) inset,
       0 0 0 1px rgba(29, 111, 192, 0.14),

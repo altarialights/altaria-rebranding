@@ -112,8 +112,11 @@ const icons: Record<string, string> = {
     display: flex;
     flex-direction: column;
     border-radius: 16px;
+    /* At 90% white the backdrop contribution is below a visible pixel
+       once the card is composited over the pale flow aura. Keeping the
+       premium inset/highlight and shadow avoids five live backdrop blur
+       surfaces in the closing beat. */
     background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(14px);
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.95) inset,
       0 0 0 1px rgba(29, 111, 192, 0.12),
