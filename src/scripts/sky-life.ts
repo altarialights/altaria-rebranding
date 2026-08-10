@@ -38,6 +38,7 @@ import gsap from "gsap";
 interface Activity {
     readonly fast: boolean;
     readonly visible: boolean;
+    onChange(fn: () => void): void;
 }
 
 export interface SkyLife {
@@ -622,6 +623,11 @@ export function skyLife(activity: Activity): SkyLife {
     };
 
     document.addEventListener("click", react);
+    activity.onChange(() => {
+        if (!running) return;
+        if (activity.visible) running.tl.resume();
+        else running.tl.pause();
+    });
 
     const update = (p: number): void => {
         for (const item of live) {

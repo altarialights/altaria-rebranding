@@ -347,7 +347,12 @@ interface Activity {
 function stageActivity(): Activity {
   let fast = false;
   let scrolling = false;
-  let visible = document.visibilityState === 'visible';
+  const hero = q<HTMLElement>('[data-hero]');
+  const heroRect = hero?.getBoundingClientRect();
+  let heroVisible = heroRect
+    ? heroRect.bottom > 0 && heroRect.top < window.innerHeight
+    : true;
+  let visible = document.visibilityState === 'visible' && heroVisible;
   let lastY = window.scrollY;
   let lastT = performance.now();
   let idle = 0;
@@ -386,12 +391,23 @@ function stageActivity(): Activity {
   };
 
   const onVisibility = (): void => {
-    visible = document.visibilityState === 'visible';
+    const next = document.visibilityState === 'visible' && heroVisible;
+    if (next === visible) return;
+    visible = next;
     notify();
   };
 
+  const heroObserver = new IntersectionObserver(
+    ([entry]) => {
+      heroVisible = entry?.isIntersecting ?? true;
+      onVisibility();
+    },
+    { threshold: 0 }
+  );
+
   window.addEventListener('scroll', onScroll, { passive: true });
   document.addEventListener('visibilitychange', onVisibility);
+  if (hero) heroObserver.observe(hero);
 
   return {
     get fast() {
@@ -409,6 +425,7 @@ function stageActivity(): Activity {
     dispose() {
       window.removeEventListener('scroll', onScroll);
       document.removeEventListener('visibilitychange', onVisibility);
+      heroObserver.disconnect();
       window.clearTimeout(idle);
       subs.length = 0;
     },
@@ -483,10 +500,20 @@ function floatController(activity: Activity): (key: FloatKey, on: boolean) => vo
   }
 
   activity.onChange(() => {
-    const target = activity.fast || !activity.visible ? 0.12 : 1;
     for (const h of handles.values()) {
       if (!h.on) continue;
-      gsap.to(h.tw, { timeScale: target, duration: 0.4, ease: 'power2.out', overwrite: true });
+      if (!activity.visible) {
+        gsap.killTweensOf(h.tw);
+        h.tw.pause();
+        continue;
+      }
+      h.tw.play();
+      gsap.to(h.tw, {
+        timeScale: activity.fast ? 0.12 : 1,
+        duration: 0.4,
+        ease: 'power2.out',
+        overwrite: true,
+      });
     }
   });
 
@@ -495,7 +522,8 @@ function floatController(activity: Activity): (key: FloatKey, on: boolean) => vo
     if (!h || h.on === on) return;
     h.on = on;
     if (on) {
-      h.tw.timeScale(activity.fast ? 0.12 : 1).play();
+      h.tw.timeScale(activity.fast ? 0.12 : 1);
+      if (activity.visible) h.tw.play();
       return;
     }
     h.tw.pause();
@@ -594,7 +622,15 @@ function monitorLife(activity: Activity): (on: boolean) => void {
   let on = false;
   activity.onChange(() => {
     if (!on) return;
-    const t = activity.fast || !activity.visible ? 0.15 : 1;
+    if (!activity.visible) {
+      gsap.killTweensOf([tl, ...extras]);
+      tl.pause();
+      for (const extra of extras) extra.pause();
+      return;
+    }
+    tl.play();
+    for (const extra of extras) extra.play();
+    const t = activity.fast ? 0.15 : 1;
     gsap.to([tl, ...extras], { timeScale: t, duration: 0.4, overwrite: true });
   });
 
@@ -602,8 +638,10 @@ function monitorLife(activity: Activity): (on: boolean) => void {
     if (on === next) return;
     on = next;
     if (next) {
-      tl.play();
-      for (const e of extras) e.play();
+      if (activity.visible) {
+        tl.play();
+        for (const e of extras) e.play();
+      }
     } else {
       tl.pause();
       for (const e of extras) e.pause();
@@ -738,12 +776,29 @@ function cursorParallax(activity: Activity): {
 interface Reel {
   update(p: number, rotationY: number, from: number, to: number): void;
   readonly label: string;
+  dispose(): void;
 }
 
 function reelController(): Reel {
   const video = q<HTMLVideoElement>('[data-reel]');
   let armed = false;
   let label = 'sin cargar';
+  let wantsPlayback = false;
+
+  const syncPlayback = (): void => {
+    if (!video) return;
+    const shouldPlay = wantsPlayback && document.visibilityState === 'visible';
+    if (shouldPlay && video.paused) {
+      void video.play().catch(() => {
+        /* Autoplay refused: the poster remains visible. */
+      });
+    } else if (!shouldPlay && !video.paused) {
+      video.pause();
+    }
+  };
+
+  const onVisibility = (): void => syncPlayback();
+  document.addEventListener('visibilitychange', onVisibility);
 
   return {
     update(p, rotationY, from, to) {
@@ -759,15 +814,9 @@ function reelController(): Reel {
 
       const facing = Math.abs(rotationY) <= REEL_GATE_DEG;
       const onStage = p >= from && p < to;
-      const wants = armed && facing && onStage;
+      wantsPlayback = armed && facing && onStage;
 
-      if (wants && video.paused) {
-        void video.play().catch(() => {
-          /* autoplay refused — the poster stays, which is acceptable */
-        });
-      } else if (!wants && !video.paused) {
-        video.pause();
-      }
+      syncPlayback();
 
       label = !armed
         ? 'sin cargar'
@@ -779,6 +828,66 @@ function reelController(): Reel {
     },
     get label() {
       return label;
+    },
+    dispose() {
+      document.removeEventListener('visibilitychange', onVisibility);
+      wantsPlayback = false;
+      video?.pause();
+    },
+  };
+}
+
+/* The closing network image is several viewports away. It has no `src` in
+   the initial HTML and starts downloading at the first real navigation
+   intent, with progress as a fallback for restored/deep scroll positions. */
+function deferredFlowImage(): { load(): void; update(p: number): void } {
+  const image = q<HTMLImageElement>('[data-flow-core-image]');
+  let started = false;
+
+  const removeIntentListeners = (): void => {
+    window.removeEventListener('wheel', onIntent);
+    window.removeEventListener('touchstart', onIntent);
+    window.removeEventListener('pointerdown', onIntent);
+    window.removeEventListener('keydown', onKeyDown);
+  };
+
+  const load = (): void => {
+    if (!image || started) return;
+    const src = image.dataset.src;
+    if (!src) return;
+    started = true;
+    removeIntentListeners();
+    image.src = src;
+    delete image.dataset.src;
+    void image.decode().catch(() => {
+      /* A failed decode leaves the normal image fallback behaviour. */
+    });
+  };
+
+  const onIntent = (): void => load();
+  const onKeyDown = (event: KeyboardEvent): void => {
+    if (
+      event.key === 'ArrowDown' ||
+      event.key === 'ArrowUp' ||
+      event.key === 'PageDown' ||
+      event.key === 'PageUp' ||
+      event.key === 'Home' ||
+      event.key === 'End' ||
+      event.key === ' '
+    ) {
+      load();
+    }
+  };
+
+  window.addEventListener('wheel', onIntent, { passive: true });
+  window.addEventListener('touchstart', onIntent, { passive: true });
+  window.addEventListener('pointerdown', onIntent, { passive: true });
+  window.addEventListener('keydown', onKeyDown);
+
+  return {
+    load,
+    update(p) {
+      if (p > 0.012) load();
     },
   };
 }
@@ -2083,6 +2192,20 @@ function initDebug(getState: () => HudState): void {
     }
   };
 
+  let frame = 0;
+  const loop = (): void => {
+    render();
+    frame = window.requestAnimationFrame(loop);
+  };
+  const syncLoop = (): void => {
+    if (hud && !hud.hidden) {
+      if (!frame) frame = window.requestAnimationFrame(loop);
+      return;
+    }
+    if (frame) window.cancelAnimationFrame(frame);
+    frame = 0;
+  };
+
   window.addEventListener('keydown', (e) => {
     if (e.key === 'b' || e.key === 'B') {
       if (ab) ab.hidden = !ab.hidden;
@@ -2091,6 +2214,7 @@ function initDebug(getState: () => HudState): void {
     if (e.key === 'g' || e.key === 'G') {
       if (hud) hud.hidden = !hud.hidden;
       render();
+      syncLoop();
     }
     if (e.key === 'f' || e.key === 'F') {
       if (stage) stage.dataset.faces = stage.dataset.faces === '1' ? '0' : '1';
@@ -2098,12 +2222,35 @@ function initDebug(getState: () => HudState): void {
   });
   window.addEventListener('resize', measureAssets, { passive: true });
   measureAssets();
+  syncLoop();
+}
 
-  const loop = (): void => {
-    render();
-    requestAnimationFrame(loop);
+function heroVisualLifecycle(stage: HTMLElement): void {
+  const hero = q<HTMLElement>('[data-hero]');
+  if (!hero) return;
+  const rect = hero.getBoundingClientRect();
+  let intersects = rect.bottom > 0 && rect.top < window.innerHeight;
+
+  const sync = (): void => {
+    if (!intersects || document.visibilityState !== 'visible') stage.dataset.visualPaused = '1';
+    else delete stage.dataset.visualPaused;
   };
-  requestAnimationFrame(loop);
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      intersects = entry?.isIntersecting ?? true;
+      sync();
+    },
+    { threshold: 0 }
+  );
+  const dispose = (): void => {
+    observer.disconnect();
+    document.removeEventListener('visibilitychange', sync);
+  };
+
+  observer.observe(hero);
+  document.addEventListener('visibilitychange', sync);
+  window.addEventListener('pagehide', dispose, { once: true });
+  sync();
 }
 
 /* ------------------------------------------------------------------ *
@@ -2123,6 +2270,8 @@ export function initHero(): void {
     stage.dataset.still = '1';
   }
 
+  heroVisualLifecycle(stage);
+
   fitIntro();
 
   /* Outside matchMedia on purpose. Every other interactive layer belongs
@@ -2136,6 +2285,13 @@ export function initHero(): void {
   let fullMode = false;
   let activeBeats: ReadonlyArray<(typeof beats)[number] | (typeof beatsFull)[number]> = beats;
   const reel = reelController();
+  const flowImage = deferredFlowImage();
+  const tablet = q<HTMLElement>('[data-obj="tablet"]');
+  const setTabletInteractive = (on: boolean): void => {
+    if (!tablet) return;
+    if (on) tablet.dataset.brandInteractive = '1';
+    else delete tablet.dataset.brandInteractive;
+  };
 
   const stateOf = (): HudState => {
     const beat = activeBeats.find((b) => progress < b.to) ?? activeBeats[activeBeats.length - 1];
@@ -2165,9 +2321,11 @@ export function initHero(): void {
 
       if (!full && !compact) {
         openingSequence(true);
+        flowImage.load();
         buildReduced();
+        setTabletInteractive(true);
         // Beats still advance so no content is ever unreachable.
-        ScrollTrigger.create({
+        const reducedTrigger = ScrollTrigger.create({
           trigger: '[data-hero]',
           start: 'top top',
           end: 'bottom bottom',
@@ -2177,7 +2335,10 @@ export function initHero(): void {
             stage.setAttribute('data-beat', String(beat.n));
           },
         });
-        return undefined;
+        return () => {
+          reducedTrigger.kill();
+          setTabletInteractive(false);
+        };
       }
 
       /* `?still=1` freezes the idle float and the cursor parallax so a
@@ -2202,6 +2363,12 @@ export function initHero(): void {
 
       const onRender = (p: number): void => {
         progress = p;
+        flowImage.update(p);
+        setTabletInteractive(
+          full
+            ? p >= TABLET_CUE.drawFrom && p < TABLET_CUE.outTo
+            : p >= 0.74 && p < 0.86
+        );
 
         /* The load-time cue has its own 1.5 s delay. If somebody starts
            scrolling before it fires, cancel that entrance so it cannot
@@ -2282,9 +2449,38 @@ export function initHero(): void {
         sky?.dispose();
         pointer.dispose();
         activity.dispose();
+        setTabletInteractive(false);
       };
     }
   );
 
-  initDebug(stateOf);
+  const onPageVisibility = (): void => {
+    if (document.visibilityState !== 'visible') {
+      gsap.ticker.sleep();
+      return;
+    }
+    gsap.ticker.wake();
+    ScrollTrigger.update();
+  };
+  document.addEventListener('visibilitychange', onPageVisibility);
+  window.addEventListener(
+    'pagehide',
+    () => {
+      document.removeEventListener('visibilitychange', onPageVisibility);
+      reel.dispose();
+    },
+    { once: true }
+  );
+  if (document.visibilityState !== 'visible') onPageVisibility();
+
+  const debugParams = new URLSearchParams(window.location.search);
+  if (
+    import.meta.env.DEV ||
+    debugParams.has('debug') ||
+    debugParams.has('boxes') ||
+    debugParams.has('hud') ||
+    debugParams.has('faces')
+  ) {
+    initDebug(stateOf);
+  }
 }

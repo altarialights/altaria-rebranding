@@ -351,6 +351,17 @@ const sparkles = [
     transform: rotate(45deg);
   }
 
+  /* The reveal owns many large, initially transparent surfaces. Keep the
+     authored hints available for hover/click, but do not reserve compositor
+     resources during the rest of the page lifetime. The interaction script
+     adds this class before starting any visible tween and removes it only
+     after every sun animation has settled. */
+  .sun-layer:not(.is-compositor-ready) *,
+  .sun-layer:not(.is-compositor-ready) *::before,
+  .sun-layer:not(.is-compositor-ready) *::after {
+    will-change: auto !important;
+  }
+
   @media (max-width: 1019px) {
     .sig,
     .sig__atmosphere,

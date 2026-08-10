@@ -56,6 +56,7 @@ export function sunSignature(): SunSignature | null {
     backdrops: Array.from(document.querySelectorAll<HTMLElement>('[data-sig-backdrop]')),
     sun: document.querySelector<HTMLElement>('[data-sky-sun]'),
   };
+  const layer = hit.closest<HTMLElement>('[data-sun-layer]');
 
   const calm = matchMedia('(prefers-reduced-motion: reduce)');
   const roomy = (): boolean => window.innerWidth >= 1020;
@@ -66,11 +67,28 @@ export function sunSignature(): SunSignature | null {
   let showing: gsap.core.Timeline | null = null;
   let boostTl: gsap.core.Timeline | null = null;
   let bubbleTl: gsap.core.Timeline | null = null;
+  let releaseCall: gsap.core.Tween | null = null;
   let scrollOrigin = 0;
 
+  const prepareCompositor = (): void => {
+    releaseCall?.kill();
+    releaseCall = null;
+    layer?.classList.add('is-compositor-ready');
+  };
+
+  const releaseCompositor = (delay = 0.12): void => {
+    releaseCall?.kill();
+    releaseCall = gsap.delayedCall(delay, () => {
+      releaseCall = null;
+      if (hovering || showing || boostTl || bubbleTl) return;
+      layer?.classList.remove('is-compositor-ready');
+    });
+  };
+
   const glow = (on: boolean): void => {
-    if (showing) return;
     hovering = on;
+    if (showing) return;
+    if (on) prepareCompositor();
     gsap.to(n.core, {
       opacity: on ? 0.55 : 0,
       scale: on ? 1 : 0.86,
@@ -87,6 +105,8 @@ export function sunSignature(): SunSignature | null {
         overwrite: 'auto',
       });
     }
+
+    if (!on) releaseCompositor(0.82);
   };
 
   const pulse = (): gsap.core.Timeline =>
@@ -103,10 +123,16 @@ export function sunSignature(): SunSignature | null {
 
   /** Later clicks acknowledge the user without replaying the reveal. */
   const intensify = (): void => {
+    prepareCompositor();
     boostTl?.kill();
     const active = Boolean(showing);
     boostTl = gsap
-      .timeline({ onComplete: () => (boostTl = null) })
+      .timeline({
+        onComplete: () => {
+          boostTl = null;
+          releaseCompositor();
+        },
+      })
       .to(n.flare, {
         opacity: 0.96,
         scale: 1.1,
@@ -131,9 +157,15 @@ export function sunSignature(): SunSignature | null {
   };
 
   const showBubble = (): void => {
+    prepareCompositor();
     bubbleTl?.kill();
     bubbleTl = gsap
-      .timeline({ onComplete: () => (bubbleTl = null) })
+      .timeline({
+        onComplete: () => {
+          bubbleTl = null;
+          releaseCompositor();
+        },
+      })
       .set(n.bubble, { opacity: 0, scale: 0.84, y: -5, rotation: -2 })
       .to(n.bubble, {
         opacity: 1,
@@ -155,6 +187,7 @@ export function sunSignature(): SunSignature | null {
   };
 
   const say = (): void => {
+    prepareCompositor();
     const soft = calm.matches;
     const cloudsTarget = [0.72, 0.67, 0.48];
     const decor = [...n.clouds, ...n.particles, ...n.backdrops, n.rays, n.flare, n.mist];
@@ -164,6 +197,7 @@ export function sunSignature(): SunSignature | null {
         showing = null;
         window.removeEventListener('scroll', onScrollAway);
         gsap.set([n.intro, n.line, n.veil, ...decor], { clearProps: 'all' });
+        releaseCompositor();
       },
     });
     showing = tl;
@@ -275,9 +309,10 @@ export function sunSignature(): SunSignature | null {
 
   const onClick = (event: MouseEvent): void => {
     event.preventDefault();
+    prepareCompositor();
 
     if (!roomy()) {
-      pulse();
+      pulse().eventCallback('onComplete', () => releaseCompositor());
       return;
     }
 
@@ -292,9 +327,16 @@ export function sunSignature(): SunSignature | null {
     if (clickCount >= 3) showBubble();
   };
 
+  const onPointerDown = (): void => {
+    prepareCompositor();
+    /* Pointerdown precedes click, giving the browser a frame boundary in
+       which to honour the compositor hints before the strong reveal. */
+    releaseCompositor(1.5);
+  };
   const onEnter = (): void => glow(true);
   const onLeave = (): void => glow(false);
 
+  hit.addEventListener('pointerdown', onPointerDown, { passive: true });
   hit.addEventListener('click', onClick);
   hit.addEventListener('mouseenter', onEnter);
   hit.addEventListener('mouseleave', onLeave);
@@ -303,6 +345,7 @@ export function sunSignature(): SunSignature | null {
 
   return {
     dispose(): void {
+      hit.removeEventListener('pointerdown', onPointerDown);
       hit.removeEventListener('click', onClick);
       hit.removeEventListener('mouseenter', onEnter);
       hit.removeEventListener('mouseleave', onLeave);
@@ -313,9 +356,12 @@ export function sunSignature(): SunSignature | null {
       showing?.kill();
       boostTl?.kill();
       bubbleTl?.kill();
+      releaseCall?.kill();
       showing = null;
       boostTl = null;
       bubbleTl = null;
+      releaseCall = null;
+      layer?.classList.remove('is-compositor-ready');
 
       const all = [
         n.core,

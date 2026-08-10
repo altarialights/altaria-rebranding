@@ -94,18 +94,20 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
                   <img
                     class="brand__logo-layer brand__logo-layer--cloud"
                     data-brand-cloud
-                    src="/brand/nube.png"
+                    src="/brand/optimized/altaria-cloud-512.png"
+                    srcset="/brand/optimized/altaria-cloud-256.png 1x, /brand/optimized/altaria-cloud-512.png 2x"
                     alt=""
-                    width="1727"
-                    height="1727"
+                    width="512"
+                    height="512"
                   />
                   <img
                     class="brand__logo-layer brand__logo-layer--complete"
                     data-brand-logo
-                    src="/brand/ALTARIA%20LIGTHS%20003V%20LOGO%20ICO2.png"
+                    src="/brand/optimized/altaria-logo-512.png"
+                    srcset="/brand/optimized/altaria-logo-256.png 1x, /brand/optimized/altaria-logo-512.png 2x"
                     alt=""
-                    width="1727"
-                    height="1727"
+                    width="512"
+                    height="512"
                   />
                 </span>
 
@@ -152,18 +154,20 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
                   <span class="brand__variants-row">
                     <i class="brand__variant brand__variant--blue" data-brand-variant>
                       <img
-                        src="/brand/ALTARIA%20LIGTHS%20003V%20LOGO%20001.png"
+                        src="/brand/optimized/altaria-logo-positive-256.png"
+                        srcset="/brand/optimized/altaria-logo-positive-128.png 1x, /brand/optimized/altaria-logo-positive-256.png 2x"
                         alt=""
-                        width="1726"
-                        height="1087"
+                        width="256"
+                        height="161"
                       />
                     </i>
                     <i class="brand__variant brand__variant--white" data-brand-variant>
                       <img
-                        src="/brand/ALTARIA%20LIGTHS%20003V%20LOGO%20002.png"
+                        src="/brand/optimized/altaria-logo-negative-256.png"
+                        srcset="/brand/optimized/altaria-logo-negative-128.png 1x, /brand/optimized/altaria-logo-negative-256.png 2x"
                         alt=""
-                        width="1726"
-                        height="1087"
+                        width="256"
+                        height="161"
                       />
                     </i>
                   </span>
@@ -718,6 +722,7 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
 </style>
 
 <script>
+  const tablet = document.querySelector<HTMLElement>('[data-obj="tablet"]');
   const brandSwatches = Array.from(
     document.querySelectorAll<HTMLElement>('[data-brand-swatch]')
   );
@@ -727,32 +732,66 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
     document.documentElement.classList.remove('is-brand-swatch-hovered');
   };
 
-  window.addEventListener(
-    'pointermove',
-    (event) => {
-      let isOverSwatch = false;
+  const onPointerMove = (event: PointerEvent) => {
+    let isOverSwatch = false;
 
-      for (const swatch of brandSwatches) {
-        const rect = swatch.getBoundingClientRect();
-        const isVisible = Number(getComputedStyle(swatch).opacity) > 0.5;
-        const isInside =
-          isVisible &&
-          event.clientX >= rect.left &&
-          event.clientX <= rect.right &&
-          event.clientY >= rect.top &&
-          event.clientY <= rect.bottom;
-
-        swatch.classList.toggle('is-hovered', isInside);
-        isOverSwatch ||= isInside;
+    for (const swatch of brandSwatches) {
+      const isVisible = Number(getComputedStyle(swatch).opacity) > 0.5;
+      if (!isVisible) {
+        swatch.classList.remove('is-hovered');
+        continue;
       }
 
-      document.documentElement.classList.toggle('is-brand-swatch-hovered', isOverSwatch);
-    },
-    { passive: true }
-  );
+      const rect = swatch.getBoundingClientRect();
+      const isInside =
+        event.clientX >= rect.left &&
+        event.clientX <= rect.right &&
+        event.clientY >= rect.top &&
+        event.clientY <= rect.bottom;
 
-  window.addEventListener('blur', clearBrandSwatchHover);
-  window.addEventListener('pointerout', (event) => {
+      swatch.classList.toggle('is-hovered', isInside);
+      isOverSwatch ||= isInside;
+    }
+
+    document.documentElement.classList.toggle('is-brand-swatch-hovered', isOverSwatch);
+  };
+
+  const onPointerOut = (event: PointerEvent) => {
     if (!event.relatedTarget) clearBrandSwatchHover();
-  });
+  };
+
+  let listening = false;
+  const syncListeners = () => {
+    const next = Boolean(tablet?.hasAttribute('data-brand-interactive')) && !document.hidden;
+    if (next === listening) return;
+    listening = next;
+
+    if (listening) {
+      window.addEventListener('pointermove', onPointerMove, { passive: true });
+      window.addEventListener('blur', clearBrandSwatchHover);
+      window.addEventListener('pointerout', onPointerOut);
+      return;
+    }
+
+    window.removeEventListener('pointermove', onPointerMove);
+    window.removeEventListener('blur', clearBrandSwatchHover);
+    window.removeEventListener('pointerout', onPointerOut);
+    clearBrandSwatchHover();
+  };
+
+  const observer = new MutationObserver(syncListeners);
+  if (tablet) observer.observe(tablet, { attributes: true, attributeFilter: ['data-brand-interactive'] });
+  document.addEventListener('visibilitychange', syncListeners);
+  window.addEventListener(
+    'pagehide',
+    () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', syncListeners);
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('blur', clearBrandSwatchHover);
+      window.removeEventListener('pointerout', onPointerOut);
+    },
+    { once: true }
+  );
+  syncListeners();
 </script>

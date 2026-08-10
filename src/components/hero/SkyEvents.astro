@@ -224,6 +224,15 @@ const flockB = [
     animation-delay: calc(var(--bd) * -0.37 * var(--bs) * 7);
   }
 
+  /* A parked flock is fully transparent. Keeping eight wing animations
+     running behind that opacity only wakes the animation engine for pixels
+     that cannot be seen. `is-live` is applied before the entrance tween and
+     removed after the exit, so the wings resume while the root is still
+     transparent and preserve the exact visible flight. */
+  .flock:not(.is-live) .bird svg {
+    animation-play-state: paused;
+  }
+
   /* Startled: the wings go about twice as fast. Re-timing a running
      animation does not restart it, so the beat speeds up mid-stroke
      rather than snapping back to wings-up. */

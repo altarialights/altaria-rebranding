@@ -62,7 +62,7 @@
   /* Display: the opening statement and the beat headlines. Never body
      copy — Puffy has no text cut, and at 18px it stops being legible and
      starts being decoration. */
-  --font-display: 'Puffy', 'Altaria Cloud', 'Arial Black', 'Geist Variable', sans-serif;
+  --font-display: 'Puffy', 'Arial Black', 'Geist Variable', sans-serif;
 
   --step--2: clamp(0.68rem, 0.64rem + 0.14vw, 0.78rem);
   --step--1: clamp(0.8rem, 0.76rem + 0.18vw, 0.94rem);

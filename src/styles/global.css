@@ -238,6 +238,16 @@ a {
   animation-play-state: paused !important;
 }
 
+/* The sticky track can be many viewports above the user once the hero has
+   finished. Pause CSS animation clocks only when the whole hero is outside
+   the viewport or the document is hidden. Paused CSS animations retain
+   their current time and resume without resetting. */
+[data-visual-paused='1'] *,
+[data-visual-paused='1'] *::before,
+[data-visual-paused='1'] *::after {
+  animation-play-state: paused !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
