@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- USR-05 slot. Neutral mark so the request never 404s during the
-       prototype. Replace wholesale with the final Altaria Lights logo. -->
-  <rect width="32" height="32" rx="7" fill="#1d6fc0"/>
-  <path d="M16 8 L23 23 H9 Z" fill="#ffffff" opacity=".92"/>
-</svg>

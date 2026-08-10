@@ -11,16 +11,20 @@ import { header } from '../../data/hero';
  * zero layout shift (the previous build's entire CLS budget came from
  * animating a header's width).
  *
- * The wordmark is TEMPORARY HTML. No logo is proposed or generated; the
- * slot keeps a fixed box so the final SVG drops in without moving
- * anything.
+ * The brand combines the supplied Altaria mark with its HTML wordmark.
  */
 ---
 
 <header class="hdr" data-header>
   <div class="hdr__capsule" data-header-capsule>
     <a class="hdr__brand" href="#top" aria-label={`${header.wordmark} — inicio`}>
-      {/* USR-05 slot → replace with <img src="/brand/logo.svg" alt=""> */}
+      <img
+        class="hdr__logo"
+        src="/brand/ALTARIA%20LIGTHS%20003V%20LOGO%20ICO2.png"
+        alt=""
+        width="1727"
+        height="1727"
+      />
       <span class="hdr__word">{header.wordmark}</span>
     </a>
 
@@ -68,18 +72,32 @@ import { header } from '../../data/hero';
   .hdr__brand {
     display: flex;
     align-items: center;
-    min-width: 190px;
+    gap: 0.55rem;
+    min-width: 238px;
     height: 30px;
     margin-right: auto;
     text-decoration: none;
   }
 
+  .hdr__logo {
+    display: block;
+    width: 30px;
+    height: 30px;
+    flex: 0 0 auto;
+    object-fit: contain;
+  }
+
   .hdr__word {
+    display: inline-block;
+    padding-right: 1.4rem;
+    font-family: 'Lemon Milk', var(--font-sans);
     font-size: clamp(0.86rem, 0.8rem + 0.2vw, 1rem);
-    font-weight: 700;
-    letter-spacing: 0.28em;
+    font-weight: 400;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ink);
+    transform: scaleX(1.25);
+    transform-origin: left center;
   }
 
   .hdr__nav {

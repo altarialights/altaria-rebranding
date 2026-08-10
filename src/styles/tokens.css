@@ -352,3 +352,13 @@
     --step-beat: clamp(32px, 6vw, 48px);
   }
 }
+
+/* The embedded three-screen web demo belongs only to the full desktop
+   choreography. `bottom bottom` leaves 1560vh of useful travel here:
+   the original 1020vh plus a controlled 540vh laptop hold. Compact and
+   reduced motion keep the original 1120vh height above. */
+@media (min-width: 1020px) and (prefers-reduced-motion: no-preference) {
+  :root {
+    --hero-scroll: 1660vh;
+  }
+}

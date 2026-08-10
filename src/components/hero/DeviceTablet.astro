@@ -2,7 +2,7 @@
 import { brandBeat } from '../../data/hero';
 
 /**
- * Unbranded tablet, CSS 3D. Built like the phone — a closed solid with a
+ * Tablet, CSS 3D. Built like the phone — a closed solid with a
  * front, a back, four walls and a faceted rim — because it makes the same
  * kind of entrance: a turn that shows its back before it shows its
  * screen, so every angle needs a real surface.
@@ -13,11 +13,8 @@ import { brandBeat } from '../../data/hero';
  *
  * ON THE CONTENTS OF THE SCREEN
  * ---------------------------------------------------------------------
- * The canvas shows a symbol being CONSTRUCTED — circles, guides and the
- * grid a designer works over — not a finished mark. Altaria Lights has no
- * logo yet (USR-05), and drawing one here would quietly invent it. A
- * construction in progress says "we design identity" without asserting
- * any particular identity, which is the honest version of this beat.
+ * The canvas presents the real Altaria Lights mark: the cloud appears
+ * first and the complete logo resolves over it during the brand beat.
  */
 const RX = 5.6; // corner radius, % of width
 const RY = 7.8; // corner radius, % of height
@@ -59,7 +56,7 @@ for (const [sx, sy] of [
   }
 }
 
-const swatches = ['#1d6fc0', '#0e1620', '#c9a35a', '#e8eef5', '#5aa9e6'];
+const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
 ---
 
 <div class="obj obj--tablet" data-obj="tablet" data-layer="L3">
@@ -92,27 +89,25 @@ const swatches = ['#1d6fc0', '#0e1620', '#c9a35a', '#e8eef5', '#5aa9e6'];
 
             <div class="tablet__front">
               <div class="tablet__screen" role="img" aria-label={brandBeat.screenLabel}>
-                <!-- The construction of a symbol, drawn by the timeline. -->
-                <svg class="brand__canvas" viewBox="0 0 286 200" fill="none" aria-hidden="true">
-                  <!-- Designer's guides -->
-                  <g class="brand__guides" data-brand-guides>
-                    <path d="M143 26v148M69 100h148" stroke="rgba(29,111,192,.28)" stroke-width="1"
-                      stroke-dasharray="4 5"></path>
-                    <circle cx="143" cy="100" r="62" stroke="rgba(29,111,192,.22)" stroke-width="1"
-                      stroke-dasharray="4 5"></circle>
-                    <rect x="81" y="38" width="124" height="124" rx="10"
-                      stroke="rgba(29,111,192,.18)" stroke-width="1" stroke-dasharray="4 5"></rect>
-                  </g>
-                  <!-- The mark itself: an abstract construction, NOT a logo -->
-                  <g class="brand__mark">
-                    <path class="brand__stroke" data-brand-stroke
-                      d="M143 42 C 186 42, 205 74, 199 104 C 193 136, 165 158, 143 158 C 121 158, 93 136, 87 104 C 81 74, 100 42, 143 42 Z"
-                      stroke="var(--accent)" stroke-width="3" stroke-linecap="round"></path>
-                    <path class="brand__stroke brand__stroke--2" data-brand-stroke
-                      d="M110 122 C 126 96, 160 96, 176 122" stroke="var(--gold)" stroke-width="3"
-                      stroke-linecap="round"></path>
-                  </g>
-                </svg>
+                <!-- Two pixel-aligned PNGs: cloud first, complete mark second. -->
+                <span class="brand__logo-stage" aria-hidden="true">
+                  <img
+                    class="brand__logo-layer brand__logo-layer--cloud"
+                    data-brand-cloud
+                    src="/brand/nube.png"
+                    alt=""
+                    width="1727"
+                    height="1727"
+                  />
+                  <img
+                    class="brand__logo-layer brand__logo-layer--complete"
+                    data-brand-logo
+                    src="/brand/ALTARIA%20LIGTHS%20003V%20LOGO%20ICO2.png"
+                    alt=""
+                    width="1727"
+                    height="1727"
+                  />
+                </span>
 
                 <!-- Palette -->
                 <span class="brand__palette" aria-hidden="true">
@@ -121,11 +116,17 @@ const swatches = ['#1d6fc0', '#0e1620', '#c9a35a', '#e8eef5', '#5aa9e6'];
                   ))}
                 </span>
 
-                <!-- Type specimen, as weight bars rather than fake words -->
+                <!-- Real type specimens used by Altaria Lights. -->
                 <span class="brand__type" aria-hidden="true">
-                  <i style="--w:62%;--t:9%"></i>
-                  <i style="--w:44%;--t:5%"></i>
-                  <i style="--w:78%;--t:3%"></i>
+                  <small>Tipografías</small>
+                  <span class="brand__type-family">
+                    <strong class="brand__type-sample brand__type-sample--puffy">ABC123</strong>
+                    <span class="brand__type-name">Puffy</span>
+                  </span>
+                  <span class="brand__type-family">
+                    <strong class="brand__type-sample brand__type-sample--lemon">ABC123</strong>
+                    <span class="brand__type-name">Lemon Milk</span>
+                  </span>
                 </span>
 
                 <div class="tablet__off" data-tablet-off aria-hidden="true"></div>
@@ -309,25 +310,28 @@ const swatches = ['#1d6fc0', '#0e1620', '#c9a35a', '#e8eef5', '#5aa9e6'];
     background: linear-gradient(168deg, #ffffff 0%, #f2f6fa 58%, #e6eef6 100%);
   }
 
-  /* Laid out like a real identity board: the mark under construction
-     fills the left two thirds, the palette runs along the bottom of it,
-     and the type specimen sits in the right-hand column. */
-  .brand__canvas {
+  /* Identity board: the mark occupies the former construction area,
+     with its palette below and the type specimen in the right column. */
+  .brand__logo-stage {
     position: absolute;
-    left: 4%;
-    top: 5%;
-    width: 62%;
-    height: 68%;
+    left: 19%;
+    top: 14%;
+    width: 32%;
+    aspect-ratio: 1;
   }
 
-  .brand__stroke {
-    fill: none;
-    stroke-dasharray: var(--len, 520);
-    stroke-dashoffset: var(--len, 520);
+  .brand__logo-layer {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
-  .brand__guides {
+  .brand__logo-layer--complete {
     opacity: 0;
+    transform: scale(0.96);
   }
 
   .brand__palette {
@@ -335,39 +339,81 @@ const swatches = ['#1d6fc0', '#0e1620', '#c9a35a', '#e8eef5', '#5aa9e6'];
     left: 7%;
     bottom: 9%;
     display: flex;
+    justify-content: center;
     gap: 3.4%;
     width: 56%;
   }
 
   .brand__palette i {
-    flex: 1;
+    flex: 0 0 17.3%;
     aspect-ratio: 1;
     border-radius: 18%;
     background: var(--c);
     opacity: 0;
     box-shadow:
       0 1px 3px rgba(20, 40, 62, 0.2),
-      0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+      0 0 0 1px rgba(15, 44, 86, 0.12) inset;
   }
 
   .brand__type {
     position: absolute;
-    right: 6%;
-    top: 20%;
+    right: 3%;
+    top: 14%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16%;
-    width: 24%;
+    gap: clamp(4px, 0.46vw, 8px);
+    width: 31%;
+    color: var(--ink-navy);
   }
 
-  .brand__type i {
+  .brand__type small {
     display: block;
-    width: var(--w);
-    height: var(--t);
-    min-height: 3px;
-    border-radius: 2px;
-    background: rgba(14, 22, 32, 0.42);
+    width: 100%;
+    padding-bottom: clamp(3px, 0.3vw, 5px);
+    border-bottom: 1px solid rgba(15, 44, 86, 0.2);
+    font-family: var(--font-sans);
+    font-size: clamp(7px, 0.62vw, 11px);
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: 0.12em;
+  }
+
+  .brand__type-sample {
+    display: block;
+    max-width: 100%;
+    color: var(--ink-navy);
+    white-space: nowrap;
+  }
+
+  .brand__type-family {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    width: 100%;
+  }
+
+  .brand__type-name {
+    font-family: var(--font-sans);
+    font-size: clamp(7px, 0.56vw, 10px);
+    font-weight: 500;
+    line-height: 1.1;
+    color: var(--ink-navy);
+  }
+
+  .brand__type-sample--puffy {
+    font-family: 'Puffy', var(--font-display);
+    font-size: clamp(13px, 1.22vw, 20px);
+    font-weight: 900;
+    line-height: 0.95;
+  }
+
+  .brand__type-sample--lemon {
+    font-family: 'Lemon Milk', var(--font-sans);
+    font-size: clamp(11px, 0.92vw, 15px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: 0.04em;
   }
 
   .tablet__off {

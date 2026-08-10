@@ -1,6 +1,6 @@
 ---
 import ScreenDeZamorano from '../ScreenDeZamorano.astro';
-import { hasCapture } from '../../lib/capture';
+import EmbeddedWebExperience from './EmbeddedWebExperience.astro';
 
 /**
  * Unbranded laptop, CSS 3D. Same wrapper discipline as the phone.
@@ -37,7 +37,6 @@ import { hasCapture } from '../../lib/capture';
  * below rotate the way they do.
  */
 
-const captureReady = hasCapture();
 ---
 
 <div class="obj obj--laptop" data-obj="laptop" data-layer="L3">
@@ -51,12 +50,16 @@ const captureReady = hasCapture();
               <div class="laptop__lid">
                 <div class="laptop__screen-frame">
                   <div class="laptop__bezel">
-                    <div
-                      class="laptop__track"
-                      data-laptop-track
-                      data-has-capture={captureReady ? '1' : '0'}
-                    >
-                      <ScreenDeZamorano />
+                    <div class="laptop__track" data-laptop-track>
+                      <!-- Keep the previous screen below the full desktop
+                           breakpoint so this controlled change does not
+                           redesign the compact/mobile choreography. -->
+                      <div class="laptop__legacy-screen">
+                        <ScreenDeZamorano />
+                      </div>
+                      <div class="laptop__embedded-screen">
+                        <EmbeddedWebExperience />
+                      </div>
                     </div>
                     <div class="laptop__glass" aria-hidden="true"></div>
                     <!-- Opaque while the lid is shut: see the note below. -->
@@ -176,9 +179,30 @@ const captureReady = hasCapture();
     inset: 0;
   }
 
-  .laptop__track :global(img) {
+  .laptop__legacy-screen,
+  .laptop__embedded-screen {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .laptop__embedded-screen {
+    display: none;
+  }
+
+  .laptop__legacy-screen :global(img) {
     width: 100%;
     height: auto;
+  }
+
+  @media (min-width: 1020px) {
+    .laptop__legacy-screen {
+      display: none;
+    }
+
+    .laptop__embedded-screen {
+      display: block;
+    }
   }
 
   .laptop__glass {

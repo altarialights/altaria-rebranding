@@ -38,34 +38,37 @@ const only = process.argv[2] ?? 'all';
    capture sits in the middle of the window where its copy is fully
    settled, and each device capture at the phase it is named after. */
 const M = {
-  'intro-statement': 0.02,
-  'header-transition': 0.1,
+  'intro-statement': 0.013077,
+  'header-transition': 0.065385,
 
   // Mid-window of each copy block, where it is completely still.
-  'social-beat': 0.2,
-  'web-beat': 0.44,
-  'software-beat': 0.57,
-  'brand-beat': 0.72,
-  'growth-beat': 0.87,
+  'social-beat': 0.130769,
+  'web-beat': 0.3,
+  'web-impact': 0.32,
+  'web-benefits': 0.46,
+  'web-results': 0.59,
+  'software-beat': 0.735,
+  'brand-beat': 0.825,
+  'growth-beat': 0.915,
 
   // Phone: rear shell → edge-on crossing → three-quarter → square.
-  // PHONE_CUE a 0.128 · b 0.178 · c 0.228 · exit 0.278–0.322.
-  'phone-back-stable': 0.152,
-  'phone-side-stable': 0.176,
-  'phone-front-stable': 0.245,
-  'mobile-entry-start': 0.14,
-  'mobile-entry-mid': 0.178,
-  'mobile-entry-final': 0.245,
-  'mobile-final': 0.245,
+  // Full PHONE_CUE a .083692 · b .116385 · c .149077 · exit .181769–.210538.
+  'phone-back-stable': 0.099385,
+  'phone-side-stable': 0.115077,
+  'phone-front-stable': 0.160192,
+  'mobile-entry-start': 0.091538,
+  'mobile-entry-mid': 0.116385,
+  'mobile-entry-final': 0.160192,
+  'mobile-final': 0.160192,
 
   // Laptop: shut on the way up → lid breaking → fully open, keyboard held.
-  // LAPTOP_CUE a 0.288 · b 0.327 · c 0.376 · done 0.415 · exit 0.482.
-  'laptop-closed': 0.3,
-  'laptop-half-open-keyboard': 0.352,
-  'laptop-open-keyboard': 0.45,
-  'laptop-corners': 0.45,
-  'laptop-opening': 0.352,
-  'laptop-open': 0.45,
+  // Full LAPTOP_CUE a .188308 · b .213808 · c .245846 · done .271346 · exit .661308.
+  'laptop-closed': 0.196154,
+  'laptop-half-open-keyboard': 0.230154,
+  'laptop-open-keyboard': 0.59,
+  'laptop-corners': 0.59,
+  'laptop-opening': 0.230154,
+  'laptop-open': 0.59,
 };
 /** Every viewport the brief asks to be proven, widest last. */
 const VIEWPORTS = [
@@ -108,16 +111,18 @@ const REQUIRED = {
 
 /** Composition captures, kept from v5 so the beats stay reviewable. */
 const BEATS = {
-  1020: ['intro-statement', 'social-beat', 'web-beat', 'growth-beat'],
-  1152: ['social-beat', 'web-beat', 'software-beat'],
-  1280: ['social-beat', 'web-beat', 'brand-beat'],
-  1366: ['intro-statement', 'social-beat', 'web-beat', 'software-beat', 'brand-beat', 'growth-beat'],
-  1440: ['intro-statement', 'social-beat', 'web-beat', 'software-beat', 'brand-beat', 'growth-beat'],
+  1020: ['intro-statement', 'social-beat', 'web-impact', 'web-benefits', 'web-results', 'growth-beat'],
+  1152: ['social-beat', 'web-impact', 'web-benefits', 'web-results', 'software-beat'],
+  1280: ['social-beat', 'web-impact', 'web-benefits', 'web-results', 'brand-beat'],
+  1366: ['intro-statement', 'social-beat', 'web-impact', 'web-benefits', 'web-results', 'software-beat', 'brand-beat', 'growth-beat'],
+  1440: ['intro-statement', 'social-beat', 'web-impact', 'web-benefits', 'web-results', 'software-beat', 'brand-beat', 'growth-beat'],
   1920: [
     'intro-statement',
     'header-transition',
     'social-beat',
-    'web-beat',
+    'web-impact',
+    'web-benefits',
+    'web-results',
     'software-beat',
     'brand-beat',
     'growth-beat',
@@ -131,7 +136,9 @@ const BEATS = {
   2560: [
     'intro-statement',
     'social-beat',
-    'web-beat',
+    'web-impact',
+    'web-benefits',
+    'web-results',
     'software-beat',
     'brand-beat',
     'growth-beat',

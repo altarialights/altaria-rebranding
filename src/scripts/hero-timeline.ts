@@ -25,7 +25,7 @@
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { beats } from '../data/hero';
+import { beats, beatsFull } from '../data/hero';
 import { skyLife } from './sky-life';
 import { sunSignature } from './sun-signature';
 
@@ -85,7 +85,40 @@ const STAGE_OBJS =
  * from 580vh to 820vh at the same time, which is what keeps each beat at
  * roughly the absolute amount of scrolling it had before.
  */
-const PHONE_CUE = {
+/**
+ * Desktop retiming.
+ *
+ * The original 1120vh hero has 1020vh of useful sticky travel (`bottom
+ * bottom` minus the 100vh stage). Desktop now adds 540vh exclusively to
+ * the open-laptop hold. Every old cue is therefore mapped onto a 1560vh
+ * travel: old motion keeps exactly the same physical scroll distance,
+ * while the discontinuity becomes the mini-site's own scroll budget.
+ *
+ * The seam is 0.476, not LAPTOP_CUE.done (0.415): 0.476 is the exact end
+ * of the web subtitle entrance. Cutting at 0.415 would put line two on
+ * the far side of the inserted hold and make it appear hundreds of vh
+ * after line one.
+ */
+const FULL_RETIME = {
+  scale: 17 / 26, // 1020 / 1560
+  shift: 9 / 26, // 540 / 1560
+  seam: 0.476,
+} as const;
+
+const fullAt = (legacy: number): number =>
+  legacy <= FULL_RETIME.seam
+    ? legacy * FULL_RETIME.scale
+    : legacy * FULL_RETIME.scale + FULL_RETIME.shift;
+const fullDuration = (legacy: number): number => legacy * FULL_RETIME.scale;
+const fullSeamLeft = fullAt(FULL_RETIME.seam);
+const fullSeamRight = fullSeamLeft + FULL_RETIME.shift;
+const toLegacyProgress = (progress: number): number => {
+  if (progress <= fullSeamLeft) return progress / FULL_RETIME.scale;
+  if (progress < fullSeamRight) return FULL_RETIME.seam;
+  return (progress - FULL_RETIME.shift) / FULL_RETIME.scale;
+};
+
+const BASE_PHONE_CUE = {
   /** Tramo A — leaves the upper-right corner, back to camera. */
   a: 0.128,
   /** Tramo B — crosses side-on and starts revealing the screen. */
@@ -99,6 +132,15 @@ const PHONE_CUE = {
   outTo: 0.322,
 } as const;
 
+const PHONE_CUE = {
+  a: fullAt(BASE_PHONE_CUE.a),
+  b: fullAt(BASE_PHONE_CUE.b),
+  c: fullAt(BASE_PHONE_CUE.c),
+  wake: fullAt(BASE_PHONE_CUE.wake),
+  outFrom: fullAt(BASE_PHONE_CUE.outFrom),
+  outTo: fullAt(BASE_PHONE_CUE.outTo),
+} as const;
+
 /**
  * Laptop window: 0.442 → 0.745, split 20 / 25 / 20 / 35.
  *
@@ -109,7 +151,7 @@ const PHONE_CUE = {
  * moment: you can scroll slowly, normally or briskly through it and the
  * open machine still holds the frame.
  */
-const LAPTOP_CUE = {
+const BASE_LAPTOP_CUE = {
   /** Fase A · 0–20 % — rises out of the cloud bank, still shut. */
   a: 0.288,
   /** Fase B · 20–45 % — swings square to camera, lid starts to lift. */
@@ -118,24 +160,37 @@ const LAPTOP_CUE = {
   c: 0.376,
   /** 65 % — protagonist. The web copy lands just after this. */
   done: 0.415,
-  /** Inner De Zamorano scroll. */
-  scrollFrom: 0.423,
-  scrollTo: 0.478,
   /** 100 % — retires into the stack. */
   outFrom: 0.482,
   outTo: 0.528,
 } as const;
 
+const LAPTOP_CUE = {
+  a: fullAt(BASE_LAPTOP_CUE.a),
+  b: fullAt(BASE_LAPTOP_CUE.b),
+  c: fullAt(BASE_LAPTOP_CUE.c),
+  done: fullAt(BASE_LAPTOP_CUE.done),
+  outFrom: fullAt(BASE_LAPTOP_CUE.outFrom),
+  outTo: fullAt(BASE_LAPTOP_CUE.outTo),
+} as const;
+
 /** Monitor · software beat. Rises and turns square; no moving parts. */
-const MONITOR_CUE = {
+const BASE_MONITOR_CUE = {
   a: 0.492,
   done: 0.575,
   outFrom: 0.638,
   outTo: 0.682,
 } as const;
 
+const MONITOR_CUE = {
+  a: fullAt(BASE_MONITOR_CUE.a),
+  done: fullAt(BASE_MONITOR_CUE.done),
+  outFrom: fullAt(BASE_MONITOR_CUE.outFrom),
+  outTo: fullAt(BASE_MONITOR_CUE.outTo),
+} as const;
+
 /** Tablet · brand beat. Turns in like the phone, then the canvas draws. */
-const TABLET_CUE = {
+const BASE_TABLET_CUE = {
   a: 0.648,
   /** Screen wakes once the face has come round. */
   wake: 0.694,
@@ -145,6 +200,28 @@ const TABLET_CUE = {
   drawTo: 0.772,
   outFrom: 0.778,
   outTo: 0.822,
+} as const;
+
+const TABLET_CUE = {
+  a: fullAt(BASE_TABLET_CUE.a),
+  wake: fullAt(BASE_TABLET_CUE.wake),
+  done: fullAt(BASE_TABLET_CUE.done),
+  drawFrom: fullAt(BASE_TABLET_CUE.drawFrom),
+  drawTo: fullAt(BASE_TABLET_CUE.drawTo),
+  outFrom: fullAt(BASE_TABLET_CUE.outFrom),
+  outTo: fullAt(BASE_TABLET_CUE.outTo),
+} as const;
+
+/** Stable/readable phases inside the open laptop, expressed in master time. */
+const WEB_MINI = {
+  start: fullAt(BASE_LAPTOP_CUE.done),
+  impactEnd: fullAt(BASE_LAPTOP_CUE.done) + 100 / 1560,
+  transitionOneEnd: fullAt(BASE_LAPTOP_CUE.done) + 140 / 1560,
+  benefitsBuildEnd: fullAt(BASE_LAPTOP_CUE.done) + 240 / 1560,
+  benefitsHoldEnd: fullAt(BASE_LAPTOP_CUE.done) + 340 / 1560,
+  transitionTwoEnd: fullAt(BASE_LAPTOP_CUE.done) + 380 / 1560,
+  resultsBuildEnd: fullAt(BASE_LAPTOP_CUE.done) + 440 / 1560,
+  end: fullSeamRight - 2 / 1560,
 } as const;
 
 /**
@@ -218,7 +295,12 @@ function fitIntro(): void {
 /* ------------------------------------------------------------------ *
  * Intro cue — appears ~1.5 s after load, never in the first frame
  * ------------------------------------------------------------------ */
+let introCueEntrance: gsap.core.Tween | null = null;
+
 function openingSequence(reduced: boolean): void {
+  introCueEntrance?.kill();
+  introCueEntrance = null;
+
   // The sun is painted at opacity 0 so it can bloom in rather than being
   // there in frame one. Without this it never becomes visible at all.
   gsap.to('[data-sky-sun]', {
@@ -238,7 +320,7 @@ function openingSequence(reduced: boolean): void {
   });
 
   // Discreet cue, never in the first frame.
-  gsap.to('[data-intro-cue]', {
+  introCueEntrance = gsap.to('[data-intro-cue]', {
     opacity: 1,
     duration: 0.9,
     delay: 1.5,
@@ -654,7 +736,7 @@ function cursorParallax(activity: Activity): {
  * back out to −18° for the secondary position. One rule covers both.
  */
 interface Reel {
-  update(p: number, rotationY: number): void;
+  update(p: number, rotationY: number, from: number, to: number): void;
   readonly label: string;
 }
 
@@ -664,7 +746,7 @@ function reelController(): Reel {
   let label = 'sin cargar';
 
   return {
-    update(p, rotationY) {
+    update(p, rotationY, from, to) {
       if (!video) return;
 
       // Buffer while the device is still on its way in, so the first
@@ -676,7 +758,7 @@ function reelController(): Reel {
       }
 
       const facing = Math.abs(rotationY) <= REEL_GATE_DEG;
-      const onStage = p >= PHONE_CUE.a && p < PHONE_CUE.outTo;
+      const onStage = p >= from && p < to;
       const wants = armed && facing && onStage;
 
       if (wants && video.paused) {
@@ -706,12 +788,159 @@ function reelController(): Reel {
  * ------------------------------------------------------------------ */
 type Mode = 'full' | 'compact';
 
+/**
+ * The three-screen demonstration inside the laptop. It is choreography
+ * on the existing master timeline — never a nested scroller or a second
+ * timeline. All movement is transform/opacity and therefore reversible.
+ */
+function buildEmbeddedWeb(tl: gsap.core.Timeline): void {
+  const impact = '[data-web-scene="impact"]';
+  const benefits = '[data-web-scene="benefits"]';
+  const results = '[data-web-scene="results"]';
+
+  gsap.set('[data-web-experience]', { opacity: 1 });
+  gsap.set('[data-web-demo-chrome]', { opacity: 1 });
+  gsap.set(impact, { opacity: 1, yPercent: 0 });
+  gsap.set(benefits, { opacity: 0, yPercent: 8 });
+  gsap.set(results, { opacity: 0, yPercent: 8 });
+  gsap.set('[data-web-impact-copy], [data-web-impact-visual], [data-web-pillar]', {
+    opacity: 0,
+    y: 10,
+  });
+  gsap.set(`${benefits} [data-web-scene-title], ${benefits} [data-web-scene-sub]`, {
+    opacity: 0,
+    y: 8,
+  });
+  gsap.set('[data-web-benefit]', { opacity: 0, y: 10, scale: 0.97 });
+  gsap.set(`${results} [data-web-scene-title], ${results} [data-web-scene-sub]`, {
+    opacity: 0,
+    y: 8,
+  });
+  gsap.set('[data-web-metric]', { opacity: 0, y: 9, scale: 0.975 });
+  gsap.set('[data-web-chart]', { opacity: 0, scaleY: 0.68, transformOrigin: '50% 100%' });
+
+  /* The first screen resolves as the lid completes, then stays completely
+     still for 100vh of useful scroll. */
+  const impactIn = WEB_MINI.start - fullDuration(0.025);
+  tl.to(
+    '[data-web-impact-copy]',
+    { opacity: 1, y: 0, duration: fullDuration(0.022), ease: 'power3.out' },
+    impactIn
+  )
+    .to(
+      '[data-web-impact-visual]',
+      { opacity: 1, y: 0, duration: fullDuration(0.025), ease: 'power3.out' },
+      impactIn + fullDuration(0.006)
+    )
+    .to(
+      '[data-web-pillar]',
+      {
+        opacity: 1,
+        y: 0,
+        duration: fullDuration(0.012),
+        stagger: fullDuration(0.004),
+        ease: 'power2.out',
+      },
+      impactIn + fullDuration(0.012)
+    );
+
+  const transitionOne = WEB_MINI.transitionOneEnd - WEB_MINI.impactEnd;
+  tl.to(
+    impact,
+    { opacity: 0, yPercent: -8, duration: transitionOne, ease: 'power2.inOut' },
+    WEB_MINI.impactEnd
+  ).to(
+    benefits,
+    { opacity: 1, yPercent: 0, duration: transitionOne, ease: 'power2.inOut' },
+    WEB_MINI.impactEnd
+  );
+
+  /* Screen two builds, card by card, then has its own 100vh static hold. */
+  tl.to(
+    `${benefits} [data-web-scene-title], ${benefits} [data-web-scene-sub]`,
+    {
+      opacity: 1,
+      y: 0,
+      duration: 16 / 1560,
+      stagger: 7 / 1560,
+      ease: 'power2.out',
+    },
+    WEB_MINI.impactEnd + 22 / 1560
+  ).to(
+    '[data-web-benefit]',
+    {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 18 / 1560,
+      stagger: 18 / 1560,
+      ease: 'power3.out',
+    },
+    WEB_MINI.transitionOneEnd + 20 / 1560
+  );
+
+  const transitionTwo = WEB_MINI.transitionTwoEnd - WEB_MINI.benefitsHoldEnd;
+  tl.to(
+    `${benefits} [data-web-scene-title], ${benefits} [data-web-scene-sub]`,
+    { opacity: 0, y: -8, duration: 16 / 1560, ease: 'power2.in' },
+    WEB_MINI.benefitsHoldEnd
+  )
+    .to(
+      benefits,
+      { opacity: 0, yPercent: -8, duration: transitionTwo, ease: 'power2.inOut' },
+      WEB_MINI.benefitsHoldEnd
+    )
+    .to(
+      results,
+      { opacity: 1, yPercent: 0, duration: transitionTwo, ease: 'power2.inOut' },
+      WEB_MINI.benefitsHoldEnd
+    )
+    .to(
+      `${results} [data-web-scene-title], ${results} [data-web-scene-sub]`,
+      {
+        opacity: 1,
+        y: 0,
+        duration: 16 / 1560,
+        stagger: 7 / 1560,
+        ease: 'power2.out',
+      },
+      WEB_MINI.benefitsHoldEnd + 24 / 1560
+    );
+
+  /* Qualitative modules only: no invented figures. Once built, the
+     results screen holds for ~160vh before the laptop is allowed to go. */
+  tl.to(
+    '[data-web-metric]',
+    {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 13 / 1560,
+      stagger: 12 / 1560,
+      ease: 'power3.out',
+    },
+    WEB_MINI.transitionTwoEnd + 8 / 1560
+  ).to(
+    '[data-web-chart]',
+    {
+      opacity: 1,
+      scaleY: 1,
+      duration: 12 / 1560,
+      stagger: 10 / 1560,
+      ease: 'power2.out',
+    },
+    WEB_MINI.transitionTwoEnd + 16 / 1560
+  );
+}
+
 function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Timeline {
   /* `?scrub=0` removes the 0.9 s trail so a scripted scroll renders the
      exact frame it asked for. Review harness only (scripts/preview-video),
      never a production path — the trail is half of why the hero feels
      smooth. */
   const lag = new URLSearchParams(window.location.search).get('scrub') === '0' ? true : 0.9;
+  const at = mode === 'full' ? fullAt : (legacy: number): number => legacy;
+  const duration = mode === 'full' ? fullDuration : (legacy: number): number => legacy;
 
   const tl = gsap.timeline({
     defaults: { ease: 'power2.out' },
@@ -746,16 +975,22 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
   // Not an opacity fade: the crisp copy lifts and thins while its blurred
   // twin swells and drifts, and an SVG turbulence displacement ramps up so
   // the letterforms actually break apart into the sky.
-  tl.to('[data-intro-cue]', { opacity: 0, duration: 0.021 }, 0.037)
+  tl.to('[data-intro-cue]', { opacity: 0, duration: duration(0.021) }, at(0.037))
     .to(
       '[data-intro-line]',
-      { y: () => vh(-3), duration: 0.037, ease: 'none', stagger: 0.006 },
-      0.037
+      { y: () => vh(-3), duration: duration(0.037), ease: 'none', stagger: duration(0.006) },
+      at(0.037)
     )
     .to(
       '[data-intro-line]',
-      { y: () => vh(-11), opacity: 0, duration: 0.042, stagger: 0.01, ease: 'power1.in' },
-      0.073
+      {
+        y: () => vh(-11),
+        opacity: 0,
+        duration: duration(0.042),
+        stagger: duration(0.01),
+        ease: 'power1.in',
+      },
+      at(0.073)
     )
     .to(
       '.intro__vapour',
@@ -763,20 +998,24 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
         opacity: 0,
         scale: 1.16,
         filter: 'blur(46px)',
-        duration: 0.047,
-        stagger: 0.01,
+        duration: duration(0.047),
+        stagger: duration(0.01),
         ease: 'power1.in',
       },
-      0.068
+      at(0.068)
     )
-    .to('[data-vapour-map]', { attr: { scale: 46 }, duration: 0.047, ease: 'power2.in' }, 0.068)
-    .to('[data-intro-text]', { opacity: 0, duration: 0.011 }, 0.11);
+    .to(
+      '[data-vapour-map]',
+      { attr: { scale: 46 }, duration: duration(0.047), ease: 'power2.in' },
+      at(0.068)
+    )
+    .to('[data-intro-text]', { opacity: 0, duration: duration(0.011) }, at(0.11));
 
   /* ---------- HEADER · enters while the statement dissolves -------- */
   tl.to(
     '[data-header-capsule]',
-    { opacity: 1, y: 0, scale: 1, duration: 0.037, ease: 'power3.out' },
-    0.094
+    { opacity: 1, y: 0, scale: 1, duration: duration(0.037), ease: 'power3.out' },
+    at(0.094)
   );
 
   /* Web copy waits for the lid. On the compact variant there is no lid
@@ -787,12 +1026,23 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
      while the lid is on its last stretch — the machine is plainly a
      laptop by then — and holds until the next service is already on its
      way in. */
-  const webCopyIn = mode === 'full' ? 0.392 : 0.34;
-  const webCopyOut = mode === 'full' ? 0.492 : 0.46;
+  const webCopyIn = mode === 'full' ? fullAt(0.392) : 0.34;
+  /* The exterior web message belongs to the laptop, not just to the first
+     screen of the embedded site. Keep the complete cloud visible through
+     impact, benefits and results, then finish its fade at the exact moment
+     the laptop clears the scene. Compact mode follows the same rule. */
+  const laptopExitEnd = mode === 'full' ? LAPTOP_CUE.outTo : 0.55;
+  const webCopyOut = laptopExitEnd - duration(0.024);
+
+  /* Do not bring the next service copy in underneath the web cloud. The
+     monitor may start approaching while the laptop leaves, but its message
+     waits until the laptop and its cloud have fully cleared. */
+  const softwareCopyIn = laptopExitEnd;
 
   if (mode === 'full') {
     buildPhoneFull(tl);
     buildLaptopFull(tl);
+    buildEmbeddedWeb(tl);
     buildMonitorFull(tl);
     buildTabletFull(tl);
   } else {
@@ -808,13 +1058,17 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
       y: () => vh(52 + topClear() * 0.35),
       scale: 1,
       opacity: 1,
-      duration: 0.04,
+      duration: duration(0.04),
     },
-    0.786
+    at(0.786)
   ).to(
     '[data-obj="flow"]',
-    { y: () => vh(48 + topClear() * 0.6), opacity: 0.94, duration: 0.04 },
-    0.955
+    {
+      y: () => vh(48 + topClear() * 0.6),
+      opacity: 0.94,
+      duration: duration(0.04),
+    },
+    at(0.955)
   );
 
   /* The business is the stable nucleus. It settles first; the CSS orbit
@@ -823,20 +1077,30 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
   tl.fromTo(
     '[data-flow-core]',
     { opacity: 0, scale: 0.82, y: 18 },
-    { opacity: 1, scale: 1, y: 0, duration: 0.072, ease: 'power3.out' },
-    0.79
+    { opacity: 1, scale: 1, y: 0, duration: duration(0.072), ease: 'power3.out' },
+    at(0.79)
   )
     .fromTo(
       '[data-flow-orbit]',
       { opacity: 0 },
-      { opacity: 1, duration: 0.065, stagger: 0.012, ease: 'power2.out' },
-      0.802
+      {
+        opacity: 1,
+        duration: duration(0.065),
+        stagger: duration(0.012),
+        ease: 'power2.out',
+      },
+      at(0.802)
     )
     .fromTo(
       '[data-flow-point]',
       { opacity: 0 },
-      { opacity: 1, duration: 0.034, stagger: 0.005, ease: 'power2.out' },
-      0.818
+      {
+        opacity: 1,
+        duration: duration(0.034),
+        stagger: duration(0.005),
+        ease: 'power2.out',
+      },
+      at(0.818)
     );
 
   /* Nodes light up around the ring in the order the hero showed them,
@@ -881,10 +1145,10 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
         rotationX: 0,
         x: 0,
         y: 0,
-        duration: 0.042,
+        duration: duration(0.042),
         ease: 'power3.out',
       },
-      0.796 + i * 0.021
+      at(0.796 + i * 0.021)
     );
   });
 
@@ -899,15 +1163,21 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
     /* 0.985, not the moment the ring starts drifting: the exit bank only
        finishes covering it at the very end of the track, and a card that
        is still plainly on screen has to still be a link. */
-    if (card) CARD_LIVE.push({ card, from: 0.796 + i * 0.021 + 0.031, to: 0.985 });
+    if (card) {
+      CARD_LIVE.push({
+        card,
+        from: at(0.796 + i * 0.021 + 0.031),
+        to: at(0.985),
+      });
+    }
   });
 
   // The aura fills in behind them as the ring closes.
   tl.fromTo(
     '[data-flow-aura]',
     { opacity: 0, scale: 0.7 },
-    { opacity: 1, scale: 1, duration: 0.09, ease: 'power2.out' },
-    0.8
+    { opacity: 1, scale: 1, duration: duration(0.09), ease: 'power2.out' },
+    at(0.8)
   );
 
   /* ---------- BEAT COPY -------------------------------------------- */
@@ -916,11 +1186,11 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
      copy is what makes the beat legible, so it should be on screen for
      as much of it as the composition allows. */
   const copyAt: Array<[string, number, number]> = [
-    ['social', 0.132, 0.272],
+    ['social', at(0.132), at(0.272)],
     ['web', webCopyIn, webCopyOut],
-    ['software', 0.502, 0.632],
-    ['brand', 0.66, 0.772],
-    ['growth', 0.788, 0.94],
+    ['software', softwareCopyIn, at(0.632)],
+    ['brand', at(0.66), at(0.772)],
+    ['growth', at(0.788), at(0.94)],
   ];
   /* The block builds in three overlapping moves and then STOPS.
      ------------------------------------------------------------------
@@ -945,7 +1215,13 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
     tl.set(`[data-beat-copy="${id}"]`, { opacity: 1, y: 0, scale: 1 }, tIn)
       .to(
         q('[data-copy-cloud]'),
-        { opacity: 1, scale: 1, y: 0, duration: 0.05, ease: 'power3.out' },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: duration(0.05),
+          ease: 'power3.out',
+        },
         tIn
       );
 
@@ -959,19 +1235,26 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
         {
           opacity: 1,
           y: 0,
-          duration: 0.038,
+          duration: duration(0.038),
           ease: 'power2.out',
           force3D: false,
           lazy: false,
         },
-        tIn + 0.012 + index * 0.016
+        tIn + duration(0.012 + index * 0.016)
       );
     });
 
     tl.to(
       q('[data-beat-sub]'),
-      { opacity: 1, y: 0, duration: 0.03, ease: 'power2.out', force3D: false, lazy: false },
-      tIn + 0.054
+      {
+        opacity: 1,
+        y: 0,
+        duration: duration(0.03),
+        ease: 'power2.out',
+        force3D: false,
+        lazy: false,
+      },
+      tIn + duration(0.054)
     )
       /* Out as one piece: the block loses density, grows a hair and
          drifts, which reads as it going back into the sky rather than
@@ -979,7 +1262,13 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
          (see .beat), so it dissipates away from where it arrived. */
       .to(
         `[data-beat-copy="${id}"]`,
-        { opacity: 0, y: -22, scale: 1.035, duration: 0.024, ease: 'power2.in' },
+        {
+          opacity: 0,
+          y: -22,
+          scale: 1.035,
+          duration: duration(0.024),
+          ease: 'power2.in',
+        },
         tOut
       );
   }
@@ -991,18 +1280,46 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
   // farthest thing in the scene, and something that high barely moves
   // when the camera climbs. Leaving them at 0 would have read as a
   // painted backdrop the moment the banks started to descend.
-  tl.to('[data-asset="HG-01"]', { y: () => vh(48), duration: 1, ease: 'none' }, 0)
-    .to('[data-asset="HG-02"]', { y: () => vh(26), duration: 1, ease: 'none' }, 0)
-    .to('[data-asset="HG-03"]', { y: () => vh(9), duration: 1, ease: 'none' }, 0)
-    .to('[data-drifters]', { y: () => vh(4.5), duration: 1, ease: 'none' }, 0);
+  const atmosphere: Array<[string, number]> = [
+    ['[data-asset="HG-01"]', 48],
+    ['[data-asset="HG-02"]', 26],
+    ['[data-asset="HG-03"]', 9],
+    ['[data-drifters]', 4.5],
+  ];
+  for (const [selector, targetVh] of atmosphere) {
+    if (mode === 'full') {
+      /* Preserve the approved sky at every old cue. Scroll parallax pauses
+         during the inserted laptop hold; the independent CSS drift keeps
+         the atmosphere alive without moving the composition underneath. */
+      tl.to(
+        selector,
+        {
+          y: () => vh(targetVh * FULL_RETIME.seam),
+          duration: fullSeamLeft,
+          ease: 'none',
+        },
+        0
+      ).to(
+        selector,
+        { y: () => vh(targetVh), duration: 1 - fullSeamRight, ease: 'none' },
+        fullSeamRight
+      );
+    } else {
+      tl.to(selector, { y: () => vh(targetVh), duration: 1, ease: 'none' }, 0);
+    }
+  }
 
   /* ---------- EXIT · through the clouds ---------------------------- */
   // HG-04 rises over everything so the hero ends by passing THROUGH cloud
   // rather than cutting to a white background.
-  tl.to('[data-asset="HG-04"]', { opacity: 1, duration: 0.015 }, 0.945).to(
+  tl.to(
     '[data-asset="HG-04"]',
-    { y: () => vh(-104), duration: 0.055, ease: 'power1.inOut' },
-    0.945
+    { opacity: 1, duration: duration(0.015) },
+    at(0.945)
+  ).to(
+    '[data-asset="HG-04"]',
+    { y: () => vh(-104), duration: duration(0.055), ease: 'power1.inOut' },
+    at(0.945)
   );
 
   /* The master timeline is normalised to a duration of exactly 1 so beat
@@ -1172,7 +1489,7 @@ function buildLaptopFull(tl: gsap.core.Timeline): void {
   tl.fromTo(
     '[data-obj="laptop"]',
     { x: () => vw(70), y: () => vh(96), scale: 0.62, opacity: 0 },
-    { opacity: 1, duration: 0.03 },
+    { opacity: 1, duration: fullDuration(0.03) },
     L.a
   )
     /* y is NOT monotonic, and that is deliberate. The .obj box is the
@@ -1239,8 +1556,8 @@ function buildLaptopFull(tl: gsap.core.Timeline): void {
   tl.fromTo(
     '[data-laptop-off]',
     { opacity: 1 },
-    { opacity: 0, duration: 0.045, ease: 'power2.out' },
-    L.c - 0.012
+    { opacity: 0, duration: fullDuration(0.045), ease: 'power2.out' },
+    L.c - fullDuration(0.012)
   );
 
   /* Shadow. Far away it is wide, weak and very diffuse; as the object
@@ -1269,20 +1586,6 @@ function buildLaptopFull(tl: gsap.core.Timeline): void {
       { opacity: 1, duration: durB + durC, ease: 'power2.in' },
       L.b
     );
-
-  /* Slow scroll of the capture inside the lid, so the site is actually
-     recognisable. Starts only once the lid is fully open, and only when
-     USR-01 exists: the placeholder fills the bezel exactly, so scrolling
-     it would reveal black. */
-  const track = q<HTMLElement>('[data-laptop-track]');
-  if (track?.dataset.hasCapture === '1') {
-    tl.fromTo(
-      track,
-      { yPercent: 0 },
-      { yPercent: -44, duration: L.scrollTo - L.scrollFrom, ease: 'none' },
-      L.scrollFrom
-    ).to(track, { yPercent: -22, duration: 0.03, ease: 'none' }, L.scrollTo);
-  }
 
   /* Into the stack, lid still open — the service stays legible up there.
      Its contact shadow goes with it: a shadow makes sense under the
@@ -1422,25 +1725,23 @@ function buildTabletFull(tl: gsap.core.Timeline): void {
     T.wake
   );
 
-  /* The canvas. Guides first, then the mark draws itself, then the palette
-     lands one swatch at a time. It reads as a designer working, which is
-     the whole claim of the beat. */
+  /* The real mark resolves from the cloud-only asset into the complete
+     logo. Both PNGs share the same canvas, so the cloud stays perfectly
+     still while the A appears. The palette then lands underneath. */
   const draw = T.drawTo - T.drawFrom;
-  tl.fromTo(
-    '[data-brand-guides]',
-    { opacity: 0 },
-    { opacity: 1, duration: draw * 0.18, ease: 'power1.out' },
-    T.drawFrom
-  );
+  gsap.set('[data-brand-cloud]', { opacity: 1, scale: 1 });
+  gsap.set('[data-brand-logo]', { opacity: 0, scale: 0.96 });
 
-  document.querySelectorAll<SVGPathElement>('[data-brand-stroke]').forEach((path, i) => {
-    tl.fromTo(
-      path,
-      { strokeDashoffset: () => path.getTotalLength() },
-      { strokeDashoffset: 0, duration: draw * 0.46, ease: 'power1.inOut' },
-      T.drawFrom + draw * (0.12 + i * 0.28)
-    );
-  });
+  tl.fromTo(
+    '[data-brand-logo]',
+    { opacity: 0, scale: 0.96 },
+    { opacity: 1, scale: 1, duration: draw * 0.68, ease: 'power2.inOut' },
+    T.drawFrom
+  ).to(
+    '[data-brand-cloud]',
+    { opacity: 0, duration: draw * 0.34, ease: 'power1.inOut' },
+    T.drawFrom + draw * 0.5
+  );
 
   tl.fromTo(
     '[data-brand-swatch]',
@@ -1470,7 +1771,8 @@ function buildDevicesCompact(tl: gsap.core.Timeline): void {
   gsap.set('[data-laptop-shadow]', { opacity: 0.7, scaleX: 0.9, scaleY: 0.8 });
   gsap.set('[data-monitor-shadow]', { opacity: 0.7, scaleX: 0.9, scaleY: 0.8 });
   gsap.set('.laptop__shadow-tight', { opacity: 1 });
-  gsap.set('[data-brand-guides]', { opacity: 1 });
+  gsap.set('[data-brand-cloud]', { opacity: 1, scale: 1 });
+  gsap.set('[data-brand-logo]', { opacity: 0, scale: 0.96 });
 
   /* Same five beats, none of the 3D. Each device rises, holds the centre
      and then fades out — no corner stack: at this width four parked
@@ -1496,15 +1798,17 @@ function buildDevicesCompact(tl: gsap.core.Timeline): void {
     );
   }
 
-  // The canvas still draws itself — it is the point of the brand beat.
-  document.querySelectorAll<SVGPathElement>('[data-brand-stroke]').forEach((path, i) => {
-    tl.fromTo(
-      path,
-      { strokeDashoffset: () => path.getTotalLength() },
-      { strokeDashoffset: 0, duration: 0.03, ease: 'power1.inOut' },
-      0.755 + i * 0.02
-    );
-  });
+  // The cloud resolves into the complete Altaria mark.
+  tl.fromTo(
+    '[data-brand-logo]',
+    { opacity: 0, scale: 0.96 },
+    { opacity: 1, scale: 1, duration: 0.06, ease: 'power2.inOut' },
+    0.755
+  ).to(
+    '[data-brand-cloud]',
+    { opacity: 0, duration: 0.03, ease: 'power1.inOut' },
+    0.785
+  );
   tl.fromTo(
     '[data-brand-swatch]',
     { opacity: 0, scale: 0.7 },
@@ -1550,9 +1854,10 @@ function buildReduced(): void {
   gsap.set('[data-obj="tablet"]', { x: vw(52), y: vh(64), scale: 0.44, opacity: 0.92 });
   gsap.set('[data-obj="phone"]', { x: vw(72), y: vh(60), scale: 0.34, opacity: 0.9 });
   gsap.set('[data-obj="flow"]', { x: vw(80), y: vh(38), scale: 0.7, opacity: 1 });
-  gsap.set('[data-brand-guides]', { opacity: 1 });
+  gsap.set('[data-brand-cloud]', { opacity: 0, scale: 1 });
+  gsap.set('[data-brand-logo]', { opacity: 1, scale: 1 });
   gsap.set('[data-brand-swatch]', { opacity: 1, scale: 1 });
-  gsap.set('[data-brand-stroke], [data-ui-line]', { strokeDashoffset: 0 });
+  gsap.set('[data-ui-line]', { strokeDashoffset: 0 });
   /* Reduced motion shows the closing composition as a still, so the cards
      are visible from the start and must be usable from the start. */
   gsap.set('[data-flow-node]', { opacity: 1 });
@@ -1560,6 +1865,18 @@ function buildReduced(): void {
   gsap.set('[data-flow-aura]', { opacity: 1, scale: 1 });
   gsap.set('[data-flow-core]', { opacity: 1, scale: 1, y: 0 });
   gsap.set('[data-flow-orbit], [data-flow-point]', { opacity: 1 });
+  /* No internal sequence for reduced motion: show the useful conclusion
+     as one stable, fully legible screen. */
+  gsap.set('[data-web-experience], [data-web-demo-chrome]', { opacity: 1 });
+  gsap.set('[data-web-scene="impact"], [data-web-scene="benefits"]', {
+    opacity: 0,
+    yPercent: 0,
+  });
+  gsap.set('[data-web-scene="results"]', { opacity: 1, yPercent: 0 });
+  gsap.set(
+    '[data-web-scene="results"] [data-web-scene-title], [data-web-scene="results"] [data-web-scene-sub], [data-web-metric], [data-web-chart]',
+    { opacity: 1, x: 0, y: 0, scale: 1, scaleY: 1 }
+  );
   gsap.set('[data-header-capsule]', { opacity: 1, y: 0, scale: 1 });
   gsap.set('[data-intro-text]', { opacity: 0 });
   gsap.set('[data-intro-cue]', { opacity: 0 });
@@ -1575,9 +1892,10 @@ function buildReduced(): void {
  * ------------------------------------------------------------------ */
 interface HudState {
   p: number;
-  beat: (typeof beats)[number];
+  beat: (typeof beats)[number] | (typeof beatsFull)[number];
   local: number;
   reel: string;
+  full: boolean;
 }
 
 function initDebug(getState: () => HudState): void {
@@ -1645,7 +1963,7 @@ function initDebug(getState: () => HudState): void {
 
   const render = (): void => {
     if (!hud || hud.hidden) return;
-    const { p, beat, local, reel } = getState();
+    const { p, beat, local, reel, full } = getState();
     const set = (sel: string, v: string): void => {
       const el = q(sel);
       if (el) el.textContent = v;
@@ -1668,28 +1986,30 @@ function initDebug(getState: () => HudState): void {
       lid ? `${lidX.toFixed(1)}°  ${lidX < -80 ? '· cerrada' : lidX > -4 ? '· abierta' : '· abriendo'}` : '—'
     );
 
-    set('[data-hud-entry="phone"]', span(p, PHONE_CUE.a, PHONE_CUE.c));
-    set('[data-hud-entry="laptop"]', span(p, LAPTOP_CUE.a, LAPTOP_CUE.done));
-    set('[data-hud-entry="monitor"]', span(p, MONITOR_CUE.a, MONITOR_CUE.done));
-    set('[data-hud-entry="tablet"]', span(p, TABLET_CUE.a, TABLET_CUE.done));
+    const phoneCue = full ? PHONE_CUE : BASE_PHONE_CUE;
+    const laptopCue = full ? LAPTOP_CUE : BASE_LAPTOP_CUE;
+    const monitorCue = full ? MONITOR_CUE : BASE_MONITOR_CUE;
+    const tabletCue = full ? TABLET_CUE : BASE_TABLET_CUE;
+    set('[data-hud-entry="phone"]', span(p, phoneCue.a, phoneCue.c));
+    set('[data-hud-entry="laptop"]', span(p, laptopCue.a, laptopCue.done));
+    set('[data-hud-entry="monitor"]', span(p, monitorCue.a, monitorCue.done));
+    set('[data-hud-entry="tablet"]', span(p, tabletCue.a, tabletCue.done));
 
     // How many services have finished and parked in the corner.
-    const parked = [PHONE_CUE.outTo, LAPTOP_CUE.outTo, MONITOR_CUE.outTo, TABLET_CUE.outTo]
+    const parked = [phoneCue.outTo, laptopCue.outTo, monitorCue.outTo, tabletCue.outTo]
       .filter((t) => p >= t).length;
     set('[data-hud-stack]', `${parked} / 4 en la esquina`);
     set('[data-hud-reel]', reel);
 
-    const track = q<HTMLElement>('[data-laptop-track]');
-    if (track) {
-      const active = track.dataset.hasCapture === '1';
-      set(
-        '[data-hud-dz]',
-        active
-          ? `${Number(gsap.getProperty(track, 'yPercent')).toFixed(1)} %  ${
-              p >= LAPTOP_CUE.scrollFrom && p <= LAPTOP_CUE.scrollTo ? '· activo' : '· parado'
-            }`
-          : 'sin captura (USR-01)'
-      );
+    if (q('[data-web-experience]')) {
+      const screen = !full
+        ? 'estática'
+        : p < WEB_MINI.impactEnd
+          ? 'impacto'
+          : p < WEB_MINI.benefitsHoldEnd
+            ? 'beneficios'
+            : 'resultados';
+      set('[data-hud-dz]', `miniweb · ${screen}`);
     }
 
     for (const [key, sel] of tracked) {
@@ -1764,12 +2084,14 @@ export function initHero(): void {
   if (stage.dataset.still !== '1') sunSignature();
 
   let progress = 0;
+  let fullMode = false;
+  let activeBeats: ReadonlyArray<(typeof beats)[number] | (typeof beatsFull)[number]> = beats;
   const reel = reelController();
 
   const stateOf = (): HudState => {
-    const beat = beats.find((b) => progress < b.to) ?? beats[beats.length - 1];
+    const beat = activeBeats.find((b) => progress < b.to) ?? activeBeats[activeBeats.length - 1];
     const local = (progress - beat.from) / (beat.to - beat.from);
-    return { p: progress, beat, local: clamp01(local), reel: reel.label };
+    return { p: progress, beat, local: clamp01(local), reel: reel.label, full: fullMode };
   };
 
   const mm = gsap.matchMedia();
@@ -1789,6 +2111,8 @@ export function initHero(): void {
         compact: boolean;
         reduced: boolean;
       };
+      fullMode = full;
+      activeBeats = full ? beatsFull : beats;
 
       if (!full && !compact) {
         openingSequence(true);
@@ -1830,6 +2154,15 @@ export function initHero(): void {
       const onRender = (p: number): void => {
         progress = p;
 
+        /* The load-time cue has its own 1.5 s delay. If somebody starts
+           scrolling before it fires, cancel that entrance so it cannot
+           appear later over the laptop (fast scrollbar/Page Down case).
+           The master timeline remains the sole owner from this point. */
+        if (p > 0.001 && introCueEntrance) {
+          introCueEntrance.kill();
+          introCueEntrance = null;
+        }
+
         const { beat } = stateOf();
         if (beat.n !== lastBeat) {
           lastBeat = beat.n;
@@ -1842,12 +2175,17 @@ export function initHero(): void {
 
         if (still) return;
 
-        sky?.update(p);
+        sky?.update(full ? toLegacyProgress(p) : p);
 
         if (full) {
           // The reel follows the device's rendered rotation, so it can
           // never run while the screen is turned away.
-          reel.update(p, spinPhone ? Number(gsap.getProperty(spinPhone, 'rotationY')) : 0);
+          reel.update(
+            p,
+            spinPhone ? Number(gsap.getProperty(spinPhone, 'rotationY')) : 0,
+            PHONE_CUE.a,
+            PHONE_CUE.outTo
+          );
 
           /* Float from the moment a device settles until the scene
              leaves — including all the time it spends in the corner
@@ -1856,7 +2194,6 @@ export function initHero(): void {
              four devices reacting to the mouse at once would be noise. */
           const settled: Array<[DeviceKey, number, number]> = [
             ['phone', PHONE_CUE.c, PHONE_CUE.outFrom],
-            ['laptop', LAPTOP_CUE.done, LAPTOP_CUE.outFrom],
             ['monitor', MONITOR_CUE.done, MONITOR_CUE.outFrom],
             ['tablet', TABLET_CUE.done, TABLET_CUE.outFrom],
           ];
@@ -1866,12 +2203,20 @@ export function initHero(): void {
             setFloat(key, p >= done && p < out);
             pointer.setActive(key, p >= done && p < out);
           }
-          setFloat('flow', p >= 0.83 && p < 0.955);
+          /* The long internal-web section depends on a genuinely locked
+             product shot. Even a few pixels of idle drift or cursor
+             parallax would read as the laptop continuing its entrance. */
+          setFloat('laptop', false);
+          pointer.setActive('laptop', false);
+          setFloat('flow', p >= fullAt(0.83) && p < fullAt(0.955));
           // The interface runs from the moment the panel is square to
           // camera until the machine starts leaving.
-          setLife(p >= MONITOR_CUE.done - 0.02 && p < MONITOR_CUE.outFrom + 0.01);
+          setLife(
+            p >= MONITOR_CUE.done - fullDuration(0.02) &&
+              p < MONITOR_CUE.outFrom + fullDuration(0.01)
+          );
         } else {
-          reel.update(p, 0);
+          reel.update(p, 0, BASE_PHONE_CUE.a, BASE_PHONE_CUE.outTo);
           setFloat('phone', p >= 0.22 && p < 0.34);
           setFloat('laptop', p >= 0.42 && p < 0.54);
           setFloat('monitor', p >= 0.58 && p < 0.7);

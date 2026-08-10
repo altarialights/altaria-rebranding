@@ -36,7 +36,7 @@ export const intro = {
 } as const;
 
 export const header = {
-    wordmark: "Altaria Lights",
+    wordmark: "ALTARIA LIGHTS",
     nav: [
         { label: "Servicios", href: "#como-funciona" },
         { label: "Caso real", href: "#paso-web" },
@@ -55,6 +55,62 @@ export const socialBeat = {
 export const webBeat = {
     title: ["Creamos", "tu página web."],
     sub: "Una web a tu altura.",
+} as const;
+
+/**
+ * The three states of the visual web demonstration inside the laptop.
+ *
+ * This is deliberately qualitative: the small dashboard explains that a
+ * website can produce measurable outcomes without presenting invented
+ * percentages or results as if they belonged to a real Altaria project.
+ */
+export const embeddedWeb = {
+    label: "Demostración visual de una web estratégica que genera confianza, facilita las ventas, construye marca y permite medir resultados.",
+    impact: {
+        title: ["La primera", "impresión vende."],
+        sub: "Una web que genera confianza y resultados.",
+        pillars: [
+            { id: "trust", label: "Confianza" },
+            { id: "sales", label: "Ventas" },
+            { id: "brand", label: "Marca" },
+            { id: "metrics", label: "Métricas" },
+        ],
+    },
+    benefits: {
+        title: ["Diseño que", "trabaja por ti."],
+        cards: [
+            {
+                id: "trust",
+                title: "Confianza",
+                body: "Seguridad desde el primer clic.",
+            },
+            {
+                id: "sales",
+                title: "Ventas",
+                body: "Convierte visitas en oportunidades.",
+            },
+            {
+                id: "brand",
+                title: "Marca",
+                body: "Te diferencia y te hace memorable.",
+            },
+            {
+                id: "metrics",
+                title: "Métricas",
+                body: "Decisiones con datos reales.",
+            },
+        ],
+    },
+    results: {
+        title: ["Una web", "que convierte."],
+        sub: "Más visibilidad. Más resultados.",
+        modules: [
+            { id: "clicks", label: "Más clics" },
+            { id: "contacts", label: "Más contactos" },
+            { id: "recall", label: "Más recuerdo" },
+            { id: "performance", label: "Mejor rendimiento" },
+        ],
+    },
 } as const;
 
 export const softwareBeat = {
@@ -76,7 +132,7 @@ export const brandBeat = {
     sub: "Tu marca, de principio a fin.",
     /** Accessible description for the branding canvas. */
     screenLabel:
-        "Representación abstracta de un proceso de identidad visual: construcción geométrica de un símbolo y paleta de color",
+        "Identidad visual de Altaria Lights: el logotipo aparece sobre la nube y se presenta junto a su paleta de color",
 } as const;
 
 export const growthBeat = {
@@ -185,4 +241,43 @@ export const beats = [
     { n: 4, id: "brand", from: 0.635, to: 0.775, label: "Imagen de marca" },
     { n: 5, id: "system", from: 0.775, to: 0.945, label: "Sistema conectado" },
     { n: 6, id: "exit", from: 0.945, to: 1.0, label: "Salida" },
+] as const;
+
+/**
+ * Desktop/full boundaries after inserting 540vh of useful travel into
+ * the open-laptop beat. Compact and reduced motion intentionally keep
+ * `beats` above and the original 1120vh track.
+ */
+export const beatsFull = [
+    { n: 0, id: "intro", from: 0.0, to: 0.075192, label: "Apertura de marca" },
+    {
+        n: 1,
+        id: "social",
+        from: 0.075192,
+        to: 0.179808,
+        label: "Contenido y redes",
+    },
+    { n: 2, id: "web", from: 0.179808, to: 0.66, label: "Página web" },
+    {
+        n: 3,
+        id: "software",
+        from: 0.66,
+        to: 0.761346,
+        label: "Software a medida",
+    },
+    {
+        n: 4,
+        id: "brand",
+        from: 0.761346,
+        to: 0.852885,
+        label: "Imagen de marca",
+    },
+    {
+        n: 5,
+        id: "system",
+        from: 0.852885,
+        to: 0.964038,
+        label: "Sistema conectado",
+    },
+    { n: 6, id: "exit", from: 0.964038, to: 1.0, label: "Salida" },
 ] as const;
