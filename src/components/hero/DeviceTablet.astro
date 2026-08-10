@@ -112,12 +112,14 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
                 <!-- Palette -->
                 <span class="brand__palette" aria-hidden="true">
                   {swatches.map((c, i) => (
-                    <i data-brand-swatch style={`--c:${c};--i:${i}`} />
+                    <i data-brand-swatch data-hex={c.toUpperCase()} style={`--c:${c};--i:${i}`} />
                   ))}
                 </span>
 
+                <!-- Vertically balanced brand specifications. -->
+                <span class="brand__specs" aria-hidden="true">
                 <!-- Real type specimens used by Altaria Lights. -->
-                <span class="brand__type" aria-hidden="true">
+                <span class="brand__type">
                   <small>Tipografías</small>
                   <span class="brand__type-family">
                     <strong class="brand__type-sample brand__type-sample--puffy">ABC123</strong>
@@ -126,6 +128,44 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
                   <span class="brand__type-family">
                     <strong class="brand__type-sample brand__type-sample--lemon">ABC123</strong>
                     <span class="brand__type-name">Lemon Milk</span>
+                  </span>
+                </span>
+
+                <!-- Functional hierarchy of the three site typefaces. -->
+                <span class="brand__hierarchy" data-brand-hierarchy>
+                  <small>Jerarquía</small>
+                  <span><b>H1</b><em class="brand__hierarchy-puffy">Puffy</em></span>
+                  <span><b>Logo</b><em class="brand__hierarchy-lemon">Lemon Milk</em></span>
+                  <span><b>Texto</b><em class="brand__hierarchy-geist">Geist</em></span>
+                </span>
+
+                <!-- The actual header wordmark specification. -->
+                <span class="brand__wordmark" data-brand-wordmark>
+                  <small>Wordmark</small>
+                  <strong>Altaria Lights</strong>
+                </span>
+                </span>
+
+                <!-- Positive and negative applications of the real mark. -->
+                <span class="brand__variants" aria-hidden="true">
+                  <small>Variantes</small>
+                  <span class="brand__variants-row">
+                    <i class="brand__variant brand__variant--blue" data-brand-variant>
+                      <img
+                        src="/brand/ALTARIA%20LIGTHS%20003V%20LOGO%20001.png"
+                        alt=""
+                        width="1726"
+                        height="1087"
+                      />
+                    </i>
+                    <i class="brand__variant brand__variant--white" data-brand-variant>
+                      <img
+                        src="/brand/ALTARIA%20LIGTHS%20003V%20LOGO%20002.png"
+                        alt=""
+                        width="1726"
+                        height="1087"
+                      />
+                    </i>
                   </span>
                 </span>
 
@@ -345,25 +385,108 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
   }
 
   .brand__palette i {
+    position: relative;
+    z-index: 1;
     flex: 0 0 17.3%;
     aspect-ratio: 1;
     border-radius: 18%;
     background: var(--c);
     opacity: 0;
+    cursor: help;
+    font-style: normal;
+    transition:
+      filter 180ms ease,
+      box-shadow 180ms ease;
     box-shadow:
       0 1px 3px rgba(20, 40, 62, 0.2),
       0 0 0 1px rgba(15, 44, 86, 0.12) inset;
   }
 
-  .brand__type {
+  .brand__palette i::before,
+  .brand__palette i::after {
+    position: absolute;
+    left: 50%;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    transition:
+      opacity 180ms ease,
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .brand__palette i::before {
+    content: '';
+    bottom: calc(100% + 3px);
+    width: 6px;
+    height: 6px;
+    background: var(--ink-navy);
+    transform: translate(-50%, 5px) rotate(45deg) scale(0.7);
+  }
+
+  .brand__palette i::after {
+    content: attr(data-hex);
+    bottom: calc(100% + 6px);
+    padding: 0.48em 0.7em;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    font-family: 'Geist Variable', var(--font-sans);
+    font-size: clamp(7px, 0.56vw, 10px);
+    font-weight: 650;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    color: #ffffff;
+    background: rgba(15, 44, 86, 0.96);
+    box-shadow:
+      0 8px 18px -8px rgba(15, 44, 86, 0.72),
+      0 2px 5px rgba(15, 44, 86, 0.24);
+    transform: translate(-50%, 7px) scale(0.9);
+  }
+
+  .brand__palette i:hover,
+  .brand__palette i.is-hovered {
+    z-index: 4;
+    filter: brightness(1.07) saturate(1.05);
+    box-shadow:
+      0 5px 12px -5px rgba(15, 44, 86, 0.6),
+      0 0 0 2px rgba(255, 255, 255, 0.78),
+      0 0 0 1px rgba(15, 44, 86, 0.12) inset;
+  }
+
+  .brand__palette i:hover::before,
+  .brand__palette i:hover::after,
+  .brand__palette i.is-hovered::before,
+  .brand__palette i.is-hovered::after {
+    opacity: 1;
+  }
+
+  .brand__palette i:hover::before,
+  .brand__palette i.is-hovered::before {
+    transform: translate(-50%, 0) rotate(45deg) scale(1);
+  }
+
+  .brand__palette i:hover::after,
+  .brand__palette i.is-hovered::after {
+    transform: translate(-50%, 0) scale(1);
+  }
+
+  .brand__specs {
     position: absolute;
     right: 3%;
-    top: 14%;
+    top: 5%;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 0.82vw, 14px);
+    width: 31%;
+  }
+
+  .brand__type {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: clamp(4px, 0.46vw, 8px);
-    width: 31%;
+    width: 100%;
     color: var(--ink-navy);
   }
 
@@ -416,10 +539,163 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
     letter-spacing: 0.04em;
   }
 
+  .brand__hierarchy {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3px, 0.25vw, 5px);
+    width: 100%;
+    opacity: 0;
+    color: var(--ink-navy);
+  }
+
+  .brand__hierarchy > small {
+    display: block;
+    width: 100%;
+    padding-bottom: clamp(3px, 0.24vw, 4px);
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(15, 44, 86, 0.2);
+    font-family: var(--font-sans);
+    font-size: clamp(7px, 0.56vw, 10px);
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .brand__hierarchy > span {
+    display: grid;
+    grid-template-columns: 34% 66%;
+    align-items: center;
+    width: 100%;
+    min-height: clamp(9px, 0.75vw, 13px);
+    line-height: 1.1;
+  }
+
+  .brand__hierarchy b {
+    font-family: var(--font-sans);
+    font-size: clamp(8px, 0.65vw, 11px);
+    font-weight: 650;
+    color: rgba(15, 44, 86, 0.82);
+  }
+
+  .brand__hierarchy em {
+    overflow: hidden;
+    font-size: clamp(9px, 0.72vw, 12px);
+    font-weight: 400;
+    font-style: normal;
+    color: var(--ink-navy);
+    white-space: nowrap;
+  }
+
+  .brand__hierarchy-puffy {
+    font-family: 'Puffy', var(--font-display);
+  }
+
+  .brand__hierarchy-lemon {
+    font-family: 'Lemon Milk', var(--font-sans);
+    text-transform: uppercase;
+  }
+
+  .brand__hierarchy-geist {
+    font-family: 'Geist Variable', var(--font-sans);
+    font-weight: 560 !important;
+  }
+
+  .brand__wordmark {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3px, 0.28vw, 5px);
+    width: 100%;
+    opacity: 0;
+    color: var(--ink-navy);
+  }
+
+  .brand__wordmark small {
+    display: block;
+    width: 100%;
+    padding-bottom: clamp(2px, 0.22vw, 4px);
+    border-bottom: 1px solid rgba(15, 44, 86, 0.2);
+    font-family: var(--font-sans);
+    font-size: clamp(6px, 0.5vw, 9px);
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .brand__wordmark strong {
+    display: block;
+    width: 80%;
+    font-family: 'Lemon Milk', var(--font-sans);
+    font-size: clamp(7px, 0.7vw, 11px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transform: scaleX(1.25);
+    transform-origin: left center;
+  }
+
+  .brand__variants {
+    position: absolute;
+    right: 3%;
+    bottom: 9%;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3px, 0.3vw, 5px);
+    width: 31%;
+    color: var(--ink-navy);
+  }
+
+  .brand__variants > small {
+    font-family: var(--font-sans);
+    font-size: clamp(7px, 0.56vw, 10px);
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .brand__variants-row {
+    display: flex;
+    gap: 7%;
+    width: 100%;
+  }
+
+  .brand__variant {
+    display: grid;
+    place-items: center;
+    flex: 1;
+    aspect-ratio: 1.32;
+    overflow: hidden;
+    border-radius: 12% / 16%;
+    opacity: 0;
+    box-shadow:
+      0 3px 8px -4px rgba(15, 44, 86, 0.45),
+      0 0 0 1px rgba(15, 44, 86, 0.12);
+  }
+
+  .brand__variant--blue {
+    background: var(--sky-top);
+  }
+
+  .brand__variant--white {
+    background: #ffffff;
+  }
+
+  .brand__variant img {
+    display: block;
+    width: 76%;
+    height: 76%;
+    object-fit: contain;
+  }
+
   .tablet__off {
     position: absolute;
     inset: 0;
     background: #06080b;
+    pointer-events: none;
   }
 
   .tablet__glass {
@@ -435,4 +711,48 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
     );
     pointer-events: none;
   }
+
+  :global(html.is-brand-swatch-hovered) {
+    cursor: help;
+  }
 </style>
+
+<script>
+  const brandSwatches = Array.from(
+    document.querySelectorAll<HTMLElement>('[data-brand-swatch]')
+  );
+
+  const clearBrandSwatchHover = () => {
+    for (const swatch of brandSwatches) swatch.classList.remove('is-hovered');
+    document.documentElement.classList.remove('is-brand-swatch-hovered');
+  };
+
+  window.addEventListener(
+    'pointermove',
+    (event) => {
+      let isOverSwatch = false;
+
+      for (const swatch of brandSwatches) {
+        const rect = swatch.getBoundingClientRect();
+        const isVisible = Number(getComputedStyle(swatch).opacity) > 0.5;
+        const isInside =
+          isVisible &&
+          event.clientX >= rect.left &&
+          event.clientX <= rect.right &&
+          event.clientY >= rect.top &&
+          event.clientY <= rect.bottom;
+
+        swatch.classList.toggle('is-hovered', isInside);
+        isOverSwatch ||= isInside;
+      }
+
+      document.documentElement.classList.toggle('is-brand-swatch-hovered', isOverSwatch);
+    },
+    { passive: true }
+  );
+
+  window.addEventListener('blur', clearBrandSwatchHover);
+  window.addEventListener('pointerout', (event) => {
+    if (!event.relatedTarget) clearBrandSwatchHover();
+  });
+</script>

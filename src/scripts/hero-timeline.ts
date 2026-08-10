@@ -1750,6 +1750,34 @@ function buildTabletFull(tl: gsap.core.Timeline): void {
     T.drawFrom + draw * 0.5
   );
 
+  tl.fromTo(
+    '[data-brand-hierarchy]',
+    { opacity: 0, y: 5 },
+    { opacity: 1, y: 0, duration: draw * 0.18, ease: 'power3.out' },
+    T.drawFrom + draw * 0.48
+  );
+
+  tl.fromTo(
+    '[data-brand-wordmark]',
+    { opacity: 0, y: 6 },
+    { opacity: 1, y: 0, duration: draw * 0.2, ease: 'power3.out' },
+    T.drawFrom + draw * 0.54
+  );
+
+  tl.fromTo(
+    '[data-brand-variant]',
+    { opacity: 0, y: 7, scale: 0.92 },
+    {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: draw * 0.18,
+      stagger: draw * 0.09,
+      ease: 'power3.out',
+    },
+    T.drawFrom + draw * 0.62
+  );
+
   exitRight(tl, 'tablet', T.outFrom, T.outTo);
 }
 
@@ -1815,6 +1843,24 @@ function buildDevicesCompact(tl: gsap.core.Timeline): void {
     { opacity: 1, scale: 1, duration: 0.012, stagger: 0.006 },
     0.79
   );
+  tl.fromTo(
+    '[data-brand-hierarchy]',
+    { opacity: 0, y: 4 },
+    { opacity: 1, y: 0, duration: 0.025, ease: 'power3.out' },
+    0.785
+  );
+  tl.fromTo(
+    '[data-brand-wordmark]',
+    { opacity: 0, y: 5 },
+    { opacity: 1, y: 0, duration: 0.03, ease: 'power3.out' },
+    0.79
+  );
+  tl.fromTo(
+    '[data-brand-variant]',
+    { opacity: 0, y: 5, scale: 0.92 },
+    { opacity: 1, y: 0, scale: 1, duration: 0.025, stagger: 0.012, ease: 'power3.out' },
+    0.795
+  );
   const cLine = q<SVGPathElement>('[data-ui-line]');
   if (cLine) {
     tl.fromTo(
@@ -1857,6 +1903,9 @@ function buildReduced(): void {
   gsap.set('[data-brand-cloud]', { opacity: 0, scale: 1 });
   gsap.set('[data-brand-logo]', { opacity: 1, scale: 1 });
   gsap.set('[data-brand-swatch]', { opacity: 1, scale: 1 });
+  gsap.set('[data-brand-hierarchy]', { opacity: 1, y: 0 });
+  gsap.set('[data-brand-wordmark]', { opacity: 1, y: 0 });
+  gsap.set('[data-brand-variant]', { opacity: 1, y: 0, scale: 1 });
   gsap.set('[data-ui-line]', { strokeDashoffset: 0 });
   /* Reduced motion shows the closing composition as a still, so the cards
      are visible from the start and must be usable from the start. */

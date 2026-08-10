@@ -67,47 +67,47 @@ export const webBeat = {
 export const embeddedWeb = {
     label: "Demostración visual de una web estratégica que genera confianza, facilita las ventas, construye marca y permite medir resultados.",
     impact: {
-        title: ["La primera", "impresión vende."],
-        sub: "Una web que genera confianza y resultados.",
+        title: ["Tu web habla", "antes que tú."],
+        sub: "La primera impresión importa.",
         pillars: [
             { id: "trust", label: "Confianza" },
             { id: "sales", label: "Ventas" },
             { id: "brand", label: "Marca" },
-            { id: "metrics", label: "Métricas" },
+            { id: "results", label: "Resultados" },
         ],
     },
     benefits: {
-        title: ["Diseño que", "trabaja por ti."],
+        title: ["Una buena web", "trabaja por ti."],
         cards: [
             {
                 id: "trust",
                 title: "Confianza",
-                body: "Seguridad desde el primer clic.",
+                body: "Que entren y confíen.",
             },
             {
                 id: "sales",
                 title: "Ventas",
-                body: "Convierte visitas en oportunidades.",
+                body: "Que visiten y actúen.",
             },
             {
                 id: "brand",
                 title: "Marca",
-                body: "Te diferencia y te hace memorable.",
+                body: "Que te recuerden.",
             },
             {
-                id: "metrics",
-                title: "Métricas",
-                body: "Decisiones con datos reales.",
+                id: "results",
+                title: "Resultados",
+                body: "Que puedas mejorar.",
             },
         ],
     },
     results: {
         title: ["Una web", "que convierte."],
-        sub: "Más visibilidad. Más resultados.",
+        sub: "Que las visitas no se queden en visitas.",
         modules: [
             { id: "clicks", label: "Más clics" },
             { id: "contacts", label: "Más contactos" },
-            { id: "recall", label: "Más recuerdo" },
+            { id: "conversion", label: "Más conversión" },
             { id: "performance", label: "Mejor rendimiento" },
         ],
     },
