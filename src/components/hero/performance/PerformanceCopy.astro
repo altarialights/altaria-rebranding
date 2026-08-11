@@ -1,0 +1,173 @@
+---
+interface Props {
+  id: 'social' | 'web' | 'software' | 'brand' | 'growth';
+  title: readonly string[];
+  sub: string;
+  tier: 'balanced' | 'lite';
+}
+
+const { id, title, sub, tier } = Astro.props;
+---
+
+<div class={`perf-copy perf-copy--${tier}`} data-perf-copy={id}>
+  <span class="perf-copy__cloud" aria-hidden="true"></span>
+  <div class="perf-copy__content">
+    <h2 class="perf-copy__title">
+      {title.map((line, index) => <span data-perf-copy-line={index}>{line}</span>)}
+    </h2>
+    <p class="perf-copy__sub" data-perf-copy-sub>{sub}</p>
+  </div>
+</div>
+
+<style>
+  .perf-copy {
+    position: absolute;
+    z-index: 5;
+    left: clamp(48px, 8vw, 154px);
+    top: 29%;
+    width: min(38vw, 680px);
+    min-height: clamp(240px, 41vh, 430px);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .perf-copy__cloud {
+    position: absolute;
+    left: -13%;
+    top: -22%;
+    width: 112%;
+    height: 138%;
+    border-radius: 48% 52% 44% 56% / 54% 47% 53% 46%;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.98), rgba(228, 241, 251, 0.98));
+    box-shadow: 0 22px 46px rgba(57, 110, 156, 0.2);
+  }
+
+  .perf-copy__cloud::before,
+  .perf-copy__cloud::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(160deg, #fbfdff, #edf6fc);
+  }
+
+  .perf-copy__cloud::before {
+    top: -18%;
+    left: 13%;
+    width: 45%;
+    height: 70%;
+  }
+
+  .perf-copy__cloud::after {
+    top: -10%;
+    right: 10%;
+    width: 52%;
+    height: 64%;
+  }
+
+  .perf-copy--lite .perf-copy__cloud {
+    background: linear-gradient(155deg, rgba(255, 255, 255, 0.98), rgba(232, 244, 252, 0.98));
+    border-radius: 45% 55% 48% 52% / 55% 47% 53% 45%;
+  }
+
+  .perf-copy--lite .perf-copy__cloud::after {
+    top: -7%;
+  }
+
+  .perf-copy__content {
+    position: relative;
+    z-index: 1;
+    padding: clamp(32px, 5vh, 66px) clamp(22px, 2.4vw, 46px);
+  }
+
+  .perf-copy__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(38px, 4.1vw, 82px);
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
+    color: var(--ink-navy);
+  }
+
+  .perf-copy__title span {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .perf-copy__sub {
+    margin-top: clamp(14px, 2.1vh, 24px);
+    max-width: 31ch;
+    font-size: clamp(15px, 1.35vw, 22px);
+    line-height: 1.35;
+    color: var(--ink-soft);
+  }
+
+  .perf-copy--balanced[data-perf-copy='growth'] {
+    width: min(40vw, 720px);
+  }
+
+  .perf-copy--balanced[data-perf-copy='growth'] .perf-copy__cloud {
+    left: -15%;
+    width: 121%;
+  }
+
+  .perf-copy--balanced[data-perf-copy='growth'] .perf-copy__content {
+    padding-right: clamp(48px, 4vw, 80px);
+  }
+
+  .perf-copy--lite[data-perf-copy='growth'] {
+    width: min(40vw, 710px);
+  }
+
+  .perf-copy--lite[data-perf-copy='growth'] .perf-copy__cloud {
+    left: -16%;
+    width: 121%;
+  }
+
+  .perf-copy--lite[data-perf-copy='growth'] .perf-copy__content {
+    padding-left: clamp(40px, 3.5vw, 68px);
+    padding-right: clamp(50px, 4.2vw, 84px);
+  }
+
+  @media (max-width: 1199px) and (min-width: 1020px) {
+    .perf-copy {
+      left: 5.5vw;
+      top: 28%;
+      width: 40vw;
+    }
+
+    .perf-copy__title {
+      font-size: clamp(35px, 3.8vw, 46px);
+    }
+
+    .perf-copy--balanced[data-perf-copy='growth'] {
+      width: 40vw;
+    }
+
+    .perf-copy--lite[data-perf-copy='growth'] {
+      width: 41vw;
+    }
+  }
+
+  @media (max-height: 660px) and (min-width: 1020px) {
+    .perf-copy {
+      top: 27%;
+      min-height: 210px;
+    }
+
+    .perf-copy__content {
+      padding-top: 34px;
+      padding-bottom: 34px;
+    }
+
+    .perf-copy__title {
+      font-size: clamp(33px, 3.55vw, 44px);
+    }
+
+    .perf-copy__sub {
+      margin-top: 12px;
+      font-size: 15px;
+    }
+  }
+</style>

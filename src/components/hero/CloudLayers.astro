@@ -241,7 +241,12 @@ const drifters = [
      for a couple of seconds and it is moving fast already. */
   .plane--exit {
     top: 100vh;
-    height: 78vh;
+    /* The timeline finishes at y:-104vh. At the former 78vh height the
+       bank ended around 74vh, exposing the pale sky across the lower
+       quarter of the viewport just before the next section. Extend the
+       same cloud surface past the stage edge so its solid-white tail
+       covers the complete handoff. */
+    height: 108vh;
     z-index: 8;
     opacity: 0;
   }

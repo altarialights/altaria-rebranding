@@ -125,12 +125,9 @@ import { intro } from '../../data/hero';
     /* Two lines, always. The fit routine guarantees they fit. */
     white-space: nowrap;
     will-change: transform, opacity;
-    /* Soft volume so it reads as cloud rather than flat white type,
-       without losing legibility against the blue. */
-    text-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.6),
-      0 8px 26px rgba(120, 170, 215, 0.5),
-      0 2px 3px rgba(70, 120, 170, 0.28);
+    /* The cover statement is intentionally flat and crisp. Its former
+       shadow plus the blurred twin below read as a detached white glow. */
+    text-shadow: none;
   }
 
   /* The vapour twin: same glyphs, blurred, sitting just behind. During
@@ -140,7 +137,9 @@ import { intro } from '../../data/hero';
     inset: 0;
     color: #ffffff;
     filter: blur(14px);
-    opacity: 0.75;
+    /* Keep the displacement geometry available for the exit without
+       painting a permanent luminous duplicate behind the cover copy. */
+    opacity: 0;
     will-change: transform, opacity, filter;
   }
 

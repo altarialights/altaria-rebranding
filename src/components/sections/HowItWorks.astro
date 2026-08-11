@@ -50,6 +50,14 @@ import { howItWorks, flow } from '../../data/hero';
     background: linear-gradient(to bottom, #ffffff 0%, #f7fbfe 42%, var(--sky-haze) 100%);
   }
 
+  /* Full already spends its final viewport travelling through the white
+     exit bank. Repeating the section's former 6–11rem top padding after
+     that transition read as an empty strip between the clouds and the
+     first real heading. Keep a short breathing space instead. */
+  :global(html[data-performance-tier='full']) .how {
+    padding-top: clamp(1.25rem, 0.8rem + 0.5vw, 1.75rem);
+  }
+
   .how__head {
     max-width: 900px;
     margin: 0 auto clamp(3.5rem, 2rem + 4vw, 6rem);

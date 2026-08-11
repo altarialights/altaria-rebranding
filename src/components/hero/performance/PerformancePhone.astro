@@ -1,0 +1,130 @@
+---
+import { socialBeat } from '../../../data/hero';
+
+interface Props {
+  tier: 'balanced' | 'lite';
+}
+
+const { tier } = Astro.props;
+const reel = tier === 'lite'
+  ? { src: '/media/performance/lite/reel-altaria-320x568.mp4', width: 320, height: 568 }
+  : { src: '/media/performance/balanced/reel-altaria-360x640.mp4', width: 360, height: 640 };
+---
+
+<figure
+  class={`perf-phone perf-phone--${tier}`}
+  data-perf-object="phone"
+  role="img"
+  aria-label={socialBeat.reelLabel}
+>
+  <div class="perf-phone__tilt">
+    <div class="perf-phone__screen">
+      <video
+        data-perf-reel
+        src={reel.src}
+        poster="/media/reel-poster.jpg"
+        width={reel.width}
+        height={reel.height}
+        muted
+        loop
+        playsinline
+        preload="none"
+        tabindex="-1"
+        aria-hidden="true"></video>
+      {tier === 'balanced' && <span class="perf-phone__notch" aria-hidden="true"></span>}
+      {tier === 'balanced' && <span class="perf-phone__shine" aria-hidden="true"></span>}
+    </div>
+  </div>
+</figure>
+
+<style>
+  .perf-phone {
+    position: absolute;
+    z-index: 3;
+    top: 18%;
+    left: 68%;
+    width: clamp(205px, 18vw, 340px);
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .perf-phone__tilt {
+    position: relative;
+    aspect-ratio: 9 / 19.5;
+    padding: 4.6%;
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    border-radius: 14% / 6.5%;
+    background: linear-gradient(145deg, #f3f5f7 0%, #bac3ca 55%, #7f8b94 100%);
+    box-shadow:
+      12px 22px 34px rgba(40, 80, 116, 0.25),
+      -1px -1px 0 rgba(255, 255, 255, 0.88) inset;
+    transform: rotate(-4deg) skewY(0.7deg);
+  }
+
+  .perf-phone--lite .perf-phone__tilt {
+    padding: 4%;
+    border: 3px solid #b8c1c8;
+    background: #dfe5e9;
+    box-shadow: 8px 16px 24px rgba(40, 80, 116, 0.18);
+  }
+
+  .perf-phone__screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 11.5% / 5.4%;
+    background: var(--ink-navy);
+  }
+
+  .perf-phone__screen img,
+  .perf-phone__screen video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .perf-phone__notch {
+    position: absolute;
+    top: 1.2%;
+    left: 50%;
+    width: 31%;
+    height: 2.4%;
+    border-radius: 999px;
+    background: #111820;
+    transform: translateX(-50%);
+  }
+
+  .perf-phone--lite .perf-phone__screen::after {
+    content: '';
+    position: absolute;
+    top: 1.2%;
+    left: 34.5%;
+    width: 31%;
+    height: 2.4%;
+    border-radius: 999px;
+    background: #111820;
+  }
+
+  .perf-phone__shine {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(118deg, transparent 55%, rgba(255, 255, 255, 0.12) 67%, transparent 80%);
+  }
+
+  @media (max-width: 1199px) and (min-width: 1020px) {
+    .perf-phone {
+      left: 69%;
+      width: clamp(190px, 18vw, 230px);
+    }
+  }
+
+  @media (max-height: 660px) and (min-width: 1020px) {
+    .perf-phone {
+      top: 15%;
+      width: clamp(178px, 16vw, 210px);
+    }
+  }
+</style>

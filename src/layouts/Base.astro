@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import performanceTierBoot from '../scripts/performance-tier-boot.js?raw';
 
 interface Props {
   title: string;
@@ -14,6 +15,7 @@ const { title, description = 'Altaria Lights — prototipo de hero (Puerta 0).' 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline set:html={performanceTierBoot}></script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="noindex, nofollow" />

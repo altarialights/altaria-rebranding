@@ -28,6 +28,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { beats, beatsFull } from '../data/hero';
 import { skyLife } from './sky-life';
 import { sunSignature } from './sun-signature';
+import { initFullTabletSwatches } from './full-tablet-swatches';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -1174,10 +1175,15 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
     '[data-obj="flow"]',
     {
       y: () => vh(48 + topClear() * 0.6),
-      opacity: 0.94,
-      duration: duration(0.04),
+      scale: 1.015,
+      opacity: 0,
+      duration: duration(0.032),
+      /* The exit bank starts at the same cue. Fade strongly at the front
+         of the move so the lower cards cannot remain visible underneath
+         the white cloud while the sticky stage is preparing to release. */
+      ease: 'power2.out',
     },
-    at(0.955)
+    at(0.944)
   );
 
   /* The business is the stable nucleus. It settles first; the CSS orbit
@@ -1269,14 +1275,14 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
   CARD_LIVE.length = 0;
   ['contenido', 'marca', 'web', 'software', 'contacto'].forEach((id, i) => {
     const card = q<HTMLElement>(`[data-flow-node="${id}"]`);
-    /* 0.985, not the moment the ring starts drifting: the exit bank only
-       finishes covering it at the very end of the track, and a card that
-       is still plainly on screen has to still be a link. */
+    /* Disable the links as the exit bank and the cluster fade begin. The
+       complete Flow is transparent before the sticky stage releases, so
+       no lower card can leak into the following section. */
     if (card) {
       CARD_LIVE.push({
         card,
         from: at(0.796 + i * 0.021 + 0.031),
-        to: at(0.985),
+        to: at(0.974),
       });
     }
   });
@@ -2245,11 +2251,15 @@ function heroVisualLifecycle(stage: HTMLElement): void {
   const dispose = (): void => {
     observer.disconnect();
     document.removeEventListener('visibilitychange', sync);
+    window.removeEventListener('pagehide', onPageHide);
+  };
+  const onPageHide = (event: PageTransitionEvent): void => {
+    if (!event.persisted) dispose();
   };
 
   observer.observe(hero);
   document.addEventListener('visibilitychange', sync);
-  window.addEventListener('pagehide', dispose, { once: true });
+  window.addEventListener('pagehide', onPageHide);
   sync();
 }
 
@@ -2344,6 +2354,8 @@ function renderSurfaceLifecycle(full: boolean): {
 export function initHero(): void {
   const stage = q<HTMLElement>('[data-stage]');
   if (!stage) return;
+
+  initFullTabletSwatches();
 
   /* Published to the DOM as well as read below, because the sky is now
      partly animated in CSS — the cloud drift, the bird flap, the light
@@ -2551,15 +2563,21 @@ export function initHero(): void {
     gsap.ticker.wake();
     ScrollTrigger.update();
   };
+  const onPageShow = (event: PageTransitionEvent): void => {
+    if (!event.persisted) return;
+    onPageVisibility();
+    ScrollTrigger.refresh();
+  };
+  const onPageHide = (event: PageTransitionEvent): void => {
+    if (event.persisted) return;
+    document.removeEventListener('visibilitychange', onPageVisibility);
+    window.removeEventListener('pageshow', onPageShow);
+    window.removeEventListener('pagehide', onPageHide);
+    reel.dispose();
+  };
   document.addEventListener('visibilitychange', onPageVisibility);
-  window.addEventListener(
-    'pagehide',
-    () => {
-      document.removeEventListener('visibilitychange', onPageVisibility);
-      reel.dispose();
-    },
-    { once: true }
-  );
+  window.addEventListener('pageshow', onPageShow);
+  window.addEventListener('pagehide', onPageHide);
   if (document.visibilityState !== 'visible') onPageVisibility();
 
   const debugParams = new URLSearchParams(window.location.search);

@@ -248,6 +248,20 @@ a {
   animation-play-state: paused !important;
 }
 
+/* The floating header is shared by all renderers. Full keeps the approved
+   14 px glass exactly; cheaper tiers avoid making old GPUs blur live sky. */
+html[data-performance-tier='balanced'] .hdr__capsule {
+  backdrop-filter: blur(7px);
+}
+
+html[data-performance-tier='lite'] .hdr__capsule {
+  background: rgba(245, 250, 254, 0.94);
+  backdrop-filter: none;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.72),
+    0 12px 26px -18px rgba(20, 60, 100, 0.32);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

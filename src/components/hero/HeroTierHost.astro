@@ -1,0 +1,132 @@
+---
+import {
+  brandBeat,
+  growthBeat,
+  intro,
+  socialBeat,
+  softwareBeat,
+  webBeat,
+} from '../../data/hero';
+import HeroExperience from './HeroExperience.astro';
+import PerformanceHero from './performance/PerformanceHero.astro';
+
+const serviceTitles = [socialBeat, webBeat, softwareBeat, brandBeat, growthBeat];
+---
+
+<!-- The three renderers stay parser-inert. The early bootstrap clones one
+     subtree, locks the decision, then removes every template. -->
+<div class="tier-outlet" data-hero-tier-outlet aria-busy="true"></div>
+
+<template data-hero-tier-template="full">
+  <HeroExperience />
+</template>
+<template data-hero-tier-template="balanced">
+  <PerformanceHero tier="balanced" />
+</template>
+<template data-hero-tier-template="lite">
+  <PerformanceHero tier="lite" />
+</template>
+
+<aside class="tier-debug" data-performance-debug hidden aria-live="polite">
+  <strong>Altaria Performance</strong>
+  <pre data-performance-debug-text></pre>
+</aside>
+
+<section class="tier-fallback" data-hero-boot-fallback hidden id="top">
+  <div>
+    <h1>{intro.lines.map((line) => <span>{line}</span>)}</h1>
+    <ul>{serviceTitles.map((beat) => <li>{beat.title.join(' ')}</li>)}</ul>
+  </div>
+</section>
+
+<noscript>
+  <style is:inline>
+    .hdr__capsule { opacity: 1 !important; transform: none !important; }
+    [data-hero-boot-fallback] { display: grid !important; }
+  </style>
+</noscript>
+
+<style>
+  .tier-outlet {
+    display: contents;
+  }
+
+  .tier-debug {
+    position: fixed;
+    z-index: 100;
+    right: 16px;
+    bottom: 16px;
+    width: min(360px, calc(100vw - 32px));
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 14px;
+    color: #ffffff;
+    background: rgba(15, 44, 86, 0.94);
+    box-shadow: 0 12px 28px rgba(15, 44, 86, 0.2);
+    pointer-events: none;
+  }
+
+  .tier-debug strong {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .tier-debug pre {
+    margin: 8px 0 0;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    font: 11px/1.45 var(--font-sans);
+  }
+
+  .tier-fallback {
+    display: grid;
+    min-height: 100svh;
+    place-items: center;
+    padding: 8rem var(--gutter) 4rem;
+    color: var(--ink-navy);
+    background: linear-gradient(180deg, var(--sky-top), var(--sky-mid) 55%, var(--sky-haze));
+  }
+
+  /* Component CSS has author-level priority over the browser's default
+     `[hidden]` rule. Without an explicit counterpart, `display: grid`
+     made the emergency hero appear after the real Full experience and
+     created an entire phantom section between the exit cloud and the
+     actual next section. */
+  .tier-fallback[hidden] {
+    display: none;
+  }
+
+  .tier-fallback > div {
+    width: min(920px, 90vw);
+    padding: clamp(24px, 5vw, 64px);
+    border-radius: 32px;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .tier-fallback h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(42px, 7vw, 100px);
+    line-height: 0.96;
+  }
+
+  .tier-fallback h1 span {
+    display: block;
+  }
+
+  .tier-fallback ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 2rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tier-fallback li {
+    padding: 0.65rem 0.9rem;
+    border-radius: 999px;
+    background: var(--sky-low);
+  }
+</style>

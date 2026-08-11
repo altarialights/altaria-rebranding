@@ -1,0 +1,400 @@
+---
+import { brandBeat, header } from '../../../data/hero';
+
+interface Props {
+  tier: 'balanced' | 'lite';
+}
+
+const { tier } = Astro.props;
+const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'] as const;
+---
+
+<figure
+  class={`perf-tablet perf-tablet--${tier}`}
+  data-perf-object="tablet"
+  role="group"
+  aria-label={brandBeat.screenLabel}
+  inert
+>
+  <div class="perf-tablet__tilt">
+    <div class="perf-tablet__frame">
+      <div class="perf-tablet__screen">
+        <span class="perf-brand__logo" aria-hidden="true">
+          <img
+            class="perf-brand__cloud"
+            data-perf-brand-cloud
+            src="/brand/optimized/altaria-cloud-256.png"
+            srcset="/brand/optimized/altaria-cloud-256.png 1x, /brand/optimized/altaria-cloud-512.png 2x"
+            width="512"
+            height="512"
+            alt=""
+            decoding="async"
+          />
+          <img
+            class="perf-brand__complete"
+            data-perf-brand-logo
+            src="/brand/optimized/altaria-logo-256.png"
+            srcset="/brand/optimized/altaria-logo-256.png 1x, /brand/optimized/altaria-logo-512.png 2x"
+            width="512"
+            height="512"
+            alt=""
+            decoding="async"
+          />
+        </span>
+
+        <span class="perf-brand__type" aria-hidden="true">
+          <small>Tipografías</small>
+          <span><b class="is-puffy">ABC123</b><i>Puffy</i></span>
+          <span><b class="is-lemon">ABC123</b><i>Lemon Milk</i></span>
+        </span>
+
+        {tier === 'balanced' && (
+          <span class="perf-brand__meta" aria-hidden="true">
+            <small>Jerarquía</small>
+            <span><i>H1</i><b>Puffy</b></span>
+            <span><i>Logo</i><b>Lemon Milk</b></span>
+            <span><i>Texto</i><b>Geist</b></span>
+            <small>Wordmark</small>
+            <strong>{header.wordmark}</strong>
+          </span>
+        )}
+
+        <span class="perf-brand__palette" data-perf-brand-palette>
+          {swatches.map((colour) => (
+            <button
+              type="button"
+              data-perf-brand-swatch={colour}
+              data-hex={colour.toUpperCase()}
+              aria-label={`Color ${colour.toUpperCase()}`}
+              style={`--swatch:${colour}`}
+              tabindex="-1"
+            ></button>
+          ))}
+        </span>
+
+        {tier === 'balanced' && (
+          <span class="perf-brand__variants" aria-hidden="true">
+            <small>Variantes</small>
+            <span>
+              <i class="is-blue">
+                <img
+                  src="/brand/optimized/altaria-logo-positive-128.png"
+                  width="256"
+                  height="161"
+                  alt=""
+                  decoding="async"
+                />
+              </i>
+              <i class="is-white">
+                <img
+                  src="/brand/optimized/altaria-logo-negative-128.png"
+                  width="256"
+                  height="161"
+                  alt=""
+                  decoding="async"
+                />
+              </i>
+            </span>
+          </span>
+        )}
+      </div>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .perf-tablet {
+    position: absolute;
+    z-index: 3;
+    top: 25%;
+    left: 53%;
+    width: clamp(440px, 37vw, 680px);
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .perf-tablet__tilt {
+    transform: rotate(1.8deg) skewX(-1deg);
+  }
+
+  .perf-tablet__frame {
+    position: relative;
+    aspect-ratio: 14.3 / 10;
+    padding: 2%;
+    border: 1px solid rgba(255, 255, 255, 0.82);
+    border-radius: 5.6% / 7.8%;
+    background: linear-gradient(145deg, #f2f4f6 0%, #c7d0d6 58%, #909da6 100%);
+    box-shadow:
+      13px 22px 34px rgba(42, 78, 109, 0.23),
+      0 1px 0 rgba(255, 255, 255, 0.86) inset;
+  }
+
+  .perf-tablet--lite .perf-tablet__frame {
+    padding: 1.6%;
+    border: 3px solid #b7c1c8;
+    background: #dde4e8;
+    box-shadow: 8px 15px 24px rgba(42, 78, 109, 0.16);
+  }
+
+  .perf-tablet__screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 4.2% / 6%;
+    color: var(--ink-navy);
+    background: linear-gradient(160deg, #ffffff 0%, #edf5fb 100%);
+  }
+
+  .perf-brand__logo {
+    position: absolute;
+    top: 12%;
+    left: 10%;
+    width: 35%;
+    aspect-ratio: 1;
+  }
+
+  .perf-brand__logo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .perf-brand__complete {
+    opacity: 0;
+  }
+
+  .perf-brand__type,
+  .perf-brand__meta,
+  .perf-brand__variants {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .perf-brand__type {
+    top: 10%;
+    right: 7%;
+    gap: clamp(4px, 0.5vw, 8px);
+    width: 36%;
+  }
+
+  .perf-brand__type > small,
+  .perf-brand__meta > small,
+  .perf-brand__variants > small {
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(15, 44, 86, 0.18);
+    font-size: clamp(7px, 0.56vw, 10px);
+    font-weight: 680;
+    line-height: 1;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .perf-brand__type > span {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .perf-brand__type b,
+  .perf-brand__type i {
+    display: block;
+    font-style: normal;
+  }
+
+  .perf-brand__type b {
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .perf-brand__type .is-puffy {
+    font-family: var(--font-display);
+    font-size: clamp(13px, 1.2vw, 21px);
+  }
+
+  .perf-brand__type .is-lemon {
+    font-family: 'Lemon Milk', var(--font-sans);
+    font-size: clamp(11px, 0.95vw, 17px);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+
+  .perf-brand__type i {
+    font-size: clamp(7px, 0.54vw, 10px);
+  }
+
+  .perf-brand__meta {
+    top: 43%;
+    right: 7%;
+    gap: 2px;
+    width: 36%;
+  }
+
+  .perf-brand__meta > span {
+    display: grid;
+    grid-template-columns: 38% 62%;
+    align-items: center;
+  }
+
+  .perf-brand__meta i,
+  .perf-brand__meta b {
+    overflow: hidden;
+    font-size: clamp(7px, 0.55vw, 10px);
+    font-style: normal;
+    line-height: 1.15;
+    white-space: nowrap;
+  }
+
+  .perf-brand__meta i {
+    color: rgba(15, 44, 86, 0.72);
+  }
+
+  .perf-brand__meta > small:nth-of-type(2) {
+    margin-top: 3px;
+  }
+
+  .perf-brand__meta > strong {
+    margin-top: 2px;
+    font-family: 'Lemon Milk', var(--font-sans);
+    font-size: clamp(7px, 0.65vw, 11px);
+    font-weight: 400;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .perf-brand__palette {
+    position: absolute;
+    left: 7%;
+    bottom: 9%;
+    display: flex;
+    gap: 4%;
+    width: 43%;
+    pointer-events: auto;
+  }
+
+  .perf-brand__palette button {
+    position: relative;
+    flex: 1;
+    aspect-ratio: 1;
+    padding: 0;
+    border: 1px solid rgba(15, 44, 86, 0.12);
+    border-radius: 18%;
+    background: var(--swatch);
+    box-shadow: 0 3px 8px rgba(15, 44, 86, 0.15);
+  }
+
+  .perf-brand__palette button::before,
+  .perf-brand__palette button::after {
+    position: absolute;
+    left: 50%;
+    z-index: 3;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .perf-brand__palette button::before {
+    content: '';
+    bottom: calc(100% + 2px);
+    width: 6px;
+    height: 6px;
+    background: var(--ink-navy);
+    transform: translate(-50%, 5px) rotate(45deg);
+  }
+
+  .perf-brand__palette button::after {
+    content: attr(data-hex);
+    bottom: calc(100% + 5px);
+    padding: 0.45em 0.66em;
+    border-radius: 999px;
+    font-size: clamp(7px, 0.53vw, 10px);
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+    background: var(--ink-navy);
+    box-shadow: 0 6px 14px rgba(15, 44, 86, 0.26);
+    transform: translate(-50%, 7px) scale(0.92);
+  }
+
+  .perf-brand__palette button:hover::before,
+  .perf-brand__palette button:hover::after,
+  .perf-brand__palette button:focus-visible::before,
+  .perf-brand__palette button:focus-visible::after {
+    opacity: 1;
+    transform: translate(-50%, 0) rotate(45deg);
+  }
+
+  .perf-brand__palette button:hover::after,
+  .perf-brand__palette button:focus-visible::after {
+    transform: translate(-50%, 0) scale(1);
+  }
+
+  .perf-brand__variants {
+    right: 6%;
+    bottom: 5%;
+    gap: 4px;
+    width: 37%;
+  }
+
+  .perf-brand__variants > span {
+    display: flex;
+    gap: 7%;
+  }
+
+  .perf-brand__variants i {
+    display: grid;
+    place-items: center;
+    flex: 1;
+    aspect-ratio: 1.35;
+    overflow: hidden;
+    border: 1px solid rgba(15, 44, 86, 0.12);
+    border-radius: 12%;
+    box-shadow: 0 4px 9px rgba(15, 44, 86, 0.14);
+  }
+
+  .perf-brand__variants .is-blue { background: var(--sky-top); }
+  .perf-brand__variants .is-white { background: #ffffff; }
+
+  .perf-brand__variants img {
+    width: 76%;
+    height: 76%;
+    object-fit: contain;
+  }
+
+  .perf-tablet--lite .perf-brand__logo {
+    top: 10%;
+    left: 12%;
+    width: 34%;
+  }
+
+  .perf-tablet--lite .perf-brand__type {
+    top: 18%;
+    right: 9%;
+    width: 33%;
+  }
+
+  .perf-tablet--lite .perf-brand__palette {
+    left: 14%;
+    bottom: 12%;
+    width: 72%;
+  }
+
+  @media (max-width: 1199px) and (min-width: 1020px) {
+    .perf-tablet {
+      left: 53%;
+      width: clamp(410px, 39vw, 470px);
+    }
+  }
+
+  @media (max-height: 660px) and (min-width: 1020px) {
+    .perf-tablet {
+      top: 22%;
+      width: clamp(395px, 37vw, 450px);
+    }
+  }
+</style>

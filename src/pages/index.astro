@@ -1,14 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
 import FloatingHeader from '../components/hero/FloatingHeader.astro';
-import HeroExperience from '../components/hero/HeroExperience.astro';
+import HeroTierHost from '../components/hero/HeroTierHost.astro';
 import HowItWorks from '../components/sections/HowItWorks.astro';
 ---
 
 <Base title="Altaria Lights — hero (revisión v4)">
   <FloatingHeader />
   <main>
-    <HeroExperience />
+    <HeroTierHost />
     <HowItWorks />
 
     {/* Everything past "Cómo funciona" is still out of scope. */}
@@ -23,11 +23,38 @@ import HowItWorks from '../components/sections/HowItWorks.astro';
 </Base>
 
 <script>
-  import { initHero } from '../scripts/hero-timeline';
-  import { initFlowInteractions } from '../scripts/flow-interactions';
+  import { bootstrapHeroTier } from '../scripts/hero-tier-bootstrap';
+  import { formatPerformanceTierDebug } from '../scripts/performance-tier';
 
-  initHero();
-  initFlowInteractions();
+  const boot = bootstrapHeroTier({
+    runtimes: {
+      full: () => import('../scripts/hero-full'),
+      balanced: () => import('../scripts/hero-balanced'),
+      lite: () => import('../scripts/hero-lite'),
+    },
+  });
+
+  void boot
+    .then((result) => {
+      if (new URLSearchParams(window.location.search).get('debug') !== '1') return;
+      const panel = document.querySelector<HTMLElement>('[data-performance-debug]');
+      const text = panel?.querySelector<HTMLElement>('[data-performance-debug-text]');
+      if (!panel || !text) return;
+      text.textContent = formatPerformanceTierDebug(result.debug);
+      panel.hidden = false;
+    })
+    .catch((error: unknown) => {
+      console.error('[Altaria] No se pudo iniciar el hero adaptativo.', error);
+      const outlet = document.querySelector<HTMLElement>('[data-hero-tier-outlet]');
+      const fallback = document.querySelector<HTMLElement>('[data-hero-boot-fallback]');
+      const header = document.querySelector<HTMLElement>('[data-header-capsule]');
+      if (outlet) outlet.style.display = 'none';
+      if (fallback) fallback.hidden = false;
+      if (header) {
+        header.style.opacity = '1';
+        header.style.transform = 'none';
+      }
+    });
 </script>
 
 <style>

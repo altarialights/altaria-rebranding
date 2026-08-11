@@ -1,0 +1,196 @@
+---
+import {
+  brandBeat,
+  growthBeat,
+  intro,
+  socialBeat,
+  softwareBeat,
+  webBeat,
+} from '../../../data/hero';
+import PerformanceCopy from './PerformanceCopy.astro';
+import PerformanceFlow from './PerformanceFlow.astro';
+import PerformanceLaptop from './PerformanceLaptop.astro';
+import PerformanceMonitor from './PerformanceMonitor.astro';
+import PerformancePhone from './PerformancePhone.astro';
+import PerformanceSky from './PerformanceSky.astro';
+import PerformanceTablet from './PerformanceTablet.astro';
+
+interface Props {
+  tier: 'balanced' | 'lite';
+}
+
+const { tier } = Astro.props;
+---
+
+<!--
+  Adaptive visual shell. It intentionally owns no runtime: the future
+  performance timeline only has to target the stable data attributes below.
+  No videos, filters, 3D contexts or permanent animation clocks live here.
+-->
+<section
+  class={`performance-hero performance-hero--${tier}`}
+  data-hero
+  data-performance-hero
+  data-performance-tier={tier}
+  data-performance-beat="intro"
+  id="top"
+  aria-label="Altaria Lights"
+>
+  <div class="performance-hero__track" data-performance-track>
+    <div class="performance-hero__stage" data-stage data-performance-stage>
+      <PerformanceSky tier={tier} />
+
+      <div class="performance-hero__intro" data-perf-intro>
+        <h1>
+          {intro.lines.map((line, index) => <span data-perf-intro-line={index}>{line}</span>)}
+        </h1>
+        <p data-perf-intro-cue>
+          <span>{intro.cue}</span>
+          <i aria-hidden="true">↓</i>
+        </p>
+      </div>
+
+      <div class="performance-hero__objects" data-perf-objects>
+        <PerformancePhone tier={tier} />
+        <PerformanceLaptop tier={tier} />
+        <PerformanceMonitor tier={tier} />
+        <PerformanceTablet tier={tier} />
+        <PerformanceFlow tier={tier} />
+      </div>
+
+      <PerformanceCopy id="social" title={socialBeat.title} sub={socialBeat.sub} tier={tier} />
+      <PerformanceCopy id="web" title={webBeat.title} sub={webBeat.sub} tier={tier} />
+      <PerformanceCopy id="software" title={softwareBeat.title} sub={softwareBeat.sub} tier={tier} />
+      <PerformanceCopy id="brand" title={brandBeat.title} sub={brandBeat.sub} tier={tier} />
+      <PerformanceCopy id="growth" title={growthBeat.title} sub={growthBeat.sub} tier={tier} />
+    </div>
+  </div>
+</section>
+
+<style>
+  /* The boot fallback is a real safety net, but its generic display rule
+     wins over the browser's [hidden] default. Keep it out of the successful
+     adaptive narrative; removing `hidden` on boot failure still reveals it. */
+  :global(html[data-performance-tier='balanced'] [data-hero-boot-fallback][hidden]),
+  :global(html[data-performance-tier='lite'] [data-hero-boot-fallback][hidden]) {
+    display: none;
+  }
+
+  .performance-hero {
+    --performance-scroll: 1120svh;
+    position: relative;
+  }
+
+  .performance-hero--lite {
+    --performance-scroll: 860svh;
+  }
+
+  .performance-hero__track {
+    height: var(--performance-scroll);
+  }
+
+  .performance-hero__stage {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: 540px;
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--sky-haze);
+    contain: layout paint style;
+  }
+
+  .performance-hero__objects {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .performance-hero__intro {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+
+  .performance-hero__intro h1 {
+    width: min(92vw, 1820px);
+    margin: 0;
+    font-family: var(--font-display);
+    /* The longest real line in data/hero.ts is the ruler. A pure 8vw
+       desktop size overflowed at 1020px; 4.55vw keeps both authored lines
+       intact without a measurement script or layout work at runtime. */
+    font-size: clamp(46px, 4.55vw, 116px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.005em;
+    text-align: center;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-shadow:
+      0 2px 0 rgba(255, 255, 255, 0.45),
+      0 10px 30px rgba(68, 117, 160, 0.36);
+  }
+
+  .performance-hero__intro h1 span {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .performance-hero__intro p {
+    position: absolute;
+    left: 50%;
+    bottom: 5.5vh;
+    display: grid;
+    justify-items: center;
+    gap: 7px;
+    margin: 0;
+    font-size: 11px;
+    font-weight: 680;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.96);
+    transform: translateX(-50%);
+  }
+
+  .performance-hero__intro p i {
+    font-size: 18px;
+    font-style: normal;
+    line-height: 1;
+  }
+
+  @media (max-width: 1199px) and (min-width: 1020px) {
+    .performance-hero__intro h1 {
+      width: 91vw;
+      font-size: clamp(44px, 4.55vw, 55px);
+    }
+  }
+
+  @media (max-height: 660px) and (min-width: 1020px) {
+    .performance-hero__stage {
+      min-height: 0;
+    }
+
+    .performance-hero__intro h1 {
+      font-size: clamp(42px, 4.4vw, 52px);
+    }
+
+    .performance-hero__intro p {
+      bottom: 4vh;
+    }
+  }
+
+  @media (max-width: 1019px) {
+    .performance-hero__stage {
+      min-height: 560px;
+    }
+
+    .performance-hero__intro h1 {
+      width: 94vw;
+      font-size: clamp(18px, 4.4vw, 42px);
+    }
+  }
+</style>
