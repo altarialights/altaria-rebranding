@@ -2312,7 +2312,16 @@ function renderSurfaceLifecycle(full: boolean): {
     return element ? [{ element, from, to, active: null }] : [];
   });
 
+  const introText = q<HTMLElement>('[data-intro-text]');
+  const vapourFrom = fullAt(0.052);
+  const vapourTo = fullAt(0.125);
+
   const update = (progress: number): void => {
+    introText?.classList.toggle(
+      'is-vapour-idle',
+      full && (progress < vapourFrom || progress > vapourTo)
+    );
+
     for (const surface of surfaces) {
       const active = progress >= surface.from && progress <= surface.to;
       if (active === surface.active) continue;
@@ -2322,6 +2331,7 @@ function renderSurfaceLifecycle(full: boolean): {
   };
 
   const dispose = (): void => {
+    introText?.classList.remove('is-vapour-idle');
     for (const surface of surfaces) surface.element.style.removeProperty('visibility');
   };
 

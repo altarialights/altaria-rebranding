@@ -102,6 +102,13 @@ import { intro } from '../../data/hero';
     will-change: transform, opacity, filter;
   }
 
+  /* Full only: the displacement surface is armed shortly before the
+     dissolve starts and released once the copy is transparent. Compact
+     and reduced never receive this class, so their path is unchanged. */
+  .intro__text.is-vapour-idle {
+    filter: none;
+  }
+
   /* No mask here either. This one had the worst job of the three: it had
      to clear Puffy's overshoot AND the 14 px blur of the vapour twin AND
      the displacement filter that drives the dissolve, all of which move
