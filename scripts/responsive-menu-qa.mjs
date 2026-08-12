@@ -98,7 +98,7 @@ for (const [width, height] of viewports) {
       open.shellOpen &&
       open.rootOpen &&
       open.backgroundInert &&
-      open.activeClass === 'rh-menu__link',
+      open.activeClass === 'rh-header__menu-button',
     noScrollJump: open.scrollY === initialY && escaped.scrollY === initialY && cycles.scrollY === initialY,
     noOverflow: closed.overflowX <= 1 && open.overflowX <= 1,
     noClipping:

@@ -1169,7 +1169,8 @@ const responsiveMenuDescriptions = [
       scroll-snap-type: x mandatory;
       scrollbar-width: none;
       padding: 4px 10vw 22px;
-      touch-action: pan-y pinch-zoom;
+      touch-action: pan-x pan-y pinch-zoom;
+      -webkit-overflow-scrolling: touch;
       cursor: grab;
     }
 
@@ -1189,6 +1190,7 @@ const responsiveMenuDescriptions = [
       grid-template-rows: clamp(235px, 62vw, 265px) auto;
       min-height: 430px;
       scroll-snap-align: center;
+      scroll-snap-stop: normal;
       border-radius: 24px;
       box-shadow: 0 25px 42px -28px rgba(7, 43, 85, 0.82);
     }

@@ -35,7 +35,6 @@ export function initResponsiveHero(): void {
       // Ensure the inert closed state is painted before the capsule morphs.
       void menu.offsetHeight;
       header.classList.add('is-menu-open');
-      window.requestAnimationFrame(() => menu.querySelector<HTMLElement>('a')?.focus({ preventScroll: true }));
       return;
     }
 
@@ -75,7 +74,7 @@ export function initResponsiveHero(): void {
   const mobile = window.matchMedia(MOBILE_QUERY);
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let current = 1;
-  let scrollFrame = 0;
+  let scrollSettleTimer = 0;
   let dragPointer = -1;
   let dragStartX = 0;
   let dragStartScroll = 0;
@@ -146,7 +145,7 @@ export function initResponsiveHero(): void {
   };
 
   track?.addEventListener('pointerdown', (event) => {
-    if (!mobile.matches || event.button !== 0 || dragPointer !== -1) return;
+    if (!mobile.matches || event.pointerType !== 'mouse' || event.button !== 0 || dragPointer !== -1) return;
     dragPointer = event.pointerId;
     dragStartX = event.clientX;
     dragStartScroll = track.scrollLeft;
@@ -186,11 +185,9 @@ export function initResponsiveHero(): void {
   track?.addEventListener(
     'scroll',
     () => {
-      if (!mobile.matches || scrollFrame) return;
-      scrollFrame = window.requestAnimationFrame(() => {
-        scrollFrame = 0;
-        update(findClosest());
-      });
+      if (!mobile.matches) return;
+      window.clearTimeout(scrollSettleTimer);
+      scrollSettleTimer = window.setTimeout(() => update(findClosest()), 180);
     },
     { passive: true },
   );
