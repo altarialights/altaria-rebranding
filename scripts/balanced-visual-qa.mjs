@@ -31,7 +31,10 @@ const MOMENTS = [
 const VIEWPORTS = [
   { id: '1366x768', width: 1366, height: 768 },
   { id: '1920x1080', width: 1920, height: 1080 },
+  { id: '2400x900', width: 2400, height: 900 },
 ];
+
+const EXPECTED_SCREENSHOTS = VIEWPORTS.length * (MOMENTS.length + 1);
 
 const RESPONSIVE_VIEWPORTS = [
   { id: '1020x640', width: 1020, height: 640 },
@@ -398,9 +401,9 @@ report.finishedAt = new Date().toISOString();
 report.passed = Boolean(
   report.interaction?.passed &&
   report.growthCopy.every((item) => item.passed) &&
-  report.screenshots.length === 18
+  report.screenshots.length === EXPECTED_SCREENSHOTS
 );
 writeFileSync(path.join(OUT, 'summary.json'), `${JSON.stringify(report, null, 2)}\n`);
-console.log(`Balanced visual QA: ${report.interaction.checks.filter((item) => item.passed).length}/${report.interaction.checks.length} checks PASS; copy ${report.growthCopy.filter((item) => item.passed).length}/${report.growthCopy.length}; ${report.screenshots.length}/18 screenshots.`);
+console.log(`Balanced visual QA: ${report.interaction.checks.filter((item) => item.passed).length}/${report.interaction.checks.length} checks PASS; copy ${report.growthCopy.filter((item) => item.passed).length}/${report.growthCopy.length}; ${report.screenshots.length}/${EXPECTED_SCREENSHOTS} screenshots.`);
 console.log(`Informe: ${path.join(OUT, 'summary.json')}`);
 if (!report.passed) process.exitCode = 1;

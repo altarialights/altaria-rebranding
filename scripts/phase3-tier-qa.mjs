@@ -133,6 +133,8 @@ async function snapshot(page) {
       fullHero: document.querySelectorAll('.hero[data-hero]').length,
       adaptiveHero: document.querySelectorAll('[data-performance-hero]').length,
       videos: document.querySelectorAll('[data-hero] video').length,
+      fullVideos: document.querySelectorAll('[data-hero] video[data-reel]').length,
+      adaptiveVideos: document.querySelectorAll('[data-hero] video[data-perf-reel]').length,
       state: {
         tier: state.tier,
         preliminaryTier: state.preliminaryTier,
@@ -192,13 +194,16 @@ function assertRuntimeIsolation(value, requests, tier) {
   if (tier === 'full') {
     assert.equal(value.fullHero, 1);
     assert.equal(value.adaptiveHero, 0);
-    assert.equal(value.videos, 1);
+    assert.equal(value.fullVideos, 1);
     assert.ok(value.lateMedia >= 1, 'Full reel source remains cold at p=0');
   } else {
     assert.equal(value.fullHero, 0);
     assert.equal(value.adaptiveHero, 1);
-    assert.equal(value.videos, 0);
-    assert.equal(value.lateMedia, 0);
+    assert.equal(value.fullVideos, 0);
+    assert.equal(value.adaptiveVideos, 1);
+    /* Adaptive flow art is intentionally late-bound; isolation means the
+       inactive tier is absent, not that the selected tree has no lazy media. */
+    assert.ok(value.lateMedia <= 1);
   }
   assert.equal(requests.some((url) => /reel-altaria\.mp4(?:$|\?)/.test(url)), false);
 }
@@ -206,9 +211,10 @@ function assertRuntimeIsolation(value, requests, tier) {
 function assertBootBeforeRuntime(value, tier) {
   const finalise = value.trace.find((entry) => entry.event === 'finalise-end');
   const lock = value.trace.find((entry) => entry.event === 'lock-call');
-  const runtime = value.resources.find((entry) =>
-    new RegExp(`/hero-${tier}\.[^/]+\.js$`).test(new URL(entry.name).pathname)
-  );
+  const runtime = value.resources.find((entry) => {
+    const name = new URL(entry.name).pathname.split('/').pop() ?? '';
+    return name.startsWith(`hero-${tier}.`) && name.endsWith('.js');
+  });
   assert.ok(finalise, 'frame health finalised');
   assert.ok(lock, 'lock called');
   assert.ok(runtime, 'selected runtime resource found');

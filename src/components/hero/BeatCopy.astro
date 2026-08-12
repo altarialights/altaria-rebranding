@@ -1,13 +1,15 @@
 ---
 import CopyCloud from './CopyCloud.astro';
+import CloudCTA from './CloudCTA.astro';
 
 interface Props {
   id: string;
   title: readonly string[];
   sub: string;
+  cta: string;
   variant: 1 | 2 | 3 | 4 | 5;
 }
-const { id, title, sub, variant } = Astro.props;
+const { id, title, sub, cta, variant } = Astro.props;
 
 /* The cloud width is also the ruler used to centre the copy. Keeping the
    factor here means the graphic and its text can never drift apart when
@@ -34,6 +36,7 @@ const CLOUD_WIDTH_FACTOR: Record<Props['variant'], number> = {
   data-beat-copy={id}
   data-obj={`copy-${id}`}
   style={`--cc-w: calc(var(--step-beat) * ${CLOUD_WIDTH_FACTOR[variant]});`}
+  inert
 >
   <CopyCloud variant={variant} />
 
@@ -48,6 +51,7 @@ const CLOUD_WIDTH_FACTOR: Record<Props['variant'], number> = {
       }
     </h2>
     <p class="beat__sub" data-beat-sub>{sub}</p>
+    <CloudCTA label={cta} tier="full" />
   </div>
 </div>
 
@@ -63,7 +67,16 @@ const CLOUD_WIDTH_FACTOR: Record<Props['variant'], number> = {
   }
 
   .beat[data-beat-copy='growth'] {
-    --cc-copy-y: 0.9;
+    /* Lift the complete copy group into the broad centre of cloud 5. This
+       creates a real lower safety area for the CTA without touching the SVG
+       geometry or changing the spacing between the headline and body copy. */
+    --cc-copy-y: 0.58;
+  }
+
+  .beat[data-beat-copy='growth'] :global([data-cloud-cta]) {
+    /* Cloud 5 narrows sooner along its lower edge than the other variants.
+       Its CTA therefore uses a slightly tighter, still readable, top gap. */
+    margin-top: clamp(14px, calc(var(--step-beat) * 0.2), 20px);
   }
 
   /* Keep the copy left-aligned internally, but centre the whole group on
@@ -90,9 +103,22 @@ const CLOUD_WIDTH_FACTOR: Record<Props['variant'], number> = {
 
     .beat[data-beat-copy='growth'] {
       /* The left-most Contacto card is the limiting edge in the complete
-         ring. This compact width leaves a permanent safety corridor. */
+         ring. This compact width leaves a permanent safety corridor while
+         the raised copy keeps the CTA clear of the lower cloud edge. */
       --cc-w: calc(var(--step-beat) * 9.35);
-      --cc-copy-y: 0.85;
+      --cc-copy-y: 0.5;
+    }
+  }
+
+  @media (min-width: 1020px) and (max-width: 1199px) and (max-height: 660px) {
+    .beat[data-beat-copy='software'] {
+      --cc-copy-y: -0.25;
+    }
+
+    .beat[data-beat-copy='growth'] {
+      /* Preserve the approved cloud silhouette while recovering the lower
+         breathing room needed by the new third row at the shortest desktop. */
+      --cc-copy-y: 0.2;
     }
   }
 </style>

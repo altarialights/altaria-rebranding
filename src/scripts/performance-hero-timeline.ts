@@ -29,13 +29,41 @@ const MOTION: Record<AdaptiveTier, TierMotionConfig> = {
   },
 };
 
-const COPY_WINDOWS = {
-  social: [0.079, 0.177],
-  web: [0.184, 0.657],
-  software: [0.665, 0.758],
-  brand: [0.766, 0.849],
-  growth: [0.857, 0.963],
+/**
+ * One semantic schedule for Balanced and Lite. Animation complexity stays in
+ * MOTION; these boundaries define how long the story is allowed to breathe.
+ * Full deliberately keeps its independent, approved timeline.
+ */
+const ADAPTIVE_BEAT_MAP = {
+  copy: {
+    social: [0.079, 0.177],
+    web: [0.184, 0.657],
+    software: [0.665, 0.758],
+    brand: [0.766, 0.849],
+    growth: [0.857, 0.963],
+  },
+  device: {
+    phone: { from: 0.082, settled: 0.113, exitAt: 0.178, exitDuration: 0.025 },
+    laptop: { from: 0.187, settled: 0.224, exitAt: 0.643, exitDuration: 0.026 },
+    monitor: { from: 0.66, settled: 0.699, exitAt: 0.758, exitDuration: 0.026 },
+    tablet: { from: 0.766, settled: 0.798, exitAt: 0.852, exitDuration: 0.027 },
+    flow: { from: 0.862, settled: 0.897, exitAt: 0.968, exitDuration: 0.025 },
+  },
+  miniweb: {
+    impact: { from: 0.218, built: 0.236, exitAt: 0.352, exitDuration: 0.014 },
+    benefits: { from: 0.359, built: 0.377, exitAt: 0.497, exitDuration: 0.014 },
+    results: { from: 0.504, built: 0.522, exitAt: 0.638, exitDuration: 0.014 },
+  },
+  live: {
+    flow: [0.852, 0.966],
+    tablet: [0.765, 0.852],
+    reelPrepare: [0.065, 0.203],
+    reelPlay: [0.082, 0.195],
+  },
+  exit: { from: 0.968, duration: 0.025 },
 } as const;
+
+const COPY_WINDOWS = ADAPTIVE_BEAT_MAP.copy;
 
 const q = <T extends Element>(root: ParentNode, selector: string): T | null =>
   root.querySelector<T>(selector);
@@ -53,6 +81,13 @@ function currentBeat(progress: number): (typeof beatsFull)[number] {
 function setInert(element: HTMLElement | null, inert: boolean): void {
   if (!element) return;
   element.inert = inert;
+}
+
+function setCopyInteractive(root: HTMLElement, progress: number): void {
+  for (const [id, [from, to]] of Object.entries(COPY_WINDOWS)) {
+    const copy = q<HTMLElement>(root, `[data-perf-copy="${id}"]`);
+    if (copy) copy.inert = !(progress >= from + 0.012 && progress < to - 0.004);
+  }
 }
 
 function setTabletInteractive(tablet: HTMLElement | null, active: boolean): void {
@@ -113,13 +148,15 @@ function initialiseBalancedReel(root: HTMLElement, tier: AdaptiveTier): Adaptive
   };
 
   const sync = (): void => {
-    const nearBeat = progress >= 0.065 && progress < 0.18;
+    const [prepareFrom, prepareTo] = ADAPTIVE_BEAT_MAP.live.reelPrepare;
+    const [playFrom, playTo] = ADAPTIVE_BEAT_MAP.live.reelPlay;
+    const nearBeat = progress >= prepareFrom && progress < prepareTo;
     if (nearBeat) prepare();
     const shouldPlay =
       !deterministic &&
       !document.hidden &&
-      progress >= 0.082 &&
-      progress < 0.164;
+      progress >= playFrom &&
+      progress < playTo;
 
     if (shouldPlay && video.paused) {
       void video.play().catch(() => {
@@ -397,6 +434,7 @@ function initialiseReduced(
   gsap.set(q(root, '[data-perf-intro]'), { autoAlpha: 0 });
   gsap.set(copies, { autoAlpha: 0 });
   gsap.set(q(root, '[data-perf-copy="growth"]'), { autoAlpha: 1, x: 0, y: 0 });
+  gsap.set(q(root, '[data-perf-copy="growth"] [data-cloud-cta]'), { autoAlpha: 1, y: 0 });
   gsap.set(objects, { autoAlpha: 0 });
   gsap.set(flow, { autoAlpha: 1, x: 0, y: 0, scale: 1 });
   const flowImage = q<HTMLImageElement>(root, '[data-perf-flow-image]');
@@ -416,6 +454,7 @@ function initialiseReduced(
   gsap.set(q(root, '[data-perf-brand-logo]'), { autoAlpha: 1 });
   if (header) gsap.set(header, { autoAlpha: 1, y: 0, scale: 1 });
   setInert(flow, false);
+  for (const copy of copies) copy.inert = copy.dataset.perfCopy !== 'growth';
   setTabletInteractive(tablet, false);
 
   const trigger = ScrollTrigger.create({
@@ -432,6 +471,7 @@ function initialiseReduced(
 
   return () => {
     trigger.kill();
+    for (const copy of copies) copy.inert = true;
     setInert(flow, true);
     setTabletInteractive(tablet, false);
   };
@@ -447,6 +487,8 @@ function addCopy(
   if (!element) return;
   const enterDuration = Math.min(0.016, (to - from) * 0.16);
   const exitDuration = Math.min(0.014, (to - from) * 0.14);
+  const cta = q<HTMLElement>(element, '[data-cloud-cta]');
+  timeline.set(cta, { autoAlpha: 0, y: 6 }, from);
   timeline.fromTo(
     element,
     { autoAlpha: 0, x: -config.copyDistance, y: 9 },
@@ -459,6 +501,16 @@ function addCopy(
       immediateRender: false,
     },
     from
+  );
+  timeline.to(
+    cta,
+    {
+      autoAlpha: 1,
+      y: 0,
+      duration: Math.min(0.012, (to - from) * 0.12),
+      ease: 'power2.out',
+    },
+    from + enterDuration * 0.68
   );
   timeline.to(
     element,
@@ -474,6 +526,7 @@ function addDevice(
   settled: number,
   exitAt: number,
   exit: { x: number; y: number; scale: number; rotation?: number },
+  exitDuration: number,
   config: TierMotionConfig,
   entryRotation: number,
   leavesStage = false
@@ -508,7 +561,7 @@ function addDevice(
       y: () => vh(exit.y),
       scale: exit.scale,
       rotation: exit.rotation ?? 0,
-      duration: leavesStage ? 0.022 : 0.018,
+      duration: exitDuration,
       ease: 'power2.inOut',
     },
     exitAt
@@ -594,17 +647,19 @@ function buildMotionTimeline(
     /* Balanced tells the approved one-device-at-a-time story. Each exit is
        a reversible transform/opacity flight, never a display toggle or a
        persistent corner stack. */
-    addDevice(timeline, phone, 0.082, 0.113, 0.164, { x: 30, y: -9, scale: 0.72, rotation: 5 }, config, 8, true);
-    addDevice(timeline, laptop, 0.187, 0.224, 0.641, { x: 34, y: -5, scale: 0.78, rotation: 2 }, config, 4, true);
-    addDevice(timeline, monitor, 0.671, 0.699, 0.744, { x: 31, y: -4, scale: 0.8, rotation: 3 }, config, 5, true);
-    addDevice(timeline, tablet, 0.772, 0.798, 0.837, { x: 30, y: 4, scale: 0.82, rotation: -3 }, config, -4, true);
+    const { phone: p, laptop: l, monitor: m, tablet: t } = ADAPTIVE_BEAT_MAP.device;
+    addDevice(timeline, phone, p.from, p.settled, p.exitAt, { x: 30, y: -9, scale: 0.72, rotation: 5 }, p.exitDuration, config, 8, true);
+    addDevice(timeline, laptop, l.from, l.settled, l.exitAt, { x: 34, y: -5, scale: 0.78, rotation: 2 }, l.exitDuration, config, 4, true);
+    addDevice(timeline, monitor, m.from, m.settled, m.exitAt, { x: 31, y: -4, scale: 0.8, rotation: 3 }, m.exitDuration, config, 5, true);
+    addDevice(timeline, tablet, t.from, t.settled, t.exitAt, { x: 30, y: 4, scale: 0.82, rotation: -3 }, t.exitDuration, config, -4, true);
   } else {
     /* Lite preserves the one-device-at-a-time narrative with shorter,
        cheaper transform/opacity exits and no persistent corner stack. */
-    addDevice(timeline, phone, 0.082, 0.113, 0.164, { x: 24, y: -7, scale: 0.78, rotation: 3 }, config, 8, true);
-    addDevice(timeline, laptop, 0.187, 0.224, 0.641, { x: 28, y: -4, scale: 0.82, rotation: 2 }, config, 4, true);
-    addDevice(timeline, monitor, 0.671, 0.699, 0.744, { x: 27, y: -3, scale: 0.84, rotation: 2 }, config, 5, true);
-    addDevice(timeline, tablet, 0.772, 0.798, 0.837, { x: 26, y: 3, scale: 0.85, rotation: -2 }, config, -4, true);
+    const { phone: p, laptop: l, monitor: m, tablet: t } = ADAPTIVE_BEAT_MAP.device;
+    addDevice(timeline, phone, p.from, p.settled, p.exitAt, { x: 24, y: -7, scale: 0.78, rotation: 3 }, p.exitDuration, config, 8, true);
+    addDevice(timeline, laptop, l.from, l.settled, l.exitAt, { x: 28, y: -4, scale: 0.82, rotation: 2 }, l.exitDuration, config, 4, true);
+    addDevice(timeline, monitor, m.from, m.settled, m.exitAt, { x: 27, y: -3, scale: 0.84, rotation: 2 }, m.exitDuration, config, 5, true);
+    addDevice(timeline, tablet, t.from, t.settled, t.exitAt, { x: 26, y: 3, scale: 0.85, rotation: -2 }, t.exitDuration, config, -4, true);
   }
 
   const laptopLid = q<HTMLElement>(root, '.perf-laptop__lid');
@@ -629,12 +684,13 @@ function buildMotionTimeline(
   const impact = q<HTMLElement>(root, `[${webScenePrefix}="impact"]`);
   const benefits = q<HTMLElement>(root, `[${webScenePrefix}="benefits"]`);
   const results = q<HTMLElement>(root, `[${webScenePrefix}="results"]`);
-  timeline.fromTo(impact, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.018, ease: 'power1.out', immediateRender: false }, 0.218);
-  timeline.to(impact, { autoAlpha: 0, y: -7, duration: 0.014, ease: 'power1.in' }, 0.352);
-  timeline.fromTo(benefits, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.018, ease: 'power1.out', immediateRender: false }, 0.359);
-  timeline.to(benefits, { autoAlpha: 0, y: -7, duration: 0.014, ease: 'power1.in' }, 0.497);
-  timeline.fromTo(results, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.018, ease: 'power1.out', immediateRender: false }, 0.504);
-  timeline.to(results, { autoAlpha: 0, y: -7, duration: 0.014, ease: 'power1.in' }, 0.638);
+  const { impact: wi, benefits: wb, results: wr } = ADAPTIVE_BEAT_MAP.miniweb;
+  timeline.fromTo(impact, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: wi.built - wi.from, ease: 'power1.out', immediateRender: false }, wi.from);
+  timeline.to(impact, { autoAlpha: 0, y: -7, duration: wi.exitDuration, ease: 'power1.in' }, wi.exitAt);
+  timeline.fromTo(benefits, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: wb.built - wb.from, ease: 'power1.out', immediateRender: false }, wb.from);
+  timeline.to(benefits, { autoAlpha: 0, y: -7, duration: wb.exitDuration, ease: 'power1.in' }, wb.exitAt);
+  timeline.fromTo(results, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: wr.built - wr.from, ease: 'power1.out', immediateRender: false }, wr.from);
+  timeline.to(results, { autoAlpha: 0, y: -7, duration: wr.exitDuration, ease: 'power1.in' }, wr.exitAt);
 
   timeline.fromTo(
     qa(root, '[data-perf-web-pillar]'),
@@ -668,7 +724,7 @@ function buildMotionTimeline(
       rotation: tier === 'balanced' ? 3 : 1,
     },
     { autoAlpha: 1, x: 0, y: 0, scale: 1, rotation: 0, duration: 0.035, ease: 'power2.out', immediateRender: false },
-    0.862
+    ADAPTIVE_BEAT_MAP.device.flow.from
   );
   timeline.fromTo(
     qa(root, '[data-perf-flow-node]'),
@@ -690,12 +746,13 @@ function buildMotionTimeline(
   timeline.fromTo(rocket, { autoAlpha: 0.8, y: 0 }, { autoAlpha: 0.9, y: () => -vh(78), duration: 0.07, ease: 'power1.in', immediateRender: false }, 0.77);
   timeline.to(rocket, { autoAlpha: 0, duration: 0.008 }, 0.838);
 
-  timeline.to([...allObjects, ...allCopies], { autoAlpha: 0, duration: 0.025, ease: 'power1.in' }, 0.968);
+  timeline.to([...allObjects, ...allCopies], { autoAlpha: 0, duration: ADAPTIVE_BEAT_MAP.exit.duration, ease: 'power1.in' }, ADAPTIVE_BEAT_MAP.exit.from);
 
   const lag = new URLSearchParams(window.location.search).get('scrub') === '0' ? true : config.scrub;
   let lastBeat = '';
   let flowActive = false;
   let tabletActive = false;
+  let activeCopy = '';
   const trigger = ScrollTrigger.create({
     animation: timeline,
     trigger: root,
@@ -714,12 +771,21 @@ function buildMotionTimeline(
       }
       setMiniwebAccessibility(root, self.progress);
       setEasterPointerWindows(root, self.progress);
-      const nextFlow = self.progress >= 0.852 && self.progress < 0.966;
+      const nextCopy = Object.entries(COPY_WINDOWS).find(([, [from, to]]) =>
+        self.progress >= from + 0.012 && self.progress < to - 0.004
+      )?.[0] ?? '';
+      if (nextCopy !== activeCopy) {
+        activeCopy = nextCopy;
+        setCopyInteractive(root, self.progress);
+      }
+      const [flowFrom, flowTo] = ADAPTIVE_BEAT_MAP.live.flow;
+      const nextFlow = self.progress >= flowFrom && self.progress < flowTo;
       if (nextFlow !== flowActive) {
         flowActive = nextFlow;
         setInert(flow, !flowActive);
       }
-      const nextTablet = self.progress >= 0.765 && self.progress < 0.852;
+      const [tabletFrom, tabletTo] = ADAPTIVE_BEAT_MAP.live.tablet;
+      const nextTablet = self.progress >= tabletFrom && self.progress < tabletTo;
       if (nextTablet !== tabletActive) {
         tabletActive = nextTablet;
         setTabletInteractive(tablet, tabletActive);
@@ -739,6 +805,7 @@ function buildMotionTimeline(
       reel.dispose();
       setInert(flow, true);
       setTabletInteractive(tablet, false);
+      for (const copy of allCopies) copy.inert = true;
     },
   };
 }

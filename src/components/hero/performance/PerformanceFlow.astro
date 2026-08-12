@@ -25,13 +25,6 @@ const nodeIcons: Record<string, readonly string[]> = {
 >
   {tier === 'balanced' ? (
     <>
-      <svg class="perf-flow__connections" viewBox="0 0 1000 720" aria-hidden="true">
-        <path d="M500 138 C500 218 500 252 500 310" />
-        <path d="M864 264 C760 264 688 302 618 352" />
-        <path d="M810 646 C728 588 658 522 596 456" />
-        <path d="M190 646 C272 588 342 522 404 456" />
-        <path d="M136 264 C240 264 312 302 382 352" />
-      </svg>
       <figure class="perf-flow__business" aria-label="Tu negocio, centro del ecosistema Altaria">
         <img
           data-perf-flow-image
@@ -123,7 +116,19 @@ const nodeIcons: Record<string, readonly string[]> = {
   }
 
   .perf-flow--balanced {
+    top: 25%;
     left: 50%;
+  }
+
+  /* The business is the visual centre; its transparent PNG can grow without
+     changing the footprint or layering of the interactive node cards. */
+  .perf-flow--balanced .perf-flow__business {
+    top: 50.5%;
+    width: 70%;
+  }
+
+  .perf-flow--balanced .perf-flow__business::before {
+    inset: 19% 10% 7%;
   }
 
   .perf-flow__connections {
@@ -222,6 +227,7 @@ const nodeIcons: Record<string, readonly string[]> = {
   }
 
   .perf-flow--balanced .perf-flow__node {
+    width: 29%;
     padding: 0;
     border: 0;
     background: transparent;
@@ -351,6 +357,37 @@ const nodeIcons: Record<string, readonly string[]> = {
   .perf-flow__node--4 { left: 5.5%; bottom: 0; }
   .perf-flow__node--5 { top: 27%; left: 0; }
 
+  /* Centre the two lateral cards on the enlarged business. The former
+     27% put their baselines visibly above the hub, which made the whole
+     constellation lean upwards despite its outer box being centred. */
+  .perf-flow--balanced .perf-flow__node--2,
+  .perf-flow--balanced .perf-flow__node--5 {
+    top: 39%;
+  }
+
+  .perf-flow--balanced .perf-flow__node--1 {
+    top: -10%;
+    left: 35.5%;
+  }
+
+  .perf-flow--balanced .perf-flow__node--2 {
+    right: -10%;
+  }
+
+  .perf-flow--balanced .perf-flow__node--3 {
+    right: 5.5%;
+    bottom: -9%;
+  }
+
+  .perf-flow--balanced .perf-flow__node--4 {
+    left: 5.5%;
+    bottom: -9%;
+  }
+
+  .perf-flow--balanced .perf-flow__node--5 {
+    left: -10%;
+  }
+
   .perf-flow--lite {
     top: 22%;
     left: 50%;
@@ -435,6 +472,54 @@ const nodeIcons: Record<string, readonly string[]> = {
   .perf-flow--lite .perf-flow__node--5 { top: 26%; left: -1%; }
 
   @media (max-width: 1440px) and (min-width: 1200px) {
+    .perf-flow--balanced {
+      left: 51%;
+      width: 49vw;
+    }
+
+    .perf-flow--balanced .perf-flow__node {
+      width: 22%;
+    }
+
+    .perf-flow--balanced .perf-flow__business {
+      width: 60%;
+    }
+
+    .perf-flow--balanced .perf-flow__node--1 {
+      top: -7%;
+      left: 39%;
+    }
+
+    .perf-flow--balanced .perf-flow__node--2 {
+      top: 27%;
+      right: 0;
+    }
+
+    .perf-flow--balanced .perf-flow__node--3 {
+      right: 0;
+      bottom: -5%;
+    }
+
+    .perf-flow--balanced .perf-flow__node--4 {
+      left: 0;
+      bottom: -5%;
+    }
+
+    .perf-flow--balanced .perf-flow__node--5 {
+      top: 27%;
+      left: 0;
+    }
+
+    .perf-flow--balanced .perf-flow__node-surface {
+      gap: 8px;
+      padding: 10px;
+    }
+
+    .perf-flow--balanced .perf-flow__node-icon {
+      width: 30px;
+      border-radius: 10px;
+    }
+
     .perf-flow__node-arrow {
       display: none;
     }
@@ -448,6 +533,7 @@ const nodeIcons: Record<string, readonly string[]> = {
 
     .perf-flow--balanced {
       left: 50%;
+      width: min(50vw, 570px);
     }
 
     .perf-flow--lite {
@@ -456,19 +542,36 @@ const nodeIcons: Record<string, readonly string[]> = {
     }
 
     .perf-flow--balanced .perf-flow__node {
-      width: 33%;
+      width: 22%;
+    }
+
+    .perf-flow--balanced .perf-flow__business {
+      width: 60%;
     }
 
     .perf-flow--balanced .perf-flow__node--1 {
-      left: 33.5%;
+      top: -4%;
+      left: 39%;
+    }
+
+    .perf-flow--balanced .perf-flow__node--2 {
+      top: 27%;
+      right: 0;
     }
 
     .perf-flow--balanced .perf-flow__node--3 {
-      right: 1%;
+      right: 0;
+      bottom: -4%;
     }
 
     .perf-flow--balanced .perf-flow__node--4 {
-      left: 1%;
+      left: 0;
+      bottom: -4%;
+    }
+
+    .perf-flow--balanced .perf-flow__node--5 {
+      top: 27%;
+      left: 0;
     }
 
     .perf-flow--lite .perf-flow__node {
@@ -518,6 +621,10 @@ const nodeIcons: Record<string, readonly string[]> = {
     }
 
     .perf-flow--lite {
+      top: 18%;
+    }
+
+    .perf-flow--balanced {
       top: 18%;
     }
 

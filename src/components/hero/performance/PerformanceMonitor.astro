@@ -13,7 +13,9 @@ const moduleCount = tier === 'balanced' ? 5 : 3;
   class={`perf-monitor perf-monitor--${tier}`}
   data-perf-object="monitor"
   role="img"
-  aria-label={softwareBeat.screenLabel}
+  aria-label={tier === 'lite'
+    ? 'Interfaz conceptual de un panel operativo con proyectos, tareas, actividad semanal y flujo de trabajo'
+    : softwareBeat.screenLabel}
 >
   <div class="perf-monitor__tilt">
     <div class="perf-monitor__frame">
@@ -33,7 +35,27 @@ const moduleCount = tier === 'balanced' ? 5 : 3;
             </span>
           </>
         ) : (
-          <span class="perf-monitor__lite-ui" aria-hidden="true"></span>
+          <span class="perf-monitor__lite-ui" aria-hidden="true">
+            <span class="perf-monitor__lite-rail"><b>A</b><i></i><i></i><i></i></span>
+            <span class="perf-monitor__lite-header">
+              <span><small>Altaria OS</small><b>Panel operativo</b></span>
+              <i>En marcha</i>
+            </span>
+            <span class="perf-monitor__lite-workspace">
+              <span class="perf-monitor__lite-metrics">
+                <b data-label="Proyectos">12</b>
+                <b data-label="Tareas hoy">8</b>
+                <b data-label="Equipo">6</b>
+              </span>
+              <span class="perf-monitor__lite-activity"><b>Actividad semanal</b><i></i></span>
+              <span class="perf-monitor__lite-pipeline">
+                <b>Flujo de trabajo</b>
+                <i data-task="Propuesta" data-state="Listo"></i>
+                <i data-task="Diseño" data-state="En curso"></i>
+                <i data-task="Entrega" data-state="Próximo"></i>
+              </span>
+            </span>
+          </span>
         )}
       </div>
     </div>
@@ -146,48 +168,204 @@ const moduleCount = tier === 'balanced' ? 5 : 3;
 
   .perf-monitor__lite-ui {
     position: absolute;
-    inset: 7%;
-    border-radius: 4%;
-    background:
-      linear-gradient(#a6bdd0 0 0) 25% 11% / 31% 4px no-repeat,
-      linear-gradient(var(--sky-top) 0 0) 91% 10% / 17% 7% no-repeat,
-      linear-gradient(#ffffff 0 0) 24% 79% / 21% 20% no-repeat,
-      linear-gradient(rgba(43, 129, 212, 0.13) 0 0) 52% 79% / 21% 20% no-repeat,
-      linear-gradient(rgba(69, 205, 185, 0.16) 0 0) 80% 79% / 21% 20% no-repeat,
-      linear-gradient(var(--ink-navy) 0 0) left / 12% 100% no-repeat,
-      rgba(255, 255, 255, 0.82);
+    inset: 3%;
+    overflow: hidden;
+    border: 1px solid rgba(43, 129, 212, 0.14);
+    border-radius: 3%;
+    color: var(--ink-navy);
+    background: #edf6fc;
   }
 
-  .perf-monitor__lite-ui::before,
-  .perf-monitor__lite-ui::after {
-    content: '';
+  .perf-monitor__lite-rail {
     position: absolute;
-    top: 26%;
-    height: 28%;
-    border: 1px solid rgba(43, 129, 212, 0.13);
-    border-radius: 12px;
+    inset: 0 auto 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9%;
+    width: 11%;
+    padding-top: 7%;
+    background: var(--ink-navy);
   }
 
-  .perf-monitor__lite-ui::before {
-    top: 26%;
-    left: 17%;
-    width: 43%;
-    background:
-      linear-gradient(var(--sky-top) 0 0) 12% 28% / 58% 4px no-repeat,
-      linear-gradient(#adc6d9 0 0) 12% 50% / 75% 4px no-repeat,
-      linear-gradient(#adc6d9 0 0) 12% 72% / 46% 4px no-repeat,
-      #ffffff;
+  .perf-monitor__lite-rail b {
+    display: grid;
+    place-items: center;
+    width: 46%;
+    aspect-ratio: 1;
+    border-radius: 9px;
+    font-family: var(--font-brand);
+    font-size: clamp(8px, 0.78vw, 14px);
+    color: #ffffff;
+    background: var(--sky-top);
   }
 
-  .perf-monitor__lite-ui::after {
-    right: 6%;
-    width: 29%;
+  .perf-monitor__lite-rail i {
+    width: 30%;
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    border-radius: 7px;
+  }
+
+  .perf-monitor__lite-rail i:first-of-type {
+    background: rgba(255, 255, 255, 0.18);
+  }
+
+  .perf-monitor__lite-header {
+    position: absolute;
+    top: 0;
+    left: 11%;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 19%;
+    padding: 0 4%;
+    border-bottom: 1px solid #d3e5f1;
+    background: #ffffff;
+  }
+
+  .perf-monitor__lite-header > span {
+    display: grid;
+    gap: 2px;
+  }
+
+  .perf-monitor__lite-header small {
+    font-size: clamp(5px, 0.42vw, 8px);
+    font-weight: 720;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--sky-top);
+  }
+
+  .perf-monitor__lite-header b {
+    font-size: clamp(9px, 0.82vw, 15px);
+    line-height: 1;
+  }
+
+  .perf-monitor__lite-header > i {
+    padding: 1.8% 3%;
+    border: 1px solid #bfe9df;
+    border-radius: 999px;
+    font-size: clamp(5px, 0.44vw, 8px);
+    font-style: normal;
+    font-weight: 720;
+    color: #167766;
+    background: #e3f8f3;
+  }
+
+  .perf-monitor__lite-workspace {
+    position: absolute;
+    inset: 23% 3.5% 5% 14.5%;
+    display: grid;
+    grid-template-columns: 1.18fr 0.82fr;
+    grid-template-rows: 28% 1fr;
+    gap: 5%;
+  }
+
+  .perf-monitor__lite-metrics {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3%;
+  }
+
+  .perf-monitor__lite-metrics b {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 10% 9% 8%;
+    border: 1px solid #d2e4f0;
+    border-radius: 10px;
+    font-size: clamp(12px, 1.2vw, 21px);
+    line-height: 1;
+    background: #ffffff;
+  }
+
+  .perf-monitor__lite-metrics b::before {
+    content: attr(data-label);
+    position: absolute;
+    top: 12%;
+    left: 9%;
+    font-size: clamp(5px, 0.43vw, 8px);
+    font-weight: 650;
+    color: var(--ink-soft);
+  }
+
+  .perf-monitor__lite-metrics b::after {
+    content: '↗';
+    margin-left: auto;
+    font-size: clamp(7px, 0.65vw, 12px);
+    color: var(--sky-top);
+  }
+
+  .perf-monitor__lite-activity,
+  .perf-monitor__lite-pipeline {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #d2e4f0;
+    border-radius: 11px;
+    background: #ffffff;
+  }
+
+  .perf-monitor__lite-activity {
+    padding: 8% 7%;
+  }
+
+  .perf-monitor__lite-activity b,
+  .perf-monitor__lite-pipeline > b {
+    display: block;
+    font-size: clamp(6px, 0.53vw, 10px);
+    text-transform: uppercase;
+  }
+
+  .perf-monitor__lite-activity i {
+    position: absolute;
+    inset: 29% 8% 12%;
+    border-bottom: 1px solid #bed6e8;
     background:
-      linear-gradient(var(--sky-mid) 0 0) 15% 80% / 11% 24% no-repeat,
-      linear-gradient(#62ace3 0 0) 36% 74% / 11% 36% no-repeat,
-      linear-gradient(var(--sky-top) 0 0) 57% 64% / 11% 56% no-repeat,
-      linear-gradient(#45cdb9 0 0) 78% 52% / 11% 80% no-repeat,
-      rgba(125, 188, 234, 0.2);
+      linear-gradient(#9cccec 0 0) 3% 100% / 9% 31% no-repeat,
+      linear-gradient(#72b7e7 0 0) 22% 100% / 9% 49% no-repeat,
+      linear-gradient(var(--sky-top) 0 0) 41% 100% / 9% 68% no-repeat,
+      linear-gradient(#45cdb9 0 0) 60% 100% / 9% 58% no-repeat,
+      linear-gradient(var(--accent-deep) 0 0) 79% 100% / 9% 86% no-repeat,
+      linear-gradient(var(--sky-top) 0 0) 98% 100% / 9% 74% no-repeat;
+  }
+
+  .perf-monitor__lite-pipeline {
+    display: grid;
+    grid-template-rows: auto repeat(3, 1fr);
+    gap: 5%;
+    padding: 9%;
+  }
+
+  .perf-monitor__lite-pipeline i {
+    position: relative;
+    min-height: 0;
+    border-bottom: 1px solid #dbe9f3;
+    font-style: normal;
+  }
+
+  .perf-monitor__lite-pipeline i::before,
+  .perf-monitor__lite-pipeline i::after {
+    position: absolute;
+    top: 37%;
+    transform: translateY(-50%);
+  }
+
+  .perf-monitor__lite-pipeline i::before {
+    content: attr(data-task);
+    left: 0;
+    font-size: clamp(5px, 0.43vw, 8px);
+    font-weight: 650;
+  }
+
+  .perf-monitor__lite-pipeline i::after {
+    content: attr(data-state);
+    right: 0;
+    font-size: clamp(4.5px, 0.38vw, 7px);
+    color: var(--sky-top);
   }
 
   .perf-monitor__code,

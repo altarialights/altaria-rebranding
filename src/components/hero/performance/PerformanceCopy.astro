@@ -1,21 +1,25 @@
 ---
+import CloudCTA from '../CloudCTA.astro';
+
 interface Props {
   id: 'social' | 'web' | 'software' | 'brand' | 'growth';
   title: readonly string[];
   sub: string;
+  cta: string;
   tier: 'balanced' | 'lite';
 }
 
-const { id, title, sub, tier } = Astro.props;
+const { id, title, sub, cta, tier } = Astro.props;
 ---
 
-<div class={`perf-copy perf-copy--${tier}`} data-perf-copy={id}>
+<div class={`perf-copy perf-copy--${tier}`} data-perf-copy={id} inert>
   <span class="perf-copy__cloud" aria-hidden="true"></span>
   <div class="perf-copy__content">
     <h2 class="perf-copy__title">
       {title.map((line, index) => <span data-perf-copy-line={index}>{line}</span>)}
     </h2>
     <p class="perf-copy__sub" data-perf-copy-sub>{sub}</p>
+    <CloudCTA label={cta} tier={tier} />
   </div>
 </div>
 

@@ -49,6 +49,7 @@ const clamp01 = (n: number): number => (n < 0 ? 0 : n > 1 ? 1 : n);
  * apart. A card at one per cent opacity is not a link yet.
  */
 const CARD_LIVE: Array<{ card: HTMLElement; from: number; to: number }> = [];
+const COPY_CTA_LIVE: Array<{ copy: HTMLElement; from: number; to: number }> = [];
 
 /**
  * Extra vh of headroom for the phone's entry, from --dev-top-clear.
@@ -1080,6 +1081,7 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
   gsap.set('[data-copy-cloud]', { opacity: 0, scale: 0.93, y: 26 });
   gsap.set('[data-beat-line]', { opacity: 0, y: 26, scale: 1, force3D: false });
   gsap.set('[data-beat-sub]', { opacity: 0, y: 16, force3D: false });
+  gsap.set('[data-cloud-cta]', { opacity: 0, y: 8, force3D: false });
 
   /* ---------- INTRO STATEMENT · 0 – 22 % --------------------------- */
   // Not an opacity fade: the crisp copy lifts and thins while its blurred
@@ -1307,6 +1309,7 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
     ['brand', at(0.66), at(0.772)],
     ['growth', at(0.788), at(0.94)],
   ];
+  COPY_CTA_LIVE.length = 0;
   /* The block builds in three overlapping moves and then STOPS.
      ------------------------------------------------------------------
      The cloud goes first and alone for a beat — it condenses out of the
@@ -1326,6 +1329,8 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
   for (const [id, tIn, tOut] of copyAt) {
     const q = (sel: string): string => `[data-beat-copy="${id}"] ${sel}`;
     const lines = Array.from(document.querySelectorAll<HTMLElement>(q('[data-beat-line]')));
+    const copy = document.querySelector<HTMLElement>(`[data-beat-copy="${id}"]`);
+    if (copy) COPY_CTA_LIVE.push({ copy, from: tIn + duration(0.064), to: tOut });
 
     tl.set(`[data-beat-copy="${id}"]`, { opacity: 1, y: 0, scale: 1 }, tIn)
       .to(
@@ -1371,6 +1376,18 @@ function buildTimeline(mode: Mode, onRender: (p: number) => void): gsap.core.Tim
       },
       tIn + duration(0.054)
     )
+      .to(
+        q('[data-cloud-cta]'),
+        {
+          opacity: 1,
+          y: 0,
+          duration: duration(0.026),
+          ease: 'power2.out',
+          force3D: false,
+          lazy: false,
+        },
+        tIn + duration(0.064)
+      )
       /* Out as one piece: the block loses density, grows a hair and
          drifts, which reads as it going back into the sky rather than
          being switched off. transform-origin is on the copy's own anchor
@@ -2049,6 +2066,10 @@ function buildReduced(): void {
   gsap.set('[data-copy-cloud]', { opacity: 1, scale: 1, y: 0 });
   gsap.set('[data-beat-line]', { opacity: 1, yPercent: 0, scale: 1 });
   gsap.set('[data-beat-sub]', { opacity: 1, y: 0 });
+  gsap.set('[data-cloud-cta]', { opacity: 1, y: 0 });
+  for (const copy of document.querySelectorAll<HTMLElement>('[data-beat-copy]')) {
+    copy.inert = copy.dataset.beatCopy !== 'growth';
+  }
 }
 
 /* ------------------------------------------------------------------ *
@@ -2435,6 +2456,7 @@ export function initHero(): void {
         return () => {
           reducedTrigger.kill();
           setTabletInteractive(false);
+          for (const copy of document.querySelectorAll<HTMLElement>('[data-beat-copy]')) copy.inert = true;
         };
       }
 
@@ -2488,6 +2510,7 @@ export function initHero(): void {
         /* Before `still`: this is not decoration, and a review capture
            must not leave five live links over an empty sky either. */
         for (const c of CARD_LIVE) c.card.inert = !(p >= c.from && p < c.to);
+        for (const c of COPY_CTA_LIVE) c.copy.inert = !(p >= c.from && p < c.to);
 
         if (still) return;
 
@@ -2551,6 +2574,7 @@ export function initHero(): void {
         pointer.dispose();
         activity.dispose();
         setTabletInteractive(false);
+        for (const c of COPY_CTA_LIVE) c.copy.inert = true;
       };
     }
   );

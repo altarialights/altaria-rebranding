@@ -8,6 +8,12 @@ interface Props {
 
 const { tier } = Astro.props;
 const benefitMarks = ['✓', '↗', '☆', '▥'] as const;
+const resultDetails = {
+  clicks: { note: 'Más visibilidad', mark: '↗' },
+  contacts: { note: 'Oportunidades', mark: '+' },
+  conversion: { note: 'Más acción', mark: '◎' },
+  performance: { note: 'Mejora continua', mark: '✓' },
+} as const;
 ---
 
 <figure
@@ -89,14 +95,21 @@ const benefitMarks = ['✓', '↗', '☆', '▥'] as const;
           aria-hidden="true"
         >
           <div class="perf-web-scene__heading">
-            <h3>
-              {embeddedWeb.results.title[0]}<br />{embeddedWeb.results.title[1]}
-            </h3>
-            <p>{embeddedWeb.results.sub}</p>
+            <small class="perf-web-scene__eyebrow">Resultados con intención</small>
+            <h3>Una web que<br />trabaja por ti.</h3>
+            <p>Más atención. Más acción.</p>
           </div>
+          <article class="perf-result-story" aria-hidden="true">
+            <span>Rendimiento</span>
+            <strong>Crece con cada mejora.</strong>
+            <i></i>
+          </article>
           <div class="perf-result-modules">
             {embeddedWeb.results.modules.map((module) => (
-              <span data-perf-web-result={module.id}>{module.label}</span>
+              <span data-perf-web-result={module.id} data-mark={resultDetails[module.id].mark}>
+                <b>{module.label}</b>
+                <small>{resultDetails[module.id].note}</small>
+              </span>
             ))}
           </div>
         </section>
@@ -484,6 +497,10 @@ const benefitMarks = ['✓', '↗', '☆', '▥'] as const;
     background: var(--accent-deep);
   }
 
+  .perf-result-story {
+    display: none;
+  }
+
   .perf-laptop__base {
     position: relative;
     width: 100%;
@@ -699,20 +716,154 @@ const benefitMarks = ['✓', '↗', '☆', '▥'] as const;
     font-weight: 800;
   }
 
-  .perf-laptop--lite .perf-web-scene--results::after {
+  .perf-laptop--lite .perf-web-scene--results {
+    inset: 14% 3.2% 4%;
+    border: 1px solid rgba(43, 129, 212, 0.13);
+    border-radius: 18px;
+    background: #e5f3fc;
+  }
+
+  .perf-laptop--lite .perf-web-scene--results::before {
     content: '';
     position: absolute;
-    left: 3%;
-    bottom: 7%;
+    inset: 0 0 auto;
+    height: 2.5%;
+    background: linear-gradient(90deg, var(--accent-deep) 0 26%, var(--sky-top) 26% 69%, #45cdb9 69% 100%);
+  }
+
+  .perf-laptop--lite .perf-web-scene--results .perf-web-scene__heading {
+    top: 10%;
+    left: 5%;
     width: 43%;
-    height: 42%;
-    border-bottom: 1px solid #b8d2e6;
+  }
+
+  .perf-laptop--lite .perf-web-scene--results .perf-web-scene__eyebrow {
+    margin-bottom: 4%;
+    font-size: clamp(6px, 0.5vw, 9px);
+  }
+
+  .perf-laptop--lite .perf-web-scene--results .perf-web-scene__heading h3 {
+    font-size: clamp(18px, 1.72vw, 31px);
+    line-height: 0.92;
+  }
+
+  .perf-laptop--lite .perf-web-scene--results .perf-web-scene__heading p {
+    margin-top: 3%;
+    font-size: clamp(8px, 0.64vw, 12px);
+    font-weight: 620;
+  }
+
+  .perf-laptop--lite .perf-result-story {
+    position: absolute;
+    left: 5%;
+    bottom: 8%;
+    display: grid;
+    align-content: start;
+    width: 42%;
+    height: 36%;
+    padding: 4.2%;
+    overflow: hidden;
+    border: 1px solid rgba(43, 129, 212, 0.14);
+    border-radius: 13px;
+    background: #ffffff;
+  }
+
+  .perf-laptop--lite .perf-result-story span {
+    font-size: clamp(6px, 0.48vw, 9px);
+    font-weight: 780;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sky-top);
+  }
+
+  .perf-laptop--lite .perf-result-story strong {
+    width: 57%;
+    margin-top: 3%;
+    font-size: clamp(8px, 0.68vw, 12px);
+    line-height: 1.08;
+    color: var(--ink-navy);
+  }
+
+  .perf-laptop--lite .perf-result-story i {
+    position: absolute;
+    right: 6%;
+    bottom: 13%;
+    width: 40%;
+    height: 59%;
+    border-bottom: 1px solid #bad2e5;
     background:
-      linear-gradient(var(--accent-deep) 0 0) 86% 100% / 10% 88% no-repeat,
-      linear-gradient(#45cdb9 0 0) 66% 100% / 10% 70% no-repeat,
-      linear-gradient(var(--sky-top) 0 0) 46% 100% / 10% 54% no-repeat,
-      linear-gradient(var(--sky-mid) 0 0) 26% 100% / 10% 38% no-repeat,
-      linear-gradient(#9acbec 0 0) 6% 100% / 10% 24% no-repeat;
+      linear-gradient(#9cccec 0 0) 5% 100% / 12% 26% no-repeat,
+      linear-gradient(var(--sky-mid) 0 0) 27% 100% / 12% 42% no-repeat,
+      linear-gradient(var(--sky-top) 0 0) 49% 100% / 12% 58% no-repeat,
+      linear-gradient(#45cdb9 0 0) 71% 100% / 12% 76% no-repeat,
+      linear-gradient(var(--accent-deep) 0 0) 93% 100% / 12% 94% no-repeat;
+  }
+
+  .perf-laptop--lite .perf-result-modules {
+    top: 8%;
+    right: 4%;
+    bottom: 8%;
+    width: 44%;
+    gap: 4%;
+  }
+
+  .perf-laptop--lite .perf-result-modules span {
+    position: relative;
+    display: grid;
+    place-content: center start;
+    padding: 13% 8% 9% 31%;
+    border: 1px solid rgba(43, 129, 212, 0.13);
+    border-radius: 13px;
+    text-align: left;
+    color: var(--ink-navy);
+    background: #ffffff;
+  }
+
+  .perf-laptop--lite .perf-result-modules span::before {
+    content: attr(data-mark);
+    position: absolute;
+    top: 50%;
+    left: 9%;
+    display: grid;
+    place-items: center;
+    width: 17%;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    font-size: clamp(8px, 0.76vw, 14px);
+    font-weight: 820;
+    color: var(--sky-top);
+    background: #e7f3fc;
+    transform: translateY(-50%);
+  }
+
+  .perf-laptop--lite .perf-result-modules b {
+    font-size: clamp(7px, 0.58vw, 10.5px);
+    line-height: 1.08;
+    text-transform: uppercase;
+  }
+
+  .perf-laptop--lite .perf-result-modules small {
+    margin-top: 4%;
+    font-size: clamp(5px, 0.43vw, 8px);
+    font-weight: 560;
+    line-height: 1.1;
+    text-transform: none;
+    color: var(--ink-soft);
+  }
+
+  .perf-laptop--lite .perf-result-modules span:last-child {
+    border-color: var(--accent-deep);
+    color: #ffffff;
+    background: var(--accent-deep);
+  }
+
+  .perf-laptop--lite .perf-result-modules span:last-child::before {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  .perf-laptop--lite .perf-result-modules span:last-child small {
+    color: #dceefa;
   }
 
   .perf-laptop--lite .perf-impact-pillars span,

@@ -1,0 +1,140 @@
+---
+interface Props {
+  label: string;
+  tier: 'full' | 'balanced' | 'lite';
+}
+
+const { label, tier } = Astro.props;
+---
+
+<button class:list={['cloud-cta', `cloud-cta--${tier}`]} type="button" data-cloud-cta>
+  <span>{label}</span>
+  <span class="cloud-cta__arrow" aria-hidden="true">→</span>
+</button>
+
+<style>
+  .cloud-cta {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(16px, 1.25vw, 24px);
+    width: max-content;
+    min-height: 44px;
+    margin: 0;
+    padding: 0 clamp(18px, 1.45vw, 26px);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    font-family: var(--font-sans);
+    font-size: clamp(13px, 0.88vw, 16px);
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: -0.012em;
+    white-space: nowrap;
+    color: #ffffff;
+    background: var(--ink-navy);
+    cursor: pointer;
+    pointer-events: auto;
+    transition:
+      transform 190ms var(--ease-out),
+      background-color 190ms var(--ease-out),
+      box-shadow 190ms var(--ease-out),
+      border-color 190ms var(--ease-out);
+  }
+
+  :global(.beat[inert]) .cloud-cta,
+  :global(.perf-copy[inert]) .cloud-cta {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .cloud-cta__arrow {
+    display: inline-block;
+    font-size: 1.1em;
+    line-height: 1;
+    transition: transform 190ms var(--ease-out);
+  }
+
+  .cloud-cta--full {
+    min-height: clamp(44px, calc(var(--step-beat) * 0.52), 48px);
+    margin-top: clamp(20px, calc(var(--step-beat) * 0.27), 28px);
+    background: linear-gradient(135deg, #12335f 0%, #174a7d 100%);
+    box-shadow:
+      0 10px 22px rgba(18, 51, 95, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
+
+  .cloud-cta--balanced,
+  .cloud-cta--lite {
+    margin-top: clamp(18px, 2.4vh, 26px);
+  }
+
+  .cloud-cta--balanced {
+    box-shadow: 0 8px 16px rgba(18, 51, 95, 0.16);
+  }
+
+  .cloud-cta--lite {
+    border-color: rgba(255, 255, 255, 0.24);
+    box-shadow: none;
+  }
+
+  .cloud-cta:hover {
+    background-color: #174f86;
+    transform: translateY(-2px);
+  }
+
+  .cloud-cta--full:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, #17406f 0%, #1b5b96 100%);
+    box-shadow:
+      0 13px 25px rgba(18, 51, 95, 0.24),
+      inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  }
+
+  .cloud-cta--balanced:hover {
+    background-color: #174f86;
+    box-shadow: 0 11px 20px rgba(18, 51, 95, 0.2);
+  }
+
+  .cloud-cta--lite:hover {
+    background-color: #174a7d;
+    transform: translateY(-1px);
+  }
+
+  .cloud-cta:hover .cloud-cta__arrow {
+    transform: translateX(4px);
+  }
+
+  .cloud-cta:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
+    border-color: #2b81d4;
+    box-shadow: 0 0 0 5px rgba(43, 129, 212, 0.72);
+  }
+
+  .cloud-cta:active {
+    transform: translateY(0);
+  }
+
+  @media (max-height: 660px) and (min-width: 1020px) {
+    .cloud-cta {
+      min-height: 40px;
+      padding-inline: 17px;
+      font-size: 13px;
+    }
+
+    .cloud-cta--full,
+    .cloud-cta--balanced,
+    .cloud-cta--lite {
+      margin-top: 15px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cloud-cta,
+    .cloud-cta__arrow {
+      transition-duration: 0.01ms;
+    }
+  }
+</style>

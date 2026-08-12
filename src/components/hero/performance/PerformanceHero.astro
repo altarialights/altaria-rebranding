@@ -58,11 +58,11 @@ const { tier } = Astro.props;
         <PerformanceFlow tier={tier} />
       </div>
 
-      <PerformanceCopy id="social" title={socialBeat.title} sub={socialBeat.sub} tier={tier} />
-      <PerformanceCopy id="web" title={webBeat.title} sub={webBeat.sub} tier={tier} />
-      <PerformanceCopy id="software" title={softwareBeat.title} sub={softwareBeat.sub} tier={tier} />
-      <PerformanceCopy id="brand" title={brandBeat.title} sub={brandBeat.sub} tier={tier} />
-      <PerformanceCopy id="growth" title={growthBeat.title} sub={growthBeat.sub} tier={tier} />
+      <PerformanceCopy id="social" title={socialBeat.title} sub={socialBeat.sub} cta={socialBeat.cta} tier={tier} />
+      <PerformanceCopy id="web" title={webBeat.title} sub={webBeat.sub} cta={webBeat.cta} tier={tier} />
+      <PerformanceCopy id="software" title={softwareBeat.title} sub={softwareBeat.sub} cta={softwareBeat.cta} tier={tier} />
+      <PerformanceCopy id="brand" title={brandBeat.title} sub={brandBeat.sub} cta={brandBeat.cta} tier={tier} />
+      <PerformanceCopy id="growth" title={growthBeat.title} sub={growthBeat.sub} cta={growthBeat.cta} tier={tier} />
     </div>
   </div>
 </section>
@@ -77,12 +77,17 @@ const { tier } = Astro.props;
   }
 
   .performance-hero {
-    --performance-scroll: 1120svh;
+    /* Full has 1560vh of useful sticky travel. Balanced keeps 1480svh
+       (94.9%) so its cheaper entrances become reading time, not a shorter
+       story. The extra distance is static hold space and adds no effects. */
+    --performance-scroll: 1580svh;
     position: relative;
   }
 
   .performance-hero--lite {
-    --performance-scroll: 860svh;
+    /* 1400svh of useful travel: 89.7% of Full, still rendered with the
+       existing Lite surfaces and transform/opacity-only choreography. */
+    --performance-scroll: 1500svh;
   }
 
   .performance-hero__track {

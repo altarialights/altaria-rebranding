@@ -48,6 +48,7 @@ export const header = {
 export const socialBeat = {
     title: ["Hacemos", "que te vean."],
     sub: "Contenido para tus redes.",
+    cta: "Quiero más visibilidad",
     /** Accessible description for the reel. */
     reelLabel: "Ejemplo de reel vertical producido por Altaria Lights",
 } as const;
@@ -55,6 +56,7 @@ export const socialBeat = {
 export const webBeat = {
     title: ["Creamos", "tu página web."],
     sub: "Una web a tu altura.",
+    cta: "Quiero una web así",
 } as const;
 
 /**
@@ -102,8 +104,7 @@ export const embeddedWeb = {
         ],
     },
     results: {
-        title: ["Una web", "que convierte."],
-        sub: "Que las visitas no se queden en visitas.",
+        title: ["Una web", "convierte."],
         modules: [
             { id: "clicks", label: "Más clics" },
             { id: "contacts", label: "Más contactos" },
@@ -122,6 +123,7 @@ export const softwareBeat = {
      grow. */
     title: ["Software", "a tu medida."],
     sub: "Herramientas para tu empresa.",
+    cta: "Tengo una idea",
     /** Accessible description for the abstract dashboard. */
     screenLabel:
         "Representación abstracta de un panel de software a medida: módulos, gráficas y código, sin datos reales",
@@ -130,6 +132,7 @@ export const softwareBeat = {
 export const brandBeat = {
     title: ["Diseñamos", "tu imagen."],
     sub: "Tu marca, de principio a fin.",
+    cta: "Quiero mejorar mi marca",
     /** Accessible description for the branding canvas. */
     screenLabel:
         "Identidad visual de Altaria Lights: el logotipo aparece sobre la nube y se presenta junto a su paleta de color",
@@ -138,6 +141,7 @@ export const brandBeat = {
 export const growthBeat = {
     title: ["Lo conectamos", "todo."],
     sub: "Contenido. Web. Software. Marca.",
+    cta: "Hablemos de mi negocio",
 } as const;
 
 /**
