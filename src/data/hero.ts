@@ -105,6 +105,7 @@ export const embeddedWeb = {
     },
     results: {
         title: ["Una web", "convierte."],
+        sub: "Más oportunidades, mejor rendimiento.",
         modules: [
             { id: "clicks", label: "Más clics" },
             { id: "contacts", label: "Más contactos" },

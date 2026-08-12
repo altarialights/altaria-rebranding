@@ -1,0 +1,1485 @@
+---
+import { growthBeat, header, intro } from '../../../data/hero';
+import { responsivePrinciples, responsiveServices } from '../../../data/responsiveHero';
+import ResponsiveServiceIcon from './ResponsiveServiceIcon.astro';
+
+const responsiveMenuDescriptions = [
+  'Todo lo que podemos hacer por tu negocio.',
+  'Mira cómo trabajamos de verdad.',
+  'De la idea al resultado.',
+] as const;
+---
+
+<section class="rh" id="top" data-responsive-hero aria-labelledby="responsive-hero-title">
+  <div class="rh__atmosphere" aria-hidden="true">
+    <span class="rh__sun"></span>
+    <span class="rh__clouds rh__clouds--far"></span>
+    <span class="rh__clouds rh__clouds--near"></span>
+  </div>
+
+  <div class="rh__shell">
+    <header class="rh-header" data-responsive-header>
+      <a class="rh-header__brand" href="#top" aria-label={`${header.wordmark} — inicio`}>
+        <img
+          src="/brand/optimized/altaria-logo-256.png"
+          alt=""
+          width="256"
+          height="256"
+        />
+        <span>{header.wordmark}</span>
+      </a>
+
+      <nav class="rh-header__desktop-nav" aria-label="Principal">
+        {header.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+        <a class="rh-header__cta" href={header.cta.href}>{header.cta.label}</a>
+      </nav>
+
+      <button
+        class="rh-header__menu-button"
+        type="button"
+        aria-expanded="false"
+        aria-controls="responsive-menu"
+        aria-label="Abrir menú"
+        data-responsive-menu-button
+      >
+        <svg class="rh-header__menu-icon" viewBox="0 0 20 20" aria-hidden="true">
+          <path class="rh-header__menu-line rh-header__menu-line--top" d="M2 5h16" />
+          <path class="rh-header__menu-line rh-header__menu-line--middle" d="M2 10h16" />
+          <path class="rh-header__menu-line rh-header__menu-line--bottom" d="M2 15h16" />
+          <path class="rh-header__close-line" d="M4 4l12 12" />
+          <path class="rh-header__close-line" d="M16 4L4 16" />
+        </svg>
+      </button>
+
+      <nav
+        class="rh-header__menu"
+        id="responsive-menu"
+        aria-label="Principal responsive"
+        hidden
+        inert
+        data-responsive-menu
+      >
+        <div class="rh-menu__inner">
+          <ol class="rh-menu__links">
+            {
+              header.nav.map((item, index) => (
+                <li style={`--rh-menu-order: ${index}`}>
+                  <a class="rh-menu__link" href={item.href}>
+                    <span class="rh-menu__route-point" aria-hidden="true"></span>
+                    <span class="rh-menu__index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                    <span class="rh-menu__copy">
+                      <strong>{item.label}</strong>
+                      <small>{responsiveMenuDescriptions[index]}</small>
+                    </span>
+                    <svg class="rh-menu__arrow" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M5 12h13M14 8l4 4-4 4" />
+                    </svg>
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
+
+          <div class="rh-menu__aside" style="--rh-menu-order: 3">
+            <p class="rh-menu__aside-eyebrow">Tu siguiente altura</p>
+            <p class="rh-menu__aside-copy">Cuéntanos dónde estás. Diseñamos contigo el siguiente paso.</p>
+            <a class="rh-menu__cta" href={header.cta.href}>
+              <span>{growthBeat.cta}</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h13M14 8l4 4-4 4" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="rh-intro">
+      <p class="rh-intro__eyebrow">marketing, diseño y tecnología</p>
+      <h1 class="rh-intro__title" id="responsive-hero-title">
+        {
+          intro.lines.map((line, index) => (
+            <span class:list={{ 'rh-intro__title-secondary': index === 1 }}>{line}</span>
+          ))
+        }
+      </h1>
+      <p class="rh-intro__sub">
+        <span class="rh-intro__sub-tablet">Su imagen tampoco debería serlo.</span>
+        <span class="rh-intro__sub-mobile">Marketing. Web. Software. Marca.</span>
+      </p>
+      <button class="rh-intro__cta" type="button">
+        <span>{growthBeat.cta}</span>
+        <svg viewBox="0 0 20 20" aria-hidden="true">
+          <path d="M4 10h11M11 6l4 4-4 4" />
+        </svg>
+      </button>
+    </div>
+
+    <section class="rh-services" id="servicios-responsive" aria-labelledby="responsive-services-title">
+      <div class="rh-services__heading">
+        <span aria-hidden="true"></span>
+        <h2 id="responsive-services-title">En qué podemos ayudarte</h2>
+        <span aria-hidden="true"></span>
+      </div>
+
+      <div class="rh-carousel" data-responsive-carousel>
+        <button
+          class="rh-carousel__arrow rh-carousel__arrow--prev"
+          type="button"
+          aria-label="Servicio anterior"
+          data-carousel-prev
+        >
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12 5-5 5 5 5" /></svg>
+        </button>
+
+        <div
+          class="rh-services__track"
+          tabindex="0"
+          role="region"
+          aria-label="Servicios de Altaria Lights"
+          aria-roledescription="carrusel"
+          data-carousel-track
+        >
+          {
+            responsiveServices.map((service, index) => (
+              <article
+                class="rh-service"
+                data-carousel-slide
+                data-service-id={service.id}
+                aria-label={`${index + 1} de ${responsiveServices.length}: ${service.title.join(' ')}`}
+              >
+                <figure class={`rh-service__visual rh-service__visual--${service.id}`}>
+                  <img
+                    src={service.image.src}
+                    srcset={service.image.srcset}
+                    sizes="(min-width: 768px) 17vw, 76vw"
+                    width={service.image.width}
+                    height={service.image.height}
+                    alt={service.image.alt}
+                    draggable="false"
+                    loading={service.id === 'web' ? 'eager' : 'lazy'}
+                    fetchpriority={service.id === 'web' ? 'high' : 'auto'}
+                    decoding="async"
+                  />
+                </figure>
+                <div class="rh-service__copy">
+                  <span class="rh-service__icon"><ResponsiveServiceIcon icon={service.icon} /></span>
+                  <p class="rh-service__eyebrow">{service.eyebrow}</p>
+                  <h3>{service.title.join(' ')}</h3>
+                  <p class="rh-service__description">{service.description}</p>
+                  <span class="rh-service__decorative-arrow" aria-hidden="true">→</span>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+
+        <button
+          class="rh-carousel__arrow rh-carousel__arrow--next"
+          type="button"
+          aria-label="Servicio siguiente"
+          data-carousel-next
+        >
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m8 5 5 5-5 5" /></svg>
+        </button>
+      </div>
+
+      <div class="rh-carousel__dots" aria-label="Elegir servicio" data-carousel-dots>
+        {
+          responsiveServices.map((service, index) => (
+            <button
+              type="button"
+              aria-label={`Mostrar ${service.title.join(' ')}`}
+              aria-current={index === 1 ? 'true' : 'false'}
+              data-carousel-dot={index}
+            />
+          ))
+        }
+      </div>
+
+      <nav class="rh-shortcuts" aria-label="Accesos a servicios">
+        {
+          responsiveServices.map((service, index) => (
+            <button type="button" data-carousel-shortcut={index}>
+              <span class="rh-shortcuts__icon"><ResponsiveServiceIcon icon={service.icon} /></span>
+              <strong>{service.eyebrow}</strong>
+              <small>{service.description}</small>
+            </button>
+          ))
+        }
+      </nav>
+    </section>
+
+    <aside class="rh-principles" aria-label="Principios del trabajo de Altaria Lights">
+      <p><strong>Confianza que se construye.</strong> Una presencia clara de principio a fin.</p>
+      <ul>
+        {responsivePrinciples.map((principle) => <li>{principle}</li>)}
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .rh {
+    position: relative;
+    isolation: isolate;
+    min-height: 100svh;
+    overflow: clip;
+    color: var(--ink-navy);
+    background: linear-gradient(180deg, #3288d4 0%, #62ade1 48%, #d8ecf8 100%);
+  }
+
+  .rh__atmosphere,
+  .rh__clouds {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .rh__sun {
+    position: absolute;
+    top: clamp(80px, 8vw, 124px);
+    right: clamp(26px, 5vw, 76px);
+    width: clamp(24px, 3.4vw, 42px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #fffdf6;
+    box-shadow: 0 0 0 12px rgba(255, 253, 246, 0.11), 0 0 42px 16px rgba(255, 253, 246, 0.35);
+  }
+
+  .rh__clouds--far {
+    top: auto;
+    height: 50%;
+    opacity: 0.34;
+    background:
+      radial-gradient(ellipse 30% 48% at 5% 100%, #eff8fe 0 97%, transparent 100%),
+      radial-gradient(ellipse 32% 50% at 33% 104%, #eff8fe 0 97%, transparent 100%),
+      radial-gradient(ellipse 36% 52% at 75% 108%, #eff8fe 0 97%, transparent 100%),
+      radial-gradient(ellipse 28% 44% at 102% 92%, #eff8fe 0 97%, transparent 100%);
+  }
+
+  .rh__clouds--near {
+    top: auto;
+    height: 29%;
+    background:
+      radial-gradient(ellipse 35% 76% at 8% 115%, #f9fcff 0 97%, transparent 100%),
+      radial-gradient(ellipse 35% 76% at 43% 119%, #f9fcff 0 97%, transparent 100%),
+      radial-gradient(ellipse 42% 82% at 84% 120%, #f9fcff 0 97%, transparent 100%);
+  }
+
+  .rh__shell {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 1020px);
+    min-height: 100svh;
+    margin: 0 auto;
+    padding: max(18px, env(safe-area-inset-top)) clamp(20px, 4vw, 46px) max(28px, env(safe-area-inset-bottom));
+  }
+
+  .rh-header {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    min-height: 58px;
+    padding: 6px 8px 6px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 999px;
+    background: rgba(247, 251, 255, 0.88);
+    box-shadow: 0 16px 34px -24px rgba(10, 50, 98, 0.55);
+  }
+
+  .rh-header__brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 44px;
+    margin-right: auto;
+    text-decoration: none;
+  }
+
+  .rh-header__brand img {
+    width: 27px;
+    height: 27px;
+  }
+
+  .rh-header__brand span {
+    display: inline-block;
+    font-family: 'Lemon Milk', var(--font-sans);
+    font-size: 13px;
+    letter-spacing: 0.105em;
+    transform: scaleX(1.18);
+    transform-origin: left center;
+  }
+
+  .rh-header__desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(18px, 3vw, 32px);
+    font-size: 12px;
+  }
+
+  .rh-header__desktop-nav a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .rh-header__cta {
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 20px;
+    border-radius: 999px;
+    color: #fff;
+    background: #145998;
+    box-shadow: 0 10px 20px -12px rgba(8, 51, 98, 0.85);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .rh-header__menu-button,
+  .rh-header__menu {
+    display: none;
+  }
+
+  .rh-intro {
+    display: grid;
+    justify-items: center;
+    padding: clamp(36px, 6vh, 70px) 12px clamp(30px, 4.5vh, 52px);
+    text-align: center;
+  }
+
+  .rh-intro__eyebrow {
+    margin-bottom: 13px;
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(8, 46, 93, 0.68);
+  }
+
+  .rh-intro__title {
+    max-width: 16ch;
+    font-family: var(--font-display);
+    font-size: clamp(50px, 7.2vw, 72px);
+    font-weight: 900;
+    line-height: 0.94;
+    letter-spacing: -0.012em;
+    color: #fff;
+    text-shadow: 0 2px 0 rgba(20, 74, 126, 0.14);
+  }
+
+  .rh-intro__title span {
+    display: block;
+  }
+
+  .rh-intro__title-secondary {
+    display: none !important;
+  }
+
+  .rh-intro__sub {
+    margin-top: 16px;
+    font-size: clamp(15px, 2vw, 19px);
+    color: rgba(16, 51, 85, 0.72);
+  }
+
+  .rh-intro__sub-mobile {
+    display: none;
+  }
+
+  .rh-intro__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 48px;
+    margin-top: 22px;
+    padding: 0 21px;
+    border: 0;
+    border-radius: 999px;
+    color: #fff;
+    background: #145998;
+    box-shadow: 0 13px 24px -15px rgba(6, 43, 88, 0.95);
+    font-size: 13px;
+    font-weight: 750;
+    cursor: pointer;
+  }
+
+  .rh-intro__cta svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .rh-services {
+    position: relative;
+  }
+
+  .rh-services__heading {
+    display: grid;
+    grid-template-columns: minmax(60px, 1fr) auto minmax(60px, 1fr);
+    align-items: center;
+    gap: 22px;
+    margin-bottom: 22px;
+  }
+
+  .rh-services__heading span {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(19, 91, 155, 0.55));
+  }
+
+  .rh-services__heading span:last-child {
+    background: linear-gradient(90deg, rgba(19, 91, 155, 0.55), transparent);
+  }
+
+  .rh-services__heading h2 {
+    font-size: clamp(18px, 2.4vw, 24px);
+    letter-spacing: -0.025em;
+  }
+
+  .rh-services__track {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(10px, 1.5vw, 16px);
+  }
+
+  .rh-service {
+    display: grid;
+    grid-template-rows: 150px 1fr;
+    min-width: 0;
+    min-height: 310px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.76);
+    border-radius: 22px;
+    background: rgba(248, 252, 255, 0.9);
+    box-shadow: 0 18px 30px -25px rgba(10, 49, 94, 0.72);
+  }
+
+  .rh-service__visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 0;
+    overflow: hidden;
+    padding: 12px 8px 2px;
+    background: linear-gradient(180deg, rgba(183, 223, 248, 0.58), rgba(239, 248, 254, 0.35));
+  }
+
+  .rh-service__visual img {
+    position: absolute;
+    inset: 12px 8px 2px;
+    display: block;
+    width: calc(100% - 16px);
+    height: calc(100% - 14px);
+    object-fit: contain;
+    object-position: center;
+    -webkit-user-drag: none;
+    user-select: none;
+  }
+
+  .rh-service__visual--contenido img {
+    inset: 7px 8px 2px;
+    width: calc(100% - 16px);
+    height: calc(100% - 9px);
+  }
+
+  .rh-service__copy {
+    position: relative;
+    align-content: start;
+    padding: 17px 15px 16px;
+  }
+
+  .rh-service__icon {
+    display: none;
+  }
+
+  .rh-service__eyebrow {
+    margin-bottom: 7px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: #247fcc;
+  }
+
+  .rh-service h3 {
+    font-family: var(--font-display);
+    font-size: clamp(15px, 1.7vw, 18px);
+    line-height: 0.98;
+    color: var(--ink-navy);
+  }
+
+  .rh-service__description {
+    margin-top: 9px;
+    font-size: 10px;
+    line-height: 1.35;
+    color: var(--ink-soft);
+  }
+
+  .rh-service__decorative-arrow {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    display: grid;
+    width: 28px;
+    height: 28px;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: #2c86d5;
+    font-size: 14px;
+  }
+
+  .rh-carousel__arrow,
+  .rh-carousel__dots,
+  .rh-shortcuts {
+    display: none;
+  }
+
+  .rh-service[aria-hidden='true'] {
+    visibility: visible;
+  }
+
+  .rh-principles {
+    display: grid;
+    grid-template-columns: minmax(180px, 0.8fr) minmax(0, 2fr);
+    align-items: center;
+    gap: clamp(22px, 4vw, 50px);
+    margin-top: 24px;
+    padding: 20px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.76);
+    border-radius: 22px;
+    background: rgba(248, 252, 255, 0.86);
+    box-shadow: 0 16px 34px -28px rgba(10, 49, 94, 0.72);
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  .rh-principles strong {
+    display: block;
+    color: var(--ink-navy);
+    font-size: 13px;
+  }
+
+  .rh-principles ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rh-principles li {
+    position: relative;
+    padding-left: 13px;
+    font-weight: 650;
+    color: rgba(21, 69, 114, 0.74);
+  }
+
+  .rh-principles li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #42c7bd;
+  }
+
+  @media (max-width: 1019px) {
+    .rh::after {
+      position: fixed;
+      z-index: 5;
+      inset: 0;
+      content: '';
+      pointer-events: none;
+      background: rgba(10, 51, 96, 0.11);
+      opacity: 0;
+      transition: opacity 220ms ease;
+    }
+
+    .rh.is-menu-open::after {
+      opacity: 1;
+    }
+
+    .rh-intro,
+    .rh-services,
+    .rh-principles {
+      transition: opacity 220ms ease;
+    }
+
+    .rh.is-menu-open .rh-intro,
+    .rh.is-menu-open .rh-services,
+    .rh.is-menu-open .rh-principles {
+      pointer-events: none;
+      opacity: 0.14;
+    }
+
+    .rh.is-menu-open .rh-intro__cta {
+      opacity: 0;
+    }
+
+    .rh-header {
+      isolation: isolate;
+      min-height: 58px;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .rh-header::before,
+    .rh-header::after {
+      position: absolute;
+      z-index: -1;
+      content: '';
+      pointer-events: none;
+    }
+
+    .rh-header::before {
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      border-radius: 29px;
+      background: #f3f9fd;
+      box-shadow: 0 18px 36px -28px rgba(7, 43, 85, 0.78);
+      transition:
+        height 360ms cubic-bezier(0.22, 1, 0.36, 1),
+        border-radius 360ms cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 240ms ease;
+    }
+
+    .rh-header::after {
+      right: 3.5%;
+      top: 214px;
+      width: 126px;
+      height: 82px;
+      border-radius: 50%;
+      background: #f3f9fd;
+      opacity: 0;
+      transform: scale(0.76);
+      transform-origin: center;
+      transition:
+        opacity 160ms ease 80ms,
+        transform 320ms cubic-bezier(0.22, 1, 0.36, 1) 40ms;
+    }
+
+    .rh-header.is-menu-open::before {
+      height: 304px;
+      border-radius: 29px 29px 38px 29px;
+      box-shadow: 0 28px 48px -30px rgba(7, 43, 85, 0.72);
+    }
+
+    .rh-header.is-menu-open::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .rh-header__brand,
+    .rh-header__menu-button {
+      position: relative;
+      z-index: 2;
+    }
+
+    .rh-header__desktop-nav {
+      display: none;
+    }
+
+    .rh-header__menu-button {
+      display: block;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 1px solid rgba(43, 129, 212, 0.12);
+      border-radius: 50%;
+      color: #175f9e;
+      background: #dceefa;
+      flex: 0 0 44px;
+      cursor: pointer;
+      transition:
+        color 180ms ease,
+        background-color 180ms ease,
+        transform 140ms ease;
+    }
+
+    .rh-header__menu-button:hover {
+      color: #0c4f8c;
+      background: #cfe7f7;
+    }
+
+    .rh-header__menu-button:active {
+      transform: scale(0.96);
+    }
+
+    .rh-header__menu-button:focus-visible,
+    .rh-menu__link:focus-visible,
+    .rh-menu__cta:focus-visible {
+      outline: 3px solid rgba(43, 129, 212, 0.42);
+      outline-offset: 3px;
+    }
+
+    .rh-header__menu-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: block;
+      width: 20px;
+      height: 20px;
+      overflow: visible;
+      transform: translate(-50%, -50%);
+    }
+
+    .rh-header__menu-line {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: butt;
+      vector-effect: non-scaling-stroke;
+      transform-box: view-box;
+      transform-origin: 10px 10px;
+      transition:
+        transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 140ms ease;
+    }
+
+    .rh-header__close-line {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: butt;
+      vector-effect: non-scaling-stroke;
+      opacity: 0;
+      transform: scale(0.72);
+      transform-box: view-box;
+      transform-origin: 10px 10px;
+      transition:
+        opacity 140ms ease,
+        transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .rh-header__menu-button[aria-expanded='true'] .rh-header__menu-line {
+      opacity: 0;
+      transform: scaleX(0.35);
+    }
+
+    .rh-header__menu-button[aria-expanded='true'] .rh-header__close-line {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .rh-header__menu {
+      position: absolute;
+      z-index: 1;
+      top: 59px;
+      right: 0;
+      left: 0;
+      display: block;
+      height: 245px;
+      padding: 10px 18px 18px;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition:
+        opacity 170ms ease,
+        transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0s linear 260ms;
+    }
+
+    .rh-header__menu[hidden] {
+      display: none;
+    }
+
+    .rh-header.is-menu-open .rh-header__menu {
+      pointer-events: auto;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      transition-delay: 40ms, 40ms, 0s;
+    }
+
+    .rh-menu__inner {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 24px;
+      height: 100%;
+    }
+
+    .rh-menu__links {
+      display: contents;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .rh-menu__links li,
+    .rh-menu__aside {
+      min-width: 0;
+      opacity: 0;
+      transform: translateY(10px);
+      transition:
+        opacity 180ms ease,
+        transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .rh-header.is-menu-open .rh-menu__links li,
+    .rh-header.is-menu-open .rh-menu__aside {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: calc(90ms + var(--rh-menu-order) * 55ms);
+    }
+
+    .rh-menu__link {
+      position: relative;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr) 28px;
+      align-items: center;
+      min-height: 94px;
+      padding: 10px 8px 10px 10px;
+      border-bottom: 1px solid rgba(21, 89, 152, 0.17);
+      color: var(--ink-navy);
+      text-decoration: none;
+      transition: color 160ms ease, transform 180ms ease, background-color 160ms ease;
+    }
+
+    .rh-menu__route-point {
+      position: absolute;
+      top: 50%;
+      left: 1px;
+      width: 5px;
+      height: 5px;
+      border: 1px solid #2b81d4;
+      border-radius: 50%;
+      background: #f3f9fd;
+      transform: translateY(-50%);
+    }
+
+    .rh-menu__index {
+      align-self: start;
+      padding-top: 11px;
+      font-family: 'Lemon Milk', var(--font-sans);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      color: #2b81d4;
+      transition: color 160ms ease;
+    }
+
+    .rh-menu__copy {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .rh-menu__copy strong {
+      font-family: 'Lemon Milk', var(--font-sans);
+      font-size: clamp(13px, 2vw, 16px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: 0.035em;
+      text-transform: uppercase;
+    }
+
+    .rh-menu__copy small {
+      max-width: 34ch;
+      font-size: 10px;
+      line-height: 1.35;
+      color: rgba(8, 46, 93, 0.64);
+    }
+
+    .rh-menu__arrow,
+    .rh-menu__cta svg {
+      width: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 180ms ease;
+    }
+
+    .rh-menu__aside {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-content: center;
+      gap: 4px 12px;
+      min-height: 94px;
+      padding: 10px 8px 10px 12px;
+      border-bottom: 1px solid rgba(21, 89, 152, 0.17);
+    }
+
+    .rh-menu__aside-eyebrow {
+      font-family: 'Lemon Milk', var(--font-sans);
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #2b81d4;
+    }
+
+    .rh-menu__aside-copy {
+      max-width: 32ch;
+      font-size: 10px;
+      line-height: 1.35;
+      color: rgba(8, 46, 93, 0.66);
+    }
+
+    .rh-menu__cta {
+      grid-row: 1 / span 2;
+      grid-column: 2;
+      align-self: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 48px;
+      padding: 0 16px;
+      border-radius: 999px;
+      color: #fff;
+      background: #145998;
+      box-shadow: 0 12px 22px -16px rgba(8, 51, 98, 0.92);
+      font-size: 11px;
+      font-weight: 750;
+      text-decoration: none;
+      transition: transform 180ms ease, background-color 160ms ease;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .rh-menu__link:hover {
+        color: #145998;
+        transform: translateX(4px);
+      }
+
+      .rh-menu__link:hover .rh-menu__arrow,
+      .rh-menu__cta:hover svg {
+        transform: translateX(4px);
+      }
+
+      .rh-menu__link:hover .rh-menu__index {
+        color: #0b5598;
+      }
+
+      .rh-menu__cta:hover {
+        background: #0f4f89;
+        transform: translateY(-1px);
+      }
+    }
+
+    .rh-menu__link:active,
+    .rh-menu__cta:active {
+      transform: scale(0.98);
+      background-color: rgba(43, 129, 212, 0.07);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .rh {
+      min-height: 100svh;
+      background: linear-gradient(180deg, #378bd5 0%, #72b9e5 51%, #e7f3fb 100%);
+    }
+
+    .rh__sun {
+      top: calc(max(18px, env(safe-area-inset-top)) + 70px);
+      right: 23px;
+      width: 28px;
+      box-shadow: 0 0 0 9px rgba(255, 253, 246, 0.11), 0 0 28px 12px rgba(255, 253, 246, 0.32);
+    }
+
+    .rh__clouds--far {
+      height: 38%;
+    }
+
+    .rh__clouds--near {
+      height: 19%;
+    }
+
+    .rh__shell {
+      width: 100%;
+      padding: max(14px, env(safe-area-inset-top)) 0 max(26px, env(safe-area-inset-bottom));
+    }
+
+    .rh-header {
+      margin: 0 12px;
+      min-height: 54px;
+      padding: 5px 6px 5px 13px;
+    }
+
+    .rh-header.is-menu-open::before {
+      height: 365px;
+      border-radius: 27px 27px 42px 27px;
+    }
+
+    .rh-header::after {
+      top: 272px;
+      right: -4px;
+      width: 104px;
+      height: 92px;
+    }
+
+    .rh-header__brand {
+      gap: 7px;
+      min-height: 46px;
+    }
+
+    .rh-header__brand img {
+      width: 25px;
+      height: 25px;
+    }
+
+    .rh-header__brand span {
+      max-width: 160px;
+      overflow: hidden;
+      font-size: clamp(10px, 3vw, 12px);
+      letter-spacing: 0.085em;
+      white-space: nowrap;
+      transform: none;
+    }
+
+    .rh-header__menu {
+      top: 55px;
+      height: 303px;
+      padding: 8px 16px 18px;
+    }
+
+    .rh-menu__inner {
+      display: block;
+    }
+
+    .rh-menu__links {
+      position: relative;
+      display: grid;
+    }
+
+    .rh-menu__links::before {
+      position: absolute;
+      top: 31px;
+      bottom: 31px;
+      left: 3px;
+      width: 1px;
+      content: '';
+      background: rgba(43, 129, 212, 0.25);
+    }
+
+    .rh-menu__link {
+      grid-template-columns: 31px minmax(0, 1fr) 28px;
+      min-height: 64px;
+      padding: 6px 4px 6px 12px;
+    }
+
+    .rh-menu__index {
+      padding-top: 7px;
+    }
+
+    .rh-menu__copy strong {
+      font-size: clamp(13px, 4.2vw, 16px);
+    }
+
+    .rh-menu__copy small {
+      display: none;
+    }
+
+    .rh-menu__aside {
+      display: block;
+      min-height: 0;
+      padding: 15px 4px 0 12px;
+      border-bottom: 0;
+    }
+
+    .rh-menu__aside-eyebrow,
+    .rh-menu__aside-copy {
+      display: none;
+    }
+
+    .rh-menu__cta {
+      display: flex;
+      width: min(100%, 270px);
+      min-height: 50px;
+      padding-inline: 18px;
+      font-size: 11px;
+    }
+
+    .rh-intro {
+      padding: clamp(54px, 10vh, 84px) 20px 48px;
+    }
+
+    .rh-intro__eyebrow {
+      display: none;
+    }
+
+    .rh-intro__title {
+      max-width: 10.4ch;
+      font-size: clamp(35px, 10.5vw, 47px);
+      line-height: 0.93;
+    }
+
+    .rh-intro__title span + span {
+      margin-top: 0.14em;
+    }
+
+    .rh-intro__title-secondary {
+      display: block !important;
+    }
+
+    .rh-intro__sub {
+      max-width: 30ch;
+      margin-top: 18px;
+      font-size: clamp(14px, 4vw, 17px);
+      line-height: 1.45;
+    }
+
+    .rh-intro__sub-tablet {
+      display: none;
+    }
+
+    .rh-intro__sub-mobile {
+      display: inline;
+    }
+
+    .rh-intro__cta {
+      min-height: 48px;
+      margin-top: 22px;
+      font-size: 12px;
+    }
+
+    .rh-services {
+      padding-bottom: 30px;
+    }
+
+    .rh-services__heading {
+      display: none;
+    }
+
+    .rh-carousel {
+      position: relative;
+    }
+
+    .rh-services__track {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      scroll-padding-inline: 10vw;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding: 4px 10vw 22px;
+      touch-action: pan-y pinch-zoom;
+      cursor: grab;
+    }
+
+    .rh-services__track.is-dragging {
+      scroll-behavior: auto;
+      scroll-snap-type: none;
+      cursor: grabbing;
+      user-select: none;
+    }
+
+    .rh-services__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .rh-service {
+      flex: 0 0 min(78vw, 340px);
+      grid-template-rows: clamp(235px, 62vw, 265px) auto;
+      min-height: 430px;
+      scroll-snap-align: center;
+      border-radius: 24px;
+      box-shadow: 0 25px 42px -28px rgba(7, 43, 85, 0.82);
+    }
+
+    .rh-service__visual {
+      position: relative;
+      overflow: hidden;
+      padding: 15px 16px 4px;
+    }
+
+    .rh-service__visual img {
+      position: absolute;
+      inset: 15px 16px 4px;
+      display: block;
+      width: calc(100% - 32px);
+      height: calc(100% - 19px);
+      max-width: none;
+      max-height: none;
+      object-fit: contain;
+      object-position: center;
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+
+    .rh-service__visual--contenido img {
+      inset: 8px 16px 5px;
+      width: calc(100% - 32px);
+      height: calc(100% - 13px);
+    }
+
+    .rh-service__visual--conectado img {
+      max-width: 82%;
+    }
+
+    .rh-service__copy {
+      min-height: 150px;
+      padding: 18px 20px 22px 62px;
+    }
+
+    .rh-service__icon {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      display: grid;
+      width: 32px;
+      height: 32px;
+      padding: 7px;
+      place-items: center;
+      border: 1px solid rgba(43, 129, 212, 0.2);
+      border-radius: 10px;
+      color: #2b81d4;
+      background: #eaf5fc;
+    }
+
+    .rh-service__eyebrow {
+      font-size: 10px;
+    }
+
+    .rh-service h3 {
+      padding-right: 18px;
+      font-size: clamp(21px, 6.7vw, 28px);
+    }
+
+    .rh-service__description {
+      padding-right: 30px;
+      font-size: 12px;
+    }
+
+    .rh-service__decorative-arrow {
+      right: 17px;
+      bottom: 17px;
+      width: 32px;
+      height: 32px;
+    }
+
+    .rh-carousel__arrow {
+      position: absolute;
+      z-index: 3;
+      top: 43%;
+      display: grid;
+      width: 44px;
+      height: 44px;
+      padding: 11px;
+      place-items: center;
+      border: 1px solid rgba(43, 129, 212, 0.16);
+      border-radius: 50%;
+      color: #247dcc;
+      background: rgba(250, 253, 255, 0.96);
+      box-shadow: 0 12px 25px -18px rgba(7, 43, 85, 0.82);
+    }
+
+    .rh-carousel__arrow--prev {
+      left: max(4px, env(safe-area-inset-left));
+    }
+
+    .rh-carousel__arrow--next {
+      right: max(4px, env(safe-area-inset-right));
+    }
+
+    .rh-carousel__arrow svg {
+      width: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .rh-carousel__arrow:disabled {
+      opacity: 0.42;
+    }
+
+    .rh-carousel__dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      margin-top: -9px;
+    }
+
+    .rh-carousel__dots button {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .rh-carousel__dots button::after {
+      content: '';
+      position: absolute;
+      top: 19px;
+      left: 19px;
+      width: 6px;
+      height: 6px;
+      border-radius: 99px;
+      background: rgba(32, 103, 165, 0.24);
+      transition: width 180ms var(--ease-out), background-color 180ms var(--ease-out), transform 180ms var(--ease-out);
+    }
+
+    .rh-carousel__dots button[aria-current='true']::after {
+      width: 18px;
+      background: #2b81d4;
+      transform: translateX(-6px);
+    }
+
+    .rh-shortcuts {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 4px;
+      padding: 4px 9px 0;
+    }
+
+    .rh-shortcuts button {
+      display: grid;
+      min-width: 0;
+      min-height: 92px;
+      padding: 6px 1px;
+      justify-items: center;
+      align-content: start;
+      border: 0;
+      border-radius: 14px;
+      background: transparent;
+      color: var(--ink-navy);
+    }
+
+    .rh-shortcuts button[aria-current='true'] {
+      background: rgba(247, 252, 255, 0.76);
+      box-shadow: 0 10px 22px -20px rgba(7, 43, 85, 0.9);
+    }
+
+    .rh-shortcuts__icon {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      padding: 11px;
+      place-items: center;
+      border: 1px solid rgba(43, 129, 212, 0.13);
+      border-radius: 13px;
+      color: #2b81d4;
+      background: rgba(248, 252, 255, 0.9);
+    }
+
+    .rh-shortcuts strong {
+      max-width: 100%;
+      margin-top: 5px;
+      overflow: hidden;
+      font-size: clamp(7px, 2.25vw, 10px);
+      letter-spacing: -0.01em;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .rh-shortcuts small {
+      display: none;
+    }
+
+    .rh-principles {
+      display: none;
+    }
+  }
+
+  @media (max-width: 359px) {
+    .rh-intro {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+
+    .rh-header__brand span {
+      max-width: 135px;
+    }
+
+    .rh-header.is-menu-open::before {
+      height: 354px;
+    }
+
+    .rh-header::after {
+      top: 264px;
+    }
+
+    .rh-header__menu {
+      height: 292px;
+      padding-right: 12px;
+      padding-left: 12px;
+    }
+
+    .rh-menu__link {
+      min-height: 61px;
+    }
+
+    .rh-menu__aside {
+      padding-top: 12px;
+    }
+
+    .rh-service {
+      flex-basis: 80vw;
+      min-height: 388px;
+    }
+
+    .rh-service__copy {
+      padding-left: 56px;
+    }
+
+    .rh-shortcuts {
+      padding-inline: 4px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .rh.is-ready .rh-header,
+    .rh.is-ready .rh-intro > *,
+    .rh.is-ready .rh-services {
+      animation: rh-enter 560ms var(--ease-out) both;
+    }
+
+    .rh.is-ready .rh-intro__title { animation-delay: 70ms; }
+    .rh.is-ready .rh-intro__sub { animation-delay: 120ms; }
+    .rh.is-ready .rh-intro__cta { animation-delay: 165ms; }
+    .rh.is-ready .rh-services { animation-delay: 210ms; }
+
+    @keyframes rh-enter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rh::after,
+    .rh-header::before,
+    .rh-header::after,
+    .rh-header__menu,
+    .rh-header__menu-line,
+    .rh-header__close-line,
+    .rh-intro,
+    .rh-services,
+    .rh-principles,
+    .rh-menu__links li,
+    .rh-menu__aside,
+    .rh-menu__link,
+    .rh-menu__arrow,
+    .rh-menu__cta,
+    .rh-menu__cta svg {
+      transition-duration: 1ms !important;
+      transition-delay: 0ms !important;
+    }
+
+    .rh-services__track {
+      scroll-behavior: auto;
+    }
+  }
+</style>

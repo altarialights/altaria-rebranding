@@ -200,4 +200,19 @@ import { howItWorks, flow } from '../../data/hero';
       margin-top: 0.2rem;
     }
   }
+
+  /* The former negative card margin predates the responsive hero and
+     creates a 2–3 px page-wide overflow on the narrowest phones. Keep
+     desktop geometry untouched and contain only the new responsive path. */
+  @media (max-width: 1019px) {
+    :global(html[data-hero-experience='responsive']) .how__list,
+    :global(html[data-hero-experience='responsive']) .how__list > li {
+      min-width: 0;
+    }
+
+    :global(html[data-hero-experience='responsive']) .step {
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+  }
 </style>
