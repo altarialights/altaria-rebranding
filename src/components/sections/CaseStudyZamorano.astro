@@ -1,0 +1,374 @@
+---
+const metrics = [
+  { value: '+132%', label: 'Más reservas directas', icon: 'calendar' },
+  { value: '+58%', label: 'Mejor imagen de marca', icon: 'star' },
+  { value: '+41%', label: 'Más confianza del usuario', icon: 'shield' },
+  { value: '+62%', label: 'Reservas online en 3 meses', icon: 'chart' },
+] as const;
+
+const metricIcon = (icon: string) => {
+  if (icon === 'calendar') return 'M4 7.5h16v12H4zM7 3.5v7M17 3.5v7M4 11h16';
+  if (icon === 'star') return 'm12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z';
+  if (icon === 'shield') return 'M12 3.5 19 6v5.2c0 4.4-2.8 7.6-7 9.3-4.2-1.7-7-4.9-7-9.3V6zM9 12l2 2 4-5';
+  return 'M5 20V12M10 20V8M15 20V4M20 20V10M3 20h19';
+};
+---
+
+<section class="case" id="caso-real" aria-labelledby="case-title" data-case-study>
+  <div class="case__atmosphere" aria-hidden="true">
+    <span class="case__sun"></span>
+    <span class="case__cloud case__cloud--one"></span>
+    <span class="case__cloud case__cloud--two"></span>
+    <span class="case__cloud case__cloud--three"></span>
+  </div>
+
+  <div class="case__inner">
+    <header class="case__copy" data-case-reveal>
+      <p class="case__eyebrow">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 1.6 5.3L19 9l-5.4 1.7L12 16l-1.6-5.3L5 9l5.4-1.7zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z" /></svg>
+        Caso real destacado
+      </p>
+      <h2 class="case__title" id="case-title">
+        <span>De Zamorano.</span>
+        <span>Un proyecto real,</span>
+        <span>resultados reales.</span>
+      </h2>
+      <p class="case__lead">
+        Descubre cómo ayudamos a De Zamorano a convertir su visión en una experiencia digital
+        que impulsa ventas y fortalece su marca.
+      </p>
+      <a class="case__cta" href="#contacto">
+        <span>Ver caso completo</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M14 8l4 4-4 4" /></svg>
+      </a>
+    </header>
+
+    <div class="case__showcase" aria-label="Web responsive creada para De Zamorano" data-case-reveal>
+      <figure class="case-monitor">
+        <div class="case-monitor__frame">
+          <span class="case-monitor__camera" aria-hidden="true"></span>
+          <img
+            src="/media/de-zamorano/optimized/desktop-1440.jpg"
+            srcset="/media/de-zamorano/optimized/desktop-768.jpg 768w, /media/de-zamorano/optimized/desktop-1200.jpg 1200w, /media/de-zamorano/optimized/desktop-1440.jpg 1440w"
+            sizes="(min-width: 1200px) 48vw, (min-width: 700px) 70vw, 88vw"
+            width="1440"
+            height="688"
+            alt="Página web de De Zamorano en formato de escritorio"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <span class="case-monitor__neck" aria-hidden="true"></span>
+        <span class="case-monitor__base" aria-hidden="true"></span>
+      </figure>
+
+      <figure class="case-phone">
+        <div class="case-phone__frame">
+          <span class="case-phone__speaker" aria-hidden="true"></span>
+          <img
+            src="/media/de-zamorano/optimized/movil-480.jpg"
+            srcset="/media/de-zamorano/optimized/movil-320.jpg 320w, /media/de-zamorano/optimized/movil-480.jpg 480w"
+            sizes="(min-width: 700px) 15vw, 29vw"
+            width="480"
+            height="957"
+            alt="Página web de De Zamorano adaptada a móvil"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </figure>
+
+      <figure class="case-video" aria-label="Fotograma de la presentación del proyecto De Zamorano">
+        <img
+          src="/media/de-zamorano/optimized/steak-640.jpg"
+          srcset="/media/de-zamorano/optimized/steak-480.jpg 480w, /media/de-zamorano/optimized/steak-640.jpg 640w"
+          sizes="(min-width: 700px) 17vw, 34vw"
+          width="640"
+          height="360"
+          alt="Steak tartar preparado por De Zamorano"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="case-video__play" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="m9 7 8 5-8 5z" /></svg>
+        </span>
+      </figure>
+    </div>
+
+    <div class="case__proof" data-case-reveal>
+      <ul class="case-metrics" aria-label="Resultados del proyecto">
+        {
+          metrics.map((metric) => (
+            <li class="case-metric">
+              <span class="case-metric__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d={metricIcon(metric.icon)} /></svg>
+              </span>
+              <strong>{metric.value}</strong>
+              <span>{metric.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="case__verified">
+        <span class="case__verified-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 4.3-2.8 7.6-7 9.5C7.8 18.6 5 15.3 5 11V6zM8.5 12l2.2 2.2 4.8-5" /></svg>
+        </span>
+        <span><strong>Resultados medidos. Impacto real.</strong> Datos verificados durante los primeros 3 meses en línea.</span>
+      </p>
+    </div>
+
+    <aside class="case-testimonial" aria-label="Testimonio de De Zamorano" data-case-reveal>
+      <p class="case-testimonial__stars" aria-label="Cinco estrellas">★★★★★</p>
+      <blockquote>“Altaria Lights entendió nuestras necesidades y superó nuestras expectativas.”</blockquote>
+      <footer>
+        <span class="case-testimonial__avatar" aria-hidden="true">CM</span>
+        <span><strong>Carlos M.</strong><small>Director General, De Zamorano</small></span>
+      </footer>
+    </aside>
+  </div>
+</section>
+
+<script>
+  const caseStudy = document.querySelector<HTMLElement>('[data-case-study]');
+  if (caseStudy && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    const reveal = Array.from(caseStudy.querySelectorAll<HTMLElement>('[data-case-reveal]'));
+    caseStudy.classList.add('case--enhanced');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        caseStudy.classList.add('is-visible');
+        observer.disconnect();
+      },
+      { rootMargin: '0px 0px -12% 0px', threshold: 0.08 },
+    );
+    observer.observe(caseStudy);
+    reveal.forEach((element, index) => element.style.setProperty('--case-order', String(index)));
+  }
+</script>
+
+<style>
+  .case {
+    position: relative;
+    isolation: isolate;
+    min-height: 100svh;
+    overflow: clip;
+    color: #102f5f;
+    background:
+      radial-gradient(circle at 86% 10%, rgba(255, 253, 240, 0.62), transparent 16%),
+      linear-gradient(180deg, #dceefa 0%, #5aa8df 8%, #8fc8e9 52%, #d9ecf8 100%);
+  }
+
+  .case::before {
+    position: absolute;
+    z-index: -1;
+    right: 52%;
+    top: 14%;
+    width: min(49vw, 820px);
+    height: min(58vw, 700px);
+    border-radius: 44% 56% 50% 48%;
+    content: '';
+    background:
+      radial-gradient(circle at 25% 34%, rgba(255,255,255,.95) 0 31%, transparent 32%),
+      radial-gradient(circle at 56% 25%, rgba(255,255,255,.95) 0 37%, transparent 38%),
+      radial-gradient(circle at 79% 45%, rgba(255,255,255,.95) 0 31%, transparent 32%),
+      radial-gradient(ellipse at 50% 70%, rgba(255,255,255,.95) 0 57%, transparent 58%);
+    opacity: .94;
+    filter: drop-shadow(0 22px 25px rgba(41, 102, 154, .12));
+  }
+
+  .case__atmosphere {
+    position: absolute;
+    z-index: -2;
+    pointer-events: none;
+  }
+
+  .case__atmosphere { inset: 0; }
+
+  .case__sun {
+    position: absolute;
+    top: 7%;
+    right: 5%;
+    width: clamp(26px, 3vw, 48px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #fffdf5;
+    box-shadow: 0 0 0 16px rgba(255,255,245,.1), 0 0 52px 22px rgba(255,255,245,.38);
+  }
+
+  .case__cloud { position: absolute; border-radius: 50%; background: rgba(244, 251, 255, .82); }
+  .case__cloud--one { width: 44vw; height: 18vw; left: -9vw; bottom: -4vw; }
+  .case__cloud--two { width: 52vw; height: 21vw; left: 27vw; bottom: -8vw; }
+  .case__cloud--three { width: 38vw; height: 18vw; right: -8vw; bottom: -3vw; }
+
+  .case__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(340px, .78fr) minmax(580px, 1.4fr);
+    grid-template-rows: auto auto;
+    gap: clamp(24px, 3vw, 54px) clamp(46px, 5vw, 104px);
+    width: min(100% - 2 * var(--gutter), 1640px);
+    min-height: 100svh;
+    margin: 0 auto;
+    padding: clamp(96px, 9vh, 132px) 0 clamp(80px, 8vh, 120px);
+    align-content: center;
+  }
+
+  .case__copy { align-self: end; max-width: 610px; padding: 24px 0 8px; }
+
+  .case__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 42px;
+    padding: 0 16px;
+    border: 1px solid rgba(255,255,255,.82);
+    border-radius: 999px;
+    background: rgba(247,252,255,.84);
+    box-shadow: 0 13px 30px -22px rgba(11,53,99,.64);
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: #196ec0;
+  }
+
+  .case__eyebrow svg { width: 18px; fill: none; stroke: #2b81d4; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+  .case__title {
+    display: grid;
+    margin-top: 23px;
+    font-family: var(--font-display);
+    font-size: clamp(48px, 4vw, 78px);
+    font-weight: 900;
+    line-height: .94;
+    letter-spacing: -.015em;
+    text-transform: uppercase;
+    color: #102f5f;
+  }
+
+  .case__lead { max-width: 51ch; margin-top: 24px; font-size: clamp(16px, 1.25vw, 20px); line-height: 1.55; color: rgba(20, 62, 103, .76); }
+
+  .case__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-width: 220px;
+    min-height: 52px;
+    margin-top: 27px;
+    padding: 0 20px;
+    border-radius: 999px;
+    color: #fff;
+    background: linear-gradient(135deg, #153d70, #072854);
+    box-shadow: 0 14px 26px -16px rgba(6,32,67,.82);
+    font-size: 14px;
+    font-weight: 750;
+    text-decoration: none;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+
+  .case__cta svg { width: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: transform 180ms ease; }
+  .case__cta:hover { transform: translateY(-2px); box-shadow: 0 18px 32px -16px rgba(6,32,67,.92); }
+  .case__cta:hover svg { transform: translateX(4px); }
+  .case__cta:focus-visible { outline: 3px solid rgba(9,74,139,.48); outline-offset: 4px; }
+
+  .case__showcase { position: relative; grid-column: 2; grid-row: 1 / span 2; align-self: center; min-height: clamp(540px, 47vw, 780px); }
+
+  .case-monitor { position: absolute; top: 6%; right: 2%; width: 87%; margin: 0; }
+  .case-monitor__frame { position: relative; padding: clamp(8px, .8vw, 14px); border: 2px solid rgba(255,255,255,.9); border-radius: 30px; background: linear-gradient(145deg, #e6edf3, #abb9c4); box-shadow: 0 35px 60px -37px rgba(5,38,76,.62); transform: perspective(1200px) rotateY(-2deg) rotateZ(-1deg); }
+  .case-monitor__frame img { display: block; width: 100%; aspect-ratio: 2.093; border-radius: 20px; object-fit: cover; }
+  .case-monitor__camera { position: absolute; z-index: 2; top: 5px; left: 50%; width: 4px; height: 4px; border-radius: 50%; background: #728494; transform: translateX(-50%); }
+  .case-monitor__neck { display: block; width: 18%; height: 104px; margin: -2px auto 0; background: linear-gradient(90deg, #9eacb8, #e8eff4 48%, #aebbc5); clip-path: polygon(26% 0,74% 0,92% 100%,8% 100%); }
+  .case-monitor__base { display: block; width: 42%; height: 22px; margin: -3px auto 0; border-radius: 50%; background: linear-gradient(180deg, #eef3f6, #8f9ca6); box-shadow: 0 14px 20px -14px rgba(5,38,76,.6); }
+
+  .case-phone { position: absolute; z-index: 3; left: 6%; bottom: 7%; width: 18%; aspect-ratio: .52; margin: 0; transform: rotate(-4deg); }
+  .case-phone__frame { position: relative; height: 100%; padding: 8px; overflow: hidden; border: 2px solid rgba(255,255,255,.86); border-radius: 28px; background: linear-gradient(145deg,#e9eef1,#8c99a3); box-shadow: 0 25px 38px -22px rgba(4,29,60,.8); }
+  .case-phone__frame img { display: block; width: 100%; height: 100%; border-radius: 21px; object-fit: cover; object-position: center top; }
+  .case-phone__speaker { position: absolute; z-index: 2; top: 12px; left: 50%; width: 33%; height: 6px; border-radius: 99px; background: #070d14; transform: translateX(-50%); }
+
+  .case-video { position: absolute; z-index: 4; top: 24%; right: -1%; width: 28%; margin: 0; padding: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,.95); border-radius: 24px; background: #f8fbfd; box-shadow: 0 25px 42px -25px rgba(7,38,75,.76); transition: transform 180ms ease, box-shadow 180ms ease; }
+  .case-video:hover { transform: translateY(-3px) rotate(1deg); box-shadow: 0 30px 48px -25px rgba(7,38,75,.86); }
+  .case-video img { display: block; width: 100%; aspect-ratio: 16/9; border-radius: 18px; object-fit: cover; }
+  .case-video__play { position: absolute; inset: 50% auto auto 50%; display: grid; width: 54px; aspect-ratio: 1; place-items: center; border: 1px solid rgba(255,255,255,.95); border-radius: 50%; background: rgba(248,252,255,.92); box-shadow: 0 9px 20px -13px rgba(4,29,60,.9); color: #102f5f; transform: translate(-50%,-50%); }
+  .case-video__play svg { width: 25px; fill: currentColor; }
+
+  .case__proof { align-self: start; }
+  .case-metrics { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .case-metric { display: grid; min-width: 0; min-height: 154px; padding: 16px 10px; justify-items: center; align-content: center; border: 1px solid rgba(255,255,255,.82); border-radius: 22px; background: rgba(249,252,255,.72); box-shadow: 0 18px 32px -27px rgba(5,38,76,.64); text-align: center; transition: transform 180ms ease, background-color 180ms ease; }
+  .case-metric:hover { transform: translateY(-4px); background: rgba(255,255,255,.88); }
+  .case-metric__icon { display: grid; width: 42px; aspect-ratio: 1; place-items: center; border-radius: 50%; background: rgba(228,242,252,.94); color: #155da4; box-shadow: 0 8px 16px -13px rgba(5,38,76,.8); }
+  .case-metric__icon svg { width: 23px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .case-metric strong { margin-top: 9px; font-size: clamp(20px, 1.8vw, 30px); line-height: 1; color: #102f5f; }
+  .case-metric > span:last-child { max-width: 12ch; margin-top: 7px; font-size: 11px; line-height: 1.35; color: rgba(18,54,92,.8); }
+
+  .case__verified { display: flex; align-items: center; gap: 11px; margin-top: 18px; font-size: 11px; line-height: 1.4; color: rgba(17,55,94,.72); }
+  .case__verified strong { display: block; color: #123765; }
+  .case__verified-icon { display: grid; width: 36px; flex: 0 0 36px; aspect-ratio: 1; place-items: center; border-radius: 50%; background: rgba(246,251,255,.78); color: #2b81d4; }
+  .case__verified-icon svg { width: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+  .case-testimonial { position: absolute; z-index: 5; right: 0; bottom: 3%; width: min(27%, 320px); padding: 24px; border: 1px solid rgba(255,255,255,.9); border-radius: 28px; background: rgba(249,252,255,.88); box-shadow: 0 28px 46px -30px rgba(5,38,76,.72); transform: rotate(1.5deg); }
+  .case-testimonial__stars { color: #f0b858; font-size: 18px; letter-spacing: .08em; }
+  .case-testimonial blockquote { margin: 14px 0 18px; font-size: 14px; line-height: 1.5; color: #163864; }
+  .case-testimonial footer { display: flex; align-items: center; gap: 11px; }
+  .case-testimonial__avatar { display: grid; width: 42px; flex: 0 0 42px; aspect-ratio: 1; place-items: center; border-radius: 50%; color: #fff; background: linear-gradient(145deg,#2b81d4,#123b70); font-size: 11px; font-weight: 800; }
+  .case-testimonial footer > span:last-child { display: grid; }
+  .case-testimonial footer strong { font-size: 12px; }
+  .case-testimonial footer small { margin-top: 2px; font-size: 10px; line-height: 1.35; color: rgba(20,58,96,.67); }
+
+  .case--enhanced [data-case-reveal] { opacity: 0; transform: translateY(18px); }
+  .case--enhanced.is-visible [data-case-reveal] { opacity: 1; transform: translateY(0); transition: opacity 520ms ease, transform 620ms cubic-bezier(.22,1,.36,1); transition-delay: calc(var(--case-order, 0) * 70ms); }
+
+  @media (max-width: 1199px) {
+    .case::before { top: 4%; right: 10%; width: 80vw; height: 50vw; }
+    .case__inner { grid-template-columns: 1fr; grid-template-rows: auto auto auto auto; width: min(100% - 64px, 920px); padding: 104px 0 90px; text-align: center; }
+    .case__copy { justify-self: center; max-width: 690px; padding: 0; }
+    .case__eyebrow { margin-inline: auto; }
+    .case__lead { margin-inline: auto; }
+    .case__title { font-size: clamp(48px, 7vw, 72px); }
+    .case__showcase { grid-column: 1; grid-row: 2; width: min(100%, 790px); min-height: 590px; margin: 0 auto; }
+    .case-monitor { top: 5%; right: 8%; width: 84%; }
+    .case-phone { left: 8%; bottom: 8%; width: 17%; }
+    .case-video { top: 24%; right: 3%; width: 25%; }
+    .case__proof { grid-row: 3; width: min(100%, 720px); margin: 0 auto; }
+    .case-testimonial { position: relative; grid-row: 4; right: auto; bottom: auto; width: min(100%, 520px); margin: 0 auto; text-align: left; transform: none; }
+    .case__verified { justify-content: center; text-align: left; }
+  }
+
+  @media (max-width: 699px) {
+    .case::before { top: 2%; right: -22%; width: 142vw; height: 112vw; opacity: .92; }
+    .case__sun { top: 3%; right: 7%; }
+    .case__cloud--one { width: 84vw; height: 34vw; }
+    .case__cloud--two { width: 110vw; height: 42vw; left: 5vw; }
+    .case__cloud--three { width: 82vw; height: 36vw; }
+    .case__inner { width: 100%; min-height: 0; padding: 82px 18px 72px; gap: 25px; }
+    .case__copy { max-width: 390px; }
+    .case__eyebrow { min-height: 38px; padding-inline: 14px; font-size: 10px; }
+    .case__title { margin-top: 20px; font-size: clamp(30px, 8.7vw, 41px); line-height: 1; }
+    .case__lead { margin-top: 19px; font-size: 15px; line-height: 1.5; }
+    .case__cta { min-width: 216px; min-height: 50px; margin-top: 22px; }
+    .case__showcase { width: 100%; min-height: 410px; margin-top: 4px; }
+    .case-monitor { top: 3%; right: 0; width: 100%; }
+    .case-monitor__frame { padding: 7px; border-radius: 20px; transform: none; }
+    .case-monitor__frame img { border-radius: 14px; }
+    .case-monitor__neck { height: 58px; }
+    .case-monitor__base { height: 14px; }
+    .case-phone { display: none; }
+    .case-video { top: 36%; right: -3px; width: 39%; padding: 4px; border-radius: 17px; }
+    .case-video img { border-radius: 12px; }
+    .case-video__play { width: 42px; }
+    .case__proof { width: calc(100% + 18px); margin: -12px -9px 0; overflow: visible; }
+    .case-metrics { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 5px 9px 18px; }
+    .case-metrics::-webkit-scrollbar { display: none; }
+    .case-metric { flex: 0 0 42%; min-height: 148px; scroll-snap-align: center; }
+    .case-metric strong { font-size: 25px; }
+    .case__verified { margin: 5px 10px 0; justify-content: flex-start; font-size: 10px; }
+    .case-testimonial { width: 100%; padding: 22px; border-radius: 24px; }
+    .case-testimonial blockquote { font-size: 15px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .case--enhanced [data-case-reveal], .case--enhanced.is-visible [data-case-reveal] { opacity: 1; transform: none; transition: none; }
+    .case__cta, .case-video, .case-metric { transition: none; }
+  }
+</style>

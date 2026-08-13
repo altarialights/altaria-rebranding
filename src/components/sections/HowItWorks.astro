@@ -50,12 +50,10 @@ import { howItWorks, flow } from '../../data/hero';
     background: linear-gradient(to bottom, #ffffff 0%, #f7fbfe 42%, var(--sky-haze) 100%);
   }
 
-  /* Full already spends its final viewport travelling through the white
-     exit bank. Repeating the section's former 6–11rem top padding after
-     that transition read as an empty strip between the clouds and the
-     first real heading. Keep a short breathing space instead. */
+  /* The case study now sits between the hero and this section, so every
+     performance tier can use the same deliberate section rhythm. */
   :global(html[data-performance-tier='full']) .how {
-    padding-top: clamp(1.25rem, 0.8rem + 0.5vw, 1.75rem);
+    padding-top: clamp(6rem, 4rem + 6vw, 11rem);
   }
 
   .how__head {
