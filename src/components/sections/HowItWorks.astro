@@ -1,4 +1,6 @@
 ---
+import SectionCloudBridge from './SectionCloudBridge.astro';
+
 const steps = [
   {
     number: '01',
@@ -126,11 +128,19 @@ const routeDots = {
 
     <div class="how__process">
       <svg class="how-route how-route--desktop" viewBox="0 0 820 760" preserveAspectRatio="none" aria-hidden="true">
-        <path class="how-route__halo" pathLength="1" d="M124 92C28 142 58 226 342 280C594 329 538 396 126 470C-12 495 32 584 350 668"></path>
-        <path class="how-route__line" pathLength="1" d="M124 92C28 142 58 226 342 280C594 329 538 396 126 470C-12 495 32 584 350 668"></path>
-        <path class="how-route__bridge-halo" pathLength="1" d="M126 470C-12 495 32 584 350 668"></path>
-        <path class="how-route__bridge" pathLength="1" d="M126 470C-12 495 32 584 350 668"></path>
-        {routeDots.desktop.map(([cx, cy, r]) => <circle class="how-route__dot" cx={cx} cy={cy} r={r}></circle>)}
+        <defs>
+          <mask id="how-route-desktop-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="820" height="760">
+            <rect width="820" height="760" fill="#fff"></rect>
+            <ellipse cx="124" cy="100" rx="150" ry="70" fill="#000"></ellipse>
+          </mask>
+        </defs>
+        <g mask="url(#how-route-desktop-mask)">
+          <path class="how-route__halo" pathLength="1" d="M124 92C28 142 58 226 342 280C594 329 538 396 126 470C-12 495 32 584 350 668"></path>
+          <path class="how-route__line" pathLength="1" d="M124 92C28 142 58 226 342 280C594 329 538 396 126 470C-12 495 32 584 350 668"></path>
+          <path class="how-route__bridge-halo" pathLength="1" d="M126 470C-12 495 32 584 350 668"></path>
+          <path class="how-route__bridge" pathLength="1" d="M126 470C-12 495 32 584 350 668"></path>
+          {routeDots.desktop.map(([cx, cy, r]) => <circle class="how-route__dot" cx={cx} cy={cy} r={r}></circle>)}
+        </g>
       </svg>
 
       <svg class="how-route how-route--tablet" viewBox="0 0 720 700" preserveAspectRatio="none" aria-hidden="true">
@@ -140,9 +150,17 @@ const routeDots = {
       </svg>
 
       <svg class="how-route how-route--mobile" viewBox="0 0 320 1020" preserveAspectRatio="none" aria-hidden="true">
-        <path class="how-route__halo" pathLength="1" d="M76 72C35 132 38 228 82 310C118 380 105 474 84 550C56 650 46 718 80 795C104 852 98 918 72 955"></path>
-        <path class="how-route__line" pathLength="1" d="M76 72C35 132 38 228 82 310C118 380 105 474 84 550C56 650 46 718 80 795C104 852 98 918 72 955"></path>
-        {routeDots.mobile.map(([cx, cy, r]) => <circle class="how-route__dot" cx={cx} cy={cy} r={r}></circle>)}
+        <defs>
+          <mask id="how-route-mobile-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="320" height="1020">
+            <rect width="320" height="1020" fill="#fff"></rect>
+            <ellipse cx="72" cy="110" rx="118" ry="42" fill="#000"></ellipse>
+          </mask>
+        </defs>
+        <g mask="url(#how-route-mobile-mask)">
+          <path class="how-route__halo" pathLength="1" d="M76 72C35 132 38 228 82 310C118 380 105 474 84 550C56 650 46 718 80 795C104 852 98 918 72 955"></path>
+          <path class="how-route__line" pathLength="1" d="M76 72C35 132 38 228 82 310C118 380 105 474 84 550C56 650 46 718 80 795C104 852 98 918 72 955"></path>
+          {routeDots.mobile.slice(1).map(([cx, cy, r]) => <circle class="how-route__dot" cx={cx} cy={cy} r={r}></circle>)}
+        </g>
       </svg>
 
       <ol class="how__steps" aria-label="Nuestro proceso en cuatro pasos">
@@ -186,6 +204,7 @@ const routeDots = {
       </ol>
     </div>
   </div>
+  <SectionCloudBridge variant="how-mirador" />
 </section>
 
 <script>
@@ -221,6 +240,15 @@ const routeDots = {
   .how__sky-cloud--left { left: -18vw; bottom: -5vw; width: 56vw; height: 19vw; }
   .how__sky-cloud--right { right: -16vw; bottom: -3vw; width: 52vw; height: 18vw; }
   .how__sky-cloud--floor { left: 23vw; bottom: -10vw; width: 66vw; height: 24vw; background: rgba(250, 253, 255, 0.66); }
+
+  @media (min-width: 1020px) {
+    :global(html[data-performance-tier='full']) .how {
+      z-index: 2;
+      overflow: visible;
+    }
+
+    :global(html[data-performance-tier='full']) .how__sky-cloud { display: none; }
+  }
 
   .how__inner {
     position: relative;

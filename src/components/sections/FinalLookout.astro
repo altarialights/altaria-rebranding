@@ -140,6 +140,22 @@ const titleLines = [
     );
   }
 
+  @media (min-width: 1020px) {
+    :global(html[data-performance-tier='full']) .mirador {
+      --mirador-join-color: #eaf4fb;
+      z-index: 1;
+    }
+
+    :global(html[data-performance-tier='full']) .mirador::after {
+      display: none;
+    }
+
+    :global(html[data-performance-tier='full']) .mirador__scene img {
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.55) 12%, #000 34%);
+      mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.55) 12%, #000 34%);
+    }
+  }
+
   .mirador__scene,
   .mirador__scene img {
     display: block;

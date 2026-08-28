@@ -1,4 +1,6 @@
 ---
+import SectionCloudBridge from './SectionCloudBridge.astro';
+
 const metrics = [
   { value: '+132%', label: 'Más reservas directas', icon: 'calendar' },
   { value: '+58%', label: 'Mejor imagen de marca', icon: 'star' },
@@ -30,25 +32,109 @@ const metricIcon = (icon: string) => {
               <stop offset="0" stop-color="#ffffff" />
               <stop offset="1" stop-color="#edf8ff" />
             </linearGradient>
+            <linearGradient id="case-cloud-full-fill" gradientUnits="userSpaceOnUse" x1="0" y1="54" x2="0" y2="620">
+              <stop offset="0" stop-color="#ffffff" />
+              <stop offset="0.52" stop-color="#fbfdff" />
+              <stop offset="1" stop-color="#e6f0fb" />
+            </linearGradient>
+            <radialGradient id="case-cloud-full-sheen" gradientUnits="userSpaceOnUse" cx="396" cy="164" r="396">
+              <stop offset="0" stop-color="#fffaf0" stop-opacity="0.85" />
+              <stop offset="1" stop-color="#fffaf0" stop-opacity="0" />
+            </radialGradient>
+            <filter id="case-cloud-full-soft" x="-20%" y="-28%" width="140%" height="156%">
+              <feGaussianBlur stdDeviation="5" />
+            </filter>
+            <filter id="case-cloud-full-cast" x="-45%" y="-70%" width="190%" height="240%">
+              <feGaussianBlur stdDeviation="26" />
+            </filter>
+            <linearGradient id="case-cloud-tablet-fill" gradientUnits="userSpaceOnUse" x1="0" y1="54" x2="0" y2="620">
+              <stop offset="0" stop-color="#ffffff" />
+              <stop offset="0.55" stop-color="#fafdff" />
+              <stop offset="1" stop-color="#e6f1fa" />
+            </linearGradient>
+            <radialGradient id="case-cloud-tablet-sheen" gradientUnits="userSpaceOnUse" cx="396" cy="164" r="396">
+              <stop offset="0" stop-color="#fffdf5" stop-opacity="0.78" />
+              <stop offset="1" stop-color="#fffdf5" stop-opacity="0" />
+            </radialGradient>
+            <filter id="case-cloud-tablet-soft" x="-14%" y="-18%" width="128%" height="136%">
+              <feGaussianBlur stdDeviation="3" />
+            </filter>
+            <filter id="case-cloud-tablet-shadow" x="-22%" y="-36%" width="144%" height="172%">
+              <feGaussianBlur stdDeviation="18" />
+            </filter>
           </defs>
-          <g fill="url(#case-cloud-fill)">
+          <g class="case__cloud-body-default" fill="url(#case-cloud-fill)">
             <ellipse cx="600" cy="410" rx="548" ry="192" />
             <ellipse cx="178" cy="338" rx="164" ry="188" />
             <ellipse cx="420" cy="242" rx="252" ry="222" />
             <ellipse cx="735" cy="226" rx="274" ry="226" />
             <ellipse cx="1015" cy="345" rx="170" ry="178" />
           </g>
+          <g class="case__cloud-full case__cloud-full--cast" fill="rgba(41, 92, 152, 0.17)" filter="url(#case-cloud-full-cast)" transform="translate(0 31)">
+            <ellipse cx="600" cy="410" rx="548" ry="192" />
+            <ellipse cx="178" cy="338" rx="164" ry="188" />
+            <ellipse cx="420" cy="242" rx="252" ry="222" />
+            <ellipse cx="735" cy="226" rx="274" ry="226" />
+            <ellipse cx="1015" cy="345" rx="170" ry="178" />
+          </g>
+          <g class="case__cloud-full case__cloud-full--body" fill="url(#case-cloud-full-fill)" filter="url(#case-cloud-full-soft)">
+            <ellipse cx="600" cy="410" rx="548" ry="192" />
+            <ellipse cx="178" cy="338" rx="164" ry="188" />
+            <ellipse cx="420" cy="242" rx="252" ry="222" />
+            <ellipse cx="735" cy="226" rx="274" ry="226" />
+            <ellipse cx="1015" cy="345" rx="170" ry="178" />
+          </g>
+          <g class="case__cloud-full case__cloud-full--sheen" fill="url(#case-cloud-full-sheen)" filter="url(#case-cloud-full-soft)">
+            <ellipse cx="178" cy="304" rx="128" ry="117" />
+            <ellipse cx="420" cy="202" rx="197" ry="138" />
+          </g>
+          <g class="case__cloud-tablet" fill="#386e9a" fill-opacity="0.16" filter="url(#case-cloud-tablet-shadow)" transform="translate(0 28)">
+            <ellipse cx="600" cy="410" rx="548" ry="192" />
+            <ellipse cx="178" cy="338" rx="164" ry="188" />
+            <ellipse cx="420" cy="242" rx="252" ry="222" />
+            <ellipse cx="735" cy="226" rx="274" ry="226" />
+            <ellipse cx="1015" cy="345" rx="170" ry="178" />
+          </g>
+          <g class="case__cloud-tablet" fill="url(#case-cloud-tablet-fill)" filter="url(#case-cloud-tablet-soft)">
+            <ellipse cx="600" cy="410" rx="548" ry="192" />
+            <ellipse cx="178" cy="338" rx="164" ry="188" />
+            <ellipse cx="420" cy="242" rx="252" ry="222" />
+            <ellipse cx="735" cy="226" rx="274" ry="226" />
+            <ellipse cx="1015" cy="345" rx="170" ry="178" />
+          </g>
+          <g class="case__cloud-tablet" fill="url(#case-cloud-tablet-sheen)" filter="url(#case-cloud-tablet-soft)">
+            <ellipse cx="178" cy="304" rx="128" ry="117" />
+            <ellipse cx="420" cy="202" rx="197" ry="138" />
+          </g>
         </svg>
         <svg class="case__cloud-shape case__cloud-shape--mobile" viewBox="0 0 600 650" preserveAspectRatio="none">
           <defs>
-            <linearGradient id="case-cloud-fill-mobile" x1="150" y1="45" x2="410" y2="610" gradientUnits="userSpaceOnUse">
+            <linearGradient id="case-cloud-fill-mobile" gradientUnits="userSpaceOnUse" x1="0" y1="45" x2="0" y2="610">
               <stop offset="0" stop-color="#ffffff" />
-              <stop offset="1" stop-color="#edf8ff" />
+              <stop offset="0.55" stop-color="#fafdff" />
+              <stop offset="1" stop-color="#e6f1fa" />
             </linearGradient>
+            <radialGradient id="case-cloud-sheen-mobile" gradientUnits="userSpaceOnUse" cx="218" cy="146" r="235">
+              <stop offset="0" stop-color="#fffdf5" stop-opacity="0.78" />
+              <stop offset="1" stop-color="#fffdf5" stop-opacity="0" />
+            </radialGradient>
+            <filter id="case-cloud-soft-mobile" x="-14%" y="-18%" width="128%" height="136%">
+              <feGaussianBlur stdDeviation="3" />
+            </filter>
+            <filter id="case-cloud-shadow-mobile" x="-22%" y="-36%" width="144%" height="172%">
+              <feGaussianBlur stdDeviation="18" />
+            </filter>
           </defs>
-          <g fill="url(#case-cloud-fill-mobile)">
+          <g fill="#386e9a" fill-opacity="0.16" filter="url(#case-cloud-shadow-mobile)" transform="translate(0 28)">
             <ellipse cx="300" cy="340" rx="292" ry="290" />
             <ellipse cx="300" cy="100" rx="175" ry="68" />
+          </g>
+          <g fill="url(#case-cloud-fill-mobile)" filter="url(#case-cloud-soft-mobile)">
+            <ellipse cx="300" cy="340" rx="292" ry="290" />
+            <ellipse cx="300" cy="100" rx="175" ry="68" />
+          </g>
+          <g fill="url(#case-cloud-sheen-mobile)" filter="url(#case-cloud-soft-mobile)">
+            <ellipse cx="252" cy="132" rx="138" ry="82" />
           </g>
         </svg>
       </div>
@@ -72,6 +158,17 @@ const metricIcon = (icon: string) => {
     </header>
 
     <div class="case__showcase" aria-label="Web responsive creada para De Zamorano" data-case-reveal>
+      <figure class="case-portrait">
+        <img
+          src="/media/de-zamorano/portrait.png"
+          width="1448"
+          height="1086"
+          alt="Composición del proyecto De Zamorano con monitor, móvil, vídeo y pedestal sobre nubes"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
       <figure class="case-monitor">
         <div class="case-monitor__frame">
           <span class="case-monitor__camera" aria-hidden="true"></span>
@@ -170,6 +267,7 @@ const metricIcon = (icon: string) => {
       </footer>
     </aside>
   </div>
+  <SectionCloudBridge variant="case-how" />
 </section>
 
 <script>
@@ -255,6 +353,8 @@ const metricIcon = (icon: string) => {
   }
 
   .case__copy-cloud .case__cloud-shape--mobile { display: none; }
+  .case__cloud-full { display: none; }
+  .case__cloud-tablet { display: none; }
 
   /* Desktop safe area: the graphic cloud deliberately overhangs the copy
      column, while the content keeps a fixed minimum distance from its
@@ -329,6 +429,9 @@ const metricIcon = (icon: string) => {
 
   .case__showcase { position: relative; grid-column: 2; grid-row: 1 / span 2; align-self: center; min-height: min(68svh, 650px); }
 
+  .case-portrait { display: none; margin: 0; pointer-events: none; }
+  .case-portrait img { display: block; width: 100%; height: auto; object-fit: contain; }
+
   .case-monitor { position: absolute; top: 4%; right: 0; width: 90%; margin: 0; }
   .case-monitor__frame { position: relative; padding: clamp(8px, .65vw, 12px); border: 2px solid rgba(255,255,255,.9); border-radius: 27px; background: linear-gradient(145deg, #e6edf3, #abb9c4); box-shadow: 0 30px 56px -36px rgba(5,38,76,.58); transform: perspective(1200px) rotateY(-1.5deg) rotateZ(-.6deg); }
   .case-monitor__screen { display: block; aspect-ratio: 1815 / 867; overflow: auto; border-radius: 18px; background: #0b1725; scrollbar-width: none; }
@@ -343,6 +446,111 @@ const metricIcon = (icon: string) => {
   .case-phone__frame { position: relative; height: 100%; padding: 8px; overflow: hidden; border: 2px solid rgba(255,255,255,.86); border-radius: 28px; background: linear-gradient(#06090d,#06090d) content-box, linear-gradient(145deg,#e9eef1,#8c99a3) border-box; box-shadow: 0 25px 38px -22px rgba(4,29,60,.8); }
   .case-phone__frame img { display: block; width: 100%; height: 100%; border-radius: 21px; object-fit: contain; object-position: center top; }
   .case-phone__speaker { position: absolute; z-index: 2; top: 12px; left: 50%; width: 33%; height: 6px; border-radius: 99px; background: #070d14; transform: translateX(-50%); }
+
+  /* The hero's richer cloud/material treatment belongs only to the full
+     desktop scene. Compact tiers retain their lighter paint and geometry. */
+  @media (min-width: 1020px) {
+    :global(html[data-performance-tier='full']) .case { z-index: 3; overflow: visible; }
+    :global(html[data-performance-tier='full']) .case__cloud-body-default { display: none; }
+    :global(html[data-performance-tier='full']) .case__cloud-full { display: block; }
+    :global(html[data-performance-tier='full']) .case__cloud-full--body { opacity: .95; }
+    :global(html[data-performance-tier='full']) .case__cloud-full--sheen { opacity: .5; mix-blend-mode: soft-light; }
+
+    :global(html[data-performance-tier='full']) .case__cloud { display: none; }
+
+    :global(html[data-performance-tier='full']) .case__showcase {
+      display: grid;
+      min-height: min(76svh, 760px);
+      place-items: center;
+    }
+    :global(html[data-performance-tier='full']) .case-portrait {
+      display: block;
+      width: min(100%, clamp(600px, 52vw, 920px));
+    }
+    :global(html[data-performance-tier='full']) .case-monitor,
+    :global(html[data-performance-tier='full']) .case-phone,
+    :global(html[data-performance-tier='full']) .case-video {
+      display: none;
+    }
+
+    :global(html[data-performance-tier='full']) .case-monitor__frame {
+      padding: clamp(5px, .38vw, 7px);
+      border: 1px solid rgba(255,255,255,.78);
+      border-radius: 19px;
+      background: linear-gradient(145deg, rgba(255,255,255,.96) 0%, rgba(210,220,228,.98) 22%, rgba(141,154,165,.98) 62%, rgba(232,238,242,.98) 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 -1px 1px rgba(56,70,82,.28), 0 28px 54px -35px rgba(5,30,61,.72), 0 9px 18px -15px rgba(4,25,51,.58);
+      transform: perspective(1400px) rotateY(-.8deg) rotateZ(-.3deg);
+    }
+    :global(html[data-performance-tier='full']) .case-monitor__frame::after {
+      content: '';
+      position: absolute;
+      z-index: 3;
+      inset: 1px;
+      border: 1px solid rgba(255,255,255,.48);
+      border-radius: 17px;
+      box-shadow: inset 0 0 0 1px rgba(32,47,60,.12);
+      pointer-events: none;
+    }
+    :global(html[data-performance-tier='full']) .case-monitor__screen {
+      border-radius: 13px;
+      outline: 1px solid rgba(5,12,20,.72);
+      outline-offset: -1px;
+      background: #03070b;
+    }
+    :global(html[data-performance-tier='full']) .case-monitor__camera {
+      top: 2px;
+      width: 3px;
+      height: 3px;
+      background: radial-gradient(circle at 38% 35%, #8fc6e4 0 14%, #344b60 20% 48%, #0a121a 70%);
+      box-shadow: 0 0 0 1px rgba(15,28,39,.34);
+    }
+    :global(html[data-performance-tier='full']) .case-monitor__neck {
+      width: 13%;
+      margin-top: -1px;
+      background: linear-gradient(90deg, #a7b3bd 0%, #f4f7f9 46%, #dce3e8 58%, #98a6b1 100%);
+      clip-path: polygon(31% 0,69% 0,84% 100%,16% 100%);
+      filter: drop-shadow(0 8px 7px rgba(22,43,63,.14));
+    }
+    :global(html[data-performance-tier='full']) .case-monitor__base {
+      width: 34%;
+      height: 10px;
+      margin-top: -1px;
+      background: linear-gradient(180deg, #f7f9fa 0%, #d5dde3 42%, #8e9ba5 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 12px 17px -13px rgba(5,38,76,.62);
+    }
+
+    :global(html[data-performance-tier='full']) .case-phone { transform: rotate(-1deg); }
+    :global(html[data-performance-tier='full']) .case-phone__frame {
+      padding: 4px;
+      border: 1px solid rgba(255,255,255,.78);
+      border-radius: 22px;
+      background: linear-gradient(#030609,#030609) content-box, linear-gradient(145deg,#fafcfd 0%,#b8c3cb 38%,#778691 67%,#e9eef1 100%) border-box;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 -1px 1px rgba(24,35,44,.45), 0 25px 42px -23px rgba(4,25,53,.86), 0 7px 15px -11px rgba(2,18,38,.7);
+    }
+    :global(html[data-performance-tier='full']) .case-phone__frame::after {
+      content: '';
+      position: absolute;
+      z-index: 3;
+      inset: 1px;
+      border: 1px solid rgba(255,255,255,.46);
+      border-radius: 20px;
+      box-shadow: inset 0 0 0 1px rgba(12,22,30,.26);
+      pointer-events: none;
+    }
+    :global(html[data-performance-tier='full']) .case-phone__frame img {
+      border-radius: 17px;
+      object-fit: contain;
+      object-position: center top;
+      image-rendering: auto;
+    }
+    :global(html[data-performance-tier='full']) .case-phone__speaker {
+      top: 7px;
+      width: 24%;
+      height: 3px;
+      background: linear-gradient(180deg,#05090d,#19232b);
+      box-shadow: 0 1px 0 rgba(255,255,255,.08);
+    }
+  }
 
   .case-video { position: absolute; z-index: 4; top: 23%; right: -1%; width: 27%; margin: 0; padding: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,.95); border-radius: 22px; background: #f8fbfd; box-shadow: 0 24px 40px -26px rgba(7,38,75,.72); }
   .case-video img { display: block; width: 100%; height: auto; aspect-ratio: 16/9; border-radius: 18px; object-fit: cover; }
@@ -438,7 +646,112 @@ const metricIcon = (icon: string) => {
   }
 
   @media (min-width: 1020px) and (max-width: 1199px) and (max-height: 820px) {
+    :global(html[data-performance-tier='full']) .case__inner { min-height: 100svh; }
     .case__copy { padding-left: 42px; }
+  }
+
+  @media (min-width: 700px) and (max-width: 1019px) {
+    .case__cloud-body-default { display: none; }
+    .case__cloud-tablet { display: block; }
+
+    .case__showcase {
+      display: grid;
+      place-items: center;
+    }
+
+    .case-portrait {
+      display: block;
+      width: min(100%, clamp(560px, 80vw, 700px));
+    }
+
+    .case-monitor,
+    .case-phone,
+    .case-video {
+      display: none;
+    }
+
+    .case-monitor__frame {
+      padding: 5px;
+      border: 1px solid rgba(255,255,255,.82);
+      border-radius: 19px;
+      background: linear-gradient(145deg, #f6f9fb 0%, #c7d1d8 38%, #8998a3 70%, #eef3f6 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.96), inset 0 -1px 1px rgba(48,63,75,.24), 0 24px 42px -30px rgba(5,38,76,.72);
+      transform: perspective(1300px) rotateY(-.7deg) rotateZ(-.25deg);
+    }
+
+    .case-monitor__screen {
+      border-radius: 13px;
+      outline: 1px solid rgba(5,12,20,.68);
+      outline-offset: -1px;
+    }
+
+    .case-monitor__camera {
+      top: 2px;
+      width: 3px;
+      height: 3px;
+      background: radial-gradient(circle at 38% 35%, #8fc6e4 0 14%, #344b60 20% 48%, #0a121a 70%);
+    }
+
+    .case-monitor__neck {
+      width: 13%;
+      height: clamp(46px, 5.5vh, 60px);
+      margin-top: -1px;
+      background: linear-gradient(90deg, #a7b3bd 0%, #f4f7f9 46%, #dce3e8 58%, #98a6b1 100%);
+      clip-path: polygon(31% 0,69% 0,84% 100%,16% 100%);
+      filter: drop-shadow(0 7px 6px rgba(22,43,63,.13));
+    }
+
+    .case-monitor__base {
+      width: 33%;
+      height: 11px;
+      margin-top: -1px;
+      background: linear-gradient(180deg, #f7f9fa 0%, #d5dde3 42%, #8e9ba5 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 11px 16px -13px rgba(5,38,76,.58);
+    }
+
+    .case-phone {
+      transform: rotate(-1deg);
+    }
+
+    .case-phone__frame {
+      padding: 4px;
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 20px;
+      background: linear-gradient(#030609,#030609) content-box, linear-gradient(145deg,#fafcfd 0%,#b8c3cb 38%,#778691 67%,#e9eef1 100%) border-box;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.94), inset 0 -1px 1px rgba(24,35,44,.4), 0 22px 36px -23px rgba(4,25,53,.82);
+    }
+
+    .case-phone__frame img {
+      border-radius: 15px;
+      object-fit: contain;
+      object-position: center top;
+      image-rendering: auto;
+    }
+
+    .case-phone__speaker {
+      top: 7px;
+      width: 24%;
+      height: 3px;
+      background: linear-gradient(180deg,#05090d,#19232b);
+    }
+
+    .case-video {
+      padding: 3px;
+      border-width: 1px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(218,227,233,.96));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 22px 38px -28px rgba(7,38,75,.78);
+    }
+
+    .case-video img {
+      border-radius: 12px;
+    }
+
+    .case-video__play {
+      width: 44px;
+      border-width: 1px;
+      box-shadow: 0 8px 17px -12px rgba(4,29,60,.88);
+    }
   }
 
   @media (max-width: 699px) {
