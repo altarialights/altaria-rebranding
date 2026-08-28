@@ -5,6 +5,8 @@ import HeroTierHost from '../components/hero/HeroTierHost.astro';
 import ResponsiveHero from '../components/hero/responsive/ResponsiveHero.astro';
 import CaseStudyZamorano from '../components/sections/CaseStudyZamorano.astro';
 import HowItWorks from '../components/sections/HowItWorks.astro';
+import FinalLookout from '../components/sections/FinalLookout.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
 ---
 
 <Base title="Altaria Lights — hero (revisión v4)">
@@ -24,16 +26,10 @@ import HowItWorks from '../components/sections/HowItWorks.astro';
 
     <CaseStudyZamorano />
     <HowItWorks />
-
-    {/* Everything past "Cómo funciona" is still out of scope. */}
-    <section class="after" id="contacto">
-      <p>
-        Fin de la revisión v4. El resto de la home (problema, transformación,
-        «¿LO&nbsp;VES?», servicios, precios, caso real, equipo y CTA final) no
-        forma parte de esta entrega.
-      </p>
-    </section>
+    <FinalLookout />
   </main>
+
+  <SiteFooter />
 
   <noscript>
     <section class="viewport-noscript">
@@ -148,19 +144,4 @@ import HowItWorks from '../components/sections/HowItWorks.astro';
     text-decoration: none;
   }
 
-  .after {
-    display: grid;
-    place-items: center;
-    min-height: 40vh;
-    padding: 5rem var(--gutter);
-    background: var(--sky-haze);
-  }
-
-  .after p {
-    max-width: 48ch;
-    text-align: center;
-    font-size: var(--step--1);
-    line-height: 1.6;
-    color: var(--ink-faint);
-  }
 </style>

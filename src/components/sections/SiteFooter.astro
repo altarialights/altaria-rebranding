@@ -1,0 +1,884 @@
+---
+const navigation = [
+  {
+    label: 'Servicios',
+    items: [
+      { label: 'Desarrollo web', href: '#como-funciona' },
+      { label: 'Ecommerce', href: '#como-funciona' },
+      { label: 'Branding', href: '#como-funciona' },
+      { label: 'Marketing digital', href: '#como-funciona' },
+    ],
+  },
+  {
+    label: 'Caso real',
+    items: [
+      { label: 'Proyectos', href: '#caso-real' },
+      { label: 'Resultados', href: '#caso-real' },
+      { label: 'Testimonios', href: '#caso-real' },
+    ],
+  },
+  {
+    label: 'Proceso',
+    items: [
+      { label: 'Así trabajamos', href: '#como-funciona' },
+      { label: 'Metodología', href: '#como-funciona' },
+      { label: 'Fases del proyecto', href: '#como-funciona' },
+    ],
+  },
+  {
+    label: 'Sobre nosotros',
+    items: [
+      { label: 'Quiénes somos', href: '#contacto' },
+      { label: 'Nuestro equipo', href: '#contacto' },
+      { label: 'Contacto', href: '#contacto' },
+    ],
+  },
+] as const;
+
+type FooterNavigationItem = (typeof navigation)[number]['items'][number];
+---
+
+<footer class="site-footer" aria-labelledby="footer-brand-name">
+  <div class="site-footer__canvas">
+    <picture class="site-footer__background" aria-hidden="true">
+      <source media="(max-width: 699px)" srcset="/media/footer/mobile.png" />
+      <source media="(max-width: 1019px)" srcset="/media/footer/tablet.png" />
+      <source media="(min-width: 1020px)" srcset="/media/footer/desktop.png" />
+      <img
+        src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+        width="2172"
+        height="724"
+        alt=""
+        loading="lazy"
+        decoding="async"
+        fetchpriority="low"
+      />
+    </picture>
+
+    <div class="site-footer__inner">
+      <div class="site-footer__top">
+        <div class="site-footer__brand-block">
+          <a class="site-footer__brand" href="#top" aria-label="Altaria Lights — volver al inicio">
+            <img
+              src="/brand/optimized/altaria-logo-256.png"
+              width="256"
+              height="256"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+            <span id="footer-brand-name">ALTARIA LIGHTS</span>
+          </a>
+          <p class="site-footer__tagline">Llevamos tu visión más allá.</p>
+
+          <div class="site-footer__socials" aria-label="Redes sociales y contacto">
+            <span class="site-footer__social site-footer__social--pending" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6.2 8.1H2.7V21h3.5V8.1ZM4.45 2A2.05 2.05 0 1 0 4.45 6.1 2.05 2.05 0 0 0 4.45 2ZM21.3 13.6c0-3.9-2.1-5.8-4.9-5.8a4.25 4.25 0 0 0-3.85 2.1V8.1H9.1V21h3.45v-6.4c0-1.68.32-3.3 2.4-3.3 2.04 0 2.07 1.91 2.07 3.42V21h3.46l.82-7.4Z" />
+              </svg>
+            </span>
+            <span class="site-footer__social site-footer__social--pending" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="4.25" />
+                <circle cx="17.7" cy="6.4" r="1" class="site-footer__social-dot" />
+              </svg>
+            </span>
+            <a class="site-footer__social" href="#contacto" aria-label="Contactar con Altaria Lights">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 5.5h18v13H3v-13Z" class="site-footer__social-cut" />
+                <path d="m4 7 8 6 8-6" class="site-footer__social-cut" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <nav class="site-footer__navigation" aria-label="Navegación del pie de página">
+          {navigation.map((group) => (
+            <details class="site-footer__nav-group" open>
+              <summary>
+                <span>{group.label}</span>
+                <svg viewBox="0 0 16 10" aria-hidden="true">
+                  <path d="m2 2 6 6 6-6" />
+                </svg>
+              </summary>
+              <ul>
+                {group.items.map((item: FooterNavigationItem) => (
+                  <li><a href={item.href}>{item.label}</a></li>
+                ))}
+              </ul>
+            </details>
+          ))}
+        </nav>
+
+        <aside class="site-footer__contact" aria-labelledby="footer-contact-title">
+          <div class="site-footer__contact-icon" aria-hidden="true">
+            <img
+              src="/brand/optimized/altaria-logo-negative-128.png"
+              width="128"
+              height="79"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="site-footer__contact-copy">
+            <h2 id="footer-contact-title">¿Hablamos de tu proyecto?</h2>
+            <p>Cuéntanos tu idea y la llevaremos<br class="site-footer__contact-break" /> más allá de lo que imaginas.</p>
+          </div>
+          <a class="site-footer__cta" href="#contacto">
+            <span>Hablemos de mi proyecto</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+        </aside>
+      </div>
+
+      <div class="site-footer__bottom">
+        <p>© 2026 Altaria Lights. Todos los derechos reservados.</p>
+        <nav class="site-footer__legal" aria-label="Información legal">
+          <span>Aviso legal</span>
+          <i aria-hidden="true"></i>
+          <span>Política de privacidad</span>
+          <i aria-hidden="true"></i>
+          <span>Cookies</span>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const footer = document.querySelector<HTMLElement>('.site-footer');
+  const compactFooter = window.matchMedia('(max-width: 1019px)');
+
+  if (footer) {
+    const groups = [...footer.querySelectorAll<HTMLDetailsElement>('.site-footer__nav-group')];
+
+    const keepCompactGroupsOpen = () => {
+      groups.forEach((group) => {
+        const summary = group.querySelector<HTMLElement>('summary');
+
+        if (compactFooter.matches) {
+          group.open = true;
+          summary?.setAttribute('tabindex', '-1');
+          summary?.setAttribute('aria-disabled', 'true');
+        } else {
+          summary?.removeAttribute('tabindex');
+          summary?.removeAttribute('aria-disabled');
+        }
+      });
+    };
+
+    groups.forEach((group) => {
+      group.addEventListener('toggle', () => {
+        if (compactFooter.matches && !group.open) group.open = true;
+      });
+    });
+
+    keepCompactGroupsOpen();
+    compactFooter.addEventListener('change', keepCompactGroupsOpen);
+  }
+</script>
+
+<style>
+  .site-footer {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin-top: -44px;
+    padding-top: clamp(80px, 8vw, 80px);
+    overflow: clip;
+    color: #0f315f;
+    background: #fff;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 42px, #000 100%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 42px, #000 100%);
+  }
+
+  .site-footer__canvas {
+    position: relative;
+    width: 100%;
+    height: clamp(500px, 33.333vw, 650px);
+    isolation: isolate;
+  }
+
+  .site-footer__background,
+  .site-footer__background img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .site-footer__background {
+    z-index: -1;
+    line-height: 0;
+    pointer-events: none;
+  }
+
+  .site-footer__background img {
+    object-fit: fill;
+  }
+
+  .site-footer__inner {
+    position: absolute;
+    inset: clamp(54px, 4.35vw, 76px) clamp(56px, 4.8vw, 104px) clamp(50px, 4.6vw, 74px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .site-footer__top {
+    display: grid;
+    grid-template-columns: minmax(210px, 1.08fr) minmax(530px, 2.55fr) minmax(295px, 1.35fr);
+    align-items: start;
+    gap: clamp(28px, 2.7vw, 58px);
+    min-height: 0;
+  }
+
+  .site-footer__brand-block {
+    min-width: 0;
+    padding-right: clamp(20px, 2vw, 38px);
+    border-right: 1px solid rgba(76, 112, 151, 0.2);
+  }
+
+  .site-footer__brand {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    gap: 14px;
+    color: #0b2c59;
+    text-decoration: none;
+  }
+
+  .site-footer__brand img {
+    width: clamp(44px, 3.2vw, 58px);
+    height: auto;
+    flex: 0 0 auto;
+  }
+
+  .site-footer__brand span {
+    font-size: clamp(18px, 1.5vw, 28px);
+    font-weight: 680;
+    letter-spacing: 0.105em;
+    white-space: nowrap;
+  }
+
+  .site-footer__tagline {
+    margin-top: 13px;
+    font-size: clamp(14px, 1.05vw, 19px);
+    line-height: 1.4;
+    color: #244a78;
+  }
+
+  .site-footer__socials {
+    display: flex;
+    margin-top: clamp(24px, 2.25vw, 36px);
+    gap: 14px;
+  }
+
+  .site-footer__social {
+    display: grid;
+    width: clamp(42px, 3.25vw, 50px);
+    aspect-ratio: 1;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid rgba(66, 103, 145, 0.08);
+    border-radius: 50%;
+    color: #0f3d73;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 9px 18px -13px rgba(20, 55, 93, 0.62);
+    text-decoration: none;
+    transition: transform 160ms ease, background-color 160ms ease;
+  }
+
+  .site-footer__social--pending {
+    cursor: default;
+  }
+
+  .site-footer__social svg {
+    width: 46%;
+    height: 46%;
+    overflow: visible;
+    fill: currentColor;
+  }
+
+  .site-footer__social rect,
+  .site-footer__social circle,
+  .site-footer__social-cut {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  .site-footer__social-dot {
+    fill: currentColor !important;
+    stroke: none !important;
+  }
+
+  .site-footer__navigation {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(17px, 1.65vw, 34px);
+  }
+
+  .site-footer__nav-group {
+    min-width: 0;
+  }
+
+  .site-footer__nav-group summary {
+    display: flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    list-style: none;
+    font-size: clamp(14px, 1.03vw, 18px);
+    font-weight: 720;
+    cursor: pointer;
+  }
+
+  .site-footer__nav-group summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .site-footer__nav-group summary svg {
+    width: 12px;
+    height: 8px;
+    flex: 0 0 auto;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+    transition: transform 160ms ease;
+  }
+
+  .site-footer__nav-group:not([open]) summary svg {
+    transform: rotate(-90deg);
+  }
+
+  .site-footer__nav-group ul {
+    display: grid;
+    margin: 7px 0 0;
+    padding: 0;
+    gap: 10px;
+    list-style: none;
+  }
+
+  .site-footer__nav-group a {
+    display: inline-block;
+    font-size: clamp(12.5px, 0.91vw, 16px);
+    line-height: 1.35;
+    color: #234a78;
+    text-decoration-color: transparent;
+    text-underline-offset: 4px;
+    transition: color 160ms ease, text-decoration-color 160ms ease;
+  }
+
+  .site-footer__contact {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr);
+    padding: clamp(22px, 1.8vw, 30px);
+    column-gap: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.82);
+    border-radius: clamp(24px, 2vw, 34px);
+    background: rgba(255, 255, 255, 0.76);
+    box-shadow: 0 18px 32px -26px rgba(53, 71, 88, 0.55);
+  }
+
+  .site-footer__contact-icon {
+    display: grid;
+    width: 54px;
+    aspect-ratio: 1;
+    place-items: center;
+    border-radius: 50%;
+    background: #e4effd;
+  }
+
+  .site-footer__contact-icon img {
+    width: 62%;
+    height: auto;
+  }
+
+  .site-footer__contact h2 {
+    font-size: clamp(16px, 1.22vw, 21px);
+    line-height: 1.2;
+    color: #102f5b;
+  }
+
+  .site-footer__contact p {
+    margin-top: 9px;
+    font-size: clamp(12.5px, 0.94vw, 16px);
+    line-height: 1.42;
+    color: #294e7b;
+  }
+
+  .site-footer__cta {
+    grid-column: 1 / -1;
+    display: inline-flex;
+    min-height: 48px;
+    margin-top: clamp(18px, 1.5vw, 25px);
+    padding: 0 20px 0 24px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    border-radius: 999px;
+    font-size: clamp(13px, 1.05vw, 18px);
+    font-weight: 720;
+    line-height: 1;
+    color: #fff;
+    background: linear-gradient(135deg, #16599d, #08366e);
+    box-shadow: 0 13px 21px -15px rgba(8, 47, 99, 0.78);
+    text-decoration: none;
+  }
+
+  .site-footer__cta svg {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 auto;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+    transition: transform 160ms ease;
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    min-height: 58px;
+    margin-top: auto;
+    padding-top: 20px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    border-top: 1px solid rgba(67, 103, 143, 0.17);
+    font-size: clamp(12px, 0.92vw, 16px);
+    line-height: 1.4;
+    color: #21466f;
+    flex-shrink: 0;
+  }
+
+  .site-footer__legal {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: clamp(13px, 1.25vw, 24px);
+  }
+
+  .site-footer__legal i {
+    width: 1px;
+    height: 19px;
+    background: rgba(37, 73, 112, 0.35);
+  }
+
+  @media (hover: hover) {
+    .site-footer__social[href]:hover {
+      background: #fff;
+      transform: translateY(-2px);
+    }
+
+    .site-footer__nav-group a:hover {
+      color: #0f315f;
+      text-decoration-color: currentColor;
+    }
+
+    .site-footer__cta:hover svg {
+      transform: translateX(4px);
+    }
+  }
+
+  @media (min-width: 1020px) and (max-width: 1199px) {
+    .site-footer__inner {
+      inset-inline: 42px;
+    }
+
+    .site-footer__top {
+      grid-template-columns: 190px minmax(420px, 1fr) 250px;
+      gap: 18px;
+    }
+
+    .site-footer__brand-block {
+      padding-right: 16px;
+    }
+
+    .site-footer__brand {
+      gap: 10px;
+    }
+
+    .site-footer__brand img {
+      width: 42px;
+    }
+
+    .site-footer__brand span {
+      font-size: 16px;
+      letter-spacing: 0.075em;
+    }
+
+    .site-footer__tagline {
+      font-size: 12.5px;
+    }
+
+    .site-footer__socials {
+      margin-top: 22px;
+      gap: 10px;
+    }
+
+    .site-footer__social {
+      width: 40px;
+    }
+
+    .site-footer__navigation {
+      gap: 10px;
+    }
+
+    .site-footer__nav-group summary {
+      gap: 6px;
+      font-size: 12.5px;
+    }
+
+    .site-footer__nav-group summary svg {
+      width: 10px;
+    }
+
+    .site-footer__nav-group ul {
+      gap: 8px;
+    }
+
+    .site-footer__nav-group a {
+      font-size: 11.5px;
+    }
+
+    .site-footer__contact {
+      grid-template-columns: 46px minmax(0, 1fr);
+      padding: 18px;
+      column-gap: 12px;
+    }
+
+    .site-footer__contact-icon {
+      width: 46px;
+    }
+
+    .site-footer__contact h2 {
+      font-size: 14px;
+    }
+
+    .site-footer__contact p {
+      font-size: 11.5px;
+    }
+
+    .site-footer__cta {
+      min-height: 44px;
+      margin-top: 15px;
+      padding-inline: 16px 12px;
+      font-size: 11.5px;
+    }
+
+    .site-footer__bottom {
+      font-size: 11.5px;
+    }
+  }
+
+  @media (min-width: 700px) and (max-width: 1019px) {
+    .site-footer__canvas {
+      height: 150vw;
+      min-height: 1080px;
+      max-height: 1280px;
+    }
+
+    .site-footer__inner {
+      inset: clamp(58px, 7vw, 82px) clamp(58px, 7.7vw, 72px) clamp(53px, 6.8vw, 70px);
+    }
+
+    .site-footer__top {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .site-footer__brand-block {
+      width: 100%;
+      padding: 0 0 clamp(34px, 4.4vw, 46px);
+      border-right: 0;
+      border-bottom: 1px solid rgba(76, 112, 151, 0.2);
+    }
+
+    .site-footer__brand img {
+      width: 54px;
+    }
+
+    .site-footer__brand span {
+      font-size: clamp(22px, 3.2vw, 28px);
+    }
+
+    .site-footer__tagline {
+      font-size: clamp(16px, 2.2vw, 19px);
+    }
+
+    .site-footer__social {
+      width: 48px;
+    }
+
+    .site-footer__navigation {
+      width: 100%;
+      margin-top: clamp(30px, 4vw, 42px);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+    }
+
+    .site-footer__nav-group {
+      min-height: clamp(190px, 22vw, 220px);
+      padding: 0 clamp(16px, 4.3vw, 40px) clamp(24px, 3.4vw, 34px);
+      border-bottom: 1px solid rgba(76, 112, 151, 0.18);
+    }
+
+    .site-footer__nav-group:nth-child(odd) {
+      padding-left: 14px;
+      border-right: 1px solid rgba(76, 112, 151, 0.18);
+    }
+
+    .site-footer__nav-group:nth-child(even) {
+      padding-right: 14px;
+    }
+
+    .site-footer__nav-group:nth-last-child(-n + 2) {
+      padding-top: clamp(24px, 3.4vw, 34px);
+    }
+
+    .site-footer__nav-group summary {
+      font-size: clamp(17px, 2.3vw, 20px);
+      pointer-events: none;
+      cursor: default;
+    }
+
+    .site-footer__nav-group summary svg {
+      display: none;
+    }
+
+    .site-footer__nav-group ul {
+      gap: 11px;
+    }
+
+    .site-footer__nav-group a {
+      font-size: clamp(15px, 1.95vw, 17px);
+    }
+
+    .site-footer__contact {
+      width: 100%;
+      margin-top: clamp(34px, 4.5vw, 46px);
+      grid-template-columns: 64px minmax(0, 1fr) minmax(270px, 0.95fr);
+      align-items: center;
+      padding: clamp(26px, 3.3vw, 34px);
+      column-gap: 20px;
+    }
+
+    .site-footer__contact-icon {
+      width: 64px;
+    }
+
+    .site-footer__contact h2 {
+      font-size: clamp(18px, 2.4vw, 21px);
+    }
+
+    .site-footer__contact p {
+      font-size: clamp(14px, 1.8vw, 16px);
+    }
+
+    .site-footer__cta {
+      grid-column: auto;
+      min-height: 52px;
+      margin-top: 0;
+      font-size: clamp(13.5px, 1.8vw, 16px);
+    }
+
+    .site-footer__bottom {
+      min-height: 100px;
+      padding-top: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px 30px;
+      font-size: clamp(13px, 1.75vw, 15px);
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 699px) {
+    .site-footer__canvas {
+      height: 1400px;
+    }
+
+    .site-footer__inner {
+      inset: 48px clamp(35px, 10.4vw, 48px) 46px;
+    }
+
+    .site-footer__top {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .site-footer__brand-block {
+      width: 100%;
+      padding: 0 0 30px;
+      border-right: 0;
+      border-bottom: 1px solid rgba(76, 112, 151, 0.2);
+    }
+
+    .site-footer__brand {
+      gap: 12px;
+    }
+
+    .site-footer__brand img {
+      width: clamp(48px, 13.5vw, 58px);
+    }
+
+    .site-footer__brand span {
+      min-width: 0;
+      font-size: clamp(18px, 5.45vw, 23px);
+      letter-spacing: 0.09em;
+      white-space: normal;
+    }
+
+    .site-footer__tagline {
+      margin-top: 13px;
+      font-size: clamp(15px, 4.2vw, 18px);
+    }
+
+    .site-footer__socials {
+      margin-top: 22px;
+      gap: 14px;
+    }
+
+    .site-footer__social {
+      width: 46px;
+    }
+
+    .site-footer__navigation {
+      display: block;
+      width: 100%;
+      margin-top: 28px;
+    }
+
+    .site-footer__nav-group {
+      padding: 0;
+      border-bottom: 1px solid rgba(76, 112, 151, 0.2);
+    }
+
+    .site-footer__nav-group summary {
+      min-height: 45px;
+      justify-content: space-between;
+      font-size: clamp(16px, 4.5vw, 19px);
+      pointer-events: none;
+      cursor: default;
+    }
+
+    .site-footer__nav-group summary svg {
+      display: none;
+    }
+
+    .site-footer__nav-group ul {
+      margin: 2px 0 13px;
+      gap: 4px;
+    }
+
+    .site-footer__nav-group a {
+      min-height: 27px;
+      font-size: clamp(14px, 4vw, 16px);
+      line-height: 1.45;
+    }
+
+    .site-footer__contact {
+      width: calc(100% + 24px);
+      margin: 30px -12px 0;
+      grid-template-columns: 54px minmax(0, 1fr);
+      padding: 25px 22px 24px;
+      column-gap: 16px;
+      border-radius: 27px;
+    }
+
+    .site-footer__contact-icon {
+      width: 54px;
+    }
+
+    .site-footer__contact h2 {
+      font-size: clamp(17px, 4.75vw, 20px);
+    }
+
+    .site-footer__contact p {
+      margin-top: 8px;
+      font-size: clamp(13px, 3.75vw, 15px);
+    }
+
+    .site-footer__contact-break {
+      display: none;
+    }
+
+    .site-footer__cta {
+      min-height: 52px;
+      margin-top: 20px;
+      padding-inline: 19px 15px;
+      font-size: clamp(13.5px, 4vw, 16px);
+    }
+
+    .site-footer__bottom {
+      min-height: 120px;
+      padding-top: 18px;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 14px;
+      font-size: clamp(12px, 3.65vw, 14px);
+      text-align: center;
+    }
+
+    .site-footer__legal {
+      max-width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 13px;
+    }
+
+    .site-footer__legal i {
+      height: 17px;
+    }
+  }
+
+  @media (max-width: 350px) {
+    .site-footer__canvas {
+      height: 1450px;
+    }
+
+    .site-footer__inner {
+      inset-inline: 32px;
+    }
+
+    .site-footer__brand span {
+      font-size: 17px;
+      letter-spacing: 0.075em;
+    }
+
+    .site-footer__contact {
+      grid-template-columns: 46px minmax(0, 1fr);
+      padding-inline: 18px;
+      column-gap: 13px;
+    }
+
+    .site-footer__contact-icon {
+      width: 46px;
+    }
+
+    .site-footer__cta {
+      padding-left: 16px;
+      font-size: 13px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-footer__social,
+    .site-footer__nav-group summary svg,
+    .site-footer__nav-group a,
+    .site-footer__cta svg {
+      transition: none;
+    }
+  }
+</style>

@@ -1,0 +1,436 @@
+---
+const titleLines = [
+  'YA HAS VISTO LO',
+  'QUE PODEMOS HACER.',
+  'AHORA HABLEMOS',
+  'DE LO TUYO.',
+];
+
+---
+
+<section class="mirador" id="contacto" data-mirador aria-labelledby="mirador-title">
+  <picture class="mirador__scene" data-mirador-scene aria-hidden="true">
+    <source media="(max-width: 699px)" srcset="/media/final/mobile.png" />
+    <source media="(max-width: 1019px)" srcset="/media/final/tablet.png" />
+    <img
+      src="/media/final/desktop.png"
+      width="1672"
+      height="941"
+      alt=""
+      loading="lazy"
+      decoding="async"
+    />
+  </picture>
+
+  <div class="mirador__copy-cloud" data-mirador-cloud>
+    <svg class="mirador__cloud-shape" viewBox="0 0 900 650" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="mirador-v2-cloud-fill" gradientUnits="userSpaceOnUse" x1="0" y1="70" x2="0" y2="620">
+          <stop offset="0" stop-color="#ffffff" />
+          <stop offset="0.55" stop-color="#fafdff" />
+          <stop offset="1" stop-color="#e6f1fa" />
+        </linearGradient>
+        <radialGradient id="mirador-v2-cloud-sheen" gradientUnits="userSpaceOnUse" cx="315" cy="168" r="315">
+          <stop offset="0" stop-color="#fffdf5" stop-opacity="0.78" />
+          <stop offset="1" stop-color="#fffdf5" stop-opacity="0" />
+        </radialGradient>
+        <filter id="mirador-v2-cloud-soft" x="-14%" y="-18%" width="128%" height="136%">
+          <feGaussianBlur stdDeviation="3" />
+        </filter>
+        <filter id="mirador-v2-cloud-shadow" x="-22%" y="-36%" width="144%" height="172%">
+          <feGaussianBlur stdDeviation="18" />
+        </filter>
+      </defs>
+      <g fill="#386e9a" fill-opacity="0.16" filter="url(#mirador-v2-cloud-shadow)" transform="translate(0 28)">
+        <ellipse cx="450" cy="368" rx="335" ry="205" />
+        <ellipse cx="175" cy="355" rx="112" ry="152" />
+        <ellipse cx="292" cy="252" rx="155" ry="158" />
+        <ellipse cx="460" cy="202" rx="190" ry="178" />
+        <ellipse cx="635" cy="260" rx="166" ry="160" />
+        <ellipse cx="744" cy="364" rx="116" ry="150" />
+        <ellipse cx="300" cy="495" rx="182" ry="116" />
+        <ellipse cx="490" cy="518" rx="220" ry="118" />
+        <ellipse cx="664" cy="486" rx="170" ry="112" />
+      </g>
+      <g fill="url(#mirador-v2-cloud-fill)" filter="url(#mirador-v2-cloud-soft)">
+        <ellipse cx="450" cy="368" rx="335" ry="205" />
+        <ellipse cx="175" cy="355" rx="112" ry="152" />
+        <ellipse cx="292" cy="252" rx="155" ry="158" />
+        <ellipse cx="460" cy="202" rx="190" ry="178" />
+        <ellipse cx="635" cy="260" rx="166" ry="160" />
+        <ellipse cx="744" cy="364" rx="116" ry="150" />
+        <ellipse cx="300" cy="495" rx="182" ry="116" />
+        <ellipse cx="490" cy="518" rx="220" ry="118" />
+        <ellipse cx="664" cy="486" rx="170" ry="112" />
+      </g>
+      <g fill="url(#mirador-v2-cloud-sheen)" filter="url(#mirador-v2-cloud-soft)">
+        <ellipse cx="305" cy="220" rx="118" ry="92" />
+        <ellipse cx="460" cy="170" rx="145" ry="100" />
+      </g>
+    </svg>
+
+    <div class="mirador__copy" data-mirador-copy>
+      <h2 class="mirador__title" id="mirador-title">
+        {titleLines.map((line) => <span>{line}</span>)}
+      </h2>
+      <p class="mirador__lead">
+        Cuéntanos tu proyecto y descubramos juntos<br class="mirador__desktop-break" />
+        cómo llevarlo más allá de lo que imaginas.
+      </p>
+    </div>
+
+    <a class="mirador__cta mirador__cta--cloud" href="#contacto">
+      <span>Hablemos de mi proyecto</span>
+      <span class="mirador__arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+
+  <a class="mirador__cta mirador__cta--mobile" href="#contacto">
+    <span>Hablemos de mi proyecto</span>
+    <span class="mirador__arrow" aria-hidden="true">→</span>
+  </a>
+</section>
+
+<script>
+  const section = document.querySelector<HTMLElement>('[data-mirador]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (section && !reduceMotion && 'IntersectionObserver' in window) {
+    section.classList.add('mirador--motion');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        section.classList.add('is-visible');
+        observer.disconnect();
+      },
+      { rootMargin: '18% 0px 18% 0px', threshold: 0.02 },
+    );
+    observer.observe(section);
+  }
+</script>
+
+<style>
+  .mirador {
+    --mirador-join-color: #f5fbfe;
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+    width: 100%;
+    margin-top: -2px;
+    overflow: clip;
+    scroll-margin-top: calc(var(--header-top) + var(--header-h) + 24px);
+    background: var(--mirador-join-color);
+  }
+
+  .mirador::after {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 19%;
+    content: '';
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      var(--mirador-join-color) 0%,
+      rgba(234, 244, 251, 0.88) 18%,
+      rgba(234, 244, 251, 0.36) 58%,
+      rgba(234, 244, 251, 0) 100%
+    );
+  }
+
+  .mirador__scene,
+  .mirador__scene img {
+    display: block;
+    width: 100%;
+  }
+
+  .mirador__scene {
+    position: relative;
+    z-index: 0;
+    line-height: 0;
+    pointer-events: none;
+  }
+
+  .mirador__scene img {
+    height: auto;
+  }
+
+  .mirador__copy-cloud {
+    --cloud-shift-x: 0%;
+    position: absolute;
+    z-index: 2;
+    top: clamp(112px, 14.5%, 190px);
+    left: max(3.8vw, calc((100vw - 2300px) / 2));
+    width: min(46vw, 900px);
+    aspect-ratio: 1.31;
+    color: var(--ink-navy);
+    transform: translateX(var(--cloud-shift-x));
+  }
+
+  .mirador__cloud-shape {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .mirador__copy {
+    position: absolute;
+    inset: 24% 9% 22% 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .mirador__title {
+    font-family: var(--font-display);
+    padding-block: 0.08em 0.03em;
+    font-size: clamp(29px, 3.05vw, 60px);
+    font-weight: 900;
+    line-height: 1.03;
+    letter-spacing: -0.005em;
+    color: var(--ink-navy);
+    -webkit-text-stroke: 0.012em var(--ink-navy);
+  }
+
+  .mirador__title span {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .mirador__lead {
+    margin-top: clamp(13px, 1.3vw, 25px);
+    font-size: clamp(12.5px, 1.08vw, 21px);
+    line-height: 1.44;
+    color: #3c5e88;
+  }
+
+  .mirador__cta {
+    position: absolute;
+    bottom: 11%;
+    left: 20%;
+    display: inline-flex;
+    min-height: clamp(44px, 3.4vw, 60px);
+    margin: 0;
+    padding: 0.72em 1em 0.72em 1.35em;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(22px, 2.5vw, 48px);
+    border-radius: 999px;
+    font-size: clamp(13px, 1.02vw, 19px);
+    font-weight: 720;
+    line-height: 1;
+    color: #fff;
+    background: linear-gradient(135deg, #14508c, #082f63);
+    box-shadow: 0 14px 22px -14px rgba(8, 47, 99, 0.72);
+    text-decoration: none;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+
+  .mirador__arrow {
+    font-size: 1.3em;
+    font-weight: 450;
+    line-height: 0;
+    transition: transform 180ms ease;
+  }
+
+  .mirador__cta--mobile {
+    display: none;
+  }
+
+  .mirador__cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 25px -14px rgba(8, 47, 99, 0.82);
+  }
+
+  .mirador__cta:hover .mirador__arrow {
+    transform: translateX(4px);
+  }
+
+  .mirador--motion .mirador__scene,
+  .mirador--motion .mirador__copy-cloud {
+    opacity: 0;
+  }
+
+  .mirador--motion .mirador__scene {
+    transition: opacity 760ms var(--ease-out);
+  }
+
+  .mirador--motion .mirador__copy-cloud {
+    transform: translate(var(--cloud-shift-x), 20px);
+    transition: opacity 620ms 90ms var(--ease-out), transform 760ms 90ms var(--ease-out);
+  }
+
+  .mirador--motion.is-visible .mirador__scene,
+  .mirador--motion.is-visible .mirador__copy-cloud {
+    opacity: 1;
+  }
+
+  .mirador--motion.is-visible .mirador__copy-cloud {
+    transform: translate(var(--cloud-shift-x), 0);
+  }
+
+  @media (min-width: 1020px) {
+    .mirador__copy-cloud {
+      top: calc(100% - 55svh);
+      translate: 0 -50%;
+    }
+  }
+
+  @media (min-width: 1020px) and (max-width: 1199px) {
+    .mirador__copy-cloud {
+      width: 47vw;
+    }
+
+    .mirador__copy {
+      right: 9%;
+      left: 20%;
+    }
+
+    .mirador__cta {
+      left: 20%;
+    }
+
+    .mirador__title {
+      font-size: clamp(28px, 2.9vw, 35px);
+    }
+
+    .mirador__lead {
+      font-size: clamp(12px, 1.15vw, 14px);
+    }
+  }
+
+  @media (min-width: 700px) and (max-width: 1019px) {
+    .mirador {
+      --mirador-join-color: #f6fbfe;
+      margin-top: -24px;
+      -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 20px, #000 100%);
+      mask-image: linear-gradient(180deg, transparent 0, #000 20px, #000 100%);
+    }
+
+    .mirador::after {
+      height: 17%;
+    }
+
+    .mirador__copy-cloud {
+      top: 7.5%;
+      left: 5%;
+      width: min(70vw, 650px);
+      aspect-ratio: 1.29;
+    }
+
+    .mirador__copy {
+      inset: 24% 9% 22% 20%;
+    }
+
+    .mirador__cta {
+      bottom: 10%;
+      left: 20%;
+    }
+
+    .mirador__title {
+      font-size: clamp(29px, 4.25vw, 42px);
+    }
+
+    .mirador__lead {
+      font-size: clamp(13px, 1.75vw, 17px);
+    }
+
+    .mirador__cta {
+      min-height: 48px;
+      font-size: clamp(13px, 1.6vw, 16px);
+    }
+  }
+
+  @media (max-width: 699px) {
+    .mirador {
+      --mirador-join-color: #f6fbfe;
+      margin-top: -14px;
+      box-shadow: 0 -8px 0 var(--mirador-join-color);
+    }
+
+    .mirador::after {
+      height: 19%;
+    }
+
+    .mirador__copy-cloud {
+      --cloud-shift-x: -50%;
+      top: 4%;
+      left: 50%;
+      width: min(90vw, 420px);
+      aspect-ratio: 1.18;
+    }
+
+    .mirador__copy {
+      inset: 24% 10% 12%;
+      align-items: center;
+      text-align: center;
+    }
+
+    .mirador__title {
+      font-size: clamp(21.5px, 6.6vw, 31px);
+      line-height: 1.03;
+    }
+
+    .mirador__lead {
+      max-width: 30ch;
+      margin-top: clamp(10px, 3vw, 15px);
+      font-size: clamp(12.2px, 3.45vw, 15px);
+      line-height: 1.45;
+    }
+
+    .mirador__desktop-break {
+      display: none;
+    }
+
+    .mirador__cta {
+      right: auto;
+      bottom: auto;
+      left: 50%;
+      width: min(80vw, 280px);
+      min-height: 46px;
+      padding-inline: 18px 15px;
+      gap: 10px;
+      font-size: clamp(12.5px, 3.5vw, 15px);
+      transform: translateX(-50%);
+    }
+
+    .mirador__cta--cloud {
+      display: none;
+    }
+
+    .mirador__cta--mobile {
+      z-index: 3;
+      top: 78.5%;
+      display: inline-flex;
+    }
+
+    .mirador__cta:hover {
+      transform: translateX(-50%) translateY(-2px);
+    }
+  }
+
+  @media (max-width: 350px) {
+    .mirador__copy-cloud {
+      top: 2%;
+      width: 88vw;
+    }
+
+    .mirador__cta {
+      padding-inline: 15px 13px;
+      font-size: 12px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mirador__scene,
+    .mirador__copy-cloud,
+    .mirador__cta,
+    .mirador__arrow {
+      opacity: 1;
+      transition: none;
+    }
+  }
+</style>

@@ -1,216 +1,447 @@
 ---
-import { howItWorks, flow } from '../../data/hero';
+const steps = [
+  {
+    number: '01',
+    slug: 'escuchamos',
+    title: 'Escuchamos',
+    description: ['Entendemos tu negocio,', 'tus objetivos y tu audiencia.'],
+    benefit: 'Contigo desde el inicio',
+    asset: '/media/how-we-works/optimized/escuchamos.webp',
+    alt: 'Auriculares y bocadillo de conversación sobre una nube',
+    legacyTargets: ['paso-contenido'],
+  },
+  {
+    number: '02',
+    slug: 'disenamos',
+    title: 'Diseñamos',
+    description: ['Estrategia y diseño a medida', 'que reflejan tu esencia.'],
+    benefit: 'Sin plantillas genéricas',
+    asset: '/media/how-we-works/optimized/dise%C3%B1amos.webp',
+    alt: 'Interfaz de diseño sobre una nube',
+    legacyTargets: ['paso-marca'],
+  },
+  {
+    number: '03',
+    slug: 'construimos',
+    title: 'Construimos',
+    description: ['Desarrollamos con calidad,', 'rendimiento y foco en detalles.'],
+    benefit: 'Tecnología que impulsa',
+    asset: '/media/how-we-works/optimized/construimos.webp',
+    alt: 'Portátil con símbolos de código sobre una nube',
+    legacyTargets: ['paso-web', 'paso-software'],
+  },
+  {
+    number: '04',
+    slug: 'lanzamos',
+    title: 'Lanzamos',
+    description: ['Probamos, optimizamos', 'y llevamos tu proyecto al aire.'],
+    benefit: 'Listo para crecer contigo',
+    asset: '/media/how-we-works/optimized/lanzamos.webp',
+    alt: 'Cohete despegando desde una nube',
+    legacyTargets: ['paso-contacto'],
+  },
+] as const;
 
-/**
- * "Cómo funciona" — the destination for the hero's flow nodes.
- *
- * Built now, minimally, so the nodes are genuinely functional rather than
- * decorative: each one is a real anchor to a real article. The rest of
- * the home is still out of scope.
- *
- * Deliberately not a SaaS card grid: a single travelling line, small step
- * numerals, two columns of air, and the same visual language as the
- * nodes. No metrics, invented or otherwise.
- */
+const routeDots = {
+  desktop: [[124, 92, 6], [238, 238, 4], [342, 280, 7], [226, 420, 4], [126, 470, 7], [212, 598, 4], [350, 668, 7]],
+  tablet: [[156, 270, 6], [356, 205, 4], [548, 274, 6], [360, 354, 5], [170, 610, 6], [364, 678, 4], [548, 610, 6]],
+  mobile: [[76, 72, 5], [58, 245, 3.5], [82, 310, 5], [65, 485, 3.5], [84, 550, 5], [60, 728, 3.5], [80, 795, 5], [72, 955, 4]],
+} as const;
 ---
 
-<section class="how" id="como-funciona" aria-labelledby="how-title">
-  <div class="how__head">
-    <h2 class="how__title" id="how-title">
-      {howItWorks.title.map((line) => <span>{line}</span>)}
-    </h2>
-    <p class="how__sub">{howItWorks.sub}</p>
+<section class="how" id="como-funciona" aria-labelledby="how-title" data-how-we-work>
+  <div class="how__atmosphere" aria-hidden="true">
+    <span class="how__sky-cloud how__sky-cloud--left"></span>
+    <span class="how__sky-cloud how__sky-cloud--right"></span>
+    <span class="how__sky-cloud how__sky-cloud--floor"></span>
   </div>
 
-  <ol class="how__list">
-    {
-      flow.map((step, i) => (
-        <li>
-          <article class="step" id={`paso-${step.id}`} tabindex="-1">
-            <span class="step__num" aria-hidden="true">
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <div class="step__body">
-              <p class="step__eyebrow">{step.label}</p>
-              <h3 class="step__title">{step.stepTitle}</h3>
-              <p class="step__text">{step.stepBody}</p>
-            </div>
-          </article>
-        </li>
-      ))
-    }
-  </ol>
+  <div class="how__inner">
+    <header class="how__intro" data-how-reveal>
+      <div class="how__cloud">
+        <svg class="how__cloud-shape" viewBox="0 0 900 650" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="how-cloud-fill" gradientUnits="userSpaceOnUse" x1="0" y1="70" x2="0" y2="620">
+              <stop offset="0" stop-color="#ffffff" />
+              <stop offset="0.55" stop-color="#fafdff" />
+              <stop offset="1" stop-color="#e6f1fa" />
+            </linearGradient>
+            <radialGradient id="how-cloud-sheen" gradientUnits="userSpaceOnUse" cx="315" cy="168" r="315">
+              <stop offset="0" stop-color="#fffdf5" stop-opacity="0.78" />
+              <stop offset="1" stop-color="#fffdf5" stop-opacity="0" />
+            </radialGradient>
+            <filter id="how-cloud-soft" x="-14%" y="-18%" width="128%" height="136%">
+              <feGaussianBlur stdDeviation="3" />
+            </filter>
+            <filter id="how-cloud-shadow" x="-22%" y="-36%" width="144%" height="172%">
+              <feGaussianBlur stdDeviation="18" />
+            </filter>
+          </defs>
+          <g fill="#386e9a" fill-opacity="0.16" filter="url(#how-cloud-shadow)" transform="translate(0 28)">
+            <ellipse cx="450" cy="368" rx="335" ry="205" />
+            <ellipse cx="175" cy="355" rx="112" ry="152" />
+            <ellipse cx="292" cy="252" rx="155" ry="158" />
+            <ellipse cx="460" cy="202" rx="190" ry="178" />
+            <ellipse cx="635" cy="260" rx="166" ry="160" />
+            <ellipse cx="744" cy="364" rx="116" ry="150" />
+            <ellipse cx="300" cy="495" rx="182" ry="116" />
+            <ellipse cx="490" cy="518" rx="220" ry="118" />
+            <ellipse cx="664" cy="486" rx="170" ry="112" />
+          </g>
+          <g fill="url(#how-cloud-fill)" filter="url(#how-cloud-soft)">
+            <ellipse cx="450" cy="368" rx="335" ry="205" />
+            <ellipse cx="175" cy="355" rx="112" ry="152" />
+            <ellipse cx="292" cy="252" rx="155" ry="158" />
+            <ellipse cx="460" cy="202" rx="190" ry="178" />
+            <ellipse cx="635" cy="260" rx="166" ry="160" />
+            <ellipse cx="744" cy="364" rx="116" ry="150" />
+            <ellipse cx="300" cy="495" rx="182" ry="116" />
+            <ellipse cx="490" cy="518" rx="220" ry="118" />
+            <ellipse cx="664" cy="486" rx="170" ry="112" />
+          </g>
+          <g fill="url(#how-cloud-sheen)" filter="url(#how-cloud-soft)">
+            <ellipse cx="305" cy="220" rx="118" ry="92" />
+            <ellipse cx="460" cy="170" rx="145" ry="100" />
+          </g>
+        </svg>
+
+        <div class="how__copy">
+          <h2 class="how__title" id="how-title">
+            <span>ASÍ TRABAJAMOS</span>
+            <span>CONTIGO.</span>
+          </h2>
+          <p class="how__sub">
+            Un proceso claro, cercano y transparente<br />
+            para resultados que se notan.
+          </p>
+          <a class="how__cta" href="#paso-escuchamos">
+            <span>Así empieza nuestro proceso</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h13M14 7l5 5-5 5"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <div class="how__process">
+      <svg class="how-route how-route--desktop" viewBox="0 0 820 760" preserveAspectRatio="none" aria-hidden="true">
+        <path class="how-route__halo" pathLength="1" d="M124 92C28 142 58 226 342 280C594 329 538 396 126 470C-12 495 32 584 350 668"></path>
+        <path class="how-route__line" pathLength="1" d="M124 92C28 142 58 226 342 280C594 329 538 396 126 470C-12 495 32 584 350 668"></path>
+        <path class="how-route__bridge-halo" pathLength="1" d="M126 470C-12 495 32 584 350 668"></path>
+        <path class="how-route__bridge" pathLength="1" d="M126 470C-12 495 32 584 350 668"></path>
+        {routeDots.desktop.map(([cx, cy, r]) => <circle class="how-route__dot" cx={cx} cy={cy} r={r}></circle>)}
+      </svg>
+
+      <svg class="how-route how-route--tablet" viewBox="0 0 720 700" preserveAspectRatio="none" aria-hidden="true">
+        <path class="how-route__halo" pathLength="1" d="M156 270C226 138 475 150 548 274C650 448 422 356 360 354C282 352 34 462 170 610C282 732 470 728 548 610"></path>
+        <path class="how-route__line" pathLength="1" d="M156 270C226 138 475 150 548 274C650 448 422 356 360 354C282 352 34 462 170 610C282 732 470 728 548 610"></path>
+        {routeDots.tablet.map(([cx, cy, r]) => <circle class="how-route__dot" cx={cx} cy={cy} r={r}></circle>)}
+      </svg>
+
+      <svg class="how-route how-route--mobile" viewBox="0 0 320 1020" preserveAspectRatio="none" aria-hidden="true">
+        <path class="how-route__halo" pathLength="1" d="M76 72C35 132 38 228 82 310C118 380 105 474 84 550C56 650 46 718 80 795C104 852 98 918 72 955"></path>
+        <path class="how-route__line" pathLength="1" d="M76 72C35 132 38 228 82 310C118 380 105 474 84 550C56 650 46 718 80 795C104 852 98 918 72 955"></path>
+        {routeDots.mobile.map(([cx, cy, r]) => <circle class="how-route__dot" cx={cx} cy={cy} r={r}></circle>)}
+      </svg>
+
+      <ol class="how__steps" aria-label="Nuestro proceso en cuatro pasos">
+        {
+          steps.map((step, index) => (
+            <li class:list={['how__station', `how__station--${index + 1}`]} style={`--step-order:${index}`}>
+              {step.legacyTargets.map((target: string) => (
+                <span class="how__legacy-target" id={target} aria-hidden="true"></span>
+              ))}
+              <article class="how-step step" id={`paso-${step.slug}`} aria-labelledby={`how-step-${step.number}`} data-how-reveal>
+                <figure class="how-step__asset">
+                  <img
+                    src={step.asset}
+                    alt={step.alt}
+                    width="1254"
+                    height="1254"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+                <div class="how-step__card">
+                  <div class="how-step__heading">
+                    <span class="how-step__number" aria-hidden="true">{step.number}</span>
+                    <h3 id={`how-step-${step.number}`}>{step.title}</h3>
+                  </div>
+                  <p class="how-step__description">
+                    {step.description.map((line: string) => <span>{line}</span>)}
+                  </p>
+                  <p class="how-step__benefit">
+                    <svg viewBox="0 0 20 20" aria-hidden="true">
+                      <circle cx="10" cy="10" r="9"></circle>
+                      <path d="m6 10 2.5 2.5L14.5 7"></path>
+                    </svg>
+                    <span>{step.benefit}</span>
+                  </p>
+                </div>
+              </article>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
 </section>
+
+<script>
+  const section = document.querySelector<HTMLElement>('[data-how-we-work]');
+
+  if (section && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    section.classList.add('how--enhanced');
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        section.classList.add('is-visible');
+        observer.disconnect();
+      },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.06 },
+    );
+    observer.observe(section);
+  }
+</script>
 
 <style>
   .how {
     position: relative;
-    padding: clamp(6rem, 4rem + 6vw, 11rem) var(--gutter) clamp(7rem, 5rem + 6vw, 12rem);
-    /* Continues the sky rather than cutting to a flat white panel. */
-    background: linear-gradient(to bottom, #ffffff 0%, #f7fbfe 42%, var(--sky-haze) 100%);
+    isolation: isolate;
+    overflow: clip;
+    color: #102f5f;
+    background:
+      radial-gradient(ellipse at 42% 45%, rgba(255, 255, 255, 0.2), transparent 32%),
+      linear-gradient(180deg, #d9ecf8 0%, #8fc8e9 10%, #67afe1 43%, #a9d4ed 82%, #eaf4fb 100%);
   }
 
-  /* The case study now sits between the hero and this section, so every
-     performance tier can use the same deliberate section rhythm. */
-  :global(html[data-performance-tier='full']) .how {
-    padding-top: clamp(6rem, 4rem + 6vw, 11rem);
+  .how__atmosphere { position: absolute; z-index: -2; inset: 0; pointer-events: none; }
+  .how__sky-cloud { position: absolute; display: block; border-radius: 50%; background: rgba(244, 251, 255, 0.58); }
+  .how__sky-cloud--left { left: -18vw; bottom: -5vw; width: 56vw; height: 19vw; }
+  .how__sky-cloud--right { right: -16vw; bottom: -3vw; width: 52vw; height: 18vw; }
+  .how__sky-cloud--floor { left: 23vw; bottom: -10vw; width: 66vw; height: 24vw; background: rgba(250, 253, 255, 0.66); }
+
+  .how__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(390px, 0.88fr) minmax(560px, 1.12fr);
+    gap: clamp(20px, 2.7vw, 56px);
+    width: min(100% - 2 * var(--gutter), 1680px);
+    height: clamp(700px, 100svh, 980px);
+    margin: 0 auto;
+    align-items: center;
   }
 
-  .how__head {
-    max-width: 900px;
-    margin: 0 auto clamp(3.5rem, 2rem + 4vw, 6rem);
-    text-align: center;
-  }
+  .how__intro { position: relative; z-index: 2; min-width: 0; }
+  .how__cloud { position: relative; left: clamp(-52px, -3vw, -18px); width: min(110%, 720px); aspect-ratio: 900 / 650; }
+  .how__cloud-shape { width: 100%; height: 100%; overflow: visible; }
+  .how__copy { position: absolute; inset: 25% 17% 17% 21%; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
 
   .how__title {
     display: grid;
-    gap: 0.06em;
-    font-size: clamp(34px, 3.2vw, 62px);
-    font-weight: 800;
+    gap: 0.03em;
+    padding-top: 0.12em;
+    font-family: var(--font-display);
+    font-size: clamp(36px, 3.05vw, 61px);
+    font-weight: 900;
     line-height: 0.98;
-    letter-spacing: -0.042em;
-    color: var(--ink);
+    letter-spacing: -0.01em;
+    color: #102f5f;
+    -webkit-text-stroke: 0.01em #102f5f;
   }
 
-  .how__sub {
-    margin-top: 1.1rem;
-    font-size: var(--step-1);
-    color: var(--ink-soft);
+  .how__title span { display: block; white-space: nowrap; }
+  .how__sub { margin-top: clamp(14px, 1.35vw, 22px); font-size: clamp(14px, 1vw, 18px); line-height: 1.48; color: rgba(20, 62, 103, 0.78); }
+
+  .how__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    min-width: 250px;
+    min-height: 48px;
+    margin-top: clamp(16px, 1.4vw, 23px);
+    padding: 0 20px;
+    border-radius: 999px;
+    color: #fff;
+    background: linear-gradient(135deg, #153d70, #072854);
+    box-shadow: 0 16px 28px -17px rgba(6, 32, 67, 0.84);
+    font-size: 13px;
+    font-weight: 750;
+    text-decoration: none;
+    transition: transform 180ms ease, box-shadow 180ms ease;
   }
 
-  .how__list {
-    position: relative;
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 0;
-    list-style: none;
-    display: grid;
-    gap: clamp(2.5rem, 1.5rem + 2.4vw, 4.5rem);
-  }
+  .how__cta svg { width: 18px; flex: 0 0 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform 180ms ease; }
+  .how__cta:hover { transform: translateY(-2px); box-shadow: 0 19px 33px -17px rgba(6, 32, 67, 0.95); }
+  .how__cta:hover svg { transform: translateX(3px); }
 
-  /* The travelling line that ties the four steps together. */
-  .how__list::before {
-    content: '';
-    position: absolute;
-    left: 27px;
-    top: 12px;
-    bottom: 12px;
-    width: 2px;
-    background: linear-gradient(
-      to bottom,
-      rgba(29, 111, 192, 0.5),
-      rgba(29, 111, 192, 0.18) 70%,
-      rgba(201, 163, 90, 0.55)
-    );
-  }
+  .how__process { position: relative; z-index: 1; width: 100%; height: min(78svh, 760px); min-height: 620px; }
+  .how-route { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .how-route--tablet, .how-route--mobile { display: none; }
+  .how-route__halo, .how-route__line { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .how-route__halo { stroke: rgba(255, 255, 255, 0.31); stroke-width: 7; }
+  .how-route__line { stroke: rgba(247, 252, 255, 0.9); stroke-width: 1.7; }
+  .how-route__bridge-halo, .how-route__bridge { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .how-route__bridge-halo { stroke: rgba(255, 255, 255, 0.44); stroke-width: 8; }
+  .how-route__bridge { stroke: rgba(255, 255, 255, 0.98); stroke-width: 2; }
+  .how-route__dot { fill: #fff; stroke: rgba(228, 244, 255, 0.88); stroke-width: 2; vector-effect: non-scaling-stroke; }
 
-  .step {
-    display: grid;
-    grid-template-columns: 56px minmax(0, 1fr);
-    gap: clamp(1.2rem, 0.6rem + 1.4vw, 2.4rem);
-    align-items: start;
-    scroll-margin-top: calc(var(--header-top) + var(--header-h) + 32px);
-    border-radius: 18px;
-    padding: 1rem;
-    margin: -1rem;
-    transition: background-color 400ms var(--ease-out), box-shadow 400ms var(--ease-out);
-  }
+  .how__steps { position: relative; z-index: 1; width: 100%; height: 100%; margin: 0; padding: 0; list-style: none; }
+  .how__station { position: absolute; width: min(72%, 560px); }
+  .how__station--1 { top: 0; left: 2%; }
+  .how__station--2 { top: 24%; right: 0; }
+  .how__station--3 { top: 49%; left: 0; }
+  .how__station--4 { top: 74%; right: 0; }
 
-  .step:focus {
-    outline: none;
-  }
+  .how__legacy-target { position: absolute; inset: 0 auto auto 0; width: 1px; height: 1px; scroll-margin-top: calc(var(--header-top) + var(--header-h) + 28px); pointer-events: none; }
+  .how-step { position: relative; display: grid; grid-template-columns: clamp(130px, 12vw, 205px) minmax(230px, 1fr); align-items: center; min-width: 0; scroll-margin-top: calc(var(--header-top) + var(--header-h) + 28px); border-radius: 25px; }
+  .how-step__asset { position: relative; z-index: 2; width: 116%; margin-right: -16%; pointer-events: none; }
+  .how-step__asset img { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; }
 
-  /* Highlight applied for ~1.5 s when arrived at from a hero node. */
-  .step.is-targeted {
-    background: rgba(255, 255, 255, 0.86);
-    box-shadow:
-      0 0 0 1px rgba(29, 111, 192, 0.24),
-      0 22px 48px -26px rgba(20, 60, 100, 0.5);
-  }
-
-  .step__num {
+  .how-step__card {
     position: relative;
     z-index: 1;
-    display: grid;
-    place-items: center;
-    width: 40px;
-    height: 40px;
-    margin-left: 6px;
-    border-radius: 999px;
-    background: #fff;
-    box-shadow: 0 0 0 2px rgba(29, 111, 192, 0.45);
-    font-size: var(--step--2);
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--accent-deep);
+    min-height: 144px;
+    padding: 18px 20px 17px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.86);
+    border-radius: 24px;
+    background: #f5faff;
+    box-shadow: 0 20px 36px -27px rgba(8, 48, 88, 0.64);
+    transition: transform 180ms ease, box-shadow 180ms ease;
   }
 
-  .how__list li:last-child .step__num {
-    box-shadow: 0 0 0 2px rgba(201, 163, 90, 0.6);
-    color: var(--gold-deep);
+  .how-step__heading { display: flex; align-items: center; gap: 12px; }
+  .how-step__number { display: grid; width: 46px; height: 42px; flex: 0 0 46px; place-items: center; border: 1px solid rgba(255, 255, 255, 0.95); border-radius: 15px; background: #fff; box-shadow: 0 10px 20px -17px rgba(9, 58, 109, 0.72); font-size: 22px; font-weight: 800; line-height: 1; color: #3289df; }
+  .how-step h3 { font-size: clamp(18px, 1.25vw, 24px); font-weight: 790; line-height: 1.1; letter-spacing: -0.03em; color: #102f5f; }
+  .how-step__description { display: grid; margin-top: 11px; font-size: clamp(12px, 0.82vw, 15px); line-height: 1.38; color: rgba(20, 62, 103, 0.78); }
+  .how-step__description span { display: block; }
+  .how-step__benefit { display: flex; align-items: center; gap: 8px; margin-top: 11px; font-size: clamp(11px, 0.72vw, 13px); line-height: 1.3; color: rgba(20, 62, 103, 0.74); }
+  .how-step__benefit svg { width: 19px; flex: 0 0 19px; fill: #3a94ea; }
+  .how-step__benefit circle { stroke: #3a94ea; stroke-width: 0; }
+  .how-step__benefit path { fill: none; stroke: #fff; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .how__legacy-target.is-targeted ~ .how-step .how-step__card, .how-step.is-targeted .how-step__card { box-shadow: 0 0 0 2px rgba(45, 137, 222, 0.45), 0 24px 42px -25px rgba(8, 48, 88, 0.74); }
+
+  .how--enhanced [data-how-reveal] { opacity: 0; transform: translateY(18px); }
+  .how--enhanced .how-route__halo, .how--enhanced .how-route__line, .how--enhanced .how-route__bridge-halo, .how--enhanced .how-route__bridge { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .how--enhanced.is-visible [data-how-reveal] { opacity: 1; transform: translateY(0); transition: opacity 500ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1); }
+  .how--enhanced.is-visible .how__station [data-how-reveal] { transition-delay: calc(110ms + var(--step-order) * 75ms); }
+  .how--enhanced.is-visible .how-route__halo, .how--enhanced.is-visible .how-route__line, .how--enhanced.is-visible .how-route__bridge-halo, .how--enhanced.is-visible .how-route__bridge { stroke-dashoffset: 0; transition: stroke-dashoffset 1250ms cubic-bezier(0.22, 1, 0.36, 1) 120ms; }
+
+  @media (hover: hover) and (pointer: fine) {
+    .how-step:hover .how-step__card { transform: translateY(-2px); box-shadow: 0 23px 40px -27px rgba(8, 48, 88, 0.72); }
   }
 
-  .step__eyebrow {
-    font-size: var(--step--2);
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent-deep);
+  @media (min-width: 1020px) and (max-width: 1199px) {
+    .how__inner { grid-template-columns: minmax(370px, 0.84fr) minmax(510px, 1.16fr); width: calc(100% - 48px); gap: 12px; }
+    .how__cloud { left: -30px; width: 112%; }
+    .how__copy { inset: 25% 17% 17% 21%; }
+    .how__title { font-size: clamp(31px, 3.05vw, 36px); }
+    .how__sub { margin-top: 12px; font-size: 13px; }
+    .how__cta { min-width: 224px; min-height: 44px; margin-top: 14px; font-size: 12px; }
+    .how__process { height: min(86svh, 660px); min-height: 590px; }
+    .how__station { width: min(80%, 460px); }
+    .how-step { grid-template-columns: 128px minmax(220px, 1fr); }
+    .how-step__card { min-height: 126px; padding: 14px 15px 13px 19px; border-radius: 21px; }
+    .how-step__number { width: 40px; height: 37px; flex-basis: 40px; font-size: 19px; }
+    .how-step__heading { gap: 9px; }
+    .how-step h3 { font-size: 18px; }
+    .how-step__description { margin-top: 8px; font-size: 11.5px; }
+    .how-step__benefit { margin-top: 8px; font-size: 10.5px; }
+    .how-step__benefit svg { width: 16px; flex-basis: 16px; }
   }
 
-  .step__title {
-    margin-top: 0.4rem;
-    max-width: 20ch;
-    font-size: clamp(22px, 1.8vw, 34px);
-    font-weight: 750;
-    line-height: 1.14;
-    letter-spacing: -0.03em;
-    color: var(--ink);
+  @media (min-width: 2200px) {
+    .how__inner {
+      grid-template-columns: minmax(760px, 0.92fr) minmax(980px, 1.08fr);
+      width: min(100% - 2 * var(--gutter), 2040px);
+      height: min(100svh, 1180px);
+    }
+
+    .how__cloud { width: min(108%, 820px); }
+    .how__title { font-size: 70px; }
+    .how__process { height: min(78svh, 900px); }
+    .how__station { width: min(70%, 620px); }
+    .how-step { grid-template-columns: 225px minmax(300px, 1fr); }
   }
 
-  .step__text {
-    margin-top: 0.7rem;
-    max-width: 62ch;
-    font-size: var(--step-0);
-    line-height: 1.6;
-    color: var(--ink-soft);
+  @media (min-width: 700px) and (max-width: 1019px) {
+    .how__inner { display: block; width: min(100% - 56px, 780px); height: auto; padding: 34px 0 88px; }
+    .how__intro { display: grid; place-items: center; }
+    .how__cloud { left: auto; width: min(96%, 650px); }
+    .how__copy { inset: 24% 18% 17% 20%; align-items: center; text-align: center; }
+    .how__title { font-size: clamp(42px, 6.2vw, 54px); }
+    .how__sub { margin-top: 16px; font-size: 15px; }
+    .how__cta { min-width: 252px; margin-top: 18px; }
+    .how__process { width: 100%; height: auto; min-height: 0; margin-top: -6px; }
+    .how-route--desktop { display: none; }
+    .how-route--tablet { display: block; height: 100%; }
+    .how__steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; height: auto; }
+    .how__station { position: relative; inset: auto; width: auto; min-width: 0; }
+    .how-step { display: block; height: 330px; border-radius: 26px; }
+    .how-step__asset { position: absolute; z-index: 2; right: 50%; bottom: -8px; width: min(69%, 210px); margin: 0; transform: translateX(50%); }
+    .how-step__card { height: 100%; min-height: 0; padding: 24px 25px; border-radius: 26px; }
+    .how-step__number { width: 48px; height: 45px; flex-basis: 48px; font-size: 23px; }
+    .how-step h3 { font-size: clamp(20px, 2.7vw, 24px); }
+    .how-step__description { margin-top: 14px; font-size: 13px; }
+    .how-step__benefit { margin-top: 13px; font-size: 12px; }
   }
 
-  /* Two columns of air from 1100px up: title left, text right. */
-  @media (min-width: 1100px) {
-    .step__body {
-      display: grid;
-      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
-      column-gap: clamp(2rem, 1rem + 2.4vw, 4rem);
-      align-items: start;
+  @media (max-width: 699px) {
+    .how { background: radial-gradient(ellipse at 50% 28%, rgba(255, 255, 255, 0.18), transparent 30%), linear-gradient(180deg, #d9ecf8 0%, #8fc8e9 8%, #65afe2 38%, #b2d9ef 86%, #eaf4fb 100%); }
+    .how__sky-cloud--left { width: 92vw; height: 34vw; left: -42vw; }
+    .how__sky-cloud--right { width: 100vw; height: 36vw; right: -52vw; }
+    .how__sky-cloud--floor { width: 130vw; height: 44vw; left: -12vw; bottom: -15vw; }
+    .how__inner { display: block; width: 100%; height: auto; padding: 52px 16px 84px; }
+    .how__intro { display: grid; place-items: center; }
+    .how__cloud {
+      left: auto;
+      width: min(calc(100% + 56px), 470px);
+      margin-left: calc(50% - min(calc(50% + 28px), 235px));
+      justify-self: start;
+      aspect-ratio: 1.25;
+      transform: none;
     }
-    .step__eyebrow {
-      grid-column: 1;
-    }
-    .step__title {
-      grid-column: 1;
-      grid-row: 2;
-      margin-top: 0.4rem;
-    }
-    .step__text {
-      grid-column: 2;
-      grid-row: 1 / span 2;
-      margin-top: 0.2rem;
-    }
+    .how__copy { inset: 18% 14% 13%; align-items: center; text-align: center; }
+    .how__title { font-size: clamp(29px, 8.8vw, 40px); line-height: 1; }
+    .how__sub { margin-top: 14px; font-size: clamp(12px, 3.45vw, 14px); line-height: 1.45; }
+    .how__cta { width: min(100%, 254px); min-width: 0; min-height: 48px; margin-top: 17px; font-size: 12px; }
+    .how__process { width: min(100%, 430px); height: auto; min-height: 0; margin: 10px auto 0; }
+    .how-route--desktop { display: none; }
+    .how-route--mobile { display: block; height: 100%; }
+    .how__steps { display: grid; gap: 20px; height: auto; }
+    .how__station { position: relative; inset: auto; width: auto; min-width: 0; }
+    .how-step { display: grid; grid-template-columns: minmax(104px, 39%) minmax(0, 61%); min-height: 218px; align-items: center; border-radius: 24px; }
+    .how-step__asset { position: relative; z-index: 2; width: 132%; margin: 0 -32% 0 -14%; }
+    .how-step__card { display: flex; min-width: 0; min-height: 202px; padding: 20px 14px 18px 10px; flex-direction: column; justify-content: center; border-radius: 24px; }
+    .how-step__heading { gap: 8px; }
+    .how-step__number { width: 38px; height: 37px; flex-basis: 38px; border-radius: 13px; font-size: 18px; }
+    .how-step h3 { min-width: 0; font-size: clamp(18px, 5.2vw, 23px); }
+    .how-step__description { margin-top: 12px; font-size: clamp(11px, 3.15vw, 13px); line-height: 1.42; }
+    .how-step__benefit { align-items: flex-start; margin-top: 12px; font-size: clamp(10px, 2.9vw, 12px); }
+    .how-step__benefit svg { width: 17px; flex-basis: 17px; margin-top: 1px; }
   }
 
-  /* The former negative card margin predates the responsive hero and
-     creates a 2–3 px page-wide overflow on the narrowest phones. Keep
-     desktop geometry untouched and contain only the new responsive path. */
-  @media (max-width: 1019px) {
-    :global(html[data-hero-experience='responsive']) .how__list,
-    :global(html[data-hero-experience='responsive']) .how__list > li {
-      min-width: 0;
-    }
+  @media (max-width: 350px) {
+    .how__inner { padding-inline: 12px; }
+    .how__cloud { width: calc(100% + 56px); aspect-ratio: 1.22; }
+    .how__title { font-size: 28px; }
+    .how__sub { font-size: 11.5px; }
+    .how__cta { width: 244px; gap: 12px; padding-inline: 14px; font-size: 10.5px; }
+    .how-step { grid-template-columns: 102px minmax(0, 1fr); min-height: 210px; }
+    .how-step__asset { width: 136%; margin-left: -16%; }
+    .how-step__card { min-height: 196px; padding: 16px 10px 15px 7px; }
+    .how-step__heading { gap: 6px; }
+    .how-step__number { width: 34px; height: 34px; flex-basis: 34px; font-size: 16px; }
+    .how-step h3 { font-size: 17px; }
+    .how-step__description { font-size: 10.5px; }
+    .how-step__benefit { font-size: 9.5px; }
+  }
 
-    :global(html[data-hero-experience='responsive']) .step {
-      margin-inline: 0;
-      padding-inline: 0;
-    }
+  @media (prefers-reduced-motion: reduce) {
+    .how--enhanced [data-how-reveal], .how--enhanced.is-visible [data-how-reveal] { opacity: 1; transform: none; transition: none; }
+    .how--enhanced .how-route__halo, .how--enhanced .how-route__line, .how--enhanced .how-route__bridge-halo, .how--enhanced .how-route__bridge, .how--enhanced.is-visible .how-route__halo, .how--enhanced.is-visible .how-route__line, .how--enhanced.is-visible .how-route__bridge-halo, .how--enhanced.is-visible .how-route__bridge { stroke-dasharray: none; stroke-dashoffset: 0; transition: none; }
+    .how__cta, .how-step__card { transition: none; }
   }
 </style>

@@ -1,6 +1,4 @@
 ---
-import CopyCloud from '../hero/CopyCloud.astro';
-
 const metrics = [
   { value: '+132%', label: 'Más reservas directas', icon: 'calendar' },
   { value: '+58%', label: 'Mejor imagen de marca', icon: 'star' },
@@ -26,7 +24,33 @@ const metricIcon = (icon: string) => {
   <div class="case__inner">
     <header class="case__copy" data-case-reveal>
       <div class="case__copy-cloud" aria-hidden="true">
-        <CopyCloud variant={5} />
+        <svg class="case__cloud-shape case__cloud-shape--wide" viewBox="0 0 1200 620" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="case-cloud-fill" x1="230" y1="52" x2="720" y2="590" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#ffffff" />
+              <stop offset="1" stop-color="#edf8ff" />
+            </linearGradient>
+          </defs>
+          <g fill="url(#case-cloud-fill)">
+            <ellipse cx="600" cy="410" rx="548" ry="192" />
+            <ellipse cx="178" cy="338" rx="164" ry="188" />
+            <ellipse cx="420" cy="242" rx="252" ry="222" />
+            <ellipse cx="735" cy="226" rx="274" ry="226" />
+            <ellipse cx="1015" cy="345" rx="170" ry="178" />
+          </g>
+        </svg>
+        <svg class="case__cloud-shape case__cloud-shape--mobile" viewBox="0 0 600 650" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="case-cloud-fill-mobile" x1="150" y1="45" x2="410" y2="610" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#ffffff" />
+              <stop offset="1" stop-color="#edf8ff" />
+            </linearGradient>
+          </defs>
+          <g fill="url(#case-cloud-fill-mobile)">
+            <ellipse cx="300" cy="340" rx="292" ry="290" />
+            <ellipse cx="300" cy="100" rx="175" ry="68" />
+          </g>
+        </svg>
       </div>
       <p class="case__eyebrow">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 1.6 5.3L19 9l-5.4 1.7L12 16l-1.6-5.3L5 9l5.4-1.7zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z" /></svg>
@@ -55,12 +79,12 @@ const metricIcon = (icon: string) => {
             <picture>
               <source
                 media="(max-width: 699px)"
-                srcset="/media/de-zamorano/optimized/movil-320.jpg 320w, /media/de-zamorano/optimized/movil-480.jpg 480w"
+                srcset="/media/de-zamorano/optimized/captura-larga-860.webp 860w"
                 sizes="calc(100vw - 36px)"
               />
               <img
                 src="/media/de-zamorano/optimized/desktop-1440.jpg"
-                srcset="/media/de-zamorano/optimized/desktop-768.jpg 768w, /media/de-zamorano/optimized/desktop-1200.jpg 1200w, /media/de-zamorano/optimized/desktop-1440.jpg 1440w"
+                srcset="/media/de-zamorano/optimized/desktop-768.jpg 768w, /media/de-zamorano/optimized/desktop-1200.jpg 1200w, /media/de-zamorano/optimized/desktop-1440.jpg 1440w, /media/de-zamorano/desktop.png 1815w"
                 sizes="(min-width: 1200px) 52vw, (min-width: 700px) 72vw, calc(100vw - 36px)"
                 width="1440"
                 height="688"
@@ -79,11 +103,9 @@ const metricIcon = (icon: string) => {
         <div class="case-phone__frame">
           <span class="case-phone__speaker" aria-hidden="true"></span>
           <img
-            src="/media/de-zamorano/optimized/movil-480.jpg"
-            srcset="/media/de-zamorano/optimized/movil-320.jpg 320w, /media/de-zamorano/optimized/movil-480.jpg 480w"
-            sizes="(min-width: 700px) 15vw, 29vw"
-            width="480"
-            height="957"
+            src="/media/de-zamorano/optimized/movil-720.webp"
+            width="720"
+            height="1436"
             alt="Página web de De Zamorano adaptada a móvil"
             loading="lazy"
             decoding="async"
@@ -144,7 +166,7 @@ const metricIcon = (icon: string) => {
           loading="lazy"
           decoding="async"
         />
-        <span><strong>Carlos M.</strong><small>Director General, De Zamorano</small></span>
+        <span><strong>Alfredo Zamorano.</strong><small>Director General, De Zamorano</small></span>
       </footer>
     </aside>
   </div>
@@ -215,24 +237,37 @@ const metricIcon = (icon: string) => {
     align-self: end;
     width: 100%;
     max-width: 620px;
-    padding: clamp(28px, 4vh, 46px) clamp(24px, 2.5vw, 44px) clamp(26px, 3.5vh, 42px);
+    padding: clamp(30px, 4vh, 46px) 0 clamp(30px, 3.5vh, 42px);
   }
 
   .case__copy-cloud {
     position: absolute;
     z-index: -1;
-    top: 50%;
-    left: 48%;
-    width: clamp(650px, 47vw, 800px);
+    inset: -10px -24px -12px -80px;
     pointer-events: none;
-    transform: translate(-50%, -50%);
   }
 
-  .case__copy-cloud :global(.cc) {
-    position: relative;
-    top: auto;
-    left: auto;
+  .case__copy-cloud svg {
+    display: block;
     width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .case__copy-cloud .case__cloud-shape--mobile { display: none; }
+
+  /* Desktop safe area: the graphic cloud deliberately overhangs the copy
+     column, while the content keeps a fixed minimum distance from its
+     shallow left shoulder. This prevents the title, lead and CTA from
+     visually escaping the silhouette at any desktop width. */
+  @media (min-width: 1200px) {
+    .case__copy {
+      --case-copy-safe-left: clamp(46px, 3.4vw, 64px);
+      width: calc(100% + var(--case-copy-safe-left));
+      max-width: calc(620px + var(--case-copy-safe-left));
+      padding-left: var(--case-copy-safe-left);
+    }
+    .case__copy-cloud { inset: -10px -24px -12px -140px; }
   }
 
   .case__eyebrow {
@@ -294,18 +329,19 @@ const metricIcon = (icon: string) => {
 
   .case__showcase { position: relative; grid-column: 2; grid-row: 1 / span 2; align-self: center; min-height: min(68svh, 650px); }
 
-  .case-monitor { position: absolute; top: 7%; right: 0; width: 94%; margin: 0; }
+  .case-monitor { position: absolute; top: 4%; right: 0; width: 90%; margin: 0; }
   .case-monitor__frame { position: relative; padding: clamp(8px, .65vw, 12px); border: 2px solid rgba(255,255,255,.9); border-radius: 27px; background: linear-gradient(145deg, #e6edf3, #abb9c4); box-shadow: 0 30px 56px -36px rgba(5,38,76,.58); transform: perspective(1200px) rotateY(-1.5deg) rotateZ(-.6deg); }
-  .case-monitor__screen { display: block; aspect-ratio: 2.34; overflow: hidden; border-radius: 18px; background: #0b1725; }
-  .case-monitor__screen picture { display: block; width: 100%; height: 100%; }
-  .case-monitor__frame img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left center; }
+  .case-monitor__screen { display: block; aspect-ratio: 1815 / 867; overflow: auto; border-radius: 18px; background: #0b1725; scrollbar-width: none; }
+  .case-monitor__screen::-webkit-scrollbar { display: none; }
+  .case-monitor__screen picture { display: block; width: 100%; }
+  .case-monitor__frame img { display: block; width: 100%; height: auto; }
   .case-monitor__camera { position: absolute; z-index: 2; top: 5px; left: 50%; width: 4px; height: 4px; border-radius: 50%; background: #728494; transform: translateX(-50%); }
   .case-monitor__neck { display: block; width: 17%; height: clamp(58px, 8vh, 80px); margin: -2px auto 0; background: linear-gradient(90deg, #9eacb8, #e8eff4 48%, #aebbc5); clip-path: polygon(26% 0,74% 0,92% 100%,8% 100%); }
   .case-monitor__base { display: block; width: 38%; height: 18px; margin: -3px auto 0; border-radius: 50%; background: linear-gradient(180deg, #eef3f6, #8f9ca6); box-shadow: 0 14px 20px -14px rgba(5,38,76,.6); }
 
-  .case-phone { position: absolute; z-index: 3; left: 1%; bottom: 10%; width: 17%; aspect-ratio: .52; margin: 0; transform: rotate(-4deg); }
-  .case-phone__frame { position: relative; height: 100%; padding: 8px; overflow: hidden; border: 2px solid rgba(255,255,255,.86); border-radius: 28px; background: linear-gradient(145deg,#e9eef1,#8c99a3); box-shadow: 0 25px 38px -22px rgba(4,29,60,.8); }
-  .case-phone__frame img { display: block; width: 100%; height: 100%; border-radius: 21px; object-fit: cover; object-position: center top; }
+  .case-phone { position: absolute; z-index: 3; left: 2%; bottom: 8%; width: 16%; aspect-ratio: .535; margin: 0; transform: rotate(-2deg); }
+  .case-phone__frame { position: relative; height: 100%; padding: 8px; overflow: hidden; border: 2px solid rgba(255,255,255,.86); border-radius: 28px; background: linear-gradient(#06090d,#06090d) content-box, linear-gradient(145deg,#e9eef1,#8c99a3) border-box; box-shadow: 0 25px 38px -22px rgba(4,29,60,.8); }
+  .case-phone__frame img { display: block; width: 100%; height: 100%; border-radius: 21px; object-fit: contain; object-position: center top; }
   .case-phone__speaker { position: absolute; z-index: 2; top: 12px; left: 50%; width: 33%; height: 6px; border-radius: 99px; background: #070d14; transform: translateX(-50%); }
 
   .case-video { position: absolute; z-index: 4; top: 23%; right: -1%; width: 27%; margin: 0; padding: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,.95); border-radius: 22px; background: #f8fbfd; box-shadow: 0 24px 40px -26px rgba(7,38,75,.72); }
@@ -342,17 +378,17 @@ const metricIcon = (icon: string) => {
   @media (max-width: 1199px) {
     .case__inner { grid-template-columns: 1fr; grid-template-rows: auto auto auto auto; width: min(100% - 56px, 920px); height: auto; min-height: 100svh; padding: 44px 0; gap: 14px; text-align: center; }
     .case__copy { justify-self: center; max-width: 720px; padding: 22px 52px 26px; }
-    .case__copy-cloud { left: 50%; width: min(96vw, 850px); }
+    .case__copy-cloud { inset: -24px -32px -28px; }
     .case__eyebrow { margin-inline: auto; }
     .case__lead { margin-inline: auto; }
     .case__title { font-size: clamp(40px, 5.8vw, 54px); }
     .case__lead { margin-top: 16px; }
     .case__cta { margin-top: 17px; }
-    .case__showcase { grid-column: 1; grid-row: 2; width: min(100%, 780px); min-height: clamp(340px, 36svh, 400px); margin: 0 auto; }
-    .case-monitor { top: 0; right: 6%; width: 88%; }
+    .case__showcase { grid-column: 1; grid-row: 2; width: min(100%, 780px); min-height: clamp(350px, 38svh, 420px); margin: 22px auto 0; }
+    .case-monitor { top: 0; right: 8%; width: 84%; }
     .case-monitor__neck { height: clamp(50px, 6vh, 68px); }
-    .case-phone { left: 7%; bottom: 5%; width: 15%; }
-    .case-video { top: 22%; right: 2%; width: 24%; }
+    .case-phone { left: 10%; bottom: 7%; width: 14%; }
+    .case-video { top: 22%; right: 5%; width: 23%; }
     .case__proof { grid-row: 3; width: min(100%, 720px); margin: 0 auto; }
     .case-metric { min-height: 102px; }
     .case-testimonial { position: relative; grid-row: 4; right: auto; bottom: auto; width: min(100%, 560px); margin: 0 auto; padding: 16px 20px; text-align: left; transform: none; }
@@ -362,15 +398,15 @@ const metricIcon = (icon: string) => {
 
   @media (min-width: 700px) and (max-width: 1199px) and (max-height: 1050px) {
     .case__inner { padding-block: 34px; gap: 12px; }
-    .case__copy { padding: 22px 56px 24px; }
+    .case__copy { padding: 22px 56px 26px; }
     .case__eyebrow { min-height: 34px; }
     .case__title { margin-top: 14px; font-size: clamp(38px, 5.2vw, 48px); }
     .case__lead { margin-top: 11px; font-size: 14px; }
     .case__cta { min-height: 44px; margin-top: 12px; }
-    .case__showcase { min-height: clamp(300px, 34svh, 350px); }
-    .case-monitor { right: 9%; width: 82%; }
-    .case-phone { left: 11%; width: 13%; }
-    .case-video { right: 6%; width: 22%; }
+    .case__showcase { min-height: clamp(330px, 36svh, 370px); }
+    .case-monitor { right: 10%; width: 80%; }
+    .case-phone { left: 12%; width: 13%; }
+    .case-video { right: 8%; width: 21%; }
     .case-metric { min-height: 94px; padding-block: 9px; }
     .case-metric__icon { width: 31px; }
     .case-metric strong { font-size: 21px; }
@@ -383,14 +419,14 @@ const metricIcon = (icon: string) => {
 
   @media (min-width: 700px) and (max-width: 1199px) and (max-height: 820px) {
     .case__inner { grid-template-columns: minmax(330px, .78fr) minmax(470px, 1.22fr); grid-template-rows: auto auto; width: min(100% - 48px, 1120px); height: 100svh; min-height: 680px; padding-block: 28px; gap: 12px 26px; text-align: left; }
-    .case__copy { grid-column: 1; grid-row: 1; align-self: end; max-width: 430px; padding: 22px 24px; }
-    .case__copy-cloud { left: 46%; width: 540px; }
+    .case__copy { grid-column: 1; grid-row: 1; align-self: end; max-width: 430px; padding: 24px 0; }
+    .case__copy-cloud { inset: -12px -38px -14px -34px; }
     .case__eyebrow, .case__lead { margin-inline: 0; }
     .case__title { font-size: clamp(31px, 3.4vw, 36px); }
     .case__showcase { grid-column: 2; grid-row: 1 / span 2; width: 100%; min-height: 470px; }
-    .case-monitor { top: 9%; right: 0; width: 94%; }
-    .case-phone { left: 0; bottom: 9%; width: 17%; }
-    .case-video { top: 24%; right: -1%; width: 28%; }
+    .case-monitor { top: 8%; right: 1%; width: 90%; }
+    .case-phone { left: 2%; bottom: 9%; width: 15%; }
+    .case-video { top: 24%; right: 0; width: 26%; }
     .case__proof { grid-column: 1; grid-row: 2; width: 100%; align-self: start; }
     .case-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .case-metric { min-height: 82px; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 8px; justify-items: start; text-align: left; }
@@ -401,25 +437,31 @@ const metricIcon = (icon: string) => {
     .case-testimonial { position: absolute; right: 0; bottom: 22px; width: 230px; margin: 0; }
   }
 
+  @media (min-width: 1020px) and (max-width: 1199px) and (max-height: 820px) {
+    .case__copy { padding-left: 42px; }
+  }
+
   @media (max-width: 699px) {
     .case__cloud--one { width: 84vw; height: 34vw; }
     .case__cloud--two { width: 110vw; height: 42vw; left: 5vw; }
     .case__cloud--three { width: 82vw; height: 36vw; }
-    .case__inner { width: 100%; height: auto; min-height: 0; padding: 68px 18px 72px; gap: 32px; }
-    .case__copy { max-width: 410px; padding: 28px 14px 34px; }
-    .case__copy-cloud { left: 50%; width: min(150vw, 590px); }
+    .case__inner { width: 100%; height: auto; min-height: 0; padding: 68px 18px 72px; gap: 38px; }
+    .case__copy { max-width: 410px; padding: 30px 14px 38px; }
+    .case__copy-cloud { inset: -22px -22px -28px; }
+    .case__copy-cloud .case__cloud-shape--wide { display: none; }
+    .case__copy-cloud .case__cloud-shape--mobile { display: block; }
     .case__eyebrow { min-height: 38px; padding-inline: 14px; font-size: 10px; }
     .case__title { margin-top: 19px; font-size: clamp(30px, 8.7vw, 41px); line-height: 1; }
     .case__lead { max-width: 37ch; margin-top: 17px; font-size: 14px; line-height: 1.5; }
     .case__cta { min-width: 216px; min-height: 48px; margin-top: 20px; }
-    .case__showcase { width: 100%; min-height: clamp(445px, 135vw, 540px); margin-top: 2px; }
+    .case__showcase { width: 100%; min-height: clamp(445px, 135vw, 540px); margin: 12px 0 30px; }
     .case-monitor { top: 0; right: 0; width: 100%; }
     .case-monitor__frame { padding: 7px; border-radius: 25px; transform: none; }
     .case-monitor__screen { aspect-ratio: .68; border-radius: 18px; }
     .case-monitor__frame img { object-position: center top; }
     .case-monitor__neck, .case-monitor__base { display: none; }
     .case-phone { display: none; }
-    .case-video { top: 19%; right: -4px; width: 42%; padding: 4px; border-radius: 18px; }
+    .case-video { display: none; }
     .case-video img { border-radius: 12px; }
     .case-video__play { width: 42px; }
     .case__proof { width: 100%; margin: 0; overflow: visible; }
