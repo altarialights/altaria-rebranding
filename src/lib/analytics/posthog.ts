@@ -43,7 +43,7 @@ const loadPostHogClient = (): Promise<PostHog | null> => {
   if (clientLoading) return clientLoading;
 
   clientLoading = waitForDocumentComplete()
-    .then(() => import('posthog-js/dist/module.no-external'))
+    .then(() => import('posthog-js'))
     .then(({ default: posthog }) => {
       if (client) return client;
 
@@ -114,7 +114,7 @@ const loadPostHogClient = (): Promise<PostHog | null> => {
           'access_token',
           'authorization',
         ],
-        advanced_disable_flags: true,
+        advanced_disable_flags: false,
         person_profiles: 'never',
         respect_dnt: true,
         opt_out_capturing_by_default: true,

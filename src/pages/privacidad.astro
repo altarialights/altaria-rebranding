@@ -1,0 +1,224 @@
+---
+import LegalPage from '../layouts/LegalPage.astro';
+---
+
+<LegalPage
+  title="Política de Privacidad | Altaria Lights"
+  description="Información sobre cómo Altaria Lights trata los datos de contacto, las preferencias de privacidad y la analítica consentida."
+  eyebrow="Protección de datos"
+  heading="Política de Privacidad"
+  intro="Esta política explica qué datos puede tratar Altaria Lights, con qué finalidad y qué opciones tienes. La web no incluye actualmente un formulario: el contacto se realiza de forma voluntaria por correo electrónico."
+>
+  <section class="legal-section">
+    <p class="legal-section__number" aria-hidden="true">01</p>
+    <div>
+      <h2>Responsable del tratamiento</h2>
+      <dl class="legal-facts">
+        <div><dt>Marca</dt><dd>Altaria Lights</dd></div>
+        <div><dt>Correo electrónico</dt><dd><a href="mailto:altarialights@gmail.com">altarialights@gmail.com</a></dd></div>
+        <div><dt>Naturaleza actual</dt><dd>Grupo de estudiantes de software y marketing</dd></div>
+        <div><dt>Ámbito indicado</dt><dd>Toledo – Madrid, España</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="legal-section">
+    <p class="legal-section__number" aria-hidden="true">02</p>
+    <div>
+      <h2>Qué datos tratamos</h2>
+      <h3>Contacto por correo electrónico</h3>
+      <p>
+        Si escribes voluntariamente a Altaria Lights, podremos tratar la dirección del remitente, tu
+        nombre o empresa si los incluyes y el contenido de tu mensaje. La web no dispone actualmente
+        de formulario ni solicita campos de contacto directamente.
+      </p>
+
+      <h3>Navegación y analítica</h3>
+      <p>
+        Solo después de aceptar la categoría analítica se carga PostHog. Puede tratar visitas y rutas,
+        interacciones y eventos personalizados, autocapture, Session Replay, mapas de calor, métricas
+        de rendimiento y Web Vitals, errores de frontend, dead clicks y rage clicks, además de datos
+        técnicos como navegador, sistema operativo, categoría de dispositivo, referencia y fecha u
+        hora del evento.
+      </p>
+      <p>
+        Session Replay se usa para comprender la interacción y detectar problemas de usabilidad. Los
+        inputs están enmascarados; los formularios y elementos marcados como sensibles se excluyen o
+        bloquean; no se capturan cuerpos ni cabeceras de red. La implementación no utiliza
+        <code>identify()</code>, configura perfiles de persona como deshabilitados y busca evitar el
+        envío de datos personales identificativos. El proyecto tiene activa la anonimización de IP.
+      </p>
+
+      <h3>Preferencia de privacidad</h3>
+      <p>
+        Se guarda localmente una preferencia técnica con tu aceptación, rechazo o configuración, la
+        fecha de la decisión y la versión del consentimiento. Sirve para recordar y aplicar tu elección.
+      </p>
+    </div>
+  </section>
+
+  <section class="legal-section">
+    <p class="legal-section__number" aria-hidden="true">03</p>
+    <div>
+      <h2>Finalidades</h2>
+      <h3>Contacto</h3>
+      <ul>
+        <li>responder consultas y atender solicitudes;</li>
+        <li>preparar propuestas o información sobre servicios;</li>
+        <li>gestionar una posible relación profesional.</li>
+      </ul>
+      <h3>Analítica consentida</h3>
+      <ul>
+        <li>conocer el uso y medir las visitas de la web;</li>
+        <li>analizar navegación e interacciones para mejorar la experiencia;</li>
+        <li>detectar problemas de usabilidad, rendimiento y errores técnicos.</li>
+      </ul>
+      <h3>Preferencias necesarias</h3>
+      <p>Recordar tu decisión de privacidad y garantizar el funcionamiento técnico del sistema de consentimiento.</p>
+    </div>
+  </section>
+
+  <section class="legal-section">
+    <p class="legal-section__number" aria-hidden="true">04</p>
+    <div>
+      <h2>Base jurídica</h2>
+      <p>
+        El tratamiento de analítica y Session Replay se basa exclusivamente en tu consentimiento,
+        que puedes retirar en cualquier momento sin afectar a la licitud del tratamiento previo.
+      </p>
+      <p>
+        Cuando solicitas información sobre servicios, el contacto se trata para aplicar medidas
+        precontractuales a petición tuya. En consultas que no tengan esa finalidad, la base será el
+        consentimiento manifestado al enviar voluntariamente el mensaje.
+      </p>
+      <p>
+        La preferencia local es necesaria para gestionar y respetar la elección de privacidad que has
+        solicitado; no se utiliza para medir tu actividad.
+      </p>
+    </div>
+  </section>
+
+  <section class="legal-section">
+    <p class="legal-section__number" aria-hidden="true">05</p>
+    <div>
+      <h2>Conservación</h2>
+      <p>
+        Los datos de una consulta se conservarán durante el tiempo necesario para atenderla y gestionar
+        la posible relación profesional. Después se mantendrán únicamente durante los plazos exigibles
+        para cumplir obligaciones o atender posibles responsabilidades, cuando resulte aplicable.
+      </p>
+      <p>
+        La configuración vigente del proyecto PostHog establece 12 meses de retención para eventos y
+        30 días para grabaciones de Session Replay. La preferencia de consentimiento se considera válida
+        durante 12 meses, salvo que la cambies antes o borres el almacenamiento del navegador.
+      </p>
+    </div>
+  </section>
+
+  <section class="legal-section">
+    <p class="legal-section__number" aria-hidden="true">06</p>
+    <div>
+      <h2>Destinatarios y proveedores</h2>
+      <div class="legal-callout">
+        <h3>PostHog</h3>
+        <p>
+          Proveedor de analítica de producto, rendimiento, errores, mapas de calor y Session Replay.
+          Los datos de esta integración se envían a PostHog Cloud EU mediante
+          <code>eu.i.posthog.com</code>, solo tras el consentimiento analítico.
+        </p>
+      </div>
+      <p>
+        No se han encontrado en la implementación formularios ni integraciones con plataformas de
+        publicidad, pagos, CRM o email marketing. La identidad del proveedor de alojamiento y la del
+        servicio que gestiona el buzón de contacto no constan en el repositorio revisado.
+      </p>
+    </div>
+  </section>
+
+  <section class="legal-section">
+    <p class="legal-section__number" aria-hidden="true">07</p>
+    <div>
+      <h2>Transferencias internacionales</h2>
+      <p>
+        La integración utiliza la región europea de PostHog, pero PostHog puede recurrir a
+        subencargados o accesos desde otros países. Cuando ello implique una transferencia
+        internacional, deberán aplicarse las garantías previstas por la normativa, como una decisión
+        de adecuación o cláusulas contractuales tipo, según corresponda.
+      </p>
+      <p>
+        Puedes consultar la <a href="https://posthog.com/privacy" rel="external noreferrer">política de privacidad de PostHog</a>,
+        su <a href="https://posthog.com/dpa" rel="external noreferrer">acuerdo de tratamiento de datos</a>
+        y la <a href="https://posthog.com/subprocessors" rel="external noreferrer">información sobre subencargados</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="legal-section">
+    <p class="legal-section__number" aria-hidden="true">08</p>
+    <div>
+      <h2>Cookies y PostHog</h2>
+      <p>
+        PostHog no se carga ni captura antes de que aceptes la categoría analítica. Puedes aceptar,
+        rechazar, configurar o retirar tu consentimiento en cualquier momento. Al retirarlo, la
+        captura y Session Replay se detienen mediante la integración existente.
+      </p>
+      <p>Consulta el detalle de tecnologías y almacenamiento en la <a href="/cookies">Política de Cookies</a>.</p>
+      <div class="legal-actions">
+        <button class="legal-preferences" type="button" data-cookie-preferences-trigger>Configurar cookies</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="legal-section">
+    <p class="legal-section__number" aria-hidden="true">09</p>
+    <div>
+      <h2>Tus derechos</h2>
+      <p>
+        Puedes solicitar el acceso a tus datos, su rectificación o supresión, la limitación del
+        tratamiento, oponerte y solicitar la portabilidad cuando proceda. También puedes retirar tu
+        consentimiento en cualquier momento.
+      </p>
+      <p>
+        Para ejercer tus derechos, escribe a <a href="mailto:altarialights@gmail.com">altarialights@gmail.com</a>
+        e indica qué derecho deseas ejercer. Asimismo, puedes presentar una reclamación ante la
+        <a href="https://www.aepd.es" rel="external noreferrer">Agencia Española de Protección de Datos</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="legal-section">
+    <p class="legal-section__number" aria-hidden="true">10</p>
+    <div>
+      <h2>Seguridad</h2>
+      <p>
+        Altaria Lights aplica medidas técnicas y organizativas razonables, proporcionadas a los
+        riesgos, para proteger la información frente a pérdida, alteración, acceso o divulgación no
+        autorizados. Ningún sistema conectado a Internet puede garantizar una seguridad absoluta.
+      </p>
+    </div>
+  </section>
+
+  <section class="legal-section">
+    <p class="legal-section__number" aria-hidden="true">11</p>
+    <div>
+      <h2>Menores</h2>
+      <p>
+        Los servicios de esta web no se dirigen específicamente a menores ni se solicitan
+        intencionadamente sus datos. Si una persona menor de edad contacta con Altaria Lights, deberá
+        hacerlo con la supervisión de sus representantes legales cuando resulte necesaria.
+      </p>
+    </div>
+  </section>
+
+  <section class="legal-section">
+    <p class="legal-section__number" aria-hidden="true">12</p>
+    <div>
+      <h2>Cambios en esta política</h2>
+      <p>
+        Esta política puede actualizarse por cambios normativos o técnicos, por la incorporación de
+        nuevos servicios o por modificaciones en los tratamientos. La fecha mostrada al inicio permite
+        identificar la versión vigente.
+      </p>
+    </div>
+  </section>
+</LegalPage>

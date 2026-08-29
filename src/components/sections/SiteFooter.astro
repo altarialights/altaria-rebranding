@@ -3,10 +3,10 @@ const navigation = [
   {
     label: 'Servicios',
     items: [
-      { label: 'Desarrollo web', href: '#como-funciona' },
-      { label: 'Ecommerce', href: '#como-funciona' },
-      { label: 'Branding', href: '#como-funciona' },
-      { label: 'Marketing digital', href: '#como-funciona' },
+      { label: 'Desarrollo web', href: '/desarrollo-web' },
+      { label: 'Software a medida', href: '/servicios#software-a-medida' },
+      { label: 'Branding', href: '/servicios#branding' },
+      { label: 'Marketing digital', href: '/marketing' },
     ],
   },
   {
@@ -36,6 +36,13 @@ const navigation = [
 ] as const;
 
 type FooterNavigationItem = (typeof navigation)[number]['items'][number];
+
+interface Props {
+  anchorPrefix?: string;
+}
+
+const { anchorPrefix = '' } = Astro.props;
+const resolveHref = (href: string) => href.startsWith('#') ? `${anchorPrefix}${href}` : href;
 ---
 
 <footer class="site-footer" aria-label="Altaria Lights">
@@ -58,7 +65,7 @@ type FooterNavigationItem = (typeof navigation)[number]['items'][number];
     <div class="site-footer__inner">
       <div class="site-footer__top">
         <div class="site-footer__brand-block">
-          <a class="site-footer__brand" href="#top" aria-label="Altaria Lights — volver al inicio">
+          <a class="site-footer__brand" href={resolveHref('#top')} aria-label="Altaria Lights — volver al inicio">
             <img
               src="/brand/optimized/altaria-v2-logo-header-384.webp"
               srcset="/brand/optimized/altaria-v2-logo-header-384.webp 1x, /brand/optimized/altaria-v2-logo-header-768.webp 2x"
@@ -84,7 +91,7 @@ type FooterNavigationItem = (typeof navigation)[number]['items'][number];
                 <circle cx="17.7" cy="6.4" r="1" class="site-footer__social-dot" />
               </svg>
             </span>
-            <a class="site-footer__social" href="#contacto" aria-label="Contactar con Altaria Lights">
+            <a class="site-footer__social" href={resolveHref('#contacto')} aria-label="Contactar con Altaria Lights">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M3 5.5h18v13H3v-13Z" class="site-footer__social-cut" />
                 <path d="m4 7 8 6 8-6" class="site-footer__social-cut" />
@@ -104,7 +111,7 @@ type FooterNavigationItem = (typeof navigation)[number]['items'][number];
               </summary>
               <ul>
                 {group.items.map((item: FooterNavigationItem) => (
-                  <li><a href={item.href}>{item.label}</a></li>
+                  <li><a href={resolveHref(item.href)}>{item.label}</a></li>
                 ))}
               </ul>
             </details>
@@ -127,7 +134,7 @@ type FooterNavigationItem = (typeof navigation)[number]['items'][number];
             <h2 id="footer-contact-title">¿Hablamos de tu proyecto?</h2>
             <p>Cuéntanos tu idea y la llevaremos<br class="site-footer__contact-break" /> más allá de lo que imaginas.</p>
           </div>
-          <a class="site-footer__cta" href="#contacto">
+          <a class="site-footer__cta" href={resolveHref('#contacto')}>
             <span>Hablemos de mi proyecto</span>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" />
@@ -139,9 +146,9 @@ type FooterNavigationItem = (typeof navigation)[number]['items'][number];
       <div class="site-footer__bottom">
         <p>© 2026 Altaria Lights. Todos los derechos reservados.</p>
         <nav class="site-footer__legal" aria-label="Información legal">
-          <span>Aviso legal</span>
+          <a href="/aviso-legal">Aviso legal</a>
           <i aria-hidden="true"></i>
-          <span>Política de privacidad</span>
+          <a href="/privacidad">Privacidad</a>
           <i aria-hidden="true"></i>
           <a href="/cookies">Cookies</a>
           <i aria-hidden="true"></i>

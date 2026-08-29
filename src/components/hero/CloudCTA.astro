@@ -2,15 +2,23 @@
 interface Props {
   label: string;
   tier: 'full' | 'balanced' | 'lite';
+  href?: string;
 }
 
-const { label, tier } = Astro.props;
+const { label, tier, href } = Astro.props;
 ---
 
-<button class:list={['cloud-cta', `cloud-cta--${tier}`]} type="button" data-cloud-cta>
-  <span>{label}</span>
-  <span class="cloud-cta__arrow" aria-hidden="true">→</span>
-</button>
+{href ? (
+  <a class:list={['cloud-cta', `cloud-cta--${tier}`]} href={href} data-cloud-cta>
+    <span>{label}</span>
+    <span class="cloud-cta__arrow" aria-hidden="true">→</span>
+  </a>
+) : (
+  <button class:list={['cloud-cta', `cloud-cta--${tier}`]} type="button" data-cloud-cta>
+    <span>{label}</span>
+    <span class="cloud-cta__arrow" aria-hidden="true">→</span>
+  </button>
+)}
 
 <style>
   .cloud-cta {
@@ -32,6 +40,7 @@ const { label, tier } = Astro.props;
     line-height: 1;
     letter-spacing: -0.012em;
     white-space: nowrap;
+    text-decoration: none;
     color: #ffffff;
     background: var(--ink-navy);
     cursor: pointer;

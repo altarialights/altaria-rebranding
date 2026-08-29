@@ -19,7 +19,11 @@ const { id, title, sub, cta, tier } = Astro.props;
       {title.map((line, index) => <span data-perf-copy-line={index}>{line}</span>)}
     </h2>
     <p class="perf-copy__sub" data-perf-copy-sub>{sub}</p>
-    <CloudCTA label={cta} tier={tier} />
+    <CloudCTA
+      label={cta}
+      tier={tier}
+      href={id === 'social' ? '/marketing' : id === 'web' ? '/desarrollo-web' : undefined}
+    />
   </div>
 </div>
 

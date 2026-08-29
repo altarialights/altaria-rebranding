@@ -1,0 +1,50 @@
+---
+type Icon =
+  | 'calendar'
+  | 'video'
+  | 'target'
+  | 'growth'
+  | 'palette'
+  | 'mail'
+  | 'card'
+  | 'star'
+  | 'strategy'
+  | 'heart'
+  | 'eye'
+  | 'users'
+  | 'analytics';
+
+interface Props {
+  icon: Icon;
+}
+
+const { icon } = Astro.props;
+---
+
+<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  {icon === 'calendar' && <><rect x="3" y="5" width="18" height="16" rx="3" /><path d="M7 3v4M17 3v4M3 10h18M7 14h3M14 14h3M7 18h3" /></>}
+  {icon === 'video' && <><rect x="3" y="6" width="13" height="12" rx="3" /><path d="m16 10 5-3v10l-5-3M8.5 10.2v3.6l3-1.8-3-1.8Z" /></>}
+  {icon === 'target' && <><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="4" /><path d="m12 12 7-7M16 5h3v3" /></>}
+  {icon === 'growth' && <><path d="M4 19V9M10 19V5M16 19v-7M3 19h18M15 8l5-5M16 3h4v4" /></>}
+  {icon === 'palette' && <><path d="M12 3a9 9 0 1 0 0 18h1.5a2 2 0 0 0 0-4H12a2 2 0 0 1 0-4h4a5 5 0 0 0 5-5c0-3-4-5-9-5Z" /><path d="M7.5 9h.01M10 6.5h.01M15 7h.01" /></>}
+  {icon === 'mail' && <><rect x="3" y="5" width="18" height="14" rx="3" /><path d="m4 7 8 6 8-6" /></>}
+  {icon === 'card' && <><rect x="3" y="6" width="18" height="13" rx="3" /><path d="M3 10h18M7 15h4M17 14v3M15.5 15.5h3" /></>}
+  {icon === 'star' && <path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z" />}
+  {icon === 'strategy' && <><path d="M5 20V10M12 20V4M19 20v-7M3 20h18" /><path d="m4 7 5-3 4 3 7-5" /></>}
+  {icon === 'heart' && <path d="M20.8 5.8a5 5 0 0 0-7.1 0L12 7.5l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21l8.8-8.1a5 5 0 0 0 0-7.1Z" />}
+  {icon === 'eye' && <><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" /><circle cx="12" cy="12" r="2.7" /></>}
+  {icon === 'users' && <><circle cx="9" cy="8" r="3" /><circle cx="17" cy="9" r="2.5" /><path d="M3 20v-2a6 6 0 0 1 12 0v2M14 14.5a5 5 0 0 1 7 4.5v1" /></>}
+  {icon === 'analytics' && <><path d="M4 19V5M4 19h16" /><path d="m7 15 3-4 3 2 5-7" /><circle cx="7" cy="15" r="1" /><circle cx="10" cy="11" r="1" /><circle cx="13" cy="13" r="1" /><circle cx="18" cy="6" r="1" /></>}
+</svg>
+
+<style>
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>

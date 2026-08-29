@@ -51,7 +51,11 @@ const CLOUD_WIDTH_FACTOR: Record<Props['variant'], number> = {
       }
     </h2>
     <p class="beat__sub" data-beat-sub>{sub}</p>
-    <CloudCTA label={cta} tier="full" />
+    <CloudCTA
+      label={cta}
+      tier="full"
+      href={id === 'social' ? '/marketing' : id === 'web' ? '/desarrollo-web' : undefined}
+    />
   </div>
 </div>
 

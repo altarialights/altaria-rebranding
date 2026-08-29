@@ -1,0 +1,1204 @@
+---
+import FloatingHeader from '../components/hero/FloatingHeader.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+import Base from '../layouts/Base.astro';
+
+const contactHref = 'mailto:altarialights@gmail.com?subject=Proyecto%20con%20Altaria%20Lights';
+
+const services = [
+  {
+    id: 'marketing-digital',
+    eyebrow: 'Marketing digital',
+    title: 'Hacemos que te vean.',
+    description: 'Estrategia y contenido para conectar tu marca con las personas correctas y generar oportunidades.',
+    details: ['Estrategia de contenidos', 'Redes y campañas', 'Mensajes que conectan'],
+    image: 'marketing',
+    alt: 'Megáfono azul sobre una nube',
+  },
+  {
+    id: 'desarrollo-web',
+    eyebrow: 'Desarrollo web',
+    title: 'Creamos tu página web.',
+    description: 'Sitios rápidos, modernos y pensados para convertir visitantes en clientes.',
+    details: ['Diseño responsive', 'Rendimiento y claridad', 'Experiencias que convierten'],
+    image: 'web',
+    alt: 'Interfaz web tridimensional sobre una nube',
+  },
+  {
+    id: 'software-a-medida',
+    eyebrow: 'Software a medida',
+    title: 'Herramientas para tu negocio.',
+    description: 'Soluciones personalizadas que ordenan procesos, automatizan tareas y crecen contigo.',
+    details: ['Desarrollo personalizado', 'Automatización', 'Sistemas conectados'],
+    image: 'software',
+    alt: 'Símbolo de código tridimensional sobre una nube',
+  },
+  {
+    id: 'branding',
+    eyebrow: 'Branding',
+    title: 'Diseñamos tu imagen.',
+    description: 'Construimos marcas con identidad, coherencia y un propósito fácil de reconocer.',
+    details: ['Identidad visual', 'Dirección de arte', 'Aplicaciones de marca'],
+    image: 'branding',
+    alt: 'Letra tridimensional en una herramienta de diseño sobre una nube',
+  },
+] as const;
+
+const headerNav = [
+  { label: 'Servicios', href: '#nuestros-servicios' },
+  { label: 'Caso real', href: '/#caso-real' },
+  { label: 'Proceso', href: '/#como-funciona' },
+] as const;
+
+const results = [
+  { value: '+132%', label: 'Más reservas directas', icon: 'calendar' },
+  { value: '+58%', label: 'Mejor imagen de marca', icon: 'star' },
+  { value: '+41%', label: 'Más confianza del usuario', icon: 'shield' },
+  { value: '+62%', label: 'Reservas online en 3 meses', icon: 'chart' },
+] as const;
+---
+
+<Base
+  title="Servicios | Altaria Lights"
+  description="Marketing digital, desarrollo web, software a medida y branding conectados para impulsar tu negocio."
+>
+  <FloatingHeader
+    alwaysVisible
+    brandHref="/"
+    nav={headerNav}
+    cta={{ label: 'Hablemos', href: contactHref }}
+  />
+
+  <main class="services-page" id="top">
+    <section class="services-hero" aria-labelledby="services-title">
+      <div class="services-sky" aria-hidden="true">
+        <span class="services-sky__sun"></span>
+        <span class="services-sky__haze"></span>
+        <span class="services-sky__clouds services-sky__clouds--far"></span>
+        <span class="services-sky__clouds services-sky__clouds--near"></span>
+      </div>
+
+      <div class="services-hero__inner">
+        <div class="services-hero__cloud">
+          <svg viewBox="0 0 900 650" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="services-cloud-fill" gradientUnits="userSpaceOnUse" x1="0" y1="70" x2="0" y2="620">
+                <stop offset="0" stop-color="#ffffff" />
+                <stop offset="0.55" stop-color="#fafdff" />
+                <stop offset="1" stop-color="#e6f1fa" />
+              </linearGradient>
+              <radialGradient id="services-cloud-sheen" gradientUnits="userSpaceOnUse" cx="315" cy="168" r="315">
+                <stop offset="0" stop-color="#fffdf5" stop-opacity="0.78" />
+                <stop offset="1" stop-color="#fffdf5" stop-opacity="0" />
+              </radialGradient>
+              <filter id="services-cloud-soft" x="-14%" y="-18%" width="128%" height="136%">
+                <feGaussianBlur stdDeviation="3" />
+              </filter>
+              <filter id="services-cloud-shadow" x="-22%" y="-36%" width="144%" height="172%">
+                <feGaussianBlur stdDeviation="18" />
+              </filter>
+            </defs>
+            <g fill="#386e9a" fill-opacity="0.16" filter="url(#services-cloud-shadow)" transform="translate(0 28)">
+              <ellipse cx="450" cy="368" rx="335" ry="205" /><ellipse cx="175" cy="355" rx="112" ry="152" />
+              <ellipse cx="292" cy="252" rx="155" ry="158" /><ellipse cx="460" cy="202" rx="190" ry="178" />
+              <ellipse cx="635" cy="260" rx="166" ry="160" /><ellipse cx="744" cy="364" rx="116" ry="150" />
+              <ellipse cx="300" cy="495" rx="182" ry="116" /><ellipse cx="490" cy="518" rx="220" ry="118" />
+              <ellipse cx="664" cy="486" rx="170" ry="112" />
+            </g>
+            <g fill="url(#services-cloud-fill)" filter="url(#services-cloud-soft)">
+              <ellipse cx="450" cy="368" rx="335" ry="205" /><ellipse cx="175" cy="355" rx="112" ry="152" />
+              <ellipse cx="292" cy="252" rx="155" ry="158" /><ellipse cx="460" cy="202" rx="190" ry="178" />
+              <ellipse cx="635" cy="260" rx="166" ry="160" /><ellipse cx="744" cy="364" rx="116" ry="150" />
+              <ellipse cx="300" cy="495" rx="182" ry="116" /><ellipse cx="490" cy="518" rx="220" ry="118" />
+              <ellipse cx="664" cy="486" rx="170" ry="112" />
+            </g>
+            <g fill="url(#services-cloud-sheen)" filter="url(#services-cloud-soft)">
+              <ellipse cx="305" cy="220" rx="118" ry="92" /><ellipse cx="460" cy="170" rx="145" ry="100" />
+            </g>
+          </svg>
+
+          <div class="services-hero__copy">
+            <p class="services-eyebrow">Marketing, diseño y tecnología</p>
+            <h1 id="services-title">Servicios que conectan tu negocio de principio a fin.</h1>
+            <p>Estrategia, tecnología y creatividad trabajando juntas para impulsar resultados reales.</p>
+            <a class="services-button" href={contactHref}>
+              <span>Hablemos de tu proyecto</span><span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+
+        <picture class="services-hero__visual">
+          <source
+            srcset="/media/servicios/optimized/hero-720.webp 720w, /media/servicios/optimized/hero-1200.webp 1200w"
+            sizes="(max-width: 699px) 100vw, (max-width: 1019px) 82vw, 56vw"
+            type="image/webp"
+          />
+          <img
+            src="/media/servicios/hero.png"
+            width="1448"
+            height="1086"
+            alt="Composición de servicios de Altaria Lights alrededor de un portátil"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
+      </div>
+    </section>
+
+    <section class="services-catalog" id="nuestros-servicios" aria-labelledby="catalog-title">
+      <div class="services-section-heading">
+        <p class="services-eyebrow">Una visión completa</p>
+        <h2 id="catalog-title">Nuestros servicios</h2>
+        <p>Soluciones que pueden funcionar por separado y ganan fuerza cuando trabajan juntas.</p>
+      </div>
+
+      <div class="services-grid">
+        {services.map((service) => (
+          <article class="service-card" id={service.id}>
+            <picture class="service-card__asset">
+              <source
+                srcset={`/media/servicios/optimized/${service.image}-320.webp 320w, /media/servicios/optimized/${service.image}-560.webp 560w`}
+                sizes="(max-width: 699px) 150px, (max-width: 1019px) 180px, 220px"
+                type="image/webp"
+              />
+              <img
+                src={`/media/servicios/${service.image}.png`}
+                width="1254"
+                height="1254"
+                alt={service.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <div class="service-card__copy">
+              <p class="service-card__eyebrow">{service.eyebrow}</p>
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+              <ul aria-label={`Incluye ${service.eyebrow}`}>
+                {service.details.map((detail: string) => <li>{detail}</li>)}
+              </ul>
+              <a href={service.id === 'marketing-digital' ? '/marketing' : service.id === 'desarrollo-web' ? '/desarrollo-web' : `${contactHref}&body=Me%20interesa%20el%20servicio%20de%20${encodeURIComponent(service.eyebrow)}.`}>
+                {service.id === 'marketing-digital' || service.id === 'desarrollo-web' ? 'Saber más' : 'Cuéntanos tu idea'} <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="services-system" id="sistema" aria-labelledby="system-title">
+      <div class="services-system__shell">
+        <header class="services-system__copy">
+          <p class="services-eyebrow">Un solo equipo</p>
+          <h2 id="system-title">Todo conecta.<br />Todo suma.</h2>
+          <p>
+            Trabajamos como un sistema integrado: estrategia, diseño, tecnología y datos alineados
+            a tus objetivos.
+          </p>
+          <a class="services-button" href={contactHref}>
+            <span>Hablemos de tu proyecto</span><span aria-hidden="true">→</span>
+          </a>
+        </header>
+
+        <div class="services-system__map" aria-label="Servicios conectados de Altaria Lights">
+          <span class="services-system__orbit services-system__orbit--one" aria-hidden="true"></span>
+          <span class="services-system__orbit services-system__orbit--two" aria-hidden="true"></span>
+
+          {services.map((service, index) => (
+            <article class:list={['services-system__node', `services-system__node--${index + 1}`]}>
+              <img
+                src={`/media/servicios/optimized/${service.image}-320.webp`}
+                width="320"
+                height="320"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div><h3>{service.eyebrow}</h3><p>{service.details[index % service.details.length]}</p></div>
+            </article>
+          ))}
+
+          <figure class="services-system__center">
+            <img
+              src="/media/servicios/optimized/logo-central-560.webp"
+              srcset="/media/servicios/optimized/logo-central-320.webp 320w, /media/servicios/optimized/logo-central-560.webp 560w"
+              sizes="190px"
+              width="560"
+              height="560"
+              alt="Altaria Lights"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-proof" id="resultados" aria-labelledby="proof-title">
+      <div class="services-proof__inner">
+        <header class="services-proof__heading">
+          <p class="services-eyebrow">Un caso real</p>
+          <h2 id="proof-title">Cuando todo trabaja junto, se nota.</h2>
+          <p>Resultados medidos durante los primeros tres meses del proyecto De Zamorano.</p>
+        </header>
+
+        <div class="services-proof__metrics">
+          {results.map((result) => (
+            <article class="services-metric">
+              <span class="services-metric__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  {result.icon === 'calendar' && (
+                    <>
+                      <rect x="4" y="5.5" width="16" height="14" rx="2.5" />
+                      <path d="M8 3.5v4M16 3.5v4M4 10h16M8 14h3M8 17h6" />
+                    </>
+                  )}
+                  {result.icon === 'star' && (
+                    <path d="m12 3 2.7 5.45 6.02.87-4.36 4.25 1.03 6L12 16.75 6.61 19.57l1.03-6-4.36-4.25 6.02-.87L12 3Z" />
+                  )}
+                  {result.icon === 'shield' && (
+                    <>
+                      <path d="M12 3.2 19 6v5.2c0 4.3-2.85 7.85-7 9.6-4.15-1.75-7-5.3-7-9.6V6l7-2.8Z" />
+                      <path d="m8.7 12 2.05 2.05 4.55-4.55" />
+                    </>
+                  )}
+                  {result.icon === 'chart' && (
+                    <>
+                      <path d="M5 20V10M10 20V5M15 20v-8M20 20V3M3 20h19" />
+                      <path d="m5 7 5-4 5 5 5-5" />
+                    </>
+                  )}
+                </svg>
+              </span>
+              <strong>{result.value}</strong>
+              <p>{result.label}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="services-proof__note">
+          <span aria-hidden="true">✓</span>
+          <p><strong>Resultados medidos. Impacto real.</strong> Datos verificados durante los primeros 3 meses en línea.</p>
+          <a href="/#caso-real">Ver caso real <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter anchorPrefix="/" />
+</Base>
+
+<style>
+  .services-page {
+    color: #123b69;
+    background: #eaf5fc;
+  }
+
+  .services-eyebrow {
+    font-size: 12px;
+    font-weight: 780;
+    letter-spacing: 0.13em;
+    color: #1872c4;
+    text-transform: uppercase;
+  }
+
+  .services-button {
+    display: inline-flex;
+    min-height: 52px;
+    padding: 0 24px;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #155b9e, #082f62);
+    box-shadow: 0 16px 28px -17px rgba(6, 38, 77, 0.92), inset 0 1px rgba(255, 255, 255, 0.18);
+    text-decoration: none;
+    transition: transform 180ms ease, filter 180ms ease;
+  }
+
+  .services-button:hover {
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+  }
+
+  .services-hero {
+    position: relative;
+    min-height: max(780px, 100vh);
+    padding: 132px max(34px, 5vw) 120px;
+    overflow: hidden;
+    isolation: isolate;
+    background: linear-gradient(180deg, #62afe0 0%, #8bc7eb 52%, #d8eef9 100%);
+  }
+
+  .services-sky,
+  .services-sky > span {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .services-sky {
+    z-index: -1;
+    inset: 0;
+  }
+
+  .services-sky__sun {
+    top: 11%;
+    right: 7%;
+    width: clamp(76px, 7vw, 126px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff 0 12%, #fffbe8 14%, rgba(255, 247, 207, 0.4) 38%, transparent 72%);
+    filter: blur(1px);
+  }
+
+  .services-sky__haze {
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 72% 42%, rgba(255,255,255,.24), transparent 27%),
+      linear-gradient(115deg, transparent 0 57%, rgba(255,255,255,.12) 75%, transparent 100%);
+  }
+
+  .services-sky__clouds {
+    right: -8%;
+    bottom: -7%;
+    left: -8%;
+    height: 34%;
+    filter: blur(3px);
+    background:
+      radial-gradient(ellipse 18% 48% at 5% 75%, #fff 0 56%, transparent 73%),
+      radial-gradient(ellipse 17% 58% at 19% 84%, #fdfefe 0 57%, transparent 74%),
+      radial-gradient(ellipse 19% 56% at 36% 79%, #fff 0 58%, transparent 75%),
+      radial-gradient(ellipse 18% 55% at 56% 86%, #fff 0 58%, transparent 75%),
+      radial-gradient(ellipse 20% 58% at 76% 79%, #fff 0 58%, transparent 75%),
+      radial-gradient(ellipse 18% 50% at 95% 82%, #fff 0 56%, transparent 73%);
+  }
+
+  .services-sky__clouds--far {
+    bottom: 7%;
+    opacity: 0.34;
+    filter: blur(12px);
+    transform: scale(.88);
+  }
+
+  .services-hero__inner {
+    display: grid;
+    width: min(1660px, 100%);
+    min-height: 640px;
+    margin-inline: auto;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+    align-items: center;
+    gap: clamp(22px, 3vw, 60px);
+  }
+
+  .services-hero__cloud {
+    position: relative;
+    z-index: 2;
+    width: min(860px, 100%);
+    aspect-ratio: 900 / 650;
+  }
+
+  .services-hero__cloud > svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .services-hero__copy {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    width: 67%;
+    transform: translate(-48%, -42%);
+  }
+
+  .services-hero__copy h1,
+  .services-section-heading h2,
+  .services-system__copy h2,
+  .services-proof__heading h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    color: #0b3268;
+    text-transform: uppercase;
+  }
+
+  .services-hero__copy h1 {
+    margin-top: 12px;
+    font-size: clamp(38px, 3vw, 58px);
+    line-height: .98;
+    letter-spacing: -.008em;
+  }
+
+  .services-hero__copy > p:last-of-type {
+    max-width: 47ch;
+    margin-top: 22px;
+    font-size: clamp(15px, 1.15vw, 19px);
+    line-height: 1.55;
+    color: #43698f;
+  }
+
+  .services-hero__copy .services-button {
+    margin-top: 25px;
+  }
+
+  .services-hero__visual {
+    position: relative;
+    z-index: 1;
+    width: min(820px, 100%);
+    margin-left: 0;
+    filter: drop-shadow(0 28px 28px rgba(25, 86, 137, .17));
+  }
+
+  .services-hero__visual img {
+    width: 100%;
+    height: auto;
+  }
+
+  @media (min-width: 1200px) {
+    .services-hero__cloud {
+      --services-cloud-left-extension: clamp(54px, 4.2vw, 82px);
+    }
+
+    .services-hero__cloud > svg {
+      inset: 0 auto 0 calc(var(--services-cloud-left-extension) * -1);
+      width: calc(100% + var(--services-cloud-left-extension));
+    }
+  }
+
+  .services-catalog {
+    position: relative;
+    padding: clamp(90px, 9vw, 150px) max(30px, 5vw) clamp(110px, 10vw, 170px);
+    background:
+      radial-gradient(circle at 10% 10%, rgba(159, 213, 242, .32), transparent 26%),
+      linear-gradient(180deg, #edf8fe 0%, #f9fcfe 55%, #fff 100%);
+  }
+
+  .services-section-heading {
+    width: min(760px, 100%);
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .services-section-heading h2 {
+    margin-top: 8px;
+    font-size: clamp(42px, 5.3vw, 76px);
+    line-height: 1;
+  }
+
+  .services-section-heading > p:last-child {
+    max-width: 60ch;
+    margin: 16px auto 0;
+    color: #577796;
+  }
+
+  .services-grid {
+    display: grid;
+    width: min(1460px, 100%);
+    margin: clamp(44px, 5vw, 72px) auto 0;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(16px, 1.6vw, 28px);
+  }
+
+  .service-card {
+    display: flex;
+    min-width: 0;
+    min-height: 570px;
+    padding: 16px clamp(20px, 1.7vw, 29px) 30px;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, .9);
+    border-radius: 30px;
+    background: rgba(250, 253, 255, .86);
+    box-shadow: 0 28px 65px -47px rgba(10, 59, 105, .58), inset 0 1px #fff;
+    backdrop-filter: blur(12px);
+  }
+
+  .service-card__asset {
+    display: grid;
+    height: 228px;
+    place-items: center;
+  }
+
+  .service-card__asset img {
+    width: min(225px, 100%);
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .service-card__copy {
+    display: flex;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .service-card__eyebrow {
+    font-size: 11px;
+    font-weight: 760;
+    letter-spacing: .11em;
+    color: #1872c4;
+    text-transform: uppercase;
+  }
+
+  .service-card h3 {
+    margin-top: 8px;
+    font-family: var(--font-display);
+    font-size: clamp(27px, 2.1vw, 36px);
+    line-height: 1.02;
+    color: #0d3265;
+    text-transform: uppercase;
+  }
+
+  .service-card__copy > p:not(.service-card__eyebrow) {
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #527391;
+  }
+
+  .service-card ul {
+    display: grid;
+    margin: 19px 0 0;
+    padding: 0;
+    gap: 7px;
+    list-style: none;
+  }
+
+  .service-card li {
+    position: relative;
+    padding-left: 17px;
+    font-size: 12px;
+    color: #335e88;
+  }
+
+  .service-card li::before {
+    content: '';
+    position: absolute;
+    top: .58em;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #48cabe;
+  }
+
+  .service-card__copy > a {
+    display: inline-flex;
+    margin-top: auto;
+    padding-top: 24px;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 720;
+    color: #0c4d8d;
+    text-decoration: none;
+  }
+
+  .services-system {
+    padding: 0 max(24px, 4vw) clamp(110px, 10vw, 170px);
+    background: #fff;
+  }
+
+  .services-system__shell {
+    display: grid;
+    width: min(1550px, 100%);
+    min-height: 730px;
+    margin-inline: auto;
+    padding: clamp(50px, 6vw, 92px);
+    grid-template-columns: minmax(320px, .72fr) minmax(650px, 1.28fr);
+    align-items: center;
+    gap: 34px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.92);
+    border-radius: clamp(36px, 4vw, 62px);
+    background:
+      radial-gradient(circle at 72% 50%, rgba(255,255,255,.82), transparent 33%),
+      linear-gradient(135deg, #e7f5fd, #f9fcfe 56%, #e6f4fc);
+    box-shadow: 0 36px 90px -64px rgba(7, 58, 105, .55), inset 0 1px #fff;
+  }
+
+  .services-system__copy {
+    position: relative;
+    z-index: 3;
+  }
+
+  .services-system__copy h2,
+  .services-proof__heading h2 {
+    margin-top: 9px;
+    font-size: clamp(44px, 5vw, 78px);
+    line-height: .98;
+  }
+
+  .services-system__copy > p:last-of-type,
+  .services-proof__heading > p:last-child {
+    max-width: 42ch;
+    margin-top: 22px;
+    line-height: 1.65;
+    color: #527493;
+  }
+
+  .services-system__copy .services-button {
+    margin-top: 28px;
+  }
+
+  .services-system__map {
+    position: relative;
+    min-height: 570px;
+  }
+
+  .services-system__orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 2px solid rgba(58, 158, 226, .17);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .services-system__orbit--one {
+    width: 62%;
+    aspect-ratio: 1;
+  }
+
+  .services-system__orbit--two {
+    width: 88%;
+    aspect-ratio: 1.55;
+  }
+
+  .services-system__center {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    width: 190px;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 20px 22px rgba(29, 100, 162, .2));
+  }
+
+  .services-system__center img {
+    width: 100%;
+    height: auto;
+  }
+
+  .services-system__node {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    width: min(300px, 36%);
+    min-height: 126px;
+    padding: 13px 18px 13px 10px;
+    grid-template-columns: 88px minmax(0, 1fr);
+    align-items: center;
+    border: 1px solid rgba(255,255,255,.9);
+    border-radius: 24px;
+    background: rgba(255,255,255,.86);
+    box-shadow: 0 24px 48px -37px rgba(9, 52, 98, .65), inset 0 1px #fff;
+    backdrop-filter: blur(12px);
+  }
+
+  .services-system__node img {
+    width: 82px;
+    height: 82px;
+    object-fit: contain;
+  }
+
+  .services-system__node h3 {
+    font-family: var(--font-display);
+    font-size: 19px;
+    line-height: 1.02;
+    color: #0d3265;
+    text-transform: uppercase;
+  }
+
+  .services-system__node p {
+    margin-top: 7px;
+    font-size: 11px;
+    line-height: 1.4;
+    color: #577795;
+  }
+
+  .services-system__node--1 { top: 4%; left: 3%; }
+  .services-system__node--2 { top: 7%; right: 1%; }
+  .services-system__node--3 { bottom: 5%; left: 3%; }
+  .services-system__node--4 { right: 1%; bottom: 4%; }
+
+  .services-proof {
+    position: relative;
+    padding: clamp(100px, 9vw, 150px) max(25px, 5vw) clamp(120px, 11vw, 180px);
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 50% 110%, rgba(255,255,255,.95) 0 22%, transparent 52%),
+      linear-gradient(180deg, #78bfe8 0%, #b9ddf3 48%, #eef8fd 100%);
+  }
+
+  .services-proof::before,
+  .services-proof::after {
+    content: '';
+    position: absolute;
+    top: 13%;
+    width: 36vw;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.38);
+    filter: blur(28px);
+  }
+
+  .services-proof::before { left: -12%; }
+  .services-proof::after { right: -13%; }
+
+  .services-proof__inner {
+    position: relative;
+    z-index: 1;
+    width: min(1420px, 100%);
+    margin-inline: auto;
+  }
+
+  .services-proof__heading {
+    width: min(850px, 100%);
+    text-align: left;
+  }
+
+  .services-proof__heading > p:last-child {
+    max-width: 56ch;
+  }
+
+  .services-proof__metrics {
+    display: grid;
+    margin-top: clamp(42px, 5vw, 70px);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border: 1px solid rgba(255,255,255,.86);
+    border-radius: 30px;
+    background: rgba(249,253,255,.78);
+    box-shadow: 0 26px 65px -48px rgba(8,51,96,.6), inset 0 1px #fff;
+    backdrop-filter: blur(14px);
+  }
+
+  .services-metric {
+    min-height: 190px;
+    padding: 29px 24px;
+    text-align: center;
+  }
+
+  .services-metric + .services-metric {
+    border-left: 1px solid rgba(42,93,142,.13);
+  }
+
+  .services-metric__icon {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    margin-inline: auto;
+    place-items: center;
+    border-radius: 50%;
+    color: #1470c4;
+    background: #e7f5fd;
+  }
+
+  .services-metric__icon svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.6;
+  }
+
+  .services-metric strong {
+    display: block;
+    margin-top: 13px;
+    font-size: clamp(30px, 3.1vw, 48px);
+    line-height: 1;
+    color: #0b3268;
+  }
+
+  .services-metric p {
+    max-width: 18ch;
+    margin: 9px auto 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #4e7091;
+  }
+
+  .services-proof__note {
+    display: grid;
+    margin-top: 18px;
+    padding: 16px 21px;
+    grid-template-columns: 38px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid rgba(255,255,255,.78);
+    border-radius: 20px;
+    background: rgba(250,253,255,.7);
+  }
+
+  .services-proof__note > span {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 50%;
+    color: #1470c4;
+    background: #fff;
+  }
+
+  .services-proof__note p,
+  .services-proof__note a {
+    font-size: 12px;
+    color: #42698e;
+  }
+
+  .services-proof__note a {
+    display: inline-flex;
+    gap: 9px;
+    font-weight: 720;
+    color: #0c4d8d;
+    text-decoration: none;
+  }
+
+  @media (max-width: 1199px) {
+    .services-hero__inner {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+      gap: 20px;
+    }
+
+    .services-hero__visual {
+      margin-left: 0;
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      max-width: 900px;
+    }
+
+    .service-card {
+      min-height: 520px;
+    }
+
+    .services-system__shell {
+      grid-template-columns: 310px minmax(570px, 1fr);
+      padding-inline: 48px 35px;
+    }
+  }
+
+  @media (max-width: 1019px) {
+    .services-hero {
+      min-height: max(1120px, 100vh);
+      padding: 116px 28px 95px;
+    }
+
+    .services-hero__inner {
+      display: flex;
+      min-height: 0;
+      flex-direction: column;
+    }
+
+    .services-hero__cloud {
+      width: min(820px, 108vw);
+      flex: 0 0 auto;
+    }
+
+    .services-hero__copy {
+      width: 64%;
+      transform: translate(-48%, -42%);
+    }
+
+    .services-hero__copy h1 {
+      font-size: clamp(37px, 5.8vw, 48px);
+    }
+
+    .services-hero__visual {
+      width: min(780px, 92vw);
+      margin: -40px auto 0;
+    }
+
+    .services-system__shell {
+      display: block;
+      padding: 62px 42px 52px;
+    }
+
+    .services-system__copy {
+      max-width: 620px;
+      text-align: center;
+      margin-inline: auto;
+    }
+
+    .services-system__copy > p:last-of-type {
+      margin-inline: auto;
+    }
+
+    .services-system__map {
+      width: min(760px, 100%);
+      min-height: 580px;
+      margin: 40px auto 0;
+    }
+
+    .services-system__node {
+      width: 37%;
+    }
+
+    .services-proof__heading {
+      text-align: center;
+      margin-inline: auto;
+    }
+
+    .services-proof__heading > p:last-child {
+      margin-inline: auto;
+    }
+  }
+
+  @media (min-width: 700px) and (max-width: 1019px) {
+    .services-hero__cloud > svg {
+      transform: translateX(clamp(-28px, -2.5vw, -18px));
+    }
+  }
+
+  @media (max-width: 699px) {
+    .services-eyebrow {
+      font-size: 10px;
+    }
+
+    .services-button {
+      width: 100%;
+      min-height: 50px;
+      gap: 16px;
+      padding-inline: 18px;
+      font-size: 13px;
+    }
+
+    .services-hero {
+      min-height: max(870px, 100vh);
+      padding: 96px 13px 62px;
+    }
+
+    .services-sky__sun {
+      top: 9%;
+      right: 2%;
+      width: 78px;
+    }
+
+    .services-hero__cloud {
+      width: 140vw;
+      margin: 0;
+    }
+
+    .services-hero__copy {
+      width: 55%;
+      transform: translate(-49%, -41%);
+    }
+
+    .services-hero__copy h1 {
+      margin-top: 8px;
+      font-size: clamp(28px, 8.3vw, 34px);
+      line-height: .96;
+    }
+
+    .services-hero__copy > p:last-of-type {
+      margin-top: 13px;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .services-hero__copy .services-button {
+      min-height: 44px;
+      margin-top: 16px;
+      font-size: 11px;
+    }
+
+    .services-hero__visual {
+      width: 96vw;
+      max-width: none;
+      margin: -44px auto 0;
+    }
+
+    .services-catalog {
+      padding: 82px 14px 100px;
+    }
+
+    .services-section-heading {
+      padding-inline: 13px;
+    }
+
+    .services-section-heading h2 {
+      font-size: clamp(38px, 12vw, 52px);
+    }
+
+    .services-section-heading > p:last-child {
+      font-size: 14px;
+    }
+
+    .services-grid {
+      display: block;
+      margin-top: 38px;
+    }
+
+    .service-card {
+      display: grid;
+      min-height: 0;
+      padding: 17px 18px 22px 10px;
+      grid-template-columns: 108px minmax(0, 1fr);
+      border-radius: 24px;
+    }
+
+    .service-card + .service-card {
+      margin-top: 12px;
+    }
+
+    .service-card__asset {
+      height: 122px;
+    }
+
+    .service-card__asset img {
+      width: 112px;
+    }
+
+    .service-card h3 {
+      font-size: clamp(22px, 7vw, 28px);
+    }
+
+    .service-card__copy > p:not(.service-card__eyebrow) {
+      margin-top: 9px;
+      font-size: 12px;
+    }
+
+    .service-card ul {
+      display: none;
+    }
+
+    .service-card__copy > a {
+      margin-top: 13px;
+      padding-top: 0;
+      font-size: 12px;
+    }
+
+    .services-system {
+      padding: 0 10px 100px;
+    }
+
+    .services-system__shell {
+      padding: 47px 16px 30px;
+      border-radius: 34px;
+    }
+
+    .services-system__copy {
+      padding-inline: 12px;
+    }
+
+    .services-system__copy h2,
+    .services-proof__heading h2 {
+      font-size: clamp(39px, 12vw, 54px);
+    }
+
+    .services-system__copy > p:last-of-type,
+    .services-proof__heading > p:last-child {
+      margin-top: 16px;
+      font-size: 14px;
+    }
+
+    .services-system__map {
+      display: grid;
+      min-height: 0;
+      margin-top: 36px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .services-system__orbit {
+      display: none;
+    }
+
+    .services-system__node {
+      position: static;
+      display: block;
+      width: auto;
+      min-height: 176px;
+      padding: 8px 10px 15px;
+      text-align: center;
+      border-radius: 20px;
+    }
+
+    .services-system__node img {
+      width: 88px;
+      height: 88px;
+      margin: -1px auto -4px;
+    }
+
+    .services-system__node h3 {
+      font-size: 17px;
+    }
+
+    .services-system__node p {
+      font-size: 10px;
+    }
+
+    .services-system__center {
+      position: relative;
+      top: auto;
+      left: auto;
+      width: 132px;
+      margin: 4px auto;
+      grid-column: 1 / -1;
+      grid-row: 2;
+      transform: none;
+    }
+
+    .services-system__node--3,
+    .services-system__node--4 {
+      grid-row: 3;
+    }
+
+    .services-proof {
+      padding: 90px 13px 125px;
+    }
+
+    .services-proof__metrics {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-radius: 24px;
+    }
+
+    .services-metric {
+      min-height: 155px;
+      padding: 21px 10px;
+    }
+
+    .services-metric + .services-metric {
+      border-left: 0;
+    }
+
+    .services-metric:nth-child(even) {
+      border-left: 1px solid rgba(42,93,142,.13);
+    }
+
+    .services-metric:nth-child(n+3) {
+      border-top: 1px solid rgba(42,93,142,.13);
+    }
+
+    .services-metric strong {
+      font-size: 31px;
+    }
+
+    .services-metric p {
+      font-size: 11px;
+    }
+
+    .services-proof__note {
+      grid-template-columns: 34px minmax(0, 1fr);
+      padding: 14px;
+    }
+
+    .services-proof__note a {
+      grid-column: 2;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .services-button {
+      transition: none;
+    }
+  }
+</style>

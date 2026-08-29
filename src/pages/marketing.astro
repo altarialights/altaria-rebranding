@@ -1,0 +1,434 @@
+---
+import FloatingHeader from '../components/hero/FloatingHeader.astro';
+import MarketingIcon from '../components/marketing/MarketingIcon.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+import Base from '../layouts/Base.astro';
+
+const contactHref = '/#contacto';
+
+const headerNav = [
+  { label: 'Servicios', href: '/servicios' },
+  { label: 'Caso real', href: '/#caso-real' },
+  { label: 'Proceso', href: '/#como-funciona' },
+] as const;
+
+const processSteps = [
+  { number: '01', asset: 1, title: 'Hablamos contigo', description: 'Entendemos tu negocio, tus objetivos, tu público y lo que quieres conseguir.' },
+  { number: '02', asset: 2, title: 'Entendemos tus objetivos', description: 'Analizamos tu situación, tus canales y tu competencia para detectar oportunidades reales.' },
+  { number: '03', asset: 3, title: 'Te asesoramos', description: 'Te recomendamos las acciones y canales que de verdad tienen sentido para tu negocio.' },
+  { number: '04', asset: 4, title: 'Diseñamos tu estrategia', description: 'Creamos un plan adaptado con contenidos, calendario, campañas y acciones concretas.' },
+  { number: '05', asset: 5, title: 'Empezamos a implementar', description: 'Ejecutamos la estrategia, medimos resultados y optimizamos continuamente.' },
+] as const;
+
+const comparison = {
+  without: [
+    'Poca visibilidad y alcance limitado',
+    'Perfil poco trabajado e imagen incoherente',
+    'Publicaciones sin un objetivo claro',
+    'Menor confianza y autoridad',
+    'Dependencia del boca a boca',
+    'Crecimiento menos predecible',
+  ],
+  with: [
+    'Más visibilidad y presencia constante',
+    'Imagen profesional y coherente',
+    'Contenido con propósito',
+    'Más confianza y autoridad',
+    'Más oportunidades comerciales',
+    'Crecimiento más medible',
+  ],
+} as const;
+
+const services = [
+  { icon: 'calendar', title: 'Redes sociales', description: 'Estrategia, calendario, ideas, publicaciones, análisis y mejora continua.' },
+  { icon: 'video', title: 'Contenido audiovisual', description: 'Guiones, moodboards, dirección, edición y piezas adaptadas a cada plataforma.' },
+  { icon: 'target', title: 'Embudos de ventas', description: 'Diseñamos el recorrido desde el contenido y la confianza hasta el contacto y la venta.' },
+  { icon: 'growth', title: 'Optimización de perfiles', description: 'Mejoramos bio, estructura, estética, mensajes y llamadas a la acción.' },
+  { icon: 'palette', title: 'Diseño gráfico', description: 'Creatividades, cartelería, flyers, banners y materiales digitales o físicos.' },
+  { icon: 'mail', title: 'Email marketing', description: 'Newsletters, campañas, secuencias y comunicación que ayuda a fidelizar.' },
+  { icon: 'card', title: 'Material físico', description: 'Tarjetas, QR para reseñas y piezas que conectan la experiencia física con la digital.' },
+  { icon: 'star', title: 'Reseñas y reputación', description: 'Facilitamos que clientes satisfechos compartan su experiencia y refuercen tu presencia.' },
+] as const;
+
+const benefits = [
+  { icon: 'strategy', title: 'Estrategia clara', description: 'Sabes qué hacemos, para qué y qué queremos conseguir.' },
+  { icon: 'heart', title: 'Contenido que conecta', description: 'Comunicación pensada para captar atención y generar confianza.' },
+  { icon: 'eye', title: 'Más visibilidad', description: 'Más oportunidades de que clientes potenciales te descubran.' },
+  { icon: 'growth', title: 'Más autoridad', description: 'Una presencia profesional cambia cómo se percibe tu negocio.' },
+  { icon: 'target', title: 'Más oportunidades', description: 'Tus canales pasan a formar parte real del proceso de venta.' },
+  { icon: 'users', title: 'Acompañamiento', description: 'Te ayudamos a ejecutar, corregir y mejorar de forma continua.' },
+  { icon: 'analytics', title: 'Métricas y sugerencias', description: 'Usamos los datos para decidir qué conviene mejorar.' },
+] as const;
+---
+
+<Base
+  title="Marketing Digital para Negocios | Altaria Lights"
+  description="Diseñamos estrategias de marketing digital, contenido, redes sociales y acciones de crecimiento adaptadas a los objetivos reales de tu negocio."
+  canonical="/marketing"
+>
+  <FloatingHeader alwaysVisible brandHref="/" nav={headerNav} cta={{ label: 'Hablemos', href: contactHref }} />
+
+  <main class="marketing-page" id="top">
+    <section class="marketing-hero" aria-labelledby="marketing-hero-title">
+      <div class="marketing-sky" aria-hidden="true">
+        <span class="marketing-sky__sun"></span>
+        <span class="marketing-sky__haze"></span>
+        <span class="marketing-sky__clouds marketing-sky__clouds--far"></span>
+        <span class="marketing-sky__clouds marketing-sky__clouds--near"></span>
+      </div>
+
+      <div class="marketing-hero__inner">
+        <div class="marketing-hero__cloud">
+          <svg viewBox="0 0 900 650" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="marketing-cloud-fill" gradientUnits="userSpaceOnUse" x1="0" y1="70" x2="0" y2="620">
+                <stop offset="0" stop-color="#fff" />
+                <stop offset=".55" stop-color="#fafdff" />
+                <stop offset="1" stop-color="#e6f1fa" />
+              </linearGradient>
+              <radialGradient id="marketing-cloud-sheen" gradientUnits="userSpaceOnUse" cx="315" cy="168" r="315">
+                <stop offset="0" stop-color="#fff" stop-opacity=".88" />
+                <stop offset="1" stop-color="#fff" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <g fill="url(#marketing-cloud-fill)">
+              <ellipse cx="460" cy="390" rx="285" ry="180" />
+              <ellipse cx="210" cy="390" rx="175" ry="145" />
+              <ellipse cx="315" cy="260" rx="180" ry="170" />
+              <ellipse cx="485" cy="215" rx="205" ry="185" />
+              <ellipse cx="665" cy="318" rx="200" ry="175" />
+              <ellipse cx="300" cy="495" rx="182" ry="116" />
+              <ellipse cx="490" cy="518" rx="220" ry="118" />
+              <ellipse cx="664" cy="486" rx="170" ry="112" />
+            </g>
+            <g fill="url(#marketing-cloud-sheen)" opacity=".72">
+              <ellipse cx="305" cy="220" rx="118" ry="92" />
+              <ellipse cx="460" cy="170" rx="145" ry="100" />
+            </g>
+          </svg>
+
+          <div class="marketing-hero__copy">
+            <p class="marketing-eyebrow">Marketing digital</p>
+            <h1 id="marketing-hero-title"><span>Marketing digital</span><span>que hace crecer</span><span>tu negocio.</span></h1>
+            <p>Creamos estrategias y contenido que atraen, conectan y convierten en clientes.</p>
+            <a class="marketing-button" href={contactHref} data-marketing-cta="hero">
+              <span>Hablemos de tu proyecto</span><span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+
+        <picture class="marketing-hero__visual">
+          <source srcset="/media/marketing/optimized/hero-720.webp 720w, /media/marketing/optimized/hero-1200.webp 1200w" sizes="(max-width: 699px) 96vw, (max-width: 1019px) 88vw, 50vw" type="image/webp" />
+          <img src="/media/marketing/hero.png" width="1448" height="1086" alt="Composición tridimensional de marketing digital con un teléfono, un megáfono y una diana" decoding="async" fetchpriority="high" />
+        </picture>
+      </div>
+    </section>
+
+    <div class="marketing-hero-transition" aria-hidden="true">
+      <svg viewBox="0 0 1900 160" preserveAspectRatio="none"><path d="M0 0H1900V72C1795 72 1740 105 1640 96C1540 86 1490 62 1385 78C1270 96 1190 113 1070 91C960 70 870 66 760 87C650 108 560 102 455 82C345 62 250 72 160 96C92 114 42 108 0 94V0Z" /></svg>
+    </div>
+
+    <div class="marketing-content">
+      <section class="marketing-panel marketing-process" aria-labelledby="marketing-process-title">
+        <header class="marketing-heading">
+          <p class="marketing-eyebrow">Un recorrido compartido</p>
+          <h2 id="marketing-process-title">Cómo trabajamos contigo</h2>
+          <p>Un proceso claro y colaborativo para crear estrategias que realmente funcionen.</p>
+        </header>
+        <ol class="marketing-process__grid">
+          {processSteps.map((step) => (
+            <li class="marketing-process__card">
+              <picture class="marketing-process__asset">
+                <source srcset={`/media/marketing/optimized/step-${step.asset}-240.webp 240w, /media/marketing/optimized/step-${step.asset}-420.webp 420w`} sizes="(max-width: 699px) 110px, (max-width: 1019px) 140px, 150px" type="image/webp" />
+                <img src={`/media/marketing/${step.asset}.png`} width="1254" height="1254" alt="" loading="lazy" decoding="async" />
+              </picture>
+              <span class="marketing-process__number">{step.number}</span>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="marketing-panel marketing-comparison" aria-labelledby="comparison-title">
+        <header class="marketing-heading">
+          <p class="marketing-eyebrow">Visibilidad con intención</p>
+          <h2 id="comparison-title">¿Por qué el marketing digital es clave?</h2>
+          <p>La diferencia entre ser visible o pasar desapercibido.</p>
+        </header>
+
+        <div class="marketing-comparison__grid">
+          <article class="marketing-comparison__side marketing-comparison__side--without">
+            <figure>
+              <img src="/media/marketing/optimized/mal-perfil-640.webp" srcset="/media/marketing/optimized/mal-perfil-360.webp 360w, /media/marketing/optimized/mal-perfil-640.webp 640w" sizes="(max-width: 699px) 68vw, 280px" width="640" height="800" alt="Representación conceptual de un perfil social sin trabajar" loading="lazy" decoding="async" />
+            </figure>
+            <div><h3>Sin estrategia digital <span aria-hidden="true">×</span></h3><ul>{comparison.without.map((item) => <li>{item}</li>)}</ul></div>
+          </article>
+
+          <span class="marketing-comparison__vs" aria-hidden="true">VS</span>
+
+          <article class="marketing-comparison__side marketing-comparison__side--with">
+            <div><h3>Con una estrategia profesional <span aria-hidden="true">✓</span></h3><ul>{comparison.with.map((item) => <li>{item}</li>)}</ul></div>
+            <figure>
+              <img src="/media/marketing/optimized/buen-perfil-640.webp" srcset="/media/marketing/optimized/buen-perfil-360.webp 360w, /media/marketing/optimized/buen-perfil-640.webp 640w" sizes="(max-width: 699px) 68vw, 280px" width="640" height="800" alt="Representación conceptual de un perfil social trabajado profesionalmente" loading="lazy" decoding="async" />
+            </figure>
+          </article>
+        </div>
+        <p class="marketing-comparison__note">Representaciones conceptuales para explicar el efecto de una estrategia; no corresponden a clientes ni resultados reales.</p>
+        <p class="marketing-comparison__conclusion"><span aria-hidden="true">★</span> Una estrategia de contenido de calidad te posiciona como referente, atrae clientes ideales y convierte tus canales digitales en una herramienta comercial.</p>
+      </section>
+
+      <section class="marketing-help" aria-labelledby="help-title">
+        <header class="marketing-heading">
+          <p class="marketing-eyebrow">Acciones conectadas</p>
+          <h2 id="help-title">¿En qué te podemos ayudar?</h2>
+          <p>Adaptamos cada acción a las necesidades de tu negocio.</p>
+        </header>
+        <div class="marketing-help__grid">
+          {services.map((service) => (
+            <article class="marketing-help__card">
+              <span><MarketingIcon icon={service.icon} /></span>
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+            </article>
+          ))}
+        </div>
+        <p class="marketing-help__more"><strong aria-hidden="true">+</strong> Y mucho más: campañas, colaboraciones, automatizaciones, promociones y acciones diseñadas específicamente para tu negocio.</p>
+      </section>
+
+      <section class="marketing-panel marketing-budget" aria-labelledby="budget-title">
+        <picture class="marketing-budget__asset">
+          <source srcset="/media/marketing/optimized/presupuesto-520.webp 520w, /media/marketing/optimized/presupuesto-760.webp 760w" sizes="(max-width: 699px) 86vw, (max-width: 1019px) 44vw, 520px" type="image/webp" />
+          <img src="/media/marketing/presupuesto.png" width="1254" height="1254" alt="Ilustración de análisis, planificación y medición de marketing" loading="lazy" decoding="async" />
+        </picture>
+        <div class="marketing-budget__copy">
+          <p class="marketing-eyebrow">Una propuesta para ti</p>
+          <h2 id="budget-title">Presupuesto a medida</h2>
+          <strong>No hay un precio mínimo fijo.</strong>
+          <p>Cada negocio es diferente, por eso no trabajamos con un precio cerrado para todos. El presupuesto depende de tus objetivos, canales, cantidad de contenido, producción, frecuencia, diseño, campañas y nivel de acompañamiento.</p>
+          <p>El servicio se trabaja habitualmente mediante mensualidades adaptadas a tus necesidades y recursos.</p>
+          <aside><span aria-hidden="true">i</span><p>Nos cuentas qué quieres conseguir y diseñamos una propuesta mensual adaptada a tu negocio.</p></aside>
+          <a class="marketing-button" href={contactHref} data-marketing-cta="budget"><span>Hablemos de tu proyecto</span><span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <section class="marketing-benefits" aria-labelledby="benefits-title">
+        <header class="marketing-heading">
+          <p class="marketing-eyebrow">Crecemos contigo</p>
+          <h2 id="benefits-title">Beneficios de trabajar con nosotros</h2>
+          <p>Más que gestionar redes, queremos convertirnos en una extensión de tu negocio.</p>
+        </header>
+        <div class="marketing-benefits__grid">
+          {benefits.map((benefit) => (
+            <article><span><MarketingIcon icon={benefit.icon} /></span><h3>{benefit.title}</h3><p>{benefit.description}</p></article>
+          ))}
+        </div>
+      </section>
+
+      <section class="marketing-final-cta" aria-labelledby="marketing-final-title">
+        <img src="/media/servicios/optimized/marketing-320.webp" width="320" height="320" alt="" loading="lazy" decoding="async" />
+        <div><h2 id="marketing-final-title">¿Listo para hacer crecer tu marca?</h2><p>Construyamos juntos una estrategia que convierta tu negocio en referente.</p></div>
+        <a class="marketing-button" href={contactHref} data-marketing-cta="final"><span>Hablemos de tu proyecto</span><span aria-hidden="true">→</span></a>
+        <img src="/media/servicios/optimized/marketing-320.webp" width="320" height="320" alt="" loading="lazy" decoding="async" />
+      </section>
+    </div>
+  </main>
+
+  <SiteFooter anchorPrefix="/" />
+</Base>
+
+<script>
+  import { captureEvent } from '../lib/analytics/posthog';
+
+  document.querySelectorAll<HTMLElement>('[data-marketing-cta]').forEach((cta) => {
+    cta.addEventListener('click', () => {
+      void captureEvent('marketing_service_cta_clicked', {
+        placement: cta.dataset.marketingCta ?? 'unknown',
+        destination: cta.getAttribute('href'),
+      });
+    });
+  });
+</script>
+
+<style>
+  .marketing-page { color: #123b69; background: #edf7fd; }
+  .marketing-eyebrow { font-size: 11px; font-weight: 780; letter-spacing: .11em; color: #1371c9; text-transform: uppercase; }
+  .marketing-button { display: inline-flex; min-height: 52px; padding: 0 24px; align-items: center; justify-content: center; gap: 24px; border-radius: 999px; font-size: 13px; font-weight: 750; color: #fff; background: linear-gradient(135deg, #1762ad, #07396f); box-shadow: 0 14px 28px -16px rgba(7,55,108,.8); text-decoration: none; transition: transform 180ms ease, filter 180ms ease; }
+  .marketing-button:hover { filter: brightness(1.08); transform: translateY(-2px); }
+
+  .marketing-hero { position: relative; min-height: max(780px, 100vh); padding: 132px max(34px, 5vw) 120px; overflow: hidden; isolation: isolate; background: linear-gradient(180deg, #62afe0 0%, #8bc7eb 52%, #d8eef9 100%); }
+  .marketing-sky, .marketing-sky__clouds { position: absolute; inset: 0; pointer-events: none; }
+  .marketing-sky__sun { position: absolute; top: 10%; right: 7%; width: clamp(38px, 4.5vw, 78px); aspect-ratio: 1; border-radius: 50%; background: #fffdf6; box-shadow: 0 0 0 18px rgba(255,253,246,.1), 0 0 50px 22px rgba(255,253,246,.42); }
+  .marketing-sky__haze { position: absolute; right: -10%; bottom: 0; left: -10%; height: 31%; background: linear-gradient(180deg, transparent, rgba(244,251,255,.76) 72%, #fff 100%); }
+  .marketing-sky__clouds { top: auto; height: 22%; background: radial-gradient(ellipse 24% 74% at 2% 106%, #fff 0 97%, transparent 100%), radial-gradient(ellipse 28% 68% at 26% 112%, #fff 0 97%, transparent 100%), radial-gradient(ellipse 30% 72% at 56% 111%, #fff 0 97%, transparent 100%), radial-gradient(ellipse 28% 70% at 83% 110%, #fff 0 97%, transparent 100%), radial-gradient(ellipse 22% 68% at 103% 105%, #fff 0 97%, transparent 100%); }
+  .marketing-sky__clouds--far { bottom: 7%; opacity: .34; filter: blur(12px); transform: scale(.88); }
+  .marketing-sky__clouds--near { bottom: -2%; }
+  .marketing-hero__inner { position: relative; z-index: 2; display: grid; width: min(1660px, 100%); min-height: 640px; margin-inline: auto; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: center; gap: clamp(22px, 3vw, 60px); }
+  .marketing-hero__cloud { position: relative; z-index: 2; width: min(860px, 100%); aspect-ratio: 900 / 650; }
+  .marketing-hero__cloud > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 20px 17px rgba(54,124,174,.22)); }
+  .marketing-hero__copy { position: absolute; z-index: 1; top: 50%; left: 50%; width: 64%; transform: translate(-48%, -42%); }
+  .marketing-hero__copy h1, .marketing-heading h2, .marketing-budget h2, .marketing-final-cta h2 { font-family: var(--font-display); font-weight: 900; color: #0b3268; text-transform: uppercase; }
+  .marketing-hero__copy h1 { margin-top: 12px; font-size: clamp(38px, 3.05vw, 58px); line-height: .96; }
+  .marketing-hero__copy h1 span { display: block; }
+  .marketing-hero__copy > p:last-of-type { max-width: 43ch; margin-top: 22px; font-size: clamp(15px, 1.05vw, 18px); line-height: 1.5; color: #43698f; }
+  .marketing-hero__copy .marketing-button { margin-top: 25px; }
+  .marketing-hero__visual { position: relative; z-index: 1; width: min(820px, 100%); filter: drop-shadow(0 28px 28px rgba(25,86,137,.16)); }
+  .marketing-hero__visual img { width: 100%; height: auto; }
+
+  @media (min-width: 1200px) {
+    .marketing-hero__cloud { --cloud-left-extension: clamp(54px, 4.2vw, 82px); }
+    .marketing-hero__cloud > svg { inset: 0 auto 0 calc(var(--cloud-left-extension) * -1); width: calc(100% + var(--cloud-left-extension)); }
+  }
+
+  .marketing-hero-transition { display: none; }
+  .marketing-content { position: relative; z-index: 3; display: grid; width: min(1780px, calc(100% - 40px)); margin: -42px auto 0; padding-bottom: 72px; gap: 28px; }
+  .marketing-panel, .marketing-final-cta { border: 1px solid rgba(255,255,255,.9); border-radius: 34px; background: linear-gradient(145deg, rgba(255,255,255,.94), rgba(239,248,254,.9)); box-shadow: 0 24px 55px -40px rgba(15,72,120,.48); }
+  .marketing-panel { padding: clamp(30px, 3vw, 54px); }
+  .marketing-heading { max-width: 980px; margin: 0 auto clamp(26px, 3vw, 44px); text-align: center; }
+  .marketing-heading h2, .marketing-budget h2, .marketing-final-cta h2 { margin-top: 8px; font-size: clamp(28px, 2.35vw, 44px); line-height: 1; }
+  .marketing-heading > p:last-child, .marketing-budget__copy > p, .marketing-final-cta p { margin-top: 12px; line-height: 1.55; color: #527597; }
+
+  @media (min-width: 1020px) {
+    .marketing-hero-transition { position: relative; z-index: 2; display: block; width: 100vw; height: 160px; margin-top: -100px; margin-bottom: -60px; pointer-events: none; }
+    .marketing-hero-transition svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 14px 15px rgba(92,156,198,.08)); }
+    .marketing-hero-transition path { fill: #fff; }
+  }
+
+  .marketing-process__grid { display: grid; margin: 0; padding: 0; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; list-style: none; }
+  .marketing-process__card { position: relative; min-width: 0; min-height: 350px; padding: 16px 16px 22px; border: 1px solid rgba(23,104,176,.1); border-radius: 22px; background: rgba(255,255,255,.84); box-shadow: 0 18px 30px -28px rgba(18,70,116,.65); }
+  .marketing-process__card:not(:last-child)::after { content: '→'; position: absolute; top: 35%; right: -17px; z-index: 2; color: #69aee7; font-weight: 800; }
+  .marketing-process__asset { display: block; width: min(150px, 76%); aspect-ratio: 1; margin: 0 auto 8px; }
+  .marketing-process__asset img { width: 100%; height: 100%; object-fit: contain; }
+  .marketing-process__number { display: grid; width: 28px; height: 28px; margin-bottom: 12px; place-items: center; border-radius: 50%; color: #fff; background: #1471ce; font-size: 11px; font-weight: 800; }
+  .marketing-process__card h3, .marketing-help__card h3, .marketing-benefits h3 { font-size: 13px; line-height: 1.2; color: #0b3268; text-transform: uppercase; }
+  .marketing-process__card > p, .marketing-help__card p, .marketing-benefits article p { margin-top: 13px; font-size: 12px; line-height: 1.5; color: #527597; }
+
+  .marketing-comparison__grid { display: grid; grid-template-columns: minmax(0, 1fr) 62px minmax(0, 1fr); align-items: center; gap: 18px; }
+  .marketing-comparison__side { display: grid; min-width: 0; padding: 24px; grid-template-columns: minmax(180px, .72fr) minmax(230px, 1fr); align-items: center; gap: 24px; border: 1px solid rgba(24,104,174,.09); border-radius: 26px; background: rgba(255,255,255,.76); }
+  .marketing-comparison__side figure { position: relative; width: min(260px, 100%); margin-inline: auto; }
+  .marketing-comparison__side figure img { width: 100%; height: auto; filter: drop-shadow(0 18px 22px rgba(22,65,108,.13)); }
+  .marketing-comparison__side h3 { font-size: 16px; line-height: 1.2; text-transform: uppercase; }
+  .marketing-comparison__side--without h3 { color: #e14f5b; }
+  .marketing-comparison__side--with h3 { color: #24874a; }
+  .marketing-comparison__side ul { display: grid; margin: 18px 0 0; padding: 0; gap: 10px; list-style: none; }
+  .marketing-comparison__side li { position: relative; padding-left: 22px; font-size: 12px; line-height: 1.35; color: #375f86; }
+  .marketing-comparison__side li::before { position: absolute; left: 0; top: 0; font-weight: 900; }
+  .marketing-comparison__side--without li::before { content: '×'; color: #e14f5b; }
+  .marketing-comparison__side--with li::before { content: '✓'; color: #24874a; }
+  .marketing-comparison__vs { display: grid; width: 62px; aspect-ratio: 1; place-items: center; border-radius: 50%; color: #0b3268; background: #fff; box-shadow: 0 12px 26px rgba(18,75,124,.12); font-weight: 900; }
+  .marketing-comparison__note { margin: 18px auto 0; max-width: 90ch; text-align: center; font-size: 11px; color: #718aa3; }
+  .marketing-comparison__conclusion { display: flex; max-width: 1160px; margin: 28px auto 0; padding: 18px 24px; align-items: center; gap: 16px; border-radius: 20px; color: #174b80; background: #e4f1fc; line-height: 1.45; }
+  .marketing-comparison__conclusion span { display: grid; flex: 0 0 38px; height: 38px; place-items: center; border-radius: 50%; color: #fff; background: #176fd0; }
+
+  .marketing-help, .marketing-benefits { padding: clamp(32px, 3vw, 48px); }
+  .marketing-help__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .marketing-help__card, .marketing-benefits article { padding: 24px 20px; border: 1px solid rgba(23,104,176,.09); border-radius: 22px; text-align: center; background: rgba(255,255,255,.78); box-shadow: 0 18px 30px -30px rgba(18,70,116,.65); }
+  .marketing-help__card > span, .marketing-benefits article > span { display: grid; width: 62px; height: 62px; margin: 0 auto 18px; padding: 14px; place-items: center; border-radius: 20px; color: #1775d0; background: linear-gradient(145deg, #eef8ff, #d9edfc); box-shadow: inset 0 1px 0 #fff, 0 10px 20px -16px rgba(15,91,159,.7); }
+  .marketing-help__more { max-width: 1220px; margin: 24px auto 0; color: #315d88; text-align: center; }
+  .marketing-help__more strong { display: inline-grid; width: 32px; height: 32px; margin-right: 10px; place-items: center; border-radius: 50%; color: #126bc4; background: #fff; }
+
+  .marketing-budget { display: grid; padding: clamp(30px, 4vw, 64px); grid-template-columns: minmax(300px, .8fr) minmax(0, 1.2fr); align-items: center; gap: clamp(30px, 5vw, 90px); }
+  .marketing-budget__asset { width: min(560px, 100%); justify-self: center; }
+  .marketing-budget__asset img { width: 100%; height: auto; }
+  .marketing-budget__copy { max-width: 760px; }
+  .marketing-budget__copy > strong { display: block; margin-top: 14px; color: #0d4d8f; font-size: 18px; text-transform: uppercase; }
+  .marketing-budget__copy aside { display: flex; margin-top: 22px; padding: 16px 18px; align-items: center; gap: 14px; border-radius: 18px; background: #e5f1fc; }
+  .marketing-budget__copy aside > span { display: grid; flex: 0 0 30px; height: 30px; place-items: center; border-radius: 50%; color: #fff; background: #1674d0; font-weight: 800; }
+  .marketing-budget__copy aside p { color: #416c94; line-height: 1.4; }
+  .marketing-budget__copy .marketing-button { margin-top: 24px; }
+
+  .marketing-benefits__grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 12px; }
+  .marketing-benefits article { padding-inline: 14px; }
+  .marketing-benefits article > span { width: 52px; height: 52px; padding: 12px; }
+  .marketing-benefits article p { font-size: 11px; }
+
+  .marketing-final-cta { display: grid; min-height: 190px; padding: 24px 38px; grid-template-columns: 140px minmax(0, 1fr) auto 140px; align-items: center; gap: 24px; overflow: hidden; }
+  .marketing-final-cta > img { width: 130px; height: 130px; object-fit: contain; }
+  .marketing-final-cta h2 { font-size: clamp(25px, 2.1vw, 38px); }
+
+  @media (max-width: 1199px) and (min-width: 1020px) {
+    .marketing-process__card { min-height: 330px; padding-inline: 13px; }
+    .marketing-comparison__side { padding: 18px; grid-template-columns: minmax(145px, .65fr) minmax(190px, 1fr); gap: 16px; }
+    .marketing-benefits__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 1019px) {
+    .marketing-hero { min-height: max(1120px, 100vh); padding: 116px 28px 95px; }
+    .marketing-hero__inner { display: flex; min-height: 0; flex-direction: column; align-items: center; }
+    .marketing-hero__cloud { width: min(820px, 108vw); flex: 0 0 auto; }
+    .marketing-hero__cloud > svg { transform: translateX(clamp(-28px, -2.5vw, -18px)); }
+    .marketing-hero__copy { width: 61%; transform: translate(-48%, -42%); }
+    .marketing-hero__copy h1 { font-size: clamp(38px, 5.8vw, 49px); }
+    .marketing-hero__visual { width: min(760px, 90vw); margin: -44px auto 0; }
+    .marketing-content { width: min(100% - 28px, 920px); margin-top: -28px; }
+    .marketing-process__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .marketing-process__card { min-height: 280px; padding: 18px; }
+    .marketing-process__card:not(:last-child)::after { display: none; }
+    .marketing-process__card:last-child { width: calc(50% - 7px); grid-column: 1 / -1; justify-self: center; }
+    .marketing-comparison__grid { grid-template-columns: 1fr; }
+    .marketing-comparison__side { grid-template-columns: minmax(180px, .7fr) 1fr; }
+    .marketing-comparison__side--with > div { order: 2; }
+    .marketing-comparison__side--with > figure { order: 1; }
+    .marketing-comparison__vs { width: 54px; justify-self: center; }
+    .marketing-help__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .marketing-budget { grid-template-columns: minmax(250px, .75fr) minmax(0, 1.25fr); gap: 26px; }
+    .marketing-benefits__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .marketing-final-cta { grid-template-columns: 110px minmax(0, 1fr) auto; }
+    .marketing-final-cta > img { width: 105px; height: 105px; }
+    .marketing-final-cta > img:last-child { display: none; }
+  }
+
+  @media (max-width: 699px) {
+    .marketing-eyebrow { font-size: 9px; }
+    .marketing-button { width: 100%; min-height: 48px; padding-inline: 18px; font-size: 11px; }
+    .marketing-hero { min-height: max(900px, 100vh); padding: 96px 13px 68px; }
+    .marketing-sky__sun { top: 9%; right: 3%; width: 70px; }
+    .marketing-hero__cloud { width: 140vw; margin: 0; }
+    .marketing-hero__cloud > svg { transform: none; }
+    .marketing-hero__copy { width: 55%; transform: translate(-49%, -41%); }
+    .marketing-hero__copy h1 { margin-top: 8px; font-size: clamp(27px, 7.7vw, 33px); line-height: .95; }
+    .marketing-hero__copy > p:last-of-type { margin-top: 14px; font-size: 12px; line-height: 1.45; }
+    .marketing-hero__copy .marketing-button { margin-top: 17px; }
+    .marketing-hero__visual { width: 104vw; margin-top: -12px; }
+    .marketing-content { width: calc(100% - 16px); margin-top: -20px; padding-bottom: 54px; gap: 16px; }
+    .marketing-panel, .marketing-final-cta { border-radius: 26px; }
+    .marketing-panel, .marketing-help, .marketing-benefits { padding: 25px 14px; }
+    .marketing-heading { margin-bottom: 22px; }
+    .marketing-heading h2, .marketing-budget h2 { font-size: 27px; }
+    .marketing-heading > p:last-child { margin-top: 9px; font-size: 12px; }
+    .marketing-process__grid { gap: 9px; }
+    .marketing-process__card { min-height: 270px; padding: 12px 10px 16px; border-radius: 18px; }
+    .marketing-process__card:last-child { width: calc(50% - 5px); }
+    .marketing-process__asset { width: min(112px, 84%); }
+    .marketing-process__number { width: 25px; height: 25px; margin-bottom: 9px; font-size: 9px; }
+    .marketing-process__card h3 { font-size: 11px; }
+    .marketing-process__card > p { margin-top: 9px; font-size: 11px; }
+    .marketing-comparison__side { padding: 16px 12px; grid-template-columns: 1fr; text-align: center; }
+    .marketing-comparison__side figure { width: min(250px, 76%); }
+    .marketing-comparison__side--with > div, .marketing-comparison__side--with > figure { order: initial; }
+    .marketing-comparison__side ul { text-align: left; }
+    .marketing-comparison__conclusion { padding: 16px; align-items: flex-start; font-size: 12px; }
+    .marketing-help__grid, .marketing-benefits__grid { gap: 9px; }
+    .marketing-help__card, .marketing-benefits article { padding: 17px 10px; border-radius: 18px; }
+    .marketing-help__card > span, .marketing-benefits article > span { width: 50px; height: 50px; margin-bottom: 13px; padding: 11px; border-radius: 16px; }
+    .marketing-help__card h3, .marketing-benefits h3 { font-size: 11px; }
+    .marketing-help__card p, .marketing-benefits article p { margin-top: 8px; font-size: 10.5px; }
+    .marketing-help__more { font-size: 11px; }
+    .marketing-budget { padding: 24px 18px; grid-template-columns: 1fr; gap: 8px; }
+    .marketing-budget__asset { width: min(330px, 92%); }
+    .marketing-budget__copy { text-align: left; }
+    .marketing-budget__copy > strong { font-size: 14px; }
+    .marketing-budget__copy > p { font-size: 12px; }
+    .marketing-budget__copy aside { padding: 14px; font-size: 11px; }
+    .marketing-final-cta { min-height: 0; padding: 25px 18px; grid-template-columns: 1fr; gap: 16px; text-align: center; }
+    .marketing-final-cta > img { display: none; }
+    .marketing-final-cta h2 { font-size: 26px; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .marketing-hero__cloud, .marketing-hero__visual { animation: marketing-rise 700ms cubic-bezier(.2,.8,.2,1) both; }
+    .marketing-hero__visual { animation-delay: 90ms; }
+  }
+
+  @keyframes marketing-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+</style>

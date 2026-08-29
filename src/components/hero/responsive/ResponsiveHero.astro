@@ -166,7 +166,17 @@ const responsiveMenuDescriptions = [
                   <p class="rh-service__eyebrow">{service.eyebrow}</p>
                   <h3>{service.title.join(' ')}</h3>
                   <p class="rh-service__description">{service.description}</p>
-                  <span class="rh-service__decorative-arrow" aria-hidden="true">→</span>
+                  {service.id === 'contenido' || service.id === 'web' ? (
+                    <a
+                      class="rh-service__decorative-arrow"
+                      href={service.id === 'contenido' ? '/marketing' : '/desarrollo-web'}
+                      aria-label={service.id === 'contenido' ? 'Saber más sobre marketing digital' : 'Saber más sobre desarrollo web'}
+                    >
+                      →
+                    </a>
+                  ) : (
+                    <span class="rh-service__decorative-arrow" aria-hidden="true">→</span>
+                  )}
                 </div>
               </article>
             ))
@@ -522,6 +532,7 @@ const responsiveMenuDescriptions = [
     height: 28px;
     place-items: center;
     border-radius: 50%;
+    text-decoration: none;
     color: #fff;
     background: #2c86d5;
     font-size: 14px;

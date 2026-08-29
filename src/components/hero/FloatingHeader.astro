@@ -1,5 +1,24 @@
 ---
-import { header } from '../../data/hero';
+import { header as defaultHeader } from '../../data/hero';
+
+interface HeaderLink {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  alwaysVisible?: boolean;
+  brandHref?: string;
+  nav?: readonly HeaderLink[];
+  cta?: HeaderLink;
+}
+
+const {
+  alwaysVisible = false,
+  brandHref = '#top',
+  nav = defaultHeader.nav,
+  cta = defaultHeader.cta,
+} = Astro.props;
 
 /**
  * Floating capsule header. Absent from the first frame — not even the
@@ -16,9 +35,9 @@ import { header } from '../../data/hero';
  */
 ---
 
-<header class="hdr" data-header>
+<header class:list={['hdr', { 'hdr--visible': alwaysVisible }]} data-header>
   <div class="hdr__capsule" data-header-capsule>
-    <a class="hdr__brand" href="#top" aria-label={`${header.wordmark} — inicio`}>
+    <a class="hdr__brand" href={brandHref} aria-label={`${defaultHeader.wordmark} — inicio`}>
       <img
         class="hdr__logo"
         src="/brand/optimized/altaria-v2-logo-header-384.webp"
@@ -30,12 +49,112 @@ import { header } from '../../data/hero';
     </a>
 
     <nav class="hdr__nav" aria-label="Principal">
-      {header.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      {nav.map((item: HeaderLink) => <a href={item.href}>{item.label}</a>)}
     </nav>
 
-    <a class="hdr__cta" href={header.cta.href}>{header.cta.label}</a>
+    <a class="hdr__cta" href={cta.href}>{cta.label}</a>
+
+    <div class="hdr__menu" data-header-menu-root>
+      <button
+        class="hdr__menu-button"
+        type="button"
+        aria-expanded="false"
+        aria-controls="floating-header-menu"
+        aria-label="Abrir menú"
+        data-header-menu-button
+      >
+        <svg viewBox="0 0 20 20" aria-hidden="true">
+          <path class="hdr__menu-line" d="M2 5h16" />
+          <path class="hdr__menu-line" d="M2 10h16" />
+          <path class="hdr__menu-line" d="M2 15h16" />
+          <path class="hdr__close-line" d="M4 4l12 12" />
+          <path class="hdr__close-line" d="M16 4 4 16" />
+        </svg>
+      </button>
+
+      <nav
+        class="hdr__menu-panel"
+        id="floating-header-menu"
+        aria-label="Principal móvil"
+        hidden
+        inert
+        data-header-menu-panel
+      >
+        <ol>
+          {nav.map((item: HeaderLink, index: number) => (
+            <li style={`--hdr-menu-order: ${index}`}>
+              <a href={item.href}>
+                <span class="hdr__menu-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                <strong>{item.label}</strong>
+                <span class="hdr__menu-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+        <a class="hdr__menu-cta" href={cta.href} style={`--hdr-menu-order: ${nav.length}`}>
+          <span>{cta.label}</span><span aria-hidden="true">→</span>
+        </a>
+      </nav>
+    </div>
   </div>
 </header>
+
+<script>
+  const setHeaderRegionInert = (element: HTMLElement, value: boolean): void => {
+    element.inert = value;
+    if (value) element.setAttribute('inert', '');
+    else element.removeAttribute('inert');
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-header-menu-root]').forEach((root) => {
+    if (root.dataset.initialised === 'true') return;
+    root.dataset.initialised = 'true';
+
+    const capsule = root.closest<HTMLElement>('[data-header-capsule]');
+    const button = root.querySelector<HTMLButtonElement>('[data-header-menu-button]');
+    const panel = root.querySelector<HTMLElement>('[data-header-menu-panel]');
+    const backgroundRegions = Array.from(document.querySelectorAll<HTMLElement>('main, footer'));
+    const responsive = window.matchMedia('(max-width: 1019px)');
+    let open = false;
+    let closeTimer = 0;
+
+    const setMenu = (nextOpen: boolean, restoreFocus = false): void => {
+      if (!capsule || !button || !panel || open === nextOpen) return;
+      window.clearTimeout(closeTimer);
+      open = nextOpen;
+      setHeaderRegionInert(panel, !open);
+      backgroundRegions.forEach((region) => setHeaderRegionInert(region, open));
+      button.setAttribute('aria-expanded', String(open));
+      button.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+
+      if (open) {
+        panel.hidden = false;
+        void panel.offsetHeight;
+        capsule.classList.add('is-menu-open');
+        return;
+      }
+
+      capsule.classList.remove('is-menu-open');
+      if (restoreFocus) button.focus({ preventScroll: true });
+      closeTimer = window.setTimeout(() => {
+        if (!open) panel.hidden = true;
+      }, 380);
+    };
+
+    button?.addEventListener('click', () => setMenu(!open, open));
+    panel?.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('a')) setMenu(false);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && open) setMenu(false, true);
+    });
+    document.addEventListener('pointerdown', (event) => {
+      if (!open || capsule?.contains(event.target as Node)) return;
+      setMenu(false);
+    });
+    responsive.addEventListener('change', () => setMenu(false));
+  });
+</script>
 
 <style>
   .hdr {
@@ -81,6 +200,11 @@ import { header } from '../../data/hero';
     text-decoration: none;
   }
 
+  .hdr--visible .hdr__capsule {
+    opacity: 1;
+    transform: none;
+  }
+
   .hdr__logo {
     display: block;
     width: 100%;
@@ -123,5 +247,271 @@ import { header } from '../../data/hero';
 
   .hdr__cta:hover {
     transform: translateY(-1px);
+  }
+
+  .hdr__menu {
+    display: none;
+  }
+
+  @media (max-width: 1019px) {
+    .hdr {
+      inset-block-start: 20px;
+    }
+
+    .hdr__capsule {
+      position: relative;
+      align-items: flex-start;
+      width: calc(100% - 40px);
+      height: 62px;
+      padding: 6px 7px 6px 16px;
+      gap: 12px;
+      overflow: visible;
+      transition:
+        height 360ms cubic-bezier(0.22, 1, 0.36, 1),
+        border-radius 360ms cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 240ms ease;
+    }
+
+    .hdr__capsule.is-menu-open {
+      height: 304px;
+      border-radius: 29px 29px 38px 29px;
+      box-shadow: 0 28px 48px -30px rgba(7, 43, 85, 0.72);
+    }
+
+    .hdr__brand {
+      width: clamp(158px, 28vw, 190px);
+      min-width: clamp(158px, 28vw, 190px);
+      height: 48px;
+    }
+
+    .hdr__nav,
+    .hdr__cta {
+      display: none;
+    }
+
+    .hdr__menu {
+      position: static;
+      display: block;
+      margin-left: auto;
+    }
+
+    .hdr__menu-button {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      place-items: center;
+      border: 1px solid rgba(48, 126, 190, 0.18);
+      border-radius: 50%;
+      color: #1760a5;
+      background: rgba(218, 240, 252, 0.92);
+      cursor: pointer;
+      transition: color 180ms ease, background-color 180ms ease, transform 140ms ease;
+    }
+
+    .hdr__menu-button:hover {
+      color: #0c4f8c;
+      background: #cfe7f7;
+    }
+
+    .hdr__menu-button:active {
+      transform: scale(.96);
+    }
+
+    .hdr__menu-button:focus-visible,
+    .hdr__menu-panel a:focus-visible {
+      outline: 3px solid rgba(43, 129, 212, .42);
+      outline-offset: 3px;
+    }
+
+    .hdr__menu-button svg {
+      width: 20px;
+      height: 20px;
+      overflow: visible;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-width: 1.5;
+    }
+
+    .hdr__menu-line,
+    .hdr__close-line {
+      transform-origin: center;
+      transition: opacity 140ms ease, transform 220ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .hdr__close-line {
+      opacity: 0;
+      transform: scale(.65);
+    }
+
+    .hdr__menu-button[aria-expanded='true'] .hdr__menu-line {
+      opacity: 0;
+      transform: scaleX(.35);
+    }
+
+    .hdr__menu-button[aria-expanded='true'] .hdr__close-line {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .hdr__menu-panel {
+      position: absolute;
+      z-index: 1;
+      top: 62px;
+      right: 16px;
+      left: 16px;
+      height: 230px;
+      padding: 8px 0 16px;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition:
+        opacity 170ms ease,
+        transform 260ms cubic-bezier(.22, 1, .36, 1),
+        visibility 0s linear 260ms;
+    }
+
+    .hdr__menu-panel[hidden] {
+      display: none;
+    }
+
+    .hdr__capsule.is-menu-open .hdr__menu-panel {
+      pointer-events: auto;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      transition-delay: 40ms, 40ms, 0s;
+    }
+
+    .hdr__menu-panel ol {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hdr__menu-panel li,
+    .hdr__menu-cta {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 180ms ease, transform 240ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .hdr__capsule.is-menu-open .hdr__menu-panel li,
+    .hdr__capsule.is-menu-open .hdr__menu-cta {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: calc(90ms + var(--hdr-menu-order) * 55ms);
+    }
+
+    .hdr__menu-panel li a {
+      display: grid;
+      grid-template-columns: 32px minmax(0, 1fr) 24px;
+      min-height: 70px;
+      padding: 8px 10px;
+      align-items: center;
+      border-bottom: 1px solid rgba(21, 89, 152, .14);
+      color: #123963;
+      text-decoration: none;
+      transition: color 160ms ease, transform 180ms ease, background-color 160ms ease;
+    }
+
+    .hdr__menu-index {
+      align-self: start;
+      padding-top: 9px;
+      font-family: 'Lemon Milk', var(--font-sans);
+      font-size: 9px;
+      letter-spacing: .12em;
+      color: #2b81d4;
+    }
+
+    .hdr__menu-panel strong {
+      font-family: 'Lemon Milk', var(--font-sans);
+      font-size: clamp(13px, 2vw, 16px);
+      font-weight: 400;
+      letter-spacing: .035em;
+      text-transform: uppercase;
+    }
+
+    .hdr__menu-arrow {
+      justify-self: end;
+      font-size: 18px;
+    }
+
+    .hdr__menu-panel li a:hover {
+      color: #145998;
+      background: rgba(43, 129, 212, .06);
+      transform: translateX(4px);
+    }
+
+    .hdr__menu-panel .hdr__menu-cta {
+      display: flex;
+      width: min(100%, 300px);
+      min-height: 48px;
+      margin: 10px 0 0 auto;
+      padding: 0 18px;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #1762ad, #093b76);
+      text-decoration: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .hdr__capsule {
+      width: calc(100% - 26px);
+    }
+
+    .hdr__capsule.is-menu-open {
+      height: 365px;
+      border-radius: 27px 27px 42px 27px;
+    }
+
+    .hdr__brand {
+      width: 150px;
+      min-width: 150px;
+    }
+
+    .hdr__menu-panel {
+      height: 296px;
+      padding-top: 6px;
+    }
+
+    .hdr__menu-panel ol {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .hdr__menu-panel li a {
+      min-height: 64px;
+      padding-block: 6px;
+    }
+
+    .hdr__menu-panel .hdr__menu-cta {
+      width: min(100%, 270px);
+      margin: 12px auto 0;
+      min-height: 50px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hdr__capsule,
+    .hdr__menu-panel,
+    .hdr__menu-line,
+    .hdr__close-line,
+    .hdr__menu-panel li,
+    .hdr__menu-cta {
+      transition-duration: 1ms !important;
+      transition-delay: 0ms !important;
+    }
   }
 </style>

@@ -1,0 +1,1277 @@
+---
+import FloatingHeader from '../components/hero/FloatingHeader.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+import WebIcon from '../components/web/WebIcon.astro';
+import Base from '../layouts/Base.astro';
+
+const contactHref = '/#contacto';
+
+const headerNav = [
+  { label: 'Servicios', href: '/servicios' },
+  { label: 'Caso real', href: '/#caso-real' },
+  { label: 'Proceso', href: '/#como-funciona' },
+] as const;
+
+const processSteps = [
+  {
+    number: '01',
+    asset: 1,
+    title: 'Hablamos contigo',
+    description: 'Conocemos tu negocio, objetivos y necesidades.',
+  },
+  {
+    number: '02',
+    asset: 2,
+    title: 'Te entendemos',
+    description: 'Investigamos tu sector y entendemos realmente qué necesitas.',
+  },
+  {
+    number: '03',
+    asset: 3,
+    title: 'Diseñamos',
+    description: 'Creamos la estructura, el diseño y la dirección visual.',
+  },
+  {
+    number: '04',
+    asset: 4,
+    title: 'Te pedimos feedback',
+    description: 'Te enseñamos la propuesta y recogemos tus comentarios.',
+  },
+  {
+    number: '05',
+    asset: 5,
+    title: 'Primera mitad',
+    description: 'Con el diseño aprobado, cobramos el 50% inicial y comenzamos.',
+  },
+  {
+    number: '06',
+    asset: 6,
+    title: 'Desarrollamos',
+    description: 'Convertimos el diseño en una web rápida, segura y responsive.',
+  },
+  {
+    number: '07–08',
+    asset: 7,
+    title: 'Feedback y modificaciones',
+    description: 'Revisamos la web real y ajustamos todo antes de cerrarla.',
+  },
+  {
+    number: '09',
+    asset: 8,
+    title: 'Segunda mitad',
+    description: 'Con todo aprobado, se abona el 50% restante.',
+  },
+  {
+    number: '10',
+    asset: 9,
+    title: 'Desplegamos y te acompañamos',
+    description: 'Publicamos, mantenemos y seguimos mejorando tu web.',
+  },
+] as const;
+
+const benefits = [
+  {
+    icon: 'time',
+    title: 'Ahorras tiempo',
+    description: 'Automatiza procesos, centraliza información y reduce tareas repetitivas.',
+  },
+  {
+    icon: 'growth',
+    title: 'Mejoras tus beneficios',
+    description: 'Convierte más visitantes en clientes con una web pensada para vender y escalar.',
+  },
+  {
+    icon: 'star',
+    title: 'Fortaleces tu marca',
+    description: 'Transmite profesionalidad, genera confianza y te diferencia de la competencia.',
+  },
+  {
+    icon: 'users',
+    title: 'Mejor experiencia',
+    description: 'Tus clientes navegan fácil, rápido y desde cualquier dispositivo.',
+  },
+] as const;
+
+const funnelStages = [
+  ['Atraer', 'Contenido y SEO para que te encuentren.'],
+  ['Interesar', 'Diseño claro y mensajes que conectan.'],
+  ['Convertir', 'Llamadas a la acción que generan clientes.'],
+  ['Fidelizar', 'Una experiencia excelente que hace que vuelvan.'],
+  ['Recomendar', 'Clientes satisfechos que te recomiendan.'],
+] as const;
+
+const included = [
+  ['design', 'Diseño 100% a medida', 'Adaptado a tu marca y objetivos.'],
+  ['speed', 'Web rápida y optimizada', 'Carga ultrarrápida para mejorar experiencia y posicionamiento.'],
+  ['responsive', 'Responsive', 'Perfecta en móvil, tablet y desktop.'],
+  ['seo', 'SEO on-page', 'Estructura y contenido preparados para Google.'],
+  ['security', 'Seguridad', 'Buenas prácticas y tecnología actual.'],
+  ['support', 'Soporte y mejoras', 'Mantenimiento, métricas y evolución después del lanzamiento.'],
+] as const;
+---
+
+<Base
+  title="Desarrollo Web a Medida | Altaria Lights"
+  description="Diseñamos y desarrollamos páginas web rápidas, modernas y a medida para empresas que quieren mejorar su presencia digital y convertir más visitas en clientes."
+  canonical="/desarrollo-web"
+>
+  <FloatingHeader
+    alwaysVisible
+    brandHref="/"
+    nav={headerNav}
+    cta={{ label: 'Hablemos', href: contactHref }}
+  />
+
+  <main class="web-page" id="top">
+    <section class="web-hero" aria-labelledby="web-hero-title">
+      <div class="web-sky" aria-hidden="true">
+        <span class="web-sky__sun"></span>
+        <span class="web-sky__haze"></span>
+        <span class="web-sky__clouds web-sky__clouds--far"></span>
+        <span class="web-sky__clouds web-sky__clouds--near"></span>
+      </div>
+
+      <div class="web-hero__inner">
+        <div class="web-hero__cloud">
+          <svg viewBox="0 0 900 650" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="web-cloud-fill" gradientUnits="userSpaceOnUse" x1="0" y1="70" x2="0" y2="620">
+                <stop offset="0" stop-color="#ffffff" />
+                <stop offset="0.55" stop-color="#fafdff" />
+                <stop offset="1" stop-color="#e6f1fa" />
+              </linearGradient>
+              <radialGradient id="web-cloud-sheen" gradientUnits="userSpaceOnUse" cx="315" cy="168" r="315">
+                <stop offset="0" stop-color="#ffffff" stop-opacity=".88" />
+                <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <g fill="url(#web-cloud-fill)">
+              <!-- Solid inner core: prevents sub-pixel seams where the outer
+                   ellipses meet without changing the cloud silhouette. -->
+              <ellipse cx="460" cy="390" rx="285" ry="180" />
+              <ellipse cx="210" cy="390" rx="175" ry="145" />
+              <ellipse cx="315" cy="260" rx="180" ry="170" />
+              <ellipse cx="485" cy="215" rx="205" ry="185" />
+              <ellipse cx="665" cy="318" rx="200" ry="175" />
+              <ellipse cx="300" cy="495" rx="182" ry="116" />
+              <ellipse cx="490" cy="518" rx="220" ry="118" />
+              <ellipse cx="664" cy="486" rx="170" ry="112" />
+            </g>
+            <g fill="url(#web-cloud-sheen)" opacity=".72">
+              <ellipse cx="305" cy="220" rx="118" ry="92" />
+              <ellipse cx="460" cy="170" rx="145" ry="100" />
+            </g>
+          </svg>
+
+          <div class="web-hero__copy">
+            <p class="web-eyebrow">Desarrollo web</p>
+            <h1 id="web-hero-title">
+              <span>Desarrollo web</span><span>que impulsa</span><span>tu negocio.</span>
+            </h1>
+            <p>Creamos sitios web modernos, rápidos y seguros que convierten visitantes en clientes.</p>
+            <a class="web-button" href={contactHref} data-web-cta="hero">
+              <span>Hablemos de tu proyecto</span><span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+
+        <picture class="web-hero__visual">
+          <source
+            srcset="/media/web/optimized/hero-720.webp 720w, /media/web/optimized/hero-1200.webp 1200w"
+            sizes="(max-width: 699px) 96vw, (max-width: 1019px) 88vw, 50vw"
+            type="image/webp"
+          />
+          <img
+            src="/media/web/hero.png"
+            width="1448"
+            height="1086"
+            alt="Composición tridimensional de una interfaz web, herramientas de diseño y un cohete"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </picture>
+      </div>
+    </section>
+
+    <div class="web-hero-transition" aria-hidden="true">
+      <svg viewBox="0 0 1900 160" preserveAspectRatio="none">
+        <path d="M0 0H1900V72C1795 72 1740 105 1640 96C1540 86 1490 62 1385 78C1270 96 1190 113 1070 91C960 70 870 66 760 87C650 108 560 102 455 82C345 62 250 72 160 96C92 114 42 108 0 94V0Z" />
+      </svg>
+    </div>
+
+    <div class="web-content">
+      <section class="web-panel web-process" aria-labelledby="process-title">
+        <header class="web-heading">
+          <p class="web-eyebrow">Un recorrido compartido</p>
+          <h2 id="process-title">Cómo trabajamos contigo</h2>
+          <p>Un proceso claro, transparente y colaborativo para que tu web supere tus expectativas.</p>
+        </header>
+
+        <ol class="web-process__grid">
+          {processSteps.map((step) => (
+            <li class="web-process__card">
+              <picture class="web-process__asset">
+                <source
+                  srcset={`/media/web/optimized/step-${step.asset}-240.webp 240w, /media/web/optimized/step-${step.asset}-420.webp 420w`}
+                  sizes="(max-width: 699px) 105px, (max-width: 1019px) 135px, 145px"
+                  type="image/webp"
+                />
+                <img
+                  src={`/media/web/${step.asset}.png`}
+                  width="1254"
+                  height="1254"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+              <span class="web-process__number">{step.number}</span>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="web-panel web-benefits" aria-labelledby="benefits-title">
+        <header class="web-heading">
+          <p class="web-eyebrow">Una inversión que trabaja</p>
+          <h2 id="benefits-title">¿Por qué tener una buena web te beneficia?</h2>
+          <p>Una web profesional no es un gasto, es una inversión que genera resultados.</p>
+        </header>
+
+        <div class="web-benefits__grid">
+          {benefits.map((benefit) => (
+            <article class="web-benefit">
+              <span class="web-benefit__icon"><WebIcon name={benefit.icon} /></span>
+              <div>
+                <h3>{benefit.title}</h3>
+                <p>{benefit.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <div class="web-business-grid">
+        <section class="web-panel web-funnel" aria-labelledby="funnel-title">
+          <header class="web-block-heading">
+            <p class="web-eyebrow">Conversión con sentido</p>
+            <h2 id="funnel-title">Un funnel de ventas<br />que trabaja por ti</h2>
+            <p>Diseñamos tu web pensando en cada etapa del viaje de tu cliente para atraer, convertir y fidelizar.</p>
+          </header>
+
+          <div class="web-funnel__body">
+            <picture class="web-funnel__asset">
+              <source
+                srcset="/media/web/optimized/funnel-520.webp 520w, /media/web/optimized/funnel-760.webp 760w"
+                sizes="(max-width: 699px) 52vw, (max-width: 1019px) 320px, 360px"
+                type="image/webp"
+              />
+              <img
+                src="/media/web/funnel.png"
+                width="1448"
+                height="1086"
+                alt="Embudo de ventas con cinco etapas"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <ol class="web-funnel__stages">
+              {funnelStages.map(([title, description]) => (
+                <li><span></span><div><strong>{title}</strong><p>{description}</p></div></li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section class="web-panel web-price" id="precio" aria-labelledby="price-title">
+          <header class="web-block-heading">
+            <p class="web-eyebrow">Un punto de partida claro</p>
+            <h2 id="price-title">Empezamos desde lo esencial<br />y escalamos contigo</h2>
+            <p>Nuestro servicio de desarrollo web parte de un mínimo para proyectos básicos y crece según tus necesidades.</p>
+          </header>
+
+          <div class="web-price__offer">
+            <div class="web-price__amount">
+              <span>Desde</span>
+              <strong>400 €</strong>
+              <b>+ 10 €/mes</b>
+            </div>
+            <ul>
+              <li>Diseño responsive y moderno</li>
+              <li>Web rápida y segura</li>
+              <li>SEO básico incluido</li>
+              <li>Soporte y mantenimiento</li>
+            </ul>
+          </div>
+
+          <aside class="web-price__notice">
+            <span><WebIcon name="info" /></span>
+            <p>
+              Todo proyecto se presupuesta según las necesidades del cliente. Para funcionalidades especiales,
+              integraciones, ecommerce, reservas, automatizaciones o desarrollos personalizados, preparamos una propuesta a medida.
+            </p>
+          </aside>
+
+          <a class="web-button web-price__cta" href={contactHref} data-web-cta="price">
+            <span>Cuéntanos qué necesitas</span><span aria-hidden="true">→</span>
+          </a>
+        </section>
+      </div>
+
+      <section class="web-panel web-included" aria-labelledby="included-title">
+        <header class="web-heading">
+          <p class="web-eyebrow">Preparada para crecer</p>
+          <h2 id="included-title">Todo lo que incluye tu web</h2>
+          <p>Tecnología, diseño y estrategia para que tu web sea tu mejor comercial.</p>
+        </header>
+
+        <div class="web-included__grid">
+          {included.map(([icon, title, description]) => (
+            <article class="web-included__card">
+              <span><WebIcon name={icon} /></span>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="web-final-cta" aria-labelledby="final-cta-title">
+        <img src="/media/servicios/optimized/marketing-320.webp" width="320" height="320" alt="" loading="lazy" decoding="async" />
+        <div>
+          <h2 id="final-cta-title">¿Listo para llevar tu web<br />al siguiente nivel?</h2>
+          <p>Construyamos juntos un sitio web que conecte, convierta y haga crecer tu negocio.</p>
+        </div>
+        <a class="web-button" href={contactHref} data-web-cta="final">
+          <span>Hablemos de tu proyecto</span><span aria-hidden="true">→</span>
+        </a>
+        <img src="/media/servicios/optimized/marketing-320.webp" width="320" height="320" alt="" loading="lazy" decoding="async" />
+      </section>
+    </div>
+  </main>
+
+  <SiteFooter anchorPrefix="/" />
+</Base>
+
+<script>
+  import { captureEvent } from '../lib/analytics/posthog';
+
+  document.querySelectorAll<HTMLElement>('[data-web-cta]').forEach((cta) => {
+    cta.addEventListener('click', () => {
+      void captureEvent('web_service_cta_clicked', {
+        placement: cta.dataset.webCta ?? 'unknown',
+        destination: cta.getAttribute('href'),
+      });
+    });
+  });
+</script>
+
+<style>
+  .web-page {
+    color: #123b69;
+    background: #edf7fd;
+  }
+
+  .web-eyebrow {
+    font-size: 11px;
+    font-weight: 780;
+    letter-spacing: .11em;
+    color: #1371c9;
+    text-transform: uppercase;
+  }
+
+  .web-button {
+    display: inline-flex;
+    min-height: 52px;
+    padding: 0 24px;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 750;
+    color: #fff;
+    background: linear-gradient(135deg, #1762ad, #07396f);
+    box-shadow: 0 14px 28px -16px rgba(7, 55, 108, .8);
+    text-decoration: none;
+    transition: transform 180ms ease, filter 180ms ease;
+  }
+
+  .web-button:hover {
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+  }
+
+  .web-hero {
+    position: relative;
+    min-height: max(780px, 100vh);
+    padding: 132px max(34px, 5vw) 120px;
+    overflow: hidden;
+    isolation: isolate;
+    background: linear-gradient(180deg, #62afe0 0%, #8bc7eb 52%, #d8eef9 100%);
+  }
+
+  .web-sky,
+  .web-sky__clouds {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .web-sky__sun {
+    position: absolute;
+    top: 10%;
+    right: 7%;
+    width: clamp(38px, 4.5vw, 78px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #fffdf6;
+    box-shadow: 0 0 0 18px rgba(255, 253, 246, .1), 0 0 50px 22px rgba(255, 253, 246, .42);
+  }
+
+  .web-sky__haze {
+    position: absolute;
+    right: -10%;
+    bottom: 0;
+    left: -10%;
+    height: 31%;
+    background: linear-gradient(180deg, transparent, rgba(244, 251, 255, .76) 72%, #fff 100%);
+  }
+
+  .web-sky__clouds {
+    top: auto;
+    height: 22%;
+    background:
+      radial-gradient(ellipse 24% 74% at 2% 106%, #fff 0 97%, transparent 100%),
+      radial-gradient(ellipse 28% 68% at 26% 112%, #fff 0 97%, transparent 100%),
+      radial-gradient(ellipse 30% 72% at 56% 111%, #fff 0 97%, transparent 100%),
+      radial-gradient(ellipse 28% 70% at 83% 110%, #fff 0 97%, transparent 100%),
+      radial-gradient(ellipse 22% 68% at 103% 105%, #fff 0 97%, transparent 100%);
+  }
+
+  .web-sky__clouds--far {
+    bottom: 7%;
+    opacity: .34;
+    filter: blur(12px);
+    transform: scale(.88);
+  }
+
+  .web-sky__clouds--near {
+    bottom: -2%;
+  }
+
+  .web-hero__inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    width: min(1660px, 100%);
+    min-height: 640px;
+    margin-inline: auto;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+    align-items: center;
+    gap: clamp(22px, 3vw, 60px);
+  }
+
+  .web-hero__cloud {
+    position: relative;
+    z-index: 2;
+    width: min(860px, 100%);
+    aspect-ratio: 900 / 650;
+  }
+
+  .web-hero__cloud > svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    filter: drop-shadow(0 20px 17px rgba(54, 124, 174, .22));
+  }
+
+  .web-hero__copy {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    width: 64%;
+    transform: translate(-48%, -42%);
+  }
+
+  .web-hero__copy h1,
+  .web-heading h2,
+  .web-block-heading h2,
+  .web-final-cta h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    color: #0b3268;
+    text-transform: uppercase;
+  }
+
+  .web-hero__copy h1 {
+    margin-top: 12px;
+    font-size: clamp(40px, 3.25vw, 62px);
+    line-height: .96;
+  }
+
+  .web-hero__copy h1 span {
+    display: block;
+  }
+
+  .web-hero__copy > p:last-of-type {
+    max-width: 43ch;
+    margin-top: 22px;
+    font-size: clamp(15px, 1.05vw, 18px);
+    line-height: 1.5;
+    color: #43698f;
+  }
+
+  .web-hero__copy .web-button {
+    margin-top: 25px;
+  }
+
+  .web-hero__visual {
+    position: relative;
+    z-index: 1;
+    width: min(820px, 100%);
+    filter: drop-shadow(0 28px 28px rgba(25, 86, 137, .16));
+  }
+
+  .web-hero__visual img {
+    width: 100%;
+    height: auto;
+  }
+
+  @media (min-width: 1200px) {
+    .web-hero__cloud {
+      --web-cloud-left-extension: clamp(54px, 4.2vw, 82px);
+    }
+
+    .web-hero__cloud > svg {
+      inset: 0 auto 0 calc(var(--web-cloud-left-extension) * -1);
+      width: calc(100% + var(--web-cloud-left-extension));
+    }
+  }
+
+  .web-content {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    width: min(1780px, calc(100% - 40px));
+    margin: -42px auto 0;
+    padding-bottom: 72px;
+    gap: 28px;
+  }
+
+  .web-hero-transition {
+    display: none;
+  }
+
+  @media (min-width: 1020px) {
+    .web-hero-transition {
+      position: relative;
+      z-index: 2;
+      display: block;
+      width: 100vw;
+      height: 160px;
+      margin-top: -100px;
+      margin-bottom: -60px;
+      pointer-events: none;
+    }
+
+    .web-hero-transition svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      filter: drop-shadow(0 14px 15px rgba(92, 156, 198, .08));
+    }
+
+    .web-hero-transition path {
+      fill: #fff;
+    }
+  }
+
+  .web-panel,
+  .web-final-cta {
+    border: 1px solid rgba(255, 255, 255, .9);
+    border-radius: 34px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, .94), rgba(239, 248, 254, .9));
+    box-shadow: 0 24px 55px -40px rgba(15, 72, 120, .48);
+  }
+
+  .web-panel {
+    padding: clamp(30px, 3vw, 54px);
+  }
+
+  .web-heading {
+    max-width: 900px;
+    margin: 0 auto clamp(26px, 3vw, 44px);
+    text-align: center;
+  }
+
+  .web-heading h2,
+  .web-block-heading h2,
+  .web-final-cta h2 {
+    margin-top: 8px;
+    font-size: clamp(28px, 2.35vw, 44px);
+    line-height: 1;
+  }
+
+  .web-heading > p:last-child,
+  .web-block-heading > p:last-child,
+  .web-final-cta p {
+    margin-top: 12px;
+    line-height: 1.55;
+    color: #527597;
+  }
+
+  .web-process__grid {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    gap: 12px;
+    list-style: none;
+  }
+
+  .web-process__card {
+    position: relative;
+    min-width: 0;
+    min-height: 330px;
+    padding: 14px 13px 18px;
+    border: 1px solid rgba(23, 104, 176, .1);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, .82);
+    box-shadow: 0 18px 30px -28px rgba(18, 70, 116, .65);
+  }
+
+  .web-process__card:not(:last-child)::after {
+    position: absolute;
+    z-index: 2;
+    top: 102px;
+    right: -16px;
+    width: 20px;
+    content: '→';
+    font-size: 16px;
+    font-weight: 800;
+    color: #80b8e6;
+    text-align: center;
+  }
+
+  .web-process__asset {
+    display: block;
+    width: min(100%, 132px);
+    margin: 0 auto 5px;
+    aspect-ratio: 1;
+  }
+
+  .web-process__asset img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .web-process__number {
+    display: inline-grid;
+    min-width: 27px;
+    height: 27px;
+    padding-inline: 5px;
+    place-items: center;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 820;
+    color: #fff;
+    background: #1472cc;
+  }
+
+  .web-process__card h3,
+  .web-benefit h3,
+  .web-included__card h3 {
+    font-size: 12px;
+    line-height: 1.25;
+    color: #0d376e;
+    text-transform: uppercase;
+  }
+
+  .web-process__card h3 {
+    min-height: 44px;
+    margin-top: 10px;
+  }
+
+  .web-process__card p,
+  .web-benefit p,
+  .web-included__card p {
+    margin-top: 8px;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #587796;
+  }
+
+  .web-benefits {
+    background: linear-gradient(135deg, rgba(244, 251, 255, .96), rgba(225, 242, 252, .86));
+  }
+
+  .web-benefits__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .web-benefit {
+    display: grid;
+    min-height: 150px;
+    padding: 24px;
+    grid-template-columns: 64px 1fr;
+    align-items: center;
+    gap: 18px;
+    border: 1px solid rgba(23, 104, 176, .09);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, .8);
+  }
+
+  .web-benefit__icon,
+  .web-included__card > span {
+    display: grid;
+    color: #1472cc;
+    background: linear-gradient(145deg, #edf8ff, #dceffc);
+    box-shadow: inset 0 0 0 1px rgba(47, 132, 203, .08);
+    place-items: center;
+  }
+
+  .web-benefit__icon {
+    width: 64px;
+    height: 64px;
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .web-benefit h3 {
+    font-size: 14px;
+  }
+
+  .web-business-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+  }
+
+  .web-block-heading {
+    max-width: 620px;
+  }
+
+  .web-funnel__body {
+    display: grid;
+    margin-top: 28px;
+    grid-template-columns: minmax(220px, .82fr) minmax(270px, 1fr);
+    align-items: center;
+    gap: 14px;
+  }
+
+  .web-funnel__asset img {
+    width: 100%;
+    height: auto;
+  }
+
+  .web-funnel__stages {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    gap: 14px;
+    list-style: none;
+  }
+
+  .web-funnel__stages li {
+    display: grid;
+    grid-template-columns: 14px 1fr;
+    align-items: start;
+    gap: 11px;
+  }
+
+  .web-funnel__stages li > span {
+    width: 10px;
+    height: 10px;
+    margin-top: 5px;
+    border: 3px solid #dff0fb;
+    border-radius: 50%;
+    background: #1472cc;
+    box-shadow: 0 0 0 1px #1472cc;
+  }
+
+  .web-funnel__stages strong {
+    font-size: 13px;
+    color: #0b3a75;
+    text-transform: uppercase;
+  }
+
+  .web-funnel__stages p {
+    margin-top: 2px;
+    font-size: 11px;
+    line-height: 1.4;
+    color: #587796;
+  }
+
+  .web-price {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .web-price__offer {
+    display: grid;
+    margin-top: 30px;
+    grid-template-columns: minmax(185px, .7fr) minmax(260px, 1fr);
+    border: 1px solid rgba(23, 104, 176, .1);
+    border-radius: 24px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, .72);
+  }
+
+  .web-price__amount {
+    display: grid;
+    padding: 28px;
+    align-content: center;
+    color: #0a3b78;
+    background: linear-gradient(145deg, #e3f3ff, #f4faff);
+  }
+
+  .web-price__amount span {
+    font-size: 14px;
+  }
+
+  .web-price__amount strong {
+    margin-top: 4px;
+    font-size: clamp(42px, 4vw, 64px);
+    line-height: 1;
+  }
+
+  .web-price__amount b {
+    margin-top: 8px;
+    font-size: 20px;
+  }
+
+  .web-price__offer ul {
+    display: grid;
+    margin: 0;
+    padding: 26px 30px;
+    align-content: center;
+    gap: 14px;
+    list-style: none;
+  }
+
+  .web-price__offer li {
+    position: relative;
+    padding-left: 24px;
+    font-size: 13px;
+  }
+
+  .web-price__offer li::before {
+    position: absolute;
+    left: 0;
+    content: '✓';
+    font-weight: 850;
+    color: #1680d9;
+  }
+
+  .web-price__notice {
+    display: grid;
+    margin-top: 20px;
+    padding: 18px 20px;
+    grid-template-columns: 36px 1fr;
+    align-items: center;
+    gap: 14px;
+    border-radius: 18px;
+    background: rgba(225, 240, 252, .8);
+  }
+
+  .web-price__notice span {
+    width: 34px;
+    height: 34px;
+    padding: 5px;
+    color: #1472cc;
+  }
+
+  .web-price__notice p {
+    font-size: 11px;
+    line-height: 1.45;
+    color: #496d91;
+  }
+
+  .web-price__cta {
+    margin: 22px 0 0 auto;
+  }
+
+  .web-included__grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .web-included__card {
+    min-height: 160px;
+    padding: 22px 18px;
+    border: 1px solid rgba(23, 104, 176, .09);
+    border-radius: 20px;
+    text-align: center;
+    background: rgba(255, 255, 255, .78);
+  }
+
+  .web-included__card > span {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 14px;
+    padding: 11px;
+    border-radius: 16px;
+  }
+
+  .web-final-cta {
+    display: grid;
+    min-height: 190px;
+    padding: 24px 38px;
+    grid-template-columns: 140px minmax(0, 1fr) auto 140px;
+    align-items: center;
+    gap: 24px;
+    overflow: hidden;
+  }
+
+  .web-final-cta > img {
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    transform: none;
+  }
+
+  .web-final-cta > img:last-child {
+    transform: none;
+  }
+
+  .web-final-cta h2 {
+    font-size: clamp(25px, 2.1vw, 38px);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .web-hero__cloud,
+    .web-hero__visual {
+      animation: web-enter 640ms var(--ease-out) both;
+    }
+
+    .web-hero__visual {
+      animation-delay: 90ms;
+    }
+
+    @keyframes web-enter {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  }
+
+  @media (max-width: 1199px) {
+    .web-hero__inner {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+      gap: 20px;
+    }
+
+    .web-process__grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .web-process__card:not(:last-child)::after {
+      display: none;
+    }
+
+    .web-included__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .web-business-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 1019px) {
+    .web-hero {
+      min-height: max(1120px, 100vh);
+      padding: 116px 28px 95px;
+    }
+
+    .web-hero__inner {
+      display: flex;
+      min-height: 0;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .web-hero__cloud {
+      width: min(820px, 108vw);
+      flex: 0 0 auto;
+    }
+
+    .web-hero__cloud > svg {
+      transform: translateX(clamp(-28px, -2.5vw, -18px));
+    }
+
+    .web-hero__copy {
+      width: 61%;
+      transform: translate(-48%, -42%);
+    }
+
+    .web-hero__copy h1 {
+      font-size: clamp(40px, 6.2vw, 52px);
+    }
+
+    .web-hero__visual {
+      width: min(760px, 90vw);
+      margin: -44px auto 0;
+    }
+
+    .web-content {
+      width: min(100% - 28px, 920px);
+      margin-top: -28px;
+    }
+
+    .web-process__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .web-process__card {
+      min-height: 255px;
+      padding: 18px;
+    }
+
+    .web-process__card h3 {
+      min-height: 0;
+    }
+
+    .web-benefits__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .web-final-cta {
+      grid-template-columns: 110px minmax(0, 1fr) auto;
+    }
+
+    .web-final-cta > img {
+      width: 105px;
+      height: 105px;
+    }
+
+    .web-final-cta .web-button {
+      justify-self: start;
+    }
+
+    .web-final-cta > img:last-child {
+      display: none;
+    }
+  }
+
+  @media (max-width: 699px) {
+    .web-eyebrow {
+      font-size: 9px;
+    }
+
+    .web-button {
+      width: 100%;
+      min-height: 48px;
+      padding-inline: 18px;
+      font-size: 11px;
+    }
+
+    .web-hero {
+      min-height: max(900px, 100vh);
+      padding: 96px 13px 68px;
+    }
+
+    .web-sky__sun {
+      top: 9%;
+      right: 3%;
+      width: 70px;
+    }
+
+    .web-hero__cloud {
+      width: 140vw;
+      margin: 0;
+    }
+
+    .web-hero__cloud > svg {
+      transform: none;
+    }
+
+    .web-hero__copy {
+      width: 55%;
+      transform: translate(-49%, -41%);
+    }
+
+    .web-hero__copy h1 {
+      margin-top: 8px;
+      font-size: clamp(31px, 8.8vw, 38px);
+      line-height: .95;
+    }
+
+    .web-hero__copy > p:last-of-type {
+      margin-top: 14px;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .web-hero__copy .web-button {
+      margin-top: 17px;
+    }
+
+    .web-hero__visual {
+      width: 96vw;
+      max-width: none;
+      margin: -38px auto 0;
+    }
+
+    .web-content {
+      width: calc(100% - 18px);
+      margin-top: -18px;
+      padding-bottom: 38px;
+      gap: 16px;
+    }
+
+    .web-panel {
+      padding: 25px 14px;
+      border-radius: 26px;
+    }
+
+    .web-heading {
+      margin-bottom: 24px;
+    }
+
+    .web-heading h2,
+    .web-block-heading h2 {
+      font-size: clamp(25px, 7.5vw, 32px);
+    }
+
+    .web-heading > p:last-child,
+    .web-block-heading > p:last-child {
+      font-size: 12px;
+    }
+
+    .web-process__grid {
+      gap: 9px;
+    }
+
+    .web-process__card {
+      min-height: 260px;
+      padding: 12px 10px 15px;
+      border-radius: 18px;
+    }
+
+    .web-process__asset {
+      width: min(100%, 108px);
+    }
+
+    .web-process__card h3 {
+      margin-top: 8px;
+      font-size: 11px;
+    }
+
+    .web-process__card p {
+      font-size: 10px;
+      line-height: 1.42;
+    }
+
+    .web-benefits__grid,
+    .web-included__grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .web-benefit {
+      min-height: 0;
+      padding: 17px;
+      grid-template-columns: 52px 1fr;
+    }
+
+    .web-benefit__icon {
+      width: 52px;
+      height: 52px;
+      padding: 12px;
+      border-radius: 16px;
+    }
+
+    .web-funnel__body {
+      grid-template-columns: minmax(120px, .75fr) minmax(170px, 1fr);
+      gap: 4px;
+    }
+
+    .web-funnel__stages {
+      gap: 9px;
+    }
+
+    .web-funnel__stages strong {
+      font-size: 11px;
+    }
+
+    .web-funnel__stages p {
+      font-size: 9px;
+    }
+
+    .web-price__offer {
+      grid-template-columns: 1fr;
+    }
+
+    .web-price__amount {
+      padding: 22px;
+      text-align: center;
+    }
+
+    .web-price__offer ul {
+      padding: 22px;
+    }
+
+    .web-price__notice {
+      padding: 15px;
+      grid-template-columns: 30px 1fr;
+    }
+
+    .web-price__notice p {
+      font-size: 10px;
+    }
+
+    .web-price__cta {
+      margin-top: 18px;
+    }
+
+    .web-included__card {
+      display: grid;
+      min-height: 0;
+      padding: 17px;
+      grid-template-columns: 48px 1fr;
+      text-align: left;
+      column-gap: 14px;
+    }
+
+    .web-included__card > span {
+      grid-row: 1 / span 2;
+      margin: 0;
+    }
+
+    .web-included__card p {
+      margin-top: 4px;
+    }
+
+    .web-final-cta {
+      min-height: 0;
+      padding: 25px 18px;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      border-radius: 26px;
+      text-align: center;
+    }
+
+    .web-final-cta > img {
+      display: none;
+    }
+
+    .web-final-cta h2 {
+      font-size: 26px;
+    }
+
+    .web-final-cta .web-button {
+      justify-self: stretch;
+    }
+  }
+</style>

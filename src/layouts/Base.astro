@@ -6,9 +6,15 @@ import CookieConsent from '../components/privacy/CookieConsent.astro';
 interface Props {
   title: string;
   description?: string;
+  canonical?: string;
 }
 
-const { title, description = 'Altaria Lights — prototipo de hero (Puerta 0).' } = Astro.props;
+const {
+  title,
+  description = 'Altaria Lights — prototipo de hero (Puerta 0).',
+  canonical,
+} = Astro.props;
+const canonicalHref = canonical && Astro.site ? new URL(canonical, Astro.site).href : canonical;
 ---
 
 <!doctype html>
@@ -19,6 +25,7 @@ const { title, description = 'Altaria Lights — prototipo de hero (Puerta 0).' 
     <script is:inline set:html={performanceTierBoot}></script>
     <title>{title}</title>
     <meta name="description" content={description} />
+    {canonicalHref && <link rel="canonical" href={canonicalHref} />}
     <meta name="robots" content="noindex, nofollow" />
     <link
       rel="icon"

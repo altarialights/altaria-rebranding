@@ -38,7 +38,7 @@ export const intro = {
 export const header = {
     wordmark: "ALTARIA LIGHTS",
     nav: [
-        { label: "Servicios", href: "#como-funciona" },
+        { label: "Servicios", href: "/servicios" },
         { label: "Caso real", href: "#caso-real" },
         { label: "Proceso", href: "#como-funciona" },
     ],
