@@ -89,13 +89,13 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
 
             <div class="tablet__front">
               <div class="tablet__screen" role="img" aria-label={brandBeat.screenLabel}>
-                <!-- Two pixel-aligned PNGs: cloud first, complete mark second. -->
+                <!-- Two pixel-aligned identity states: cloud first, approved mark second. -->
                 <span class="brand__logo-stage" aria-hidden="true">
                   <img
                     class="brand__logo-layer brand__logo-layer--cloud"
                     data-brand-cloud
-                    src="/brand/optimized/altaria-cloud-512.png"
-                    srcset="/brand/optimized/altaria-cloud-256.png 1x, /brand/optimized/altaria-cloud-512.png 2x"
+                    src="/brand/optimized/altaria-v2-nube-256.webp"
+                    srcset="/brand/optimized/altaria-v2-nube-256.webp 1x, /brand/optimized/altaria-v2-nube-512.webp 2x"
                     alt=""
                     width="512"
                     height="512"
@@ -103,8 +103,8 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
                   <img
                     class="brand__logo-layer brand__logo-layer--complete"
                     data-brand-logo
-                    src="/brand/optimized/altaria-logo-512.png"
-                    srcset="/brand/optimized/altaria-logo-256.png 1x, /brand/optimized/altaria-logo-512.png 2x"
+                    src="/brand/optimized/altaria-v2-fondo-azul-256.webp"
+                    srcset="/brand/optimized/altaria-v2-fondo-azul-256.webp 1x, /brand/optimized/altaria-v2-fondo-azul-512.webp 2x"
                     alt=""
                     width="512"
                     height="512"
@@ -128,8 +128,8 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
                     <span class="brand__type-name">Puffy</span>
                   </span>
                   <span class="brand__type-family">
-                    <strong class="brand__type-sample brand__type-sample--lemon">ABC123</strong>
-                    <span class="brand__type-name">Lemon Milk</span>
+                    <strong class="brand__type-sample brand__type-sample--sunderland">Altaria</strong>
+                    <span class="brand__type-name">Sunderland</span>
                   </span>
                 </span>
 
@@ -137,7 +137,7 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
                 <span class="brand__hierarchy" data-brand-hierarchy>
                   <small>Jerarquía</small>
                   <span><b>H1</b><em class="brand__hierarchy-puffy">Puffy</em></span>
-                  <span><b>Logo</b><em class="brand__hierarchy-lemon">Lemon Milk</em></span>
+                  <span><b>Logo</b><em class="brand__hierarchy-sunderland">Sunderland</em></span>
                   <span><b>Texto</b><em class="brand__hierarchy-geist">Geist</em></span>
                 </span>
 
@@ -154,20 +154,20 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
                   <span class="brand__variants-row">
                     <i class="brand__variant brand__variant--blue" data-brand-variant>
                       <img
-                        src="/brand/optimized/altaria-logo-positive-256.png"
-                        srcset="/brand/optimized/altaria-logo-positive-128.png 1x, /brand/optimized/altaria-logo-positive-256.png 2x"
+                        src="/brand/optimized/altaria-v2-fondo-azul-128.webp"
+                        srcset="/brand/optimized/altaria-v2-fondo-azul-128.webp 1x, /brand/optimized/altaria-v2-fondo-azul-256.webp 2x"
                         alt=""
                         width="256"
-                        height="161"
+                        height="256"
                       />
                     </i>
                     <i class="brand__variant brand__variant--white" data-brand-variant>
                       <img
-                        src="/brand/optimized/altaria-logo-negative-256.png"
-                        srcset="/brand/optimized/altaria-logo-negative-128.png 1x, /brand/optimized/altaria-logo-negative-256.png 2x"
+                        src="/brand/optimized/altaria-v2-fondo-blanco-128.webp"
+                        srcset="/brand/optimized/altaria-v2-fondo-blanco-128.webp 1x, /brand/optimized/altaria-v2-fondo-blanco-256.webp 2x"
                         alt=""
                         width="256"
-                        height="161"
+                        height="256"
                       />
                     </i>
                   </span>
@@ -373,6 +373,12 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
     object-fit: contain;
   }
 
+  /* The supplied nube master is RGB with a black square matte. Mask only
+     those corners at render time; the approved artwork itself stays intact. */
+  .brand__logo-layer--cloud {
+    clip-path: circle(47% at 50% 50%);
+  }
+
   .brand__logo-layer--complete {
     opacity: 0;
     transform: scale(0.96);
@@ -535,12 +541,11 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
     line-height: 0.95;
   }
 
-  .brand__type-sample--lemon {
-    font-family: 'Lemon Milk', var(--font-sans);
-    font-size: clamp(11px, 0.92vw, 15px);
+  .brand__type-sample--sunderland {
+    font-family: 'Sunderland', var(--font-sans);
+    font-size: clamp(13px, 1.08vw, 18px);
     font-weight: 400;
     line-height: 1.1;
-    letter-spacing: 0.04em;
   }
 
   .brand__hierarchy {
@@ -595,9 +600,8 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
     font-family: 'Puffy', var(--font-display);
   }
 
-  .brand__hierarchy-lemon {
-    font-family: 'Lemon Milk', var(--font-sans);
-    text-transform: uppercase;
+  .brand__hierarchy-sunderland {
+    font-family: 'Sunderland', var(--font-sans);
   }
 
   .brand__hierarchy-geist {
@@ -629,16 +633,12 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
 
   .brand__wordmark strong {
     display: block;
-    width: 80%;
-    font-family: 'Lemon Milk', var(--font-sans);
-    font-size: clamp(7px, 0.7vw, 11px);
+    width: 100%;
+    font-family: 'Sunderland', var(--font-sans);
+    font-size: clamp(11px, 0.95vw, 16px);
     font-weight: 400;
-    line-height: 1;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    line-height: 1.05;
     white-space: nowrap;
-    transform: scaleX(1.25);
-    transform-origin: left center;
   }
 
   .brand__variants {
@@ -681,11 +681,11 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'];
   }
 
   .brand__variant--blue {
-    background: var(--sky-top);
+    background: #ffffff;
   }
 
   .brand__variant--white {
-    background: #ffffff;
+    background: var(--sky-top);
   }
 
   .brand__variant img {

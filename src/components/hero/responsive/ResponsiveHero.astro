@@ -21,12 +21,11 @@ const responsiveMenuDescriptions = [
     <header class="rh-header" data-responsive-header>
       <a class="rh-header__brand" href="#top" aria-label={`${header.wordmark} — inicio`}>
         <img
-          src="/brand/optimized/altaria-logo-256.png"
+          src="/brand/optimized/altaria-v2-logo-header-responsive-600.webp"
           alt=""
-          width="256"
-          height="256"
+          width="600"
+          height="172"
         />
-        <span>{header.wordmark}</span>
       </a>
 
       <nav class="rh-header__desktop-nav" aria-label="Principal">
@@ -292,24 +291,17 @@ const responsiveMenuDescriptions = [
   .rh-header__brand {
     display: flex;
     align-items: center;
-    gap: 9px;
+    width: 150px;
     min-height: 44px;
     margin-right: auto;
     text-decoration: none;
   }
 
   .rh-header__brand img {
-    width: 27px;
-    height: 27px;
-  }
-
-  .rh-header__brand span {
-    display: inline-block;
-    font-family: 'Lemon Milk', var(--font-sans);
-    font-size: 13px;
-    letter-spacing: 0.105em;
-    transform: scaleX(1.18);
-    transform-origin: left center;
+    width: 150px;
+    height: 43px;
+    object-fit: contain;
+    object-position: left center;
   }
 
   .rh-header__desktop-nav {
@@ -1083,22 +1075,13 @@ const responsiveMenuDescriptions = [
     }
 
     .rh-header__brand {
-      gap: 7px;
+      width: 150px;
       min-height: 46px;
     }
 
     .rh-header__brand img {
-      width: 25px;
-      height: 25px;
-    }
-
-    .rh-header__brand span {
-      max-width: 160px;
-      overflow: hidden;
-      font-size: clamp(10px, 3vw, 12px);
-      letter-spacing: 0.085em;
-      white-space: nowrap;
-      transform: none;
+      width: 150px;
+      height: 43px;
     }
 
     .rh-header__menu {
@@ -1461,8 +1444,13 @@ const responsiveMenuDescriptions = [
       padding-left: 15px;
     }
 
-    .rh-header__brand span {
-      max-width: 135px;
+    .rh-header__brand {
+      width: 140px;
+    }
+
+    .rh-header__brand img {
+      width: 140px;
+      height: auto;
     }
 
     .rh-header.is-menu-open::before {

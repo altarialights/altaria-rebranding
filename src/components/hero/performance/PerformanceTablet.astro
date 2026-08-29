@@ -23,8 +23,8 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'] as const;
           <img
             class="perf-brand__cloud"
             data-perf-brand-cloud
-            src="/brand/optimized/altaria-cloud-256.png"
-            srcset="/brand/optimized/altaria-cloud-256.png 1x, /brand/optimized/altaria-cloud-512.png 2x"
+            src="/brand/optimized/altaria-v2-nube-256.webp"
+            srcset="/brand/optimized/altaria-v2-nube-256.webp 1x, /brand/optimized/altaria-v2-nube-512.webp 2x"
             width="512"
             height="512"
             alt=""
@@ -33,8 +33,8 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'] as const;
           <img
             class="perf-brand__complete"
             data-perf-brand-logo
-            src="/brand/optimized/altaria-logo-256.png"
-            srcset="/brand/optimized/altaria-logo-256.png 1x, /brand/optimized/altaria-logo-512.png 2x"
+            src="/brand/optimized/altaria-v2-fondo-azul-256.webp"
+            srcset="/brand/optimized/altaria-v2-fondo-azul-256.webp 1x, /brand/optimized/altaria-v2-fondo-azul-512.webp 2x"
             width="512"
             height="512"
             alt=""
@@ -45,14 +45,14 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'] as const;
         <span class="perf-brand__type" aria-hidden="true">
           <small>Tipografías</small>
           <span><b class="is-puffy">ABC123</b><i>Puffy</i></span>
-          <span><b class="is-lemon">ABC123</b><i>Lemon Milk</i></span>
+          <span><b class="is-sunderland">Altaria</b><i>Sunderland</i></span>
         </span>
 
         {tier === 'balanced' && (
           <span class="perf-brand__meta" aria-hidden="true">
             <small>Jerarquía</small>
             <span><i>H1</i><b>Puffy</b></span>
-            <span><i>Logo</i><b>Lemon Milk</b></span>
+            <span><i>Logo</i><b>Sunderland</b></span>
             <span><i>Texto</i><b>Geist</b></span>
             <small>Wordmark</small>
             <strong>{header.wordmark}</strong>
@@ -78,18 +78,18 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'] as const;
             <span>
               <i class="is-blue">
                 <img
-                  src="/brand/optimized/altaria-logo-positive-128.png"
+                  src="/brand/optimized/altaria-v2-fondo-azul-128.webp"
                   width="256"
-                  height="161"
+                  height="256"
                   alt=""
                   decoding="async"
                 />
               </i>
               <i class="is-white">
                 <img
-                  src="/brand/optimized/altaria-logo-negative-128.png"
+                  src="/brand/optimized/altaria-v2-fondo-blanco-128.webp"
                   width="256"
-                  height="161"
+                  height="256"
                   alt=""
                   decoding="async"
                 />
@@ -163,6 +163,12 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'] as const;
     object-fit: contain;
   }
 
+  /* nube.png is an RGB master: this removes its square corner matte without
+     altering the asset or the identity transition. */
+  .perf-brand__cloud {
+    clip-path: circle(47% at 50% 50%);
+  }
+
   .perf-brand__complete {
     opacity: 0;
   }
@@ -216,11 +222,10 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'] as const;
     font-size: clamp(13px, 1.2vw, 21px);
   }
 
-  .perf-brand__type .is-lemon {
-    font-family: 'Lemon Milk', var(--font-sans);
-    font-size: clamp(11px, 0.95vw, 17px);
+  .perf-brand__type .is-sunderland {
+    font-family: 'Sunderland', var(--font-sans);
+    font-size: clamp(13px, 1.08vw, 19px);
     font-weight: 400;
-    letter-spacing: 0.04em;
   }
 
   .perf-brand__type i {
@@ -259,11 +264,9 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'] as const;
 
   .perf-brand__meta > strong {
     margin-top: 2px;
-    font-family: 'Lemon Milk', var(--font-sans);
-    font-size: clamp(7px, 0.65vw, 11px);
+    font-family: 'Sunderland', var(--font-sans);
+    font-size: clamp(10px, 0.86vw, 15px);
     font-weight: 400;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
     white-space: nowrap;
   }
 
@@ -357,8 +360,8 @@ const swatches = ['#2b81d4', '#7dbcea', '#0f2c56', '#ffffff'] as const;
     box-shadow: 0 4px 9px rgba(15, 44, 86, 0.14);
   }
 
-  .perf-brand__variants .is-blue { background: var(--sky-top); }
-  .perf-brand__variants .is-white { background: #ffffff; }
+  .perf-brand__variants .is-blue { background: #ffffff; }
+  .perf-brand__variants .is-white { background: var(--sky-top); }
 
   .perf-brand__variants img {
     width: 76%;

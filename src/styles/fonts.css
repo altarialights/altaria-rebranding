@@ -21,6 +21,16 @@
   font-display: swap;
 }
 
+/* Sunderland — wordmark de la demostración de identidad. Aparece tarde
+   en el recorrido, por eso se descubre desde CSS y no se precarga. */
+@font-face {
+  font-family: 'Sunderland';
+  src: url('/fonts/Sunderland.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Puffy — tipografía de display. La frase de apertura y los titulares de
    cada beat.
    ---------------------------------------------------------------------

@@ -1858,8 +1858,9 @@ function buildTabletFull(tl: gsap.core.Timeline): void {
   );
 
   /* The real mark resolves from the cloud-only asset into the complete
-     logo. Both PNGs share the same canvas, so the cloud stays perfectly
-     still while the A appears. The palette then lands underneath. */
+     logo. Both optimized identity states share the same canvas, so the
+     mark stays perfectly still during the transition. The palette then
+     lands underneath. */
   const draw = T.drawTo - T.drawFrom;
   gsap.set('[data-brand-cloud]', { opacity: 1, scale: 1 });
   gsap.set('[data-brand-logo]', { opacity: 0, scale: 0.96 });

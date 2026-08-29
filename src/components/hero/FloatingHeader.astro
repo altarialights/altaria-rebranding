@@ -11,7 +11,8 @@ import { header } from '../../data/hero';
  * zero layout shift (the previous build's entire CLS budget came from
  * animating a header's width).
  *
- * The brand combines the supplied Altaria mark with its HTML wordmark.
+ * The approved lockup already includes the symbol and wordmark, so the
+ * header renders it as one atomic image at every performance tier.
  */
 ---
 
@@ -20,13 +21,12 @@ import { header } from '../../data/hero';
     <a class="hdr__brand" href="#top" aria-label={`${header.wordmark} — inicio`}>
       <img
         class="hdr__logo"
-        src="/brand/optimized/altaria-logo-512.png"
-        srcset="/brand/optimized/altaria-logo-256.png 1x, /brand/optimized/altaria-logo-512.png 2x"
+        src="/brand/optimized/altaria-v2-logo-header-384.webp"
+        srcset="/brand/optimized/altaria-v2-logo-header-384.webp 1x, /brand/optimized/altaria-v2-logo-header-768.webp 2x"
         alt=""
-        width="512"
-        height="512"
+        width="768"
+        height="256"
       />
-      <span class="hdr__word">{header.wordmark}</span>
     </a>
 
     <nav class="hdr__nav" aria-label="Principal">
@@ -73,32 +73,21 @@ import { header } from '../../data/hero';
   .hdr__brand {
     display: flex;
     align-items: center;
-    gap: 0.55rem;
-    min-width: 238px;
-    height: 30px;
+    width: clamp(205px, 12vw, 225px);
+    min-width: clamp(205px, 12vw, 225px);
+    height: calc(var(--header-h) - 12px);
+    flex: 0 0 auto;
     margin-right: auto;
     text-decoration: none;
   }
 
   .hdr__logo {
     display: block;
-    width: 30px;
-    height: 30px;
+    width: 100%;
+    height: 100%;
     flex: 0 0 auto;
     object-fit: contain;
-  }
-
-  .hdr__word {
-    display: inline-block;
-    padding-right: 1.4rem;
-    font-family: 'Lemon Milk', var(--font-sans);
-    font-size: clamp(0.86rem, 0.8rem + 0.2vw, 1rem);
-    font-weight: 400;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink);
-    transform: scaleX(1.25);
-    transform-origin: left center;
+    object-position: left center;
   }
 
   .hdr__nav {

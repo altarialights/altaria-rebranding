@@ -79,10 +79,10 @@ export const responsiveServices: ResponsiveService[] = [
     description: brandBeat.sub,
     icon: 'brand',
     image: {
-      src: `${optimized}/marca-480.webp`,
-      srcset: `${optimized}/marca-480.webp 480w, ${optimized}/marca-768.webp 768w`,
+      src: `${optimized}/marca2-480.webp`,
+      srcset: `${optimized}/marca2-480.webp 480w, ${optimized}/marca2-768.webp 768w`,
       width: 768,
-      height: 552,
+      height: 512,
       alt: 'Tablero de identidad visual de Altaria Lights',
     },
   },

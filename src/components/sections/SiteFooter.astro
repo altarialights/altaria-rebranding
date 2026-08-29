@@ -38,7 +38,7 @@ const navigation = [
 type FooterNavigationItem = (typeof navigation)[number]['items'][number];
 ---
 
-<footer class="site-footer" aria-labelledby="footer-brand-name">
+<footer class="site-footer" aria-label="Altaria Lights">
   <div class="site-footer__canvas">
     <picture class="site-footer__background" aria-hidden="true">
       <source media="(max-width: 699px)" srcset="/media/footer/mobile.png" />
@@ -60,14 +60,14 @@ type FooterNavigationItem = (typeof navigation)[number]['items'][number];
         <div class="site-footer__brand-block">
           <a class="site-footer__brand" href="#top" aria-label="Altaria Lights — volver al inicio">
             <img
-              src="/brand/optimized/altaria-logo-256.png"
-              width="256"
+              src="/brand/optimized/altaria-v2-logo-header-384.webp"
+              srcset="/brand/optimized/altaria-v2-logo-header-384.webp 1x, /brand/optimized/altaria-v2-logo-header-768.webp 2x"
+              width="768"
               height="256"
               alt=""
               loading="lazy"
               decoding="async"
             />
-            <span id="footer-brand-name">ALTARIA LIGHTS</span>
           </a>
           <p class="site-footer__tagline">Llevamos tu visión más allá.</p>
 
@@ -114,9 +114,10 @@ type FooterNavigationItem = (typeof navigation)[number]['items'][number];
         <aside class="site-footer__contact" aria-labelledby="footer-contact-title">
           <div class="site-footer__contact-icon" aria-hidden="true">
             <img
-              src="/brand/optimized/altaria-logo-negative-128.png"
-              width="128"
-              height="79"
+              src="/brand/optimized/altaria-v2-normal-azul-128.webp"
+              srcset="/brand/optimized/altaria-v2-normal-azul-128.webp 1x, /brand/optimized/altaria-v2-normal-azul-256.webp 2x"
+              width="256"
+              height="256"
               alt=""
               loading="lazy"
               decoding="async"
@@ -246,22 +247,16 @@ type FooterNavigationItem = (typeof navigation)[number]['items'][number];
     display: inline-flex;
     min-height: 48px;
     align-items: center;
-    gap: 14px;
     color: #0b2c59;
     text-decoration: none;
   }
 
   .site-footer__brand img {
-    width: clamp(44px, 3.2vw, 58px);
+    width: clamp(170px, 12vw, 215px);
     height: auto;
     flex: 0 0 auto;
-  }
-
-  .site-footer__brand span {
-    font-size: clamp(18px, 1.5vw, 28px);
-    font-weight: 680;
-    letter-spacing: 0.105em;
-    white-space: nowrap;
+    object-fit: contain;
+    object-position: left center;
   }
 
   .site-footer__tagline {
@@ -503,17 +498,8 @@ type FooterNavigationItem = (typeof navigation)[number]['items'][number];
       padding-right: 16px;
     }
 
-    .site-footer__brand {
-      gap: 10px;
-    }
-
     .site-footer__brand img {
-      width: 42px;
-    }
-
-    .site-footer__brand span {
-      font-size: 16px;
-      letter-spacing: 0.075em;
+      width: 160px;
     }
 
     .site-footer__tagline {
@@ -605,11 +591,7 @@ type FooterNavigationItem = (typeof navigation)[number]['items'][number];
     }
 
     .site-footer__brand img {
-      width: 54px;
-    }
-
-    .site-footer__brand span {
-      font-size: clamp(22px, 3.2vw, 28px);
+      width: clamp(190px, 27vw, 225px);
     }
 
     .site-footer__tagline {
@@ -725,19 +707,8 @@ type FooterNavigationItem = (typeof navigation)[number]['items'][number];
       border-bottom: 1px solid rgba(76, 112, 151, 0.2);
     }
 
-    .site-footer__brand {
-      gap: 12px;
-    }
-
     .site-footer__brand img {
-      width: clamp(48px, 13.5vw, 58px);
-    }
-
-    .site-footer__brand span {
-      min-width: 0;
-      font-size: clamp(18px, 5.45vw, 23px);
-      letter-spacing: 0.09em;
-      white-space: normal;
+      width: clamp(180px, 55vw, 220px);
     }
 
     .site-footer__tagline {
@@ -852,9 +823,8 @@ type FooterNavigationItem = (typeof navigation)[number]['items'][number];
       inset-inline: 32px;
     }
 
-    .site-footer__brand span {
-      font-size: 17px;
-      letter-spacing: 0.075em;
+    .site-footer__brand img {
+      width: 176px;
     }
 
     .site-footer__contact {
