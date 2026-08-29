@@ -143,7 +143,9 @@ type FooterNavigationItem = (typeof navigation)[number]['items'][number];
           <i aria-hidden="true"></i>
           <span>Política de privacidad</span>
           <i aria-hidden="true"></i>
-          <span>Cookies</span>
+          <a href="/cookies">Cookies</a>
+          <i aria-hidden="true"></i>
+          <button type="button" data-cookie-preferences-trigger>Configurar cookies</button>
         </nav>
       </div>
     </div>
@@ -462,6 +464,20 @@ type FooterNavigationItem = (typeof navigation)[number]['items'][number];
     gap: clamp(13px, 1.25vw, 24px);
   }
 
+  .site-footer__legal a,
+  .site-footer__legal button {
+    padding: 0;
+    border: 0;
+    font: inherit;
+    color: inherit;
+    background: none;
+    text-decoration: none;
+  }
+
+  .site-footer__legal button {
+    cursor: pointer;
+  }
+
   .site-footer__legal i {
     width: 1px;
     height: 19px;
@@ -477,6 +493,13 @@ type FooterNavigationItem = (typeof navigation)[number]['items'][number];
     .site-footer__nav-group a:hover {
       color: #0f315f;
       text-decoration-color: currentColor;
+    }
+
+    .site-footer__legal a:hover,
+    .site-footer__legal button:hover {
+      color: #0b376c;
+      text-decoration: underline;
+      text-underline-offset: 4px;
     }
 
     .site-footer__cta:hover svg {

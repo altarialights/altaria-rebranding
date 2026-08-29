@@ -1,0 +1,352 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Política de cookies — Altaria Lights"
+  description="Información sobre las tecnologías necesarias y la analítica de PostHog utilizada por Altaria Lights."
+>
+  <main class="legal-page" id="contenido">
+    <header class="legal-header">
+      <a href="/" aria-label="Volver a la página de inicio de Altaria Lights">
+        <img
+          src="/brand/optimized/altaria-v2-logo-header-384.webp"
+          width="384"
+          height="128"
+          alt="Altaria Lights"
+        />
+      </a>
+      <a class="legal-header__back" href="/">Volver a la web</a>
+    </header>
+
+    <article class="legal-card">
+      <p class="legal-eyebrow">Privacidad</p>
+      <h1>Política de cookies</h1>
+      <p class="legal-updated">Última actualización: 29 de agosto de 2026</p>
+
+      <p class="legal-lead">
+        Esta página explica qué tecnologías de almacenamiento utiliza Altaria Lights, para qué se
+        usan y cómo puedes aceptar, rechazar o retirar tu consentimiento.
+      </p>
+
+      <section>
+        <h2>1. Qué son las cookies y tecnologías equivalentes</h2>
+        <p>
+          Las cookies y el almacenamiento local del navegador permiten guardar información en tu
+          dispositivo. En esta web utilizamos almacenamiento local para recordar tu decisión de
+          privacidad y, solo si lo autorizas, para mantener la analítica anónima de PostHog.
+        </p>
+      </section>
+
+      <section>
+        <h2>2. Responsable</h2>
+        <p>
+          El responsable de esta web es <strong>Altaria Lights</strong>. La identificación legal
+          completa del titular, NIF/CIF, domicilio y correo de privacidad están pendientes de ser
+          facilitados y deberán incorporarse antes de publicar esta política en producción.
+        </p>
+      </section>
+
+      <section>
+        <h2>3. Tecnologías utilizadas</h2>
+        <div class="legal-table-wrap" tabindex="0" aria-label="Tabla de tecnologías utilizadas">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Proveedor</th>
+                <th>Tipo</th>
+                <th>Finalidad</th>
+                <th>Duración</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>altaria_cookie_consent</code></td>
+                <td>Altaria Lights</td>
+                <td>Necesaria · localStorage</td>
+                <td>Recordar el estado, la categoría analítica, la fecha y la versión del consentimiento.</td>
+                <td>12 meses</td>
+              </tr>
+              <tr>
+                <td><code>__ph_opt_in_out_phc_xcT9Qf8ZzX6LqsVDa2BQVP5pVkqxtcG5yCpnM8kTwrYz</code></td>
+                <td>PostHog / Altaria Lights</td>
+                <td>Necesaria tras interactuar con PostHog · localStorage</td>
+                <td>Registrar técnicamente la aceptación o retirada para que el SDK respete la decisión.</td>
+                <td>Hasta cambiar la decisión o borrar el almacenamiento</td>
+              </tr>
+              <tr>
+                <td><code>ph_phc_xcT9Qf8ZzX6LqsVDa2BQVP5pVkqxtcG5yCpnM8kTwrYz_posthog</code></td>
+                <td>PostHog</td>
+                <td>Analítica · localStorage</td>
+                <td>Mantener un identificador aleatorio y el estado técnico de la analítica web.</td>
+                <td>Configurada a 12 meses</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="legal-caption">
+          Las entradas de PostHog no existen en una primera visita limpia. La persistencia analítica
+          solo se crea tras aceptar y se elimina mediante la API oficial al retirar el consentimiento;
+          puede quedar únicamente el marcador técnico de exclusión con valor desactivado.
+        </p>
+      </section>
+
+      <section>
+        <h2>4. Analítica de PostHog</h2>
+        <p>
+          Si activas la categoría Analítica, PostHog recibe pageviews y un conjunto limitado de
+          interacciones importantes: CTA de contacto, servicios, caso real, proceso y CTA final.
+          También puede tratar ruta o URL, fecha y hora, referencia, navegador, sistema y categoría
+          de dispositivo. No enviamos nombres, correo, teléfono ni contenido de formularios.
+        </p>
+        <p>
+          La instancia está alojada en la región europea de PostHog
+          (<code>eu.i.posthog.com</code>). La captura de IP está desactivada en el proyecto, los
+          perfiles de persona están deshabilitados y no se utiliza identificación de usuarios,
+          Session Replay, mapas de calor, autocapture ni modo cookieless tras el rechazo.
+        </p>
+      </section>
+
+      <section>
+        <h2>5. Base jurídica y momento de activación</h2>
+        <p>
+          La analítica se basa exclusivamente en tu consentimiento. PostHog no se carga, no crea
+          persistencia y no envía eventos antes de una aceptación expresa. Desplazarte, navegar o
+          cerrar el panel de configuración no equivale a aceptar.
+        </p>
+        <p>
+          La tecnología necesaria para recordar tu elección se utiliza para conservar la propia
+          preferencia de privacidad y evitar solicitarla en cada visita.
+        </p>
+      </section>
+
+      <section>
+        <h2>6. Destinatarios, región y transferencias</h2>
+        <p>
+          PostHog actúa como proveedor de analítica. Los eventos se envían al endpoint de ingestión
+          de PostHog Cloud EU. Antes de producción, el responsable debe completar y revisar la
+          información contractual sobre encargado, subencargados y, cuando corresponda, las
+          garantías de transferencias internacionales aplicables a su cuenta.
+        </p>
+        <p>
+          Puedes consultar la <a href="https://posthog.com/privacy" rel="external noreferrer">información de privacidad de PostHog</a>
+          y su <a href="https://posthog.com/docs/privacy/gdpr-compliance" rel="external noreferrer">documentación sobre RGPD</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2>7. Cambiar o retirar el consentimiento</h2>
+        <p>
+          Puedes cambiar tu decisión en cualquier momento. Retirar la analítica es tan sencillo como
+          aceptarla y no limita el uso de la web.
+        </p>
+        <button class="legal-preferences" type="button" data-cookie-preferences-trigger>
+          Configurar cookies
+        </button>
+      </section>
+    </article>
+  </main>
+</Base>
+
+<style>
+  .legal-page {
+    min-height: 100svh;
+    padding: clamp(24px, 4vw, 58px) max(20px, 5vw) clamp(70px, 9vw, 130px);
+    color: #143b6b;
+    background:
+      radial-gradient(circle at 86% 8%, rgba(255, 235, 201, 0.55), transparent 27%),
+      radial-gradient(ellipse at 15% 100%, rgba(255, 255, 255, 0.95) 0 20%, transparent 45%),
+      linear-gradient(180deg, #80c7ee 0, #cfeafa 30%, #f7fbfe 67%, #fff 100%);
+  }
+
+  .legal-header {
+    display: flex;
+    width: min(1040px, 100%);
+    min-height: 70px;
+    margin: 0 auto clamp(30px, 4vw, 54px);
+    padding: 12px 20px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 999px;
+    background: rgba(247, 252, 255, 0.88);
+    box-shadow: 0 18px 42px -30px rgba(12, 58, 105, 0.68);
+  }
+
+  .legal-header img {
+    display: block;
+    width: clamp(165px, 20vw, 218px);
+    height: auto;
+  }
+
+  .legal-header__back {
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    background: #0d4c89;
+    text-decoration: none;
+  }
+
+  .legal-card {
+    width: min(940px, 100%);
+    margin-inline: auto;
+    padding: clamp(28px, 5.5vw, 72px);
+    border: 1px solid rgba(255, 255, 255, 0.92);
+    border-radius: clamp(30px, 4vw, 54px);
+    background: rgba(250, 253, 255, 0.94);
+    box-shadow: 0 36px 80px -55px rgba(5, 45, 88, 0.55), inset 0 1px 0 #fff;
+  }
+
+  .legal-eyebrow {
+    margin: 0 0 10px;
+    font-size: 12px;
+    font-weight: 760;
+    letter-spacing: 0.13em;
+    color: #1470c4;
+    text-transform: uppercase;
+  }
+
+  .legal-card h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(38px, 7vw, 68px);
+    line-height: 1;
+    color: #0a3267;
+  }
+
+  .legal-updated {
+    margin: 12px 0 0;
+    font-size: 13px;
+    color: #5c7897;
+  }
+
+  .legal-lead {
+    margin: clamp(28px, 4vw, 44px) 0 0;
+    font-size: clamp(17px, 2.1vw, 21px);
+    line-height: 1.55;
+    color: #234f7d;
+  }
+
+  .legal-card section {
+    margin-top: clamp(30px, 4.5vw, 48px);
+    padding-top: clamp(26px, 3.5vw, 36px);
+    border-top: 1px solid rgba(45, 96, 148, 0.14);
+  }
+
+  .legal-card h2 {
+    margin: 0 0 12px;
+    font-size: clamp(20px, 2.6vw, 27px);
+    line-height: 1.2;
+    color: #0b386d;
+  }
+
+  .legal-card p {
+    margin: 11px 0 0;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .legal-card a {
+    color: #0c61ad;
+    text-underline-offset: 3px;
+  }
+
+  .legal-table-wrap {
+    margin-top: 19px;
+    overflow-x: auto;
+    border: 1px solid rgba(38, 91, 144, 0.15);
+    border-radius: 19px;
+  }
+
+  .legal-table-wrap:focus-visible,
+  .legal-preferences:focus-visible,
+  .legal-header a:focus-visible {
+    outline: 3px solid #ffcc62;
+    outline-offset: 3px;
+  }
+
+  table {
+    width: 100%;
+    min-width: 690px;
+    border-collapse: collapse;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  th,
+  td {
+    padding: 15px;
+    border-bottom: 1px solid rgba(38, 91, 144, 0.11);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    color: #0e3d73;
+    background: #eaf5fd;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  code {
+    padding: 0.18em 0.38em;
+    border-radius: 6px;
+    color: #0e4b87;
+    background: #e9f4fc;
+    overflow-wrap: anywhere;
+  }
+
+  .legal-caption {
+    font-size: 12.5px !important;
+    color: #5a7593;
+  }
+
+  .legal-preferences {
+    min-height: 50px;
+    margin-top: 20px;
+    padding: 0 25px;
+    border: 0;
+    border-radius: 999px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 720;
+    color: #fff;
+    background: linear-gradient(135deg, #1762ad, #093b76);
+    box-shadow: 0 13px 24px -17px rgba(5, 44, 88, 0.88);
+    cursor: pointer;
+  }
+
+  @media (max-width: 560px) {
+    .legal-page {
+      padding-inline: 13px;
+    }
+
+    .legal-header {
+      min-height: 60px;
+      padding: 9px 12px 9px 16px;
+    }
+
+    .legal-header img {
+      width: 150px;
+    }
+
+    .legal-header__back {
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+
+    .legal-card {
+      padding: 28px 20px 38px;
+    }
+
+    .legal-card p {
+      font-size: 14px;
+    }
+  }
+</style>

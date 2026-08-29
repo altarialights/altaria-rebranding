@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import performanceTierBoot from '../scripts/performance-tier-boot.js?raw';
+import CookieConsent from '../components/privacy/CookieConsent.astro';
 
 interface Props {
   title: string;
@@ -53,5 +54,6 @@ const { title, description = 'Altaria Lights — prototipo de hero (Puerta 0).' 
   </head>
   <body>
     <slot />
+    <CookieConsent />
   </body>
 </html>
