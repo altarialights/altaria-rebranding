@@ -3,8 +3,17 @@ import FloatingHeader from '../components/hero/FloatingHeader.astro';
 import ServiceInterestTracker from '../components/contact/ServiceInterestTracker.astro';
 import SiteFooter from '../components/sections/SiteFooter.astro';
 import Base from '../layouts/Base.astro';
+import { createServiceSchema } from '../lib/seo';
 
 const contactHref = '/contacto?interes=branding';
+const seoDescription = 'Creamos identidades visuales coherentes para negocios y empresas, preparadas para funcionar con claridad tanto en entornos digitales como físicos.';
+const serviceSchema = createServiceSchema(
+  Astro.site ?? new URL(Astro.url.origin),
+  '/branding',
+  'Branding e identidad visual para negocios',
+  seoDescription,
+  'Branding, identidad visual y aplicaciones de marca',
+);
 
 const headerNav = [
   { label: 'Servicios', href: '/servicios' },
@@ -69,9 +78,10 @@ const benefitIconPaths: Record<string, string> = {
 ---
 
 <Base
-  title="Branding e Identidad Visual | Altaria Lights"
-  description="Creamos identidades visuales, logos, diseño gráfico y aplicaciones de marca para negocios que quieren transmitir profesionalidad, coherencia y diferenciarse."
+  title="Branding e Identidad Visual para Negocios | Altaria Lights"
+  description={seoDescription}
   canonical="/branding"
+  schema={serviceSchema}
 >
   <ServiceInterestTracker interest="branding" />
   <FloatingHeader alwaysVisible brandHref="/" nav={headerNav} cta={{ label: 'Hablemos', href: contactHref }} />

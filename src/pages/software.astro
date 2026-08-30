@@ -4,8 +4,17 @@ import ServiceInterestTracker from '../components/contact/ServiceInterestTracker
 import SiteFooter from '../components/sections/SiteFooter.astro';
 import SoftwareIcon from '../components/software/SoftwareIcon.astro';
 import Base from '../layouts/Base.astro';
+import { createServiceSchema } from '../lib/seo';
 
 const contactHref = '/contacto?interes=software';
+const seoDescription = 'Creamos software a medida y automatizaciones para ahorrar tiempo, reducir errores, centralizar información y mejorar los procesos de tu empresa.';
+const serviceSchema = createServiceSchema(
+  Astro.site ?? new URL(Astro.url.origin),
+  '/software',
+  'Software a medida para empresas',
+  seoDescription,
+  'Software a medida, automatización y digitalización de procesos',
+);
 
 const headerNav = [
   { label: 'Servicios', href: '/servicios' },
@@ -74,8 +83,9 @@ const benefits = [
 
 <Base
   title="Software a Medida para Empresas | Altaria Lights"
-  description="Desarrollamos software a medida, aplicaciones web, automatizaciones, sistemas de gestión e integraciones para hacer tu negocio más eficiente y escalable."
+  description={seoDescription}
   canonical="/software"
+  schema={serviceSchema}
 >
   <ServiceInterestTracker interest="software" />
   <FloatingHeader alwaysVisible brandHref="/" nav={headerNav} cta={{ label: 'Hablemos', href: contactHref }} />

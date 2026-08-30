@@ -4,8 +4,17 @@ import ServiceInterestTracker from '../components/contact/ServiceInterestTracker
 import MarketingIcon from '../components/marketing/MarketingIcon.astro';
 import SiteFooter from '../components/sections/SiteFooter.astro';
 import Base from '../layouts/Base.astro';
+import { createServiceSchema } from '../lib/seo';
 
 const contactHref = '/contacto?interes=marketing';
+const seoDescription = 'Creamos estrategias de marketing digital para que negocios y empresas ganen visibilidad, confianza, oportunidades y clientes.';
+const serviceSchema = createServiceSchema(
+  Astro.site ?? new URL(Astro.url.origin),
+  '/marketing',
+  'Marketing digital para negocios y empresas',
+  seoDescription,
+  'Marketing digital, contenido, redes sociales, campañas y reputación',
+);
 
 const headerNav = [
   { label: 'Servicios', href: '/servicios' },
@@ -64,8 +73,9 @@ const benefits = [
 
 <Base
   title="Marketing Digital para Negocios | Altaria Lights"
-  description="Diseñamos estrategias de marketing digital, contenido, redes sociales y acciones de crecimiento adaptadas a los objetivos reales de tu negocio."
+  description={seoDescription}
   canonical="/marketing"
+  schema={serviceSchema}
 >
   <ServiceInterestTracker interest="marketing" />
   <FloatingHeader alwaysVisible brandHref="/" nav={headerNav} cta={{ label: 'Hablemos', href: contactHref }} />

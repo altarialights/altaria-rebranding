@@ -2,23 +2,58 @@
 import '../styles/global.css';
 import performanceTierBoot from '../scripts/performance-tier-boot.js?raw';
 import CookieConsent from '../components/privacy/CookieConsent.astro';
+import {
+  DEFAULT_OG_IMAGE_PATH,
+  DEFAULT_ROBOTS,
+  SITE_LANGUAGE,
+  SITE_NAME,
+  absoluteUrl,
+  createOrganizationSchema,
+  createWebsiteSchema,
+  normalizePathname,
+  type JsonLd,
+} from '../lib/seo';
 
 interface Props {
   title: string;
-  description?: string;
-  canonical?: string;
+  description: string;
+  canonical?: string | false;
+  image?: string;
+  imageAlt?: string;
+  type?: 'website' | 'article';
+  robots?: string;
+  schema?: JsonLd | readonly JsonLd[] | false;
 }
 
 const {
   title,
-  description = 'Altaria Lights — prototipo de hero (Puerta 0).',
-  canonical,
+  description,
+  canonical = Astro.url.pathname,
+  image = DEFAULT_OG_IMAGE_PATH,
+  imageAlt = 'Altaria Lights, soluciones digitales para negocios y empresas',
+  type = 'website',
+  robots = DEFAULT_ROBOTS,
+  schema,
 } = Astro.props;
-const canonicalHref = canonical && Astro.site ? new URL(canonical, Astro.site).href : canonical;
+const site = Astro.site ?? new URL(Astro.url.origin);
+const canonicalPath = canonical === false ? null : normalizePathname(canonical);
+const canonicalHref = canonicalPath ? absoluteUrl(canonicalPath, site) : null;
+const imageHref = new URL(image, site).href;
+const extraSchema = schema === false ? [] : Array.isArray(schema) ? schema : schema ? [schema] : [];
+const schemaGraph = schema === false
+  ? null
+  : {
+      '@context': 'https://schema.org',
+      '@graph': [
+        createOrganizationSchema(site),
+        ...(canonicalPath === '/' ? [createWebsiteSchema(site)] : []),
+        ...extraSchema,
+      ],
+    };
 ---
 
 <!doctype html>
-<html lang="es-ES">
+<html lang={SITE_LANGUAGE}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,7 +61,26 @@ const canonicalHref = canonical && Astro.site ? new URL(canonical, Astro.site).h
     <title>{title}</title>
     <meta name="description" content={description} />
     {canonicalHref && <link rel="canonical" href={canonicalHref} />}
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="robots" content={robots} />
+    <meta name="theme-color" content="#016ffc" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonicalHref && <meta property="og:url" content={canonicalHref} />}
+    <meta property="og:image" content={imageHref} />
+    <meta property="og:image:secure_url" content={imageHref} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageHref} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <link
       rel="icon"
       type="image/png"
@@ -45,6 +99,10 @@ const canonicalHref = canonical && Astro.site ? new URL(canonical, Astro.site).h
       sizes="48x48"
       href="/brand/optimized/altaria-v2-favicon-48.png"
     />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/brand/optimized/altaria-v2-apple-touch-icon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    {schemaGraph && <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaGraph)}></script>}
     {/* The opening statement is the first paint and it is set in Puffy.
         Without this the browser only discovers the font after parsing the
         stylesheet, and the phrase appears in the fallback and then jumps.

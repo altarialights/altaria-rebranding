@@ -4,8 +4,17 @@ import ServiceInterestTracker from '../components/contact/ServiceInterestTracker
 import SiteFooter from '../components/sections/SiteFooter.astro';
 import WebIcon from '../components/web/WebIcon.astro';
 import Base from '../layouts/Base.astro';
+import { createServiceSchema } from '../lib/seo';
 
 const contactHref = '/contacto?interes=desarrollo-web';
+const seoDescription = 'Diseñamos páginas web rápidas, profesionales y orientadas a conversión para negocios y empresas que quieren mejorar su presencia y captar clientes.';
+const serviceSchema = createServiceSchema(
+  Astro.site ?? new URL(Astro.url.origin),
+  '/desarrollo-web',
+  'Diseño y desarrollo web para negocios',
+  seoDescription,
+  'Diseño y desarrollo web profesional',
+);
 
 const headerNav = [
   { label: 'Servicios', href: '/servicios' },
@@ -112,9 +121,10 @@ const included = [
 ---
 
 <Base
-  title="Desarrollo Web a Medida | Altaria Lights"
-  description="Diseñamos y desarrollamos páginas web rápidas, modernas y a medida para empresas que quieren mejorar su presencia digital y convertir más visitas en clientes."
+  title="Desarrollo Web para Negocios | Altaria Lights"
+  description={seoDescription}
   canonical="/desarrollo-web"
+  schema={serviceSchema}
 >
   <ServiceInterestTracker interest="desarrollo-web" />
   <FloatingHeader

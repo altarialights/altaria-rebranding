@@ -3,8 +3,17 @@ import FloatingHeader from '../components/hero/FloatingHeader.astro';
 import ServiceInterestTracker from '../components/contact/ServiceInterestTracker.astro';
 import SiteFooter from '../components/sections/SiteFooter.astro';
 import Base from '../layouts/Base.astro';
+import { createServiceSchema } from '../lib/seo';
 
 const contactHref = '/contacto?interes=servicios';
+const seoDescription = 'Conectamos desarrollo web, marketing digital, software a medida y branding para mejorar la presencia, captación y operaciones de tu negocio.';
+const serviceSchema = createServiceSchema(
+  Astro.site ?? new URL(Astro.url.origin),
+  '/servicios',
+  'Servicios digitales para negocios y empresas',
+  seoDescription,
+  'Desarrollo web, marketing digital, software a medida y branding',
+);
 
 const services = [
   {
@@ -60,8 +69,10 @@ const results = [
 ---
 
 <Base
-  title="Servicios | Altaria Lights"
-  description="Marketing digital, desarrollo web, software a medida y branding conectados para impulsar tu negocio."
+  title="Servicios Digitales para Negocios | Altaria Lights"
+  description={seoDescription}
+  canonical="/servicios"
+  schema={serviceSchema}
 >
   <ServiceInterestTracker interest="servicios" />
   <FloatingHeader
