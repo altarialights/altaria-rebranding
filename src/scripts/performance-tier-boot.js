@@ -10,7 +10,6 @@
   'use strict';
 
   var GLOBAL_KEY = '__ALTARIA_PERFORMANCE__';
-  var SESSION_KEY = 'altaria:performance-tier:downgrade:v1';
   var TIERS = ['full', 'balanced', 'lite'];
   var root = document.documentElement;
 
@@ -36,25 +35,6 @@
       return new URLSearchParams(window.location.search);
     } catch (_error) {
       return { get: function get() { return null; } };
-    }
-  }
-
-  function safeSessionRead() {
-    try {
-      var raw = window.sessionStorage.getItem(SESSION_KEY);
-      if (!raw) return null;
-      var parsed = JSON.parse(raw);
-      return parsed && parsed.version === 1 && isTier(parsed.tier) ? parsed.tier : null;
-    } catch (_error) {
-      return null;
-    }
-  }
-
-  function safeSessionWrite(tier) {
-    try {
-      window.sessionStorage.setItem(SESSION_KEY, JSON.stringify({ version: 1, tier: tier }));
-    } catch (_error) {
-      /* Storage can be disabled. Tier selection must still work. */
     }
   }
 
@@ -177,16 +157,6 @@
   var selectedTier = preliminaryTier;
   var source = override ? 'manual-override' : 'automatic';
   var reasons = [override ? 'query-perf-' + override : automatic.reason];
-  var storedDowngrade = override || (signals.viewportWidth !== null && signals.viewportWidth < 1020)
-    ? null
-    : safeSessionRead();
-
-  /* A session value may only make this visit cheaper, never upgrade it. */
-  if (storedDowngrade && tierRank(storedDowngrade) > tierRank(selectedTier)) {
-    selectedTier = storedDowngrade;
-    source = 'session-downgrade';
-    reasons.push('previous-runtime-downgrade');
-  }
 
   var compactViewport = !override && signals.viewportWidth !== null && signals.viewportWidth < 1020;
   var locked = !!override || compactViewport;
@@ -298,7 +268,6 @@
     };
     reasons.push(runtimeDowngrade.reason);
     root.setAttribute('data-performance-tier', selectedTier);
-    safeSessionWrite(selectedTier);
 
     try {
       document.dispatchEvent(new CustomEvent('altaria:performance-tier-change', {
@@ -316,46 +285,6 @@
     locked = true;
     lockReason = reason || 'before-runtime-import';
     root.setAttribute('data-performance-tier', selectedTier);
-  }
-
-  function frameHealthDecision(report) {
-    if (report.sampleCount < 2) return null;
-
-    /* Two samples are enough to catch a catastrophic stall, not to label a
-       merely noisy page. Normal thresholds only engage with four samples. */
-    if (report.sampleCount < 4) {
-      if (selectedTier === 'full' && report.framesOver50 >= 2 && report.medianMs >= 45) {
-        return { tier: 'balanced', reason: 'early-frames-severely-slow' };
-      }
-      if (selectedTier === 'balanced' && report.framesOver100 >= 2) {
-        return { tier: 'lite', reason: 'early-frames-severely-slow' };
-      }
-      return null;
-    }
-
-    var slowRatio = report.framesOver34 / report.sampleCount;
-    var verySlowRatio = report.framesOver50 / report.sampleCount;
-    if (
-      selectedTier === 'full' &&
-      (
-        report.medianMs >= 34 ||
-        (slowRatio >= 0.45 && report.p95Ms >= 50) ||
-        report.framesOver100 >= 2
-      )
-    ) {
-      return { tier: 'balanced', reason: 'early-frame-health-below-full' };
-    }
-    if (
-      selectedTier === 'balanced' &&
-      (
-        report.medianMs >= 50 ||
-        (verySlowRatio >= 0.6 && report.p95Ms >= 85) ||
-        report.framesOver100 >= 3
-      )
-    ) {
-      return { tier: 'lite', reason: 'early-frame-health-below-balanced' };
-    }
-    return null;
   }
 
   function finaliseFrameHealth(options) {
@@ -385,12 +314,11 @@
     else if (signals.visibility === 'hidden') report.skipped = 'document-hidden';
     else if (!report.supported) report.skipped = 'request-animation-frame-unavailable';
     else if (report.sampleCount < 2) report.skipped = 'insufficient-connected-frames';
-    else {
-      var decision = frameHealthDecision(report);
-      if (decision && downgrade(decision.tier, decision.reason)) {
-        report.downgrade = { from: runtimeDowngrade.from, to: runtimeDowngrade.to };
-      }
-    }
+    /* Startup frames include parsing, font decode, cache warming and browser
+       scheduling. They are useful telemetry, but not a stable device signal.
+       Tier selection is intentionally deterministic for the whole visit so a
+       transient long task can never swap Full -> Balanced -> Lite. */
+    else report.skipped = 'diagnostic-only';
 
     frameReport = report;
     return report;

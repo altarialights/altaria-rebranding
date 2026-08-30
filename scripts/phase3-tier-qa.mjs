@@ -317,15 +317,15 @@ await qa('invalid perf value falls back to automatic resolver', async () => {
   }
 });
 
-await qa('session value only downgrades and manual override still wins', async () => {
+await qa('legacy session downgrade is ignored and manual override still wins', async () => {
   const run = await openCase({
     capabilities: { memory: 8, cores: 8 },
     sessionTier: 'lite',
   });
   try {
-    assertTierSnapshot(run.value, 'lite');
+    assertTierSnapshot(run.value, 'full');
     assert.equal(run.value.state.preliminaryTier, 'full');
-    assert.equal(run.value.state.source, 'session-downgrade');
+    assert.equal(run.value.state.source, 'automatic');
     await run.page.goto(new URL('?perf=full', BASE).href, { waitUntil: 'domcontentloaded' });
     await run.page.locator('[data-hero-tier-phase="ready"]').waitFor();
     const manual = await snapshot(run.page);
@@ -337,7 +337,7 @@ await qa('session value only downgrades and manual override still wins', async (
   }
 });
 
-await qa('session value never upgrades an automatically Lite device', async () => {
+await qa('legacy session value cannot alter an automatically Lite device', async () => {
   const run = await openCase({
     capabilities: { memory: 4, cores: 4 },
     sessionTier: 'balanced',
@@ -351,39 +351,39 @@ await qa('session value never upgrades an automatically Lite device', async () =
   }
 });
 
-await qa('real-frame Full downgrade remounts Balanced before runtime import', async () => {
+await qa('transient slow startup frames do not downgrade or remount Full', async () => {
   const run = await openCase({ capabilities: { memory: 8, cores: 8 }, slowRafMs: 55 });
   try {
-    assertTierSnapshot(run.value, 'balanced');
+    assertTierSnapshot(run.value, 'full');
     assert.equal(run.value.state.preliminaryTier, 'full');
-    assert.equal(run.value.state.runtimeDowngrade.from, 'full');
-    assert.equal(run.value.state.runtimeDowngrade.to, 'balanced');
-    assert.equal(run.value.ready.remounted, true);
-    assertRuntimeIsolation(run.value, run.requests, 'balanced');
-    assertBootBeforeRuntime(run.value, 'balanced');
+    assert.equal(run.value.state.runtimeDowngrade.occurred, false);
+    assert.equal(run.value.ready.remounted, false);
+    assert.equal(run.value.ready.frameHealth.skipped, 'diagnostic-only');
+    assertRuntimeIsolation(run.value, run.requests, 'full');
+    assertBootBeforeRuntime(run.value, 'full');
     const persisted = await run.page.evaluate(() =>
-      JSON.parse(sessionStorage.getItem('altaria:performance-tier:downgrade:v1'))
+      sessionStorage.getItem('altaria:performance-tier:downgrade:v1')
     );
-    assert.equal(persisted.tier, 'balanced');
+    assert.equal(persisted, null);
     return run.value.ready.frameHealth;
   } finally {
     await run.context.close();
   }
 });
 
-await qa('real-frame Balanced downgrade remounts Lite before runtime import', async () => {
+await qa('transient slow startup frames do not downgrade or remount Balanced', async () => {
   const run = await openCase({ capabilities: { memory: 8, cores: 4 }, slowRafMs: 180 });
   try {
-    assertTierSnapshot(run.value, 'lite');
+    assertTierSnapshot(run.value, 'balanced');
     assert.equal(run.value.state.preliminaryTier, 'balanced');
-    assert.equal(run.value.state.runtimeDowngrade.from, 'balanced');
-    assert.equal(run.value.state.runtimeDowngrade.to, 'lite');
-    assert.equal(run.value.ready.remounted, true);
-    assertRuntimeIsolation(run.value, run.requests, 'lite');
+    assert.equal(run.value.state.runtimeDowngrade.occurred, false);
+    assert.equal(run.value.ready.remounted, false);
+    assert.equal(run.value.ready.frameHealth.skipped, 'diagnostic-only');
+    assertRuntimeIsolation(run.value, run.requests, 'balanced');
     const persisted = await run.page.evaluate(() =>
-      JSON.parse(sessionStorage.getItem('altaria:performance-tier:downgrade:v1'))
+      sessionStorage.getItem('altaria:performance-tier:downgrade:v1')
     );
-    assert.equal(persisted.tier, 'lite');
+    assert.equal(persisted, null);
     return run.value.ready.frameHealth;
   } finally {
     await run.context.close();

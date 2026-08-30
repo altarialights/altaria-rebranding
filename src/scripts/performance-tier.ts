@@ -188,14 +188,6 @@ function createFallbackState(): PerformanceTierBootState {
       state.runtimeDowngrade = runtimeDowngrade;
       reasons.push(reason);
       document.documentElement.dataset.performanceTier = target;
-      try {
-        sessionStorage.setItem(
-          'altaria:performance-tier:downgrade:v1',
-          JSON.stringify({ version: 1, tier: target })
-        );
-      } catch {
-        // Storage is an optimisation, not a boot requirement.
-      }
       return true;
     },
     finaliseFrameHealth() {
