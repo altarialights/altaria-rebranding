@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import '../styles/performance-tiers.css';
+import deviceClassBoot from '../scripts/device-class-boot.js?raw';
 import performanceTierBoot from '../scripts/performance-tier-boot.js?raw';
 import CookieConsent from '../components/privacy/CookieConsent.astro';
 import {
@@ -57,6 +59,7 @@ const schemaGraph = schema === false
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline set:html={deviceClassBoot}></script>
     <script is:inline set:html={performanceTierBoot}></script>
     <title>{title}</title>
     <meta name="description" content={description} />

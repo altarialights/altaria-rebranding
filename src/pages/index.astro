@@ -66,7 +66,10 @@ import SiteFooter from '../components/sections/SiteFooter.astro';
     }
 
     const breakpoint = window.matchMedia('(max-width: 1019px)');
-    const experience = breakpoint.matches ? 'responsive' : 'desktop';
+    const deviceClass = document.documentElement.dataset.deviceClass;
+    const experience = deviceClass
+      ? deviceClass === 'desktop' ? 'desktop' : 'responsive'
+      : breakpoint.matches ? 'responsive' : 'desktop';
     const headerOutlet = document.querySelector('[data-viewport-header-outlet]');
     const heroOutlet = document.querySelector('[data-viewport-hero-outlet]');
     const headerTemplate = document.querySelector(`[data-viewport-header-template="${experience}"]`);
@@ -83,7 +86,11 @@ import SiteFooter from '../components/sections/SiteFooter.astro';
     document.querySelectorAll('[data-viewport-header-template], [data-viewport-hero-template]')
       .forEach((template) => template.remove());
 
-    breakpoint.addEventListener('change', () => window.location.reload());
+    document.addEventListener('altaria:device-class-change', (event) => {
+      const nextClass = event.detail?.to;
+      const nextExperience = nextClass === 'desktop' ? 'desktop' : 'responsive';
+      if (nextExperience !== experience) window.location.reload();
+    });
   })();
 </script>
 

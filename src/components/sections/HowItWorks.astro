@@ -210,7 +210,8 @@ const routeDots = {
 <script>
   const section = document.querySelector<HTMLElement>('[data-how-we-work]');
 
-  if (section && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+  const useHowReveal = document.documentElement.dataset.performanceTier !== 'lite';
+  if (section && useHowReveal && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
     section.classList.add('how--enhanced');
     const observer = new IntersectionObserver(
       ([entry]) => {

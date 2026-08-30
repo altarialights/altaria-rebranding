@@ -345,7 +345,8 @@ const metricIconPath = (icon: string) => {
   });
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reducedMotion && 'IntersectionObserver' in window) {
+  const useProjectReveal = document.documentElement.dataset.performanceTier !== 'lite';
+  if (useProjectReveal && !reducedMotion && 'IntersectionObserver' in window) {
     const reveals = document.querySelectorAll<HTMLElement>('.dz-reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {

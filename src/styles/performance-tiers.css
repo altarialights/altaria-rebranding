@@ -1,0 +1,358 @@
+/*
+ * Progressive paint/compositing budget outside the home hero.
+ *
+ * Geometry is deliberately absent from this file: no dimensions, spacing,
+ * grids, positioning or breakpoints are changed. Full remains the authored
+ * reference. Balanced and Lite only reduce effects that create extra raster
+ * or compositing work. The home hero is explicitly outside every scope.
+ */
+
+/* Shared interior-page atmosphere --------------------------------------- */
+
+html[data-performance-tier='balanced'] body
+  :is(.services-page, .web-page, .marketing-page, .software-page, .branding-page, .contact-page, .dz-page)
+  :is(
+    .services-sky__clouds--far,
+    .web-sky__clouds--far,
+    .marketing-sky__clouds--far,
+    .software-sky__clouds--far,
+    .branding-sky__clouds--far,
+    .contact-sky__clouds--far,
+    .dz-sky__clouds--far
+  ) {
+  filter: blur(6px);
+}
+
+html[data-performance-tier='lite'] body
+  :is(.services-page, .web-page, .marketing-page, .software-page, .branding-page, .contact-page, .dz-page)
+  :is(
+    .services-sky__clouds--far,
+    .web-sky__clouds--far,
+    .marketing-sky__clouds--far,
+    .software-sky__clouds--far,
+    .branding-sky__clouds--far,
+    .contact-sky__clouds--far,
+    .dz-sky__clouds--far
+  ) {
+  filter: none;
+}
+
+html[data-performance-tier='balanced'] body
+  :is(.services-page, .web-page, .marketing-page, .software-page, .branding-page, .contact-page, .dz-page)
+  :is(
+    .services-hero__cloud,
+    .web-hero__cloud,
+    .marketing-hero__cloud,
+    .software-hero__cloud,
+    .branding-hero__cloud,
+    .contact-hero__cloud,
+    .dz-hero__cloud
+  ) > svg {
+  filter: drop-shadow(0 12px 11px rgba(54, 124, 174, 0.14));
+}
+
+html[data-performance-tier='lite'] body
+  :is(.services-page, .web-page, .marketing-page, .software-page, .branding-page, .contact-page, .dz-page)
+  :is(
+    .services-hero__cloud,
+    .web-hero__cloud,
+    .marketing-hero__cloud,
+    .software-hero__cloud,
+    .branding-hero__cloud,
+    .contact-hero__cloud,
+    .dz-hero__cloud
+  ) > svg {
+  filter: none;
+}
+
+html[data-performance-tier='balanced'] body
+  :is(.services-page, .web-page, .marketing-page, .software-page, .branding-page, .contact-page, .dz-page)
+  :is(
+    .services-hero__visual,
+    .web-hero__visual,
+    .marketing-hero__visual,
+    .software-hero__visual,
+    .branding-hero__visual,
+    .contact-hero__visual,
+    .dz-hero__visual
+  ) {
+  filter: drop-shadow(0 16px 16px rgba(25, 86, 137, 0.1));
+}
+
+html[data-performance-tier='lite'] body
+  :is(.services-page, .web-page, .marketing-page, .software-page, .branding-page, .contact-page, .dz-page)
+  :is(
+    .services-hero__visual,
+    .web-hero__visual,
+    .marketing-hero__visual,
+    .software-hero__visual,
+    .branding-hero__visual,
+    .contact-hero__visual,
+    .dz-hero__visual
+  ) {
+  filter: none;
+}
+
+html[data-performance-tier='balanced'] body
+  :is(.services-page, .web-page, .marketing-page, .software-page, .branding-page, .contact-page, .dz-page)
+  :is(
+    .services-sky__sun,
+    .web-sky__sun,
+    .marketing-sky__sun,
+    .software-sky__sun,
+    .branding-sky__sun,
+    .contact-sky__sun,
+    .dz-sky__sun
+  ) {
+  box-shadow: 0 0 0 14px rgba(255, 253, 246, 0.08), 0 0 30px 12px rgba(255, 253, 246, 0.3);
+}
+
+html[data-performance-tier='lite'] body
+  :is(.services-page, .web-page, .marketing-page, .software-page, .branding-page, .contact-page, .dz-page)
+  :is(
+    .services-sky__sun,
+    .web-sky__sun,
+    .marketing-sky__sun,
+    .software-sky__sun,
+    .branding-sky__sun,
+    .contact-sky__sun,
+    .dz-sky__sun
+  ) {
+  box-shadow: 0 0 0 10px rgba(255, 253, 246, 0.1);
+}
+
+html:is([data-performance-tier='balanced'], [data-performance-tier='lite']) body
+  :is(.services-page, .web-page, .marketing-page, .software-page, .branding-page, .contact-page, .dz-page)
+  :is(
+    .services-hero-transition,
+    .web-hero-transition,
+    .marketing-hero-transition,
+    .software-hero-transition,
+    .branding-hero-transition,
+    .contact-hero-transition
+  ) svg {
+  filter: none;
+}
+
+/* Interior panels and cards --------------------------------------------- */
+
+html[data-performance-tier='balanced'] body
+  :is(.services-page, .web-page, .marketing-page, .software-page, .branding-page, .contact-page, .dz-page)
+  :is(
+    .service-card,
+    .services-system__shell,
+    .services-system__node,
+    .services-proof__metrics,
+    .web-panel,
+    .web-final-cta,
+    .marketing-panel,
+    .marketing-final-cta,
+    .software-panel,
+    .software-final-cta,
+    .branding-panel,
+    .branding-final-cta,
+    .contact-panel,
+    .contact-services-cta,
+    .contact-whatsapp-card,
+    .dz-panel,
+    .dz-final
+  ) {
+  box-shadow: 0 16px 34px -30px rgba(15, 72, 120, 0.38), inset 0 1px rgba(255, 255, 255, 0.72);
+}
+
+html[data-performance-tier='lite'] body
+  :is(.services-page, .web-page, .marketing-page, .software-page, .branding-page, .contact-page, .dz-page)
+  :is(
+    .service-card,
+    .services-system__shell,
+    .services-system__node,
+    .services-proof__metrics,
+    .web-panel,
+    .web-final-cta,
+    .marketing-panel,
+    .marketing-final-cta,
+    .software-panel,
+    .software-final-cta,
+    .branding-panel,
+    .branding-final-cta,
+    .contact-panel,
+    .contact-services-cta,
+    .contact-whatsapp-card,
+    .dz-panel,
+    .dz-final
+  ) {
+  box-shadow: 0 8px 20px -18px rgba(15, 72, 120, 0.3);
+}
+
+html[data-performance-tier='balanced'] body .services-page
+  :is(.service-card, .services-system__node, .services-proof__metrics) {
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+html[data-performance-tier='lite'] body .services-page
+  :is(.service-card, .services-system__node, .services-proof__metrics) {
+  background-color: rgba(249, 253, 255, 0.94);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+html[data-performance-tier='balanced'] body .services-page .services-proof::before,
+html[data-performance-tier='balanced'] body .services-page .services-proof::after {
+  filter: blur(10px);
+}
+
+html[data-performance-tier='lite'] body .services-page .services-proof::before,
+html[data-performance-tier='lite'] body .services-page .services-proof::after {
+  display: none;
+}
+
+html:is([data-performance-tier='balanced'], [data-performance-tier='lite']) body .services-page .services-system__center,
+html:is([data-performance-tier='balanced'], [data-performance-tier='lite']) body .contact-page .contact-whatsapp-card img {
+  filter: none;
+}
+
+html[data-performance-tier='balanced'] body .marketing-page.marketing-page .marketing-comparison__side figure img,
+html[data-performance-tier='balanced'] body .software-page.software-page .software-comparison__side figure img,
+html[data-performance-tier='balanced'] body .branding-page.branding-page .branding-comparison__side figure img,
+html[data-performance-tier='balanced'] body .marketing-page.marketing-page .marketing-budget__asset img,
+html[data-performance-tier='balanced'] body .software-page.software-page .software-budget__asset img,
+html[data-performance-tier='balanced'] body .branding-page.branding-page .branding-budget__asset img {
+  filter: drop-shadow(0 9px 10px rgba(22, 65, 108, 0.08));
+}
+
+html[data-performance-tier='lite'] body .marketing-page.marketing-page .marketing-comparison__side figure img,
+html[data-performance-tier='lite'] body .software-page.software-page .software-comparison__side figure img,
+html[data-performance-tier='lite'] body .branding-page.branding-page .branding-comparison__side figure img,
+html[data-performance-tier='lite'] body .marketing-page.marketing-page .marketing-budget__asset img,
+html[data-performance-tier='lite'] body .software-page.software-page .software-budget__asset img,
+html[data-performance-tier='lite'] body .branding-page.branding-page .branding-budget__asset img {
+  filter: none;
+}
+
+html[data-performance-tier='lite'] body .services-page
+  :is(.services-sky__sun, .services-sky__clouds--near) {
+  filter: none;
+}
+
+html[data-performance-tier='lite'] body .services-page .services-hero__cloud-shape g[filter],
+html[data-performance-tier='lite'] body .services-page .services-hero__cloud g[filter],
+html[data-performance-tier='lite'] body .dz-page .dz-final__cloud {
+  filter: none;
+}
+
+html[data-performance-tier='lite'] body
+  :is(.marketing-page, .software-page, .branding-page, .contact-page, .dz-page)
+  :is(
+    .marketing-process__card,
+    .marketing-help__card,
+    .marketing-benefits article,
+    .software-process__card,
+    .software-solutions__card,
+    .software-benefits article,
+    .branding-process__card,
+    .branding-solutions__card,
+    .branding-benefits article,
+    .contact-reasons article,
+    .dz-journey__asset,
+    .dz-solution-card
+  ) {
+  box-shadow: none;
+}
+
+/* Home after the hero ---------------------------------------------------- */
+
+@media (min-width: 1020px) {
+  /* Full's approved composed portrait becomes the shared composition. It
+     also replaces three independently painted frames in cheaper tiers. */
+  html:is([data-performance-tier='balanced'], [data-performance-tier='lite']) body main .case__showcase {
+    display: grid;
+    min-height: min(76svh, 760px);
+    place-items: center;
+  }
+
+  html:is([data-performance-tier='balanced'], [data-performance-tier='lite']) body main .case-portrait {
+    display: block;
+    width: min(100%, clamp(600px, 52vw, 920px));
+  }
+
+  html:is([data-performance-tier='balanced'], [data-performance-tier='lite']) body main
+    :is(.case-monitor, .case-phone, .case-video) {
+    display: none;
+  }
+
+  /* Balanced keeps the Full cloud bridges but removes their live blur.
+     Lite omits this purely decorative paint; it occupies no layout space. */
+  html[data-performance-tier='balanced'] body main .case,
+  html[data-performance-tier='balanced'] body main .how {
+    overflow: visible;
+  }
+
+  html[data-performance-tier='balanced'] body main
+    :is(.case__cloud, .how__sky-cloud) {
+    display: none;
+  }
+
+  html[data-performance-tier='balanced'] body main .section-cloud-bridge {
+    position: absolute;
+    z-index: -1;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: clamp(190px, 15vw, 280px);
+    pointer-events: none;
+    filter: none;
+    transform: translateY(50%);
+  }
+
+  html[data-performance-tier='balanced'] body main .section-cloud-bridge--how-mirador {
+    transform: translateY(50%) scaleX(-1);
+  }
+}
+
+html[data-performance-tier='balanced'] body main
+  :is(.case-metric, .case-testimonial, .how-step__card) {
+  box-shadow: 0 12px 24px -22px rgba(8, 48, 88, 0.5);
+}
+
+html[data-performance-tier='lite'] body main
+  :is(.case-metric, .case-testimonial, .how-step__card) {
+  box-shadow: none;
+}
+
+html[data-performance-tier='lite'] body main
+  :is(.case__cloud-shape, .how__cloud-shape, .mirador__cloud-shape) g[filter] {
+  filter: none;
+}
+
+/* One-shot decorative entrances are skipped in Lite. Interactive hover,
+   focus, navigation and form feedback remain untouched. */
+html[data-performance-tier='lite'] body
+  :is(
+    .web-hero__cloud,
+    .web-hero__visual,
+    .marketing-hero__cloud,
+    .marketing-hero__visual,
+    .software-hero__cloud,
+    .software-hero__visual,
+    .branding-hero__cloud,
+    .branding-hero__visual,
+    .contact-hero__cloud,
+    .contact-hero__visual
+  ) {
+  animation: none;
+}
+
+/* Footer is shared by every route. Keep its shape and interaction, reduce
+   only the repeated card/button shadow paint. */
+html[data-performance-tier='balanced'] body .site-footer
+  :is(.site-footer__social, .site-footer__contact, .site-footer__cta) {
+  box-shadow: 0 8px 18px -16px rgba(20, 55, 93, 0.42);
+}
+
+html[data-performance-tier='lite'] body .site-footer
+  :is(.site-footer__social, .site-footer__contact, .site-footer__cta) {
+  box-shadow: none;
+}

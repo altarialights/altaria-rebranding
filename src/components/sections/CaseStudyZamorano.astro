@@ -272,7 +272,8 @@ const metricIcon = (icon: string) => {
 
 <script>
   const caseStudy = document.querySelector<HTMLElement>('[data-case-study]');
-  if (caseStudy && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+  const useCaseReveal = document.documentElement.dataset.performanceTier !== 'lite';
+  if (caseStudy && useCaseReveal && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
     const reveal = Array.from(caseStudy.querySelectorAll<HTMLElement>('[data-case-reveal]'));
     caseStudy.classList.add('case--enhanced');
     const observer = new IntersectionObserver(
