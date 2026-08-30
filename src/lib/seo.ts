@@ -1,6 +1,6 @@
 export const SITE_NAME = "Altaria Lights";
 export const SITE_LANGUAGE = "es-ES";
-export const DEFAULT_OG_IMAGE_PATH = "/brand/optimized/altaria-og-v2.png";
+export const DEFAULT_OG_IMAGE_PATH = "/brand/optimized/altaria-og-v2.jpg";
 export const DEFAULT_ROBOTS =
     "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
