@@ -2,9 +2,10 @@
 import FloatingHeader from '../components/hero/FloatingHeader.astro';
 import SiteFooter from '../components/sections/SiteFooter.astro';
 import Base from '../layouts/Base.astro';
-import { createWhatsAppUrl } from '../lib/contact/service-interests';
+import { createGmailUrl, createWhatsAppUrl } from '../lib/contact/service-interests';
 
 const whatsappFallbackHref = createWhatsAppUrl([]);
+const emailFallbackHref = createGmailUrl([]);
 const headerNav = [
   { label: 'Servicios', href: '/servicios' },
   { label: 'Caso real', href: '/proyectos/de-zamorano' },
@@ -62,10 +63,16 @@ const steps = [
             <p class="contact-eyebrow">Hablemos sin rodeos</p>
             <h1 id="contact-hero-title"><span>Hablemos</span><span>de tu proyecto.</span></h1>
             <p>Cuéntanos qué necesitas y te ayudamos a encontrar la mejor solución para tu negocio.</p>
-            <a class="contact-button contact-button--whatsapp" href={whatsappFallbackHref} target="_blank" rel="noopener noreferrer" data-whatsapp-link data-whatsapp-source="hero">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 3.6A11.8 11.8 0 0 0 1.9 17.8L.3 23.7l6-1.6a11.7 11.7 0 0 0 5.6 1.4A11.8 11.8 0 0 0 20.4 3.6Zm-8.5 17.9a9.7 9.7 0 0 1-5-1.4l-.4-.2-3.5.9.9-3.4-.2-.4a9.8 9.8 0 1 1 8.2 4.5Zm5.4-7.3c-.3-.1-1.8-.9-2-1-.3-.1-.5-.2-.7.1l-1 1.2c-.2.2-.4.2-.7.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6.3-.6c.1-.2 0-.5 0-.6l-.9-2.1c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.6c.1.2 2.4 3.7 5.9 5.2.8.4 1.5.6 2 .7.8.3 1.6.2 2.2.1.7-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg>
-              <span>Escríbenos por WhatsApp</span><span aria-hidden="true">→</span>
-            </a>
+            <div class="contact-hero__actions">
+              <a class="contact-button contact-button--whatsapp" href={whatsappFallbackHref} target="_blank" rel="noopener noreferrer" data-whatsapp-link data-whatsapp-source="hero">
+                <img class="contact-button__whatsapp-icon" src="/media/contacto/optimized/whatsapp-grande-180.webp" width="180" height="180" alt="" decoding="async" />
+                <span>Escríbenos por WhatsApp</span><span aria-hidden="true">→</span>
+              </a>
+              <a class="contact-button contact-button--email" href={emailFallbackHref} target="_blank" rel="noopener noreferrer" aria-label="Escribir a Altaria Lights por email en Gmail" data-email-link data-email-source="hero">
+                <img src="/media/contacto/optimized/email-3d-96.webp" width="96" height="96" alt="" decoding="async" />
+                <span>Escríbenos por email</span><span aria-hidden="true">→</span>
+              </a>
+            </div>
           </div>
         </div>
         <picture class="contact-hero__visual">
@@ -99,13 +106,13 @@ const steps = [
             <p class="contact-eyebrow">Una conversación directa</p><h2>Escríbenos por WhatsApp</h2>
             <p>Cuéntanos qué tienes en mente y hablamos directamente contigo.</p>
             <a class="contact-button contact-button--whatsapp" href={whatsappFallbackHref} target="_blank" rel="noopener noreferrer" data-whatsapp-link data-whatsapp-source="contact_card">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 3.6A11.8 11.8 0 0 0 1.9 17.8L.3 23.7l6-1.6a11.7 11.7 0 0 0 5.6 1.4A11.8 11.8 0 0 0 20.4 3.6Zm-8.5 17.9a9.7 9.7 0 0 1-5-1.4l-.4-.2-3.5.9.9-3.4-.2-.4a9.8 9.8 0 1 1 8.2 4.5Zm5.4-7.3c-.3-.1-1.8-.9-2-1-.3-.1-.5-.2-.7.1l-1 1.2c-.2.2-.4.2-.7.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6.3-.6c.1-.2 0-.5 0-.6l-.9-2.1c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.6c.1.2 2.4 3.7 5.9 5.2.8.4 1.5.6 2 .7.8.3 1.6.2 2.2.1.7-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg>
+              <img class="contact-button__whatsapp-icon" src="/media/contacto/optimized/whatsapp-grande-180.webp" width="180" height="180" alt="" loading="lazy" decoding="async" />
               <span>Abrir WhatsApp</span><span aria-hidden="true">→</span>
             </a>
             <small><span aria-hidden="true">✓</span> Sin compromiso · Conversación directa · Tus datos no se publican</small>
           </article>
         </div>
-        <aside class="contact-email"><span>Otras formas de contactar</span><p>También puedes escribirnos a <a href="mailto:altarialights@gmail.com">altarialights@gmail.com</a></p></aside>
+        <aside class="contact-email"><span>Otras formas de contactar</span><p>También puedes escribirnos a <a href={emailFallbackHref} target="_blank" rel="noopener noreferrer" data-email-link data-email-source="alternative">altarialights@gmail.com</a></p></aside>
       </section>
 
       <section class="contact-services-cta" aria-labelledby="contact-services-title">
@@ -120,7 +127,7 @@ const steps = [
 
 <script>
   import { captureEvent } from '../lib/analytics/posthog';
-  import { collectServiceInterests, createWhatsAppUrl } from '../lib/contact/service-interests';
+  import { collectServiceInterests, createGmailUrl, createWhatsAppUrl } from '../lib/contact/service-interests';
 
   const interests = collectServiceInterests(window.location.search);
   const whatsappHref = createWhatsAppUrl(interests);
@@ -133,6 +140,18 @@ const steps = [
     link.addEventListener('click', () => {
       void captureEvent('contact_whatsapp_click', {
         source: link.dataset.whatsappSource ?? (link.classList.contains('site-footer__cta') ? 'footer' : 'header'),
+        interests,
+      });
+    });
+  });
+
+  document.querySelectorAll<HTMLAnchorElement>('[data-email-link]').forEach((link) => {
+    link.href = createGmailUrl(interests);
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.addEventListener('click', () => {
+      void captureEvent('contact_email_click', {
+        source: link.dataset.emailSource ?? 'contact',
         interests,
       });
     });

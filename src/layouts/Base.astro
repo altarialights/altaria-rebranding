@@ -123,5 +123,19 @@ const schemaGraph = schema === false
   <body>
     <slot />
     <CookieConsent />
+    <script>
+      const fullRevealRoot = document.documentElement;
+      const shouldLoadFullReveals =
+        fullRevealRoot.dataset.performanceTier === 'full' &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (shouldLoadFullReveals) {
+        void import('../scripts/full-tier-reveals')
+          .then(({ initFullTierReveals }) => initFullTierReveals())
+          .catch((error: unknown) => {
+            console.error('[Altaria] No se pudieron iniciar las entradas de FULL.', error);
+          });
+      }
+    </script>
   </body>
 </html>

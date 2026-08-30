@@ -116,8 +116,8 @@ const routeDots = {
             Un proceso claro, cercano y transparente<br />
             para resultados que se notan.
           </p>
-          <a class="how__cta" href="#paso-escuchamos">
-            <span>Así empieza nuestro proceso</span>
+          <a class="how__cta" href="/contacto">
+            <span>Empezamos... ??</span>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M5 12h13M14 7l5 5-5 5"></path>
             </svg>
@@ -210,7 +210,7 @@ const routeDots = {
 <script>
   const section = document.querySelector<HTMLElement>('[data-how-we-work]');
 
-  const useHowReveal = document.documentElement.dataset.performanceTier !== 'lite';
+  const useHowReveal = document.documentElement.dataset.performanceTier === 'balanced';
   if (section && useHowReveal && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
     section.classList.add('how--enhanced');
     const observer = new IntersectionObserver(

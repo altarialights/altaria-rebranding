@@ -99,7 +99,7 @@ const titleLines = [
 <script>
   const section = document.querySelector<HTMLElement>('[data-mirador]');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const useMiradorReveal = document.documentElement.dataset.performanceTier !== 'lite';
+  const useMiradorReveal = document.documentElement.dataset.performanceTier === 'balanced';
 
   if (section && useMiradorReveal && !reduceMotion && 'IntersectionObserver' in window) {
     section.classList.add('mirador--motion');
