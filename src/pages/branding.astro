@@ -1,0 +1,194 @@
+---
+import FloatingHeader from '../components/hero/FloatingHeader.astro';
+import ServiceInterestTracker from '../components/contact/ServiceInterestTracker.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+import Base from '../layouts/Base.astro';
+
+const contactHref = '/contacto?interes=branding';
+
+const headerNav = [
+  { label: 'Servicios', href: '/servicios' },
+  { label: 'Caso real', href: '/proyectos/de-zamorano' },
+  { label: 'Proceso', href: '/#como-funciona' },
+] as const;
+
+const processSteps = [
+  { number: '01', asset: 'hablamos', title: 'Hablamos contigo', description: 'Conocemos tu negocio, tus valores, tu público y qué quieres transmitir.' },
+  { number: '02', asset: 'investigamos', title: 'Investigamos y entendemos', description: 'Analizamos tu marca actual, competencia, mercado, objetivos y oportunidades.' },
+  { number: '03', asset: 'asesoramos', title: 'Te asesoramos', description: 'Definimos la dirección visual y de comunicación que mejor representa a tu negocio.' },
+  { number: '04', asset: 'diseñamos', title: 'Diseñamos y revisamos', description: 'Creamos tu identidad, te presentamos la propuesta y la perfeccionamos contigo.' },
+  { number: '05', asset: 'entregamos', title: 'Aplicamos y entregamos', description: 'Preparamos todas las aplicaciones y archivos finales para usar tu marca con seguridad.' },
+] as const;
+
+const comparison = {
+  without: [
+    'Imagen poco profesional', 'Falta de coherencia', 'Colores y estilos cambiantes',
+    'Difícil de recordar', 'Menor confianza', 'Comunicación inconsistente',
+    'Parece menos cuidado', 'Cuesta diferenciarse', 'Menor percepción de valor',
+  ],
+  with: [
+    'Imagen sólida', 'Coherencia visual', 'Mayor confianza', 'Transmite profesionalidad',
+    'Comunica tus valores', 'Fácil de reconocer', 'Te diferencia de la competencia',
+    'Mayor percepción de calidad', 'Más oportunidades', 'Identidad y conexión emocional',
+  ],
+} as const;
+
+const solutions = [
+  { asset: 1, title: 'Identidad visual', description: 'Logotipo, isotipo, versiones, colores, tipografías y un sistema visual coherente.' },
+  { asset: 2, title: 'Naming y slogan', description: 'Nombres, slogans y líneas de comunicación que expresan la esencia de tu marca.' },
+  { asset: 3, title: 'Merchandising', description: 'Material promocional personalizado para que tu marca también viva en soportes físicos.' },
+  { asset: 4, title: 'Diseño gráfico', description: 'Papelería, tarjetas, flyers, banners y piezas digitales preparadas para comunicar.' },
+  { asset: 5, title: 'Aplicaciones de marca', description: 'Adaptaciones para que la identidad funcione de forma consistente en el mundo real.' },
+  { asset: 6, title: 'Packaging y etiquetas', description: 'Envases, etiquetas y presentaciones de producto alineadas con tu identidad.' },
+  { asset: 7, title: 'Redes sociales', description: 'Plantillas, portadas, línea gráfica y adaptaciones para tus canales sociales.' },
+  { asset: 8, title: 'Presentaciones', description: 'Dossiers, propuestas y documentos corporativos claros, cuidados y reconocibles.' },
+  { asset: 9, title: 'Cartelería y señalética', description: 'Carteles, escaparates, señalización y materiales visuales para tu espacio.' },
+] as const;
+
+const benefits = [
+  { icon: 'shield', title: 'Mayor confianza', description: 'Una imagen cuidada transmite profesionalidad.' },
+  { icon: 'spark', title: 'Diferenciación', description: 'Tu marca deja de parecer una más.' },
+  { icon: 'eye', title: 'Más reconocimiento', description: 'Una identidad coherente hace que te recuerden.' },
+  { icon: 'grid', title: 'Coherencia', description: 'Tu negocio se comunica igual en cada punto de contacto.' },
+  { icon: 'diamond', title: 'Mayor valor percibido', description: 'Una mejor imagen eleva cómo se percibe lo que ofreces.' },
+  { icon: 'growth', title: 'Más oportunidades', description: 'Facilita la comunicación, las ventas y el crecimiento.' },
+  { icon: 'layers', title: 'Flexibilidad', description: 'Recursos preparados para utilizarse en distintos soportes.' },
+  { icon: 'check', title: 'Aplicación real', description: 'Llevamos la marca a cada pieza que tu negocio necesite.' },
+] as const;
+
+const benefitIconPaths: Record<string, string> = {
+  shield: 'M12 3 5 6v5c0 4.6 2.9 7.8 7 10 4.1-2.2 7-5.4 7-10V6l-7-3Zm-3 9 2 2 4-5',
+  spark: 'm12 2 1.7 5.3L19 9l-5.3 1.7L12 16l-1.7-5.3L5 9l5.3-1.7L12 2Zm6 13 .8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8L18 15Z',
+  eye: 'M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Zm10 3.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z',
+  grid: 'M4 4h6v6H4V4Zm10 0h6v6h-6V4ZM4 14h6v6H4v-6Zm10 0h6v6h-6v-6Z',
+  diamond: 'm12 3 8 7-8 11-8-11 8-7Zm-8 7h16M8 4l-2 6 6 11 6-11-2-6',
+  growth: 'M4 19V9m6 10v-5m6 5V7m-9 3 4-4 3 3 6-6m-4 0h4v4',
+  layers: 'm12 3 9 5-9 5-9-5 9-5Zm9 10-9 5-9-5m18 5-9 5-9-5',
+  check: 'M20 11.2V12a8 8 0 1 1-4.7-7.3M8.5 12l2.3 2.3L20 5',
+};
+---
+
+<Base
+  title="Branding e Identidad Visual | Altaria Lights"
+  description="Creamos identidades visuales, logos, diseño gráfico y aplicaciones de marca para negocios que quieren transmitir profesionalidad, coherencia y diferenciarse."
+  canonical="/branding"
+>
+  <ServiceInterestTracker interest="branding" />
+  <FloatingHeader alwaysVisible brandHref="/" nav={headerNav} cta={{ label: 'Hablemos', href: contactHref }} />
+
+  <main class="branding-page" id="top">
+    <section class="branding-hero" aria-labelledby="branding-hero-title">
+      <div class="branding-sky" aria-hidden="true">
+        <span class="branding-sky__sun"></span><span class="branding-sky__haze"></span>
+        <span class="branding-sky__clouds branding-sky__clouds--far"></span>
+        <span class="branding-sky__clouds branding-sky__clouds--near"></span>
+      </div>
+      <div class="branding-hero__inner">
+        <div class="branding-hero__cloud">
+          <svg viewBox="0 0 900 650" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="branding-cloud-fill" gradientUnits="userSpaceOnUse" x1="0" y1="70" x2="0" y2="620">
+                <stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#fafdff"/><stop offset="1" stop-color="#e6f1fa"/>
+              </linearGradient>
+              <radialGradient id="branding-cloud-sheen" gradientUnits="userSpaceOnUse" cx="315" cy="168" r="315">
+                <stop offset="0" stop-color="#fff" stop-opacity=".88"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <g fill="url(#branding-cloud-fill)">
+              <ellipse cx="450" cy="385" rx="330" ry="200"/><ellipse cx="205" cy="390" rx="180" ry="150"/>
+              <ellipse cx="315" cy="255" rx="184" ry="175"/><ellipse cx="485" cy="210" rx="210" ry="190"/>
+              <ellipse cx="680" cy="320" rx="205" ry="180"/><ellipse cx="300" cy="500" rx="190" ry="120"/>
+              <ellipse cx="495" cy="520" rx="230" ry="122"/><ellipse cx="680" cy="490" rx="178" ry="116"/>
+            </g>
+            <g fill="url(#branding-cloud-sheen)" opacity=".72"><ellipse cx="305" cy="220" rx="118" ry="92"/><ellipse cx="460" cy="170" rx="145" ry="100"/></g>
+          </svg>
+          <div class="branding-hero__copy">
+            <p class="branding-eyebrow">Branding e identidad</p>
+            <h1 id="branding-hero-title"><span>Branding que construye</span><span>marcas que dejan huella.</span></h1>
+            <p>Diseñamos una identidad visual y verbal que represente quién eres, conecte con tu público y genere confianza.</p>
+            <a class="branding-button" href={contactHref} data-branding-cta="hero"><span>Hablemos de tu proyecto</span><span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <picture class="branding-hero__visual">
+          <source srcset="/media/branding/optimized/hero-720.webp 720w, /media/branding/optimized/hero-1200.webp 1200w" sizes="(max-width: 699px) 100vw, (max-width: 1019px) 88vw, 50vw" type="image/webp"/>
+          <img src="/media/branding/optimized/hero-1200.webp" width="1536" height="1024" alt="Composición tridimensional de diseño de identidad con letra, muestras de color y herramientas creativas" decoding="async" fetchpriority="high"/>
+        </picture>
+      </div>
+    </section>
+
+    <div class="branding-hero-transition" aria-hidden="true"><svg viewBox="0 0 1900 160" preserveAspectRatio="none"><path d="M0 0H1900V72C1795 72 1740 105 1640 96C1540 86 1490 62 1385 78C1270 96 1190 113 1070 91C960 70 870 66 760 87C650 108 560 102 455 82C345 62 250 72 160 96C92 114 42 108 0 94V0Z"/></svg></div>
+
+    <div class="branding-content">
+      <section class="branding-panel branding-process" aria-labelledby="branding-process-title">
+        <header class="branding-heading"><p class="branding-eyebrow">Un recorrido compartido</p><h2 id="branding-process-title">Cómo trabajamos contigo</h2><p>Un proceso claro y colaborativo para construir una marca desde la esencia hasta cada detalle.</p></header>
+        <ol class="branding-process__grid">
+          {processSteps.map((step) => <li class="branding-process__card">
+            <picture class="branding-process__asset"><source srcset={`/media/branding/optimized/process-${step.asset}-240.webp 240w, /media/branding/optimized/process-${step.asset}-420.webp 420w`} sizes="(max-width: 699px) 105px, (max-width: 1019px) 130px, 150px" type="image/webp"/><img src={`/media/branding/optimized/process-${step.asset}-420.webp`} width="1536" height="1536" alt="" loading="lazy" decoding="async"/></picture>
+            <span class="branding-process__number">{step.number}</span><h3>{step.title}</h3><p>{step.description}</p>
+          </li>)}
+        </ol>
+        <p class="branding-process__note"><span aria-hidden="true">★</span> Con la dirección aprobada, trabajamos en dos fases: 50% para desarrollar la marca y 50% antes de entregar todas sus aplicaciones y archivos finales.</p>
+      </section>
+
+      <section class="branding-panel branding-comparison" aria-labelledby="branding-comparison-title">
+        <header class="branding-heading"><p class="branding-eyebrow">La percepción también comunica</p><h2 id="branding-comparison-title">¿Por qué una buena marca marca la diferencia?</h2><p>La percepción de tu negocio cambia antes incluso de que alguien pruebe tu producto o servicio.</p></header>
+        <div class="branding-comparison__grid">
+          <article class="branding-comparison__side branding-comparison__side--without"><h3>Sin una buena marca <span aria-hidden="true">×</span></h3><div class="branding-comparison__body">
+            <figure><img src="/media/branding/optimized/mala-imagen-640.webp" srcset="/media/branding/optimized/mala-imagen-360.webp 360w, /media/branding/optimized/mala-imagen-640.webp 640w" sizes="(max-width: 699px) 72vw, (max-width: 1019px) 38vw, 330px" width="640" height="640" alt="Representación conceptual de un negocio con una imagen descuidada" loading="lazy" decoding="async"/></figure>
+            <ul>{comparison.without.map((item) => <li>{item}</li>)}</ul>
+          </div></article>
+          <span class="branding-comparison__vs" aria-hidden="true">VS</span>
+          <article class="branding-comparison__side branding-comparison__side--with"><h3>Con una marca profesional <span aria-hidden="true">✓</span></h3><div class="branding-comparison__body branding-comparison__body--reverse">
+            <ul>{comparison.with.map((item) => <li>{item}</li>)}</ul>
+            <figure><img src="/media/branding/optimized/buena-imagen-640.webp" srcset="/media/branding/optimized/buena-imagen-360.webp 360w, /media/branding/optimized/buena-imagen-640.webp 640w" sizes="(max-width: 699px) 72vw, (max-width: 1019px) 38vw, 330px" width="640" height="640" alt="Representación conceptual de un negocio con una identidad cuidada" loading="lazy" decoding="async"/></figure>
+          </div></article>
+        </div>
+        <p class="branding-comparison__note">Representaciones conceptuales para explicar el efecto de una identidad coherente; no corresponden a clientes ni resultados concretos.</p>
+        <p class="branding-comparison__conclusion"><span aria-hidden="true">★</span> Una marca bien diseñada comunica quién eres, qué haces y por qué deberían elegirte incluso antes de hablar contigo.</p>
+      </section>
+
+      <section class="branding-solutions" aria-labelledby="branding-solutions-title">
+        <header class="branding-heading"><p class="branding-eyebrow">Una identidad que funciona</p><h2 id="branding-solutions-title">¿Qué podemos crear para tu marca?</h2><p>Todo lo que tu marca necesita para verse, sentirse y comunicarse de forma coherente.</p></header>
+        <div class="branding-solutions__grid">{solutions.map((solution) => <article class="branding-solutions__card">
+          <picture><source srcset={`/media/branding/optimized/solution-${solution.asset}-180.webp 180w, /media/branding/optimized/solution-${solution.asset}-320.webp 320w`} sizes="(max-width: 699px) 105px, (max-width: 1019px) 130px, 150px" type="image/webp"/><img src={`/media/branding/optimized/solution-${solution.asset}-320.webp`} width="1536" height="1536" alt="" loading="lazy" decoding="async"/></picture>
+          <div><h3>{solution.title}</h3><p>{solution.description}</p></div>
+        </article>)}</div>
+        <p class="branding-partner-note"><span aria-hidden="true">+</span> Además del diseño, podemos producir muchos materiales físicos de tu marca gracias a nuestra colaboración con imprenta.</p>
+      </section>
+
+      <section class="branding-panel branding-budget" aria-labelledby="branding-budget-title">
+        <picture class="branding-budget__asset"><source srcset="/media/branding/optimized/process-entregamos-240.webp 240w, /media/branding/optimized/process-entregamos-420.webp 420w" sizes="(max-width: 699px) 72vw, (max-width: 1019px) 38vw, 430px" type="image/webp"/><img src="/media/branding/optimized/process-entregamos-420.webp" width="1536" height="1536" alt="Ilustración de entrega de una identidad y sus aplicaciones" loading="lazy" decoding="async"/></picture>
+        <div class="branding-budget__copy"><p class="branding-eyebrow">Una propuesta para tu marca</p><h2 id="branding-budget-title">Presupuesto a medida</h2><strong>No hay un precio mínimo fijo.</strong>
+          <p>Cada marca y cada proyecto son diferentes. La propuesta se adapta al alcance, complejidad, número de aplicaciones, cantidad de piezas y punto de partida.</p>
+          <p>También valoramos las necesidades de packaging, merchandising, producción física y cualquier aplicación específica.</p>
+          <aside><span aria-hidden="true">i</span><p>Trabajamos con un 50% al comenzar y el 50% restante antes de la entrega final. Los materiales físicos se presupuestan según cantidades, materiales y producción.</p></aside>
+          <a class="branding-button" href={contactHref} data-branding-cta="budget"><span>Hablemos de tu proyecto</span><span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <section class="branding-benefits" aria-labelledby="branding-benefits-title">
+        <header class="branding-heading"><p class="branding-eyebrow">Diseñamos para crecer</p><h2 id="branding-benefits-title">Beneficios de trabajar con nosotros</h2><p>Más que diseñar un logo, construimos una marca preparada para crecer.</p></header>
+        <div class="branding-benefits__grid">{benefits.map((benefit) => <article><span class="branding-benefits__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={benefitIconPaths[benefit.icon]}/></svg></span><h3>{benefit.title}</h3><p>{benefit.description}</p></article>)}</div>
+      </section>
+
+      <section class="branding-final-cta" aria-labelledby="branding-final-title">
+        <img src="/media/servicios/optimized/branding-320.webp" width="320" height="320" alt="" loading="lazy" decoding="async"/>
+        <div><h2 id="branding-final-title">¿Listo para construir una marca memorable?</h2><p>Creamos contigo una identidad que represente tu negocio, conecte con tu público y esté preparada para crecer.</p></div>
+        <a class="branding-button" href={contactHref} data-branding-cta="final"><span>Hablemos de tu proyecto</span><span aria-hidden="true">→</span></a>
+        <img src="/media/servicios/optimized/branding-320.webp" width="320" height="320" alt="" loading="lazy" decoding="async"/>
+      </section>
+    </div>
+  </main>
+  <SiteFooter anchorPrefix="/" />
+</Base>
+
+<script>
+  import { captureEvent } from '../lib/analytics/posthog';
+  document.querySelectorAll<HTMLElement>('[data-branding-cta]').forEach((cta) => cta.addEventListener('click', () => {
+    void captureEvent('branding_service_cta_clicked', { placement: cta.dataset.brandingCta ?? 'unknown', destination: cta.getAttribute('href') });
+  }));
+</script>
+
+<style>
+  @import '../styles/branding.css';
+</style>

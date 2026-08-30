@@ -22,7 +22,15 @@ const { id, title, sub, cta, tier } = Astro.props;
     <CloudCTA
       label={cta}
       tier={tier}
-      href={id === 'social' ? '/marketing' : id === 'web' ? '/desarrollo-web' : undefined}
+      href={id === 'social'
+        ? '/contacto?interes=marketing'
+        : id === 'web'
+          ? '/contacto?interes=desarrollo-web'
+          : id === 'software'
+            ? '/contacto?interes=software'
+            : id === 'brand'
+              ? '/contacto?interes=branding'
+              : '/contacto'}
     />
   </div>
 </div>

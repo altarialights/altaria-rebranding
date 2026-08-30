@@ -1,0 +1,364 @@
+---
+import FloatingHeader from '../../components/hero/FloatingHeader.astro';
+import SiteFooter from '../../components/sections/SiteFooter.astro';
+import Base from '../../layouts/Base.astro';
+
+const contactHref = '/contacto?interes=desarrollo-web&origen=de-zamorano';
+
+const headerNav = [
+  { label: 'Servicios', href: '/servicios' },
+  { label: 'Caso real', href: '/proyectos/de-zamorano' },
+  { label: 'Proceso', href: '/#como-funciona' },
+] as const;
+
+const metrics = [
+  { value: '+132%', label: 'Más reservas directas', icon: 'calendar' },
+  { value: '+58%', label: 'Mejor imagen de marca', icon: 'star' },
+  { value: '+41%', label: 'Más confianza del usuario', icon: 'shield' },
+  { value: '+62%', label: 'Reservas online en 3 meses', icon: 'chart' },
+] as const;
+
+const journey = [
+  {
+    number: '01',
+    title: 'Contexto',
+    description: 'De Zamorano une raíces profundas y una cocina de producto con una experiencia muy cuidada en Navaluenga.',
+    asset: '/media/how-we-works/optimized/escuchamos.webp',
+  },
+  {
+    number: '02',
+    title: 'Objetivos',
+    description: 'Transmitir su esencia, facilitar reservas y ganar visibilidad con una presencia digital a la altura del restaurante.',
+    asset: '/media/contacto/optimized/diana-180.webp',
+  },
+  {
+    number: '03',
+    title: 'Reto detectado',
+    description: 'Hacer más directa la reserva y trasladar al entorno online una experiencia de marca especialmente sensorial.',
+    asset: '/media/web/optimized/step-2-240.webp',
+  },
+  {
+    number: '04',
+    title: 'Solución creada',
+    description: 'Un sistema web centrado en identidad, contenido, experiencia móvil, reservas directas y posicionamiento local.',
+    asset: '/media/how-we-works/optimized/diseñamos.webp',
+  },
+  {
+    number: '05',
+    title: 'Resultado',
+    description: 'Una presencia más clara, memorable y preparada para convertir el interés digital en reservas reales.',
+    asset: '/media/contacto/optimized/cohete-180.webp',
+  },
+] as const;
+
+const solutions = [
+  {
+    number: '01',
+    title: 'Web corporativa',
+    description: 'Diseño premium que refleja la identidad, el origen y la experiencia del restaurante.',
+    asset: 'portatil-web-480.webp',
+  },
+  {
+    number: '02',
+    title: 'Reservas online',
+    description: 'Sistema de reservas propio y directo para reducir fricción y dependencia de terceros.',
+    asset: 'calendario-480.webp',
+  },
+  {
+    number: '03',
+    title: 'Experiencia móvil',
+    description: 'Navegación móvil rápida, clara y orientada a llevar al usuario hasta la acción.',
+    asset: 'movil-web-480.webp',
+  },
+  {
+    number: '04',
+    title: 'SEO local',
+    description: 'Estructura optimizada para mejorar la visibilidad del restaurante y su ubicación.',
+    asset: 'google-maps-480.webp',
+  },
+  {
+    number: '05',
+    title: 'Carta digital',
+    description: 'Una carta accesible, fácil de consultar y preparada para abrir el apetito.',
+    asset: 'carta-480.webp',
+  },
+  {
+    number: '06',
+    title: 'Fotografía y contenido',
+    description: 'Contenido visual pensado para transmitir el producto, la cocina y la experiencia.',
+    asset: 'camarero-480.webp',
+  },
+] as const;
+
+const impactPoints = [
+  'Mayor visibilidad y acceso directo a reservas',
+  'Una imagen digital coherente con la experiencia',
+  'Menor dependencia de intermediarios',
+  'Más control sobre carta, contenido y conversión',
+] as const;
+
+const metricIconPath = (icon: string) => {
+  if (icon === 'calendar') return 'M4 7.5h16v12H4zM7 3.5v7M17 3.5v7M4 11h16';
+  if (icon === 'star') return 'm12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z';
+  if (icon === 'shield') return 'M12 3.5 19 6v5.2c0 4.4-2.8 7.6-7 9.3-4.2-1.7-7-4.9-7-9.3V6zM9 12l2 2 4-5';
+  return 'M5 20V12M10 20V8M15 20V4M20 20V10M3 20h19';
+};
+---
+
+<Base
+  title="Caso De Zamorano | Desarrollo Web y Digitalización | Altaria Lights"
+  description="Descubre cómo transformamos la presencia digital de De Zamorano con desarrollo web, reservas online, experiencia móvil, carta digital y una estrategia orientada a resultados."
+  canonical="/proyectos/de-zamorano"
+>
+  <FloatingHeader
+    alwaysVisible
+    brandHref="/"
+    nav={headerNav}
+    cta={{ label: 'Hablemos', href: contactHref }}
+  />
+
+  <main class="dz-page" id="top">
+    <section class="dz-hero" aria-labelledby="dz-hero-title">
+      <div class="dz-sky" aria-hidden="true">
+        <span class="dz-sky__sun"></span>
+        <span class="dz-sky__glow"></span>
+        <span class="dz-sky__clouds dz-sky__clouds--far"></span>
+        <span class="dz-sky__clouds dz-sky__clouds--near"></span>
+      </div>
+
+      <div class="dz-hero__inner">
+        <div class="dz-hero__left">
+          <div class="dz-hero__cloud">
+            <svg viewBox="0 0 900 650" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="dz-cloud-fill" gradientUnits="userSpaceOnUse" x1="0" y1="70" x2="0" y2="620">
+                  <stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#fafdff"/><stop offset="1" stop-color="#e6f1fa"/>
+                </linearGradient>
+                <radialGradient id="dz-cloud-sheen" gradientUnits="userSpaceOnUse" cx="315" cy="168" r="315">
+                  <stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <g fill="url(#dz-cloud-fill)">
+                <ellipse cx="450" cy="385" rx="330" ry="200"/><ellipse cx="205" cy="390" rx="180" ry="150"/>
+                <ellipse cx="315" cy="255" rx="184" ry="175"/><ellipse cx="485" cy="210" rx="210" ry="190"/>
+                <ellipse cx="680" cy="320" rx="205" ry="180"/><ellipse cx="300" cy="500" rx="190" ry="120"/>
+                <ellipse cx="570" cy="505" rx="250" ry="115"/>
+              </g>
+              <g fill="url(#dz-cloud-sheen)" opacity=".58">
+                <ellipse cx="320" cy="240" rx="145" ry="115"/><ellipse cx="485" cy="205" rx="165" ry="132"/>
+              </g>
+            </svg>
+
+            <div class="dz-hero__copy">
+              <p class="dz-eyebrow">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 1.6 5.3L19 9l-5.4 1.7L12 16l-1.6-5.3L5 9l5.4-1.7zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>
+                Caso real destacado
+              </p>
+              <h1 id="dz-hero-title"><span>De Zamorano.</span><span>Un viaje digital</span><span>que sabe a origen.</span></h1>
+              <p class="dz-hero__lead">Diseñamos y desarrollamos la presencia digital de De Zamorano, un restaurante que honra la tradición de Navaluenga con una experiencia online a la altura de su cocina.</p>
+              <div class="dz-hero__actions">
+                <a
+                  class="dz-button"
+                  href="https://dezamorano.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-project-case-action="live-site"
+                  data-project-case-placement="hero"
+                >
+                  <span>Ver sitio en vivo</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M9 6h9v9"/></svg>
+                </a>
+                <a class="dz-button dz-button--ghost" href="#proyecto" data-project-summary-link>
+                  <span>Ver el proyecto</span><span aria-hidden="true">↓</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="dz-proof" aria-label="Resultados del proyecto">
+            <ul class="dz-metrics">
+              {metrics.map((metric) => (
+                <li>
+                  <span class="dz-metric__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={metricIconPath(metric.icon)}/></svg></span>
+                  <strong>{metric.value}</strong><span>{metric.label}</span>
+                </li>
+              ))}
+            </ul>
+            <p class="dz-verified">
+              <span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 4.3-2.8 7.6-7 9.5C7.8 18.6 5 15.3 5 11V6zM8.5 12l2.2 2.2 4.8-5"/></svg></span>
+              <span><strong>Resultados medidos. Impacto real.</strong> Datos verificados durante los primeros 3 meses en línea.</span>
+            </p>
+          </div>
+        </div>
+
+        <figure class="dz-hero__visual">
+          <picture>
+            <source media="(max-width: 1199px)" srcset="/media/de-zamorano/optimized/portrait-760.webp" />
+            <img
+              src="/media/de-zamorano/optimized/portrait-1200.webp"
+              srcset="/media/de-zamorano/optimized/portrait-760.webp 760w, /media/de-zamorano/optimized/portrait-1200.webp 1200w"
+              sizes="(min-width: 1200px) 52vw, (min-width: 700px) 80vw, 110vw"
+              width="1200"
+              height="900"
+              alt="Composición del proyecto De Zamorano con monitor, móvil, vídeo, pedestal, órbita y nubes"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </picture>
+        </figure>
+      </div>
+    </section>
+
+    <div class="dz-content" id="proyecto">
+      <section class="dz-panel dz-journey dz-reveal" aria-labelledby="dz-journey-title">
+        <header class="dz-section-heading">
+          <p>Un recorrido compartido</p>
+          <h2 id="dz-journey-title">Un viaje juntos</h2>
+          <span>Del reto inicial a una experiencia digital coherente, directa y preparada para crecer.</span>
+        </header>
+        <ol class="dz-journey__grid">
+          {journey.map((step) => (
+            <li>
+              <span class="dz-journey__asset"><img src={step.asset} width="180" height="180" alt="" loading="lazy" decoding="async"/></span>
+              <span class="dz-journey__number">{step.number}</span>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="dz-panel dz-solutions dz-reveal" aria-labelledby="dz-solutions-title">
+        <header class="dz-section-heading">
+          <p>Una solución conectada</p>
+          <h2 id="dz-solutions-title">Lo que creamos para De Zamorano</h2>
+          <span>Una solución digital completa para conectar la experiencia del restaurante con sus clientes.</span>
+        </header>
+        <div class="dz-solutions__grid">
+          {solutions.map((solution) => (
+            <article class="dz-solution-card">
+              <div class="dz-solution-card__copy">
+                <span>{solution.number}</span>
+                <h3>{solution.title}</h3>
+                <p>{solution.description}</p>
+              </div>
+              <img
+                src={`/media/de-zamorano/optimized/${solution.asset}`}
+                width="480"
+                height="480"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="dz-panel dz-impact dz-reveal" id="resultados" aria-labelledby="dz-impact-title">
+        <div class="dz-impact__summary">
+          <header class="dz-section-heading dz-section-heading--left">
+            <p>Impacto conseguido</p>
+            <h2 id="dz-impact-title">Resultados que se pueden saborear</h2>
+            <span>Una experiencia digital más clara, cuidada y orientada a generar relación directa con el cliente.</span>
+          </header>
+          <ul class="dz-impact__metrics" aria-label="Métricas verificadas">
+            {metrics.map((metric) => <li><strong>{metric.value}</strong><span>{metric.label}</span></li>)}
+          </ul>
+          <ul class="dz-impact__points">
+            {impactPoints.map((point) => <li><span aria-hidden="true">✓</span>{point}</li>)}
+          </ul>
+        </div>
+
+        <div class="dz-impact__story" id="testimonio">
+          <blockquote>
+            <p class="dz-impact__stars" aria-label="Cinco estrellas">★★★★★</p>
+            <p>“Altaria Lights entendió nuestras necesidades y superó nuestras expectativas.”</p>
+            <footer>
+              <img src="/media/de-zamorano/optimized/alfredo-160.jpg" width="160" height="160" alt="" loading="lazy" decoding="async"/>
+              <span><strong>Alfredo Zamorano.</strong><small>Director General, De Zamorano</small></span>
+            </footer>
+          </blockquote>
+          <picture class="dz-impact__restaurant">
+            <source srcset="/media/de-zamorano/optimized/sala-720.webp" media="(max-width: 699px)"/>
+            <img
+              src="/media/de-zamorano/optimized/sala-1080.webp"
+              srcset="/media/de-zamorano/optimized/sala-720.webp 720w, /media/de-zamorano/optimized/sala-1080.webp 1080w"
+              sizes="(min-width: 1200px) 27vw, (min-width: 700px) 42vw, calc(100vw - 52px)"
+              width="1080"
+              height="810"
+              alt="Sala de restaurante preparada para recibir a sus clientes"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+        </div>
+      </section>
+
+      <section class="dz-final dz-reveal" aria-labelledby="dz-final-title">
+        <div class="dz-final__cloud" aria-hidden="true"></div>
+        <div class="dz-final__copy">
+          <p>Tu proyecto puede ser el siguiente</p>
+          <h2 id="dz-final-title">¿Listo para llevar tu proyecto al siguiente nivel?</h2>
+          <span>Cuéntanos tu idea y veamos cómo construir juntos una experiencia digital a la altura de tu negocio.</span>
+        </div>
+        <div class="dz-final__actions">
+          <a class="dz-final__contact" href={contactHref} data-project-case-action="contact" data-project-case-placement="final">
+            <img src="/media/contacto/optimized/whatsapp-azul-96.webp" width="96" height="96" alt="" loading="lazy" decoding="async"/>
+            <span><strong>Escríbenos por WhatsApp</strong><small>Te respondemos en minutos.</small></span>
+            <span aria-hidden="true">→</span>
+          </a>
+          <a class="dz-final__services" href="/servicios" data-project-case-action="services" data-project-case-placement="final">
+            <img src="/media/contacto/optimized/diana-96.webp" width="96" height="96" alt="" loading="lazy" decoding="async"/>
+            <span><strong>Ver todos los servicios</strong><small>Descubre cómo podemos ayudarte.</small></span>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <SiteFooter anchorPrefix="/" />
+</Base>
+
+<script>
+  import { captureEvent } from '../../lib/analytics/posthog';
+
+  const eventNames = {
+    'live-site': 'project_case_live_site_click',
+    contact: 'project_case_contact_click',
+    services: 'project_case_services_click',
+  } as const;
+
+  document.querySelectorAll<HTMLElement>('[data-project-case-action]').forEach((link) => {
+    link.addEventListener('click', () => {
+      const action = link.dataset.projectCaseAction as keyof typeof eventNames | undefined;
+      if (!action || !eventNames[action]) return;
+      void captureEvent(eventNames[action], {
+        project: 'de-zamorano',
+        placement: link.dataset.projectCasePlacement ?? 'unknown',
+        destination: link.getAttribute('href'),
+      });
+    });
+  });
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reducedMotion && 'IntersectionObserver' in window) {
+    const reveals = document.querySelectorAll<HTMLElement>('.dz-reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        (entry.target as HTMLElement).classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
+    reveals.forEach((element) => {
+      element.classList.add('is-pending');
+      observer.observe(element);
+    });
+  }
+</script>
+
+<style>
+  @import '../../styles/de-zamorano.css';
+</style>

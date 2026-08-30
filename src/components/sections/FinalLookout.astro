@@ -9,10 +9,10 @@ const titleLines = [
 
 <section class="mirador" id="contacto" data-mirador aria-labelledby="mirador-title">
   <picture class="mirador__scene" data-mirador-scene aria-hidden="true">
-    <source media="(max-width: 699px)" srcset="/media/final/mobile.png" />
-    <source media="(max-width: 1019px)" srcset="/media/final/tablet.png" />
+    <source media="(max-width: 699px)" srcset="/media/final/optimized/mobile-941.webp" type="image/webp" />
+    <source media="(max-width: 1019px)" srcset="/media/final/optimized/tablet-1086.webp" type="image/webp" />
     <img
-      src="/media/final/desktop.png"
+      src="/media/final/optimized/desktop-1672.webp"
       width="1672"
       height="941"
       alt=""
@@ -78,16 +78,22 @@ const titleLines = [
       </p>
     </div>
 
-    <a class="mirador__cta mirador__cta--cloud" href="#contacto">
+    <a class="mirador__cta mirador__cta--cloud" href="/contacto">
       <span>Hablemos de mi proyecto</span>
       <span class="mirador__arrow" aria-hidden="true">→</span>
     </a>
   </div>
 
-  <a class="mirador__cta mirador__cta--mobile" href="#contacto">
-    <span>Hablemos de mi proyecto</span>
-    <span class="mirador__arrow" aria-hidden="true">→</span>
-  </a>
+  <div class="mirador__mobile-actions">
+    <a class="mirador__cta mirador__cta--mobile" href="/contacto">
+      <span>Hablemos de mi proyecto</span>
+      <span class="mirador__arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="mirador__cta mirador__cta--services" href="/servicios">
+      <span>Ver servicios</span>
+      <span class="mirador__arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
 </section>
 
 <script>
@@ -255,6 +261,11 @@ const titleLines = [
     display: none;
   }
 
+  .mirador__mobile-actions,
+  .mirador__cta--services {
+    display: none;
+  }
+
   .mirador__cta:hover {
     transform: translateY(-2px);
     box-shadow: 0 18px 25px -14px rgba(8, 47, 99, 0.82);
@@ -289,7 +300,7 @@ const titleLines = [
 
   @media (min-width: 1020px) {
     .mirador__copy-cloud {
-      top: calc(100% - 55svh);
+      top: 50%;
       translate: 0 -50%;
     }
   }
@@ -381,6 +392,7 @@ const titleLines = [
     .mirador__copy {
       inset: 24% 10% 12%;
       align-items: center;
+      justify-content: center;
       text-align: center;
     }
 
@@ -400,30 +412,41 @@ const titleLines = [
       display: none;
     }
 
-    .mirador__cta {
-      right: auto;
-      bottom: auto;
+    .mirador__mobile-actions {
+      position: absolute;
+      z-index: 3;
+      top: 52%;
       left: 50%;
-      width: min(80vw, 280px);
+      display: grid;
+      width: min(82vw, 300px);
+      gap: 10px;
+      transform: translateX(-50%);
+    }
+
+    .mirador__mobile-actions .mirador__cta {
+      position: static;
+      display: inline-flex;
+      width: 100%;
       min-height: 46px;
       padding-inline: 18px 15px;
       gap: 10px;
       font-size: clamp(12.5px, 3.5vw, 15px);
-      transform: translateX(-50%);
+      transform: none;
     }
 
     .mirador__cta--cloud {
       display: none;
     }
 
-    .mirador__cta--mobile {
-      z-index: 3;
-      top: 78.5%;
-      display: inline-flex;
+    .mirador__mobile-actions .mirador__cta--services {
+      border: 1px solid rgba(13, 91, 159, .24);
+      color: #0b4f8f;
+      background: rgba(248, 252, 255, .94);
+      box-shadow: 0 12px 22px -16px rgba(8, 47, 99, .42);
     }
 
-    .mirador__cta:hover {
-      transform: translateX(-50%) translateY(-2px);
+    .mirador__mobile-actions .mirador__cta:hover {
+      transform: translateY(-2px);
     }
   }
 

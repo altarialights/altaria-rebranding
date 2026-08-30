@@ -45,7 +45,7 @@ const steps = [
 ] as const;
 
 const routeDots = {
-  desktop: [[124, 92, 6], [238, 238, 4], [342, 280, 7], [226, 420, 4], [126, 470, 7], [212, 598, 4], [350, 668, 7]],
+  desktop: [[124, 92, 6], [342, 280, 7], [226, 420, 4], [126, 470, 7], [340, 720, 7]],
   tablet: [[156, 270, 6], [356, 205, 4], [548, 274, 6], [360, 354, 5], [170, 610, 6], [364, 678, 4], [548, 610, 6]],
   mobile: [[76, 72, 5], [58, 245, 3.5], [82, 310, 5], [65, 485, 3.5], [84, 550, 5], [60, 728, 3.5], [80, 795, 5], [72, 955, 4]],
 } as const;
@@ -135,10 +135,10 @@ const routeDots = {
           </mask>
         </defs>
         <g mask="url(#how-route-desktop-mask)">
-          <path class="how-route__halo" pathLength="1" d="M124 92C28 142 58 226 342 280C594 329 538 396 126 470C-12 495 32 584 350 668"></path>
-          <path class="how-route__line" pathLength="1" d="M124 92C28 142 58 226 342 280C594 329 538 396 126 470C-12 495 32 584 350 668"></path>
-          <path class="how-route__bridge-halo" pathLength="1" d="M126 470C-12 495 32 584 350 668"></path>
-          <path class="how-route__bridge" pathLength="1" d="M126 470C-12 495 32 584 350 668"></path>
+          <path class="how-route__halo" pathLength="1" d="M124 92C28 142 58 226 342 280C594 329 538 396 126 470C-12 495 32 610 340 720"></path>
+          <path class="how-route__line" pathLength="1" d="M124 92C28 142 58 226 342 280C594 329 538 396 126 470C-12 495 32 610 340 720"></path>
+          <path class="how-route__bridge-halo" pathLength="1" d="M126 470C-12 495 32 610 340 720"></path>
+          <path class="how-route__bridge" pathLength="1" d="M126 470C-12 495 32 610 340 720"></path>
           {routeDots.desktop.map(([cx, cy, r]) => <circle class="how-route__dot" cx={cx} cy={cy} r={r}></circle>)}
         </g>
       </svg>

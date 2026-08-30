@@ -1,0 +1,148 @@
+---
+import FloatingHeader from '../components/hero/FloatingHeader.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+import Base from '../layouts/Base.astro';
+import { createWhatsAppUrl } from '../lib/contact/service-interests';
+
+const whatsappFallbackHref = createWhatsAppUrl([]);
+const headerNav = [
+  { label: 'Servicios', href: '/servicios' },
+  { label: 'Caso real', href: '/proyectos/de-zamorano' },
+  { label: 'Proceso', href: '/#como-funciona' },
+] as const;
+
+const reasons = [
+  { asset: 'rayo', title: 'Rápido', description: 'Hablamos directamente y resolvemos tus dudas sin procesos innecesarios.' },
+  { asset: 'chat', title: 'Cercano', description: 'Hablas con nosotros de persona a persona.' },
+  { asset: 'diana', title: 'A medida', description: 'Primero entendemos tu negocio y después buscamos la solución adecuada.' },
+  { asset: 'confianza', title: 'Sin compromiso', description: 'Cuéntanos tu idea, pregunta lo que necesites y te asesoramos sin compromiso.' },
+] as const;
+
+const steps = [
+  { asset: 'whatsapp-azul', title: 'Planificamos tu proyecto', description: 'Te ayudamos a definir objetivos, necesidades, alcance y posibles soluciones.' },
+  { asset: 'dinero', title: 'Presupuesto a medida', description: 'Sin paquetes cerrados. Te proponemos una solución adaptada a lo que realmente necesites.' },
+  { asset: 'cohete', title: 'Empezamos juntos', description: 'Cuando todo está claro, definimos los siguientes pasos y nos ponemos en marcha.' },
+] as const;
+---
+
+<Base
+  title="Contacto | Altaria Lights"
+  description="Cuéntanos tu proyecto y descubre cómo Altaria Lights puede ayudarte con desarrollo web, marketing digital, software a medida y branding."
+  canonical="/contacto"
+>
+  <FloatingHeader alwaysVisible brandHref="/" nav={headerNav} cta={{ label: 'Hablemos', href: whatsappFallbackHref }} />
+
+  <main class="contact-page" id="top">
+    <section class="contact-hero" aria-labelledby="contact-hero-title">
+      <div class="contact-sky" aria-hidden="true">
+        <span class="contact-sky__sun"></span><span class="contact-sky__haze"></span>
+        <span class="contact-sky__clouds contact-sky__clouds--far"></span>
+        <span class="contact-sky__clouds contact-sky__clouds--near"></span>
+      </div>
+      <div class="contact-hero__inner">
+        <div class="contact-hero__cloud">
+          <svg viewBox="0 0 900 650" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="contact-cloud-fill" gradientUnits="userSpaceOnUse" x1="0" y1="70" x2="0" y2="620">
+                <stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#fafdff"/><stop offset="1" stop-color="#e6f1fa"/>
+              </linearGradient>
+              <radialGradient id="contact-cloud-sheen" gradientUnits="userSpaceOnUse" cx="315" cy="168" r="315">
+                <stop offset="0" stop-color="#fff" stop-opacity=".88"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <g fill="url(#contact-cloud-fill)">
+              <ellipse cx="450" cy="385" rx="330" ry="200"/><ellipse cx="205" cy="390" rx="180" ry="150"/>
+              <ellipse cx="315" cy="255" rx="184" ry="175"/><ellipse cx="485" cy="210" rx="210" ry="190"/>
+              <ellipse cx="680" cy="320" rx="205" ry="180"/><ellipse cx="300" cy="500" rx="190" ry="120"/>
+              <ellipse cx="495" cy="520" rx="230" ry="122"/><ellipse cx="680" cy="490" rx="178" ry="116"/>
+            </g>
+            <g fill="url(#contact-cloud-sheen)" opacity=".72"><ellipse cx="305" cy="220" rx="118" ry="92"/><ellipse cx="460" cy="170" rx="145" ry="100"/></g>
+          </svg>
+          <div class="contact-hero__copy">
+            <p class="contact-eyebrow">Hablemos sin rodeos</p>
+            <h1 id="contact-hero-title"><span>Hablemos</span><span>de tu proyecto.</span></h1>
+            <p>Cuéntanos qué necesitas y te ayudamos a encontrar la mejor solución para tu negocio.</p>
+            <a class="contact-button contact-button--whatsapp" href={whatsappFallbackHref} target="_blank" rel="noopener noreferrer" data-whatsapp-link data-whatsapp-source="hero">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 3.6A11.8 11.8 0 0 0 1.9 17.8L.3 23.7l6-1.6a11.7 11.7 0 0 0 5.6 1.4A11.8 11.8 0 0 0 20.4 3.6Zm-8.5 17.9a9.7 9.7 0 0 1-5-1.4l-.4-.2-3.5.9.9-3.4-.2-.4a9.8 9.8 0 1 1 8.2 4.5Zm5.4-7.3c-.3-.1-1.8-.9-2-1-.3-.1-.5-.2-.7.1l-1 1.2c-.2.2-.4.2-.7.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6.3-.6c.1-.2 0-.5 0-.6l-.9-2.1c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.6c.1.2 2.4 3.7 5.9 5.2.8.4 1.5.6 2 .7.8.3 1.6.2 2.2.1.7-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg>
+              <span>Escríbenos por WhatsApp</span><span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+        <picture class="contact-hero__visual">
+          <source srcset="/media/contacto/optimized/hero-720.webp 720w, /media/contacto/optimized/hero-1200.webp 1200w" sizes="(max-width: 699px) 100vw, (max-width: 1019px) 82vw, 48vw" type="image/webp"/>
+          <img src="/media/contacto/optimized/hero-1200.webp" width="1222" height="1287" alt="Conversación con Altaria Lights representada en un teléfono junto al icono de WhatsApp" decoding="async" fetchpriority="high"/>
+        </picture>
+      </div>
+    </section>
+
+    <div class="contact-hero-transition" aria-hidden="true"><svg viewBox="0 0 1900 160" preserveAspectRatio="none"><path d="M0 0H1900V72C1795 72 1740 105 1640 96C1540 86 1490 62 1385 78C1270 96 1190 113 1070 91C960 70 870 66 760 87C650 108 560 102 455 82C345 62 250 72 160 96C92 114 42 108 0 94V0Z"/></svg></div>
+
+    <div class="contact-content">
+      <section class="contact-panel contact-reasons" aria-labelledby="contact-reasons-title">
+        <header class="contact-heading"><p class="contact-eyebrow">Fácil desde el principio</p><h2 id="contact-reasons-title">¿Por qué es mejor hablar con nosotros?</h2></header>
+        <div class="contact-reasons__grid">{reasons.map((reason) => <article>
+          <picture><source srcset={`/media/contacto/optimized/${reason.asset}-96.webp 96w, /media/contacto/optimized/${reason.asset}-180.webp 180w`} sizes="80px" type="image/webp"/><img src={`/media/contacto/optimized/${reason.asset}-180.webp`} width="300" height="300" alt="" loading="lazy" decoding="async"/></picture>
+          <h3>{reason.title}</h3><p>{reason.description}</p>
+        </article>)}</div>
+      </section>
+
+      <section class="contact-panel contact-idea" id="contacto-whatsapp" aria-labelledby="contact-idea-title">
+        <header class="contact-heading"><p class="contact-eyebrow">Tu siguiente paso</p><h2 id="contact-idea-title">Cuéntanos tu idea</h2><p>La forma más rápida y sencilla de empezar es por WhatsApp.</p></header>
+        <div class="contact-idea__grid">
+          <ol class="contact-steps">{steps.map((step, index) => <li>
+            <picture><source srcset={`/media/contacto/optimized/${step.asset}-96.webp 96w, /media/contacto/optimized/${step.asset}-180.webp 180w`} sizes="82px" type="image/webp"/><img src={`/media/contacto/optimized/${step.asset}-180.webp`} width="300" height="300" alt="" loading="lazy" decoding="async"/></picture>
+            <div><span>{String(index + 1).padStart(2, '0')}</span><h3>{step.title}</h3><p>{step.description}</p></div>
+          </li>)}</ol>
+
+          <article class="contact-whatsapp-card">
+            <picture><source srcset="/media/contacto/optimized/whatsapp-grande-180.webp 180w, /media/contacto/optimized/whatsapp-grande-300.webp 300w" sizes="150px" type="image/webp"/><img src="/media/contacto/optimized/whatsapp-grande-300.webp" width="300" height="300" alt="" loading="lazy" decoding="async"/></picture>
+            <p class="contact-eyebrow">Una conversación directa</p><h2>Escríbenos por WhatsApp</h2>
+            <p>Cuéntanos qué tienes en mente y hablamos directamente contigo.</p>
+            <a class="contact-button contact-button--whatsapp" href={whatsappFallbackHref} target="_blank" rel="noopener noreferrer" data-whatsapp-link data-whatsapp-source="contact_card">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 3.6A11.8 11.8 0 0 0 1.9 17.8L.3 23.7l6-1.6a11.7 11.7 0 0 0 5.6 1.4A11.8 11.8 0 0 0 20.4 3.6Zm-8.5 17.9a9.7 9.7 0 0 1-5-1.4l-.4-.2-3.5.9.9-3.4-.2-.4a9.8 9.8 0 1 1 8.2 4.5Zm5.4-7.3c-.3-.1-1.8-.9-2-1-.3-.1-.5-.2-.7.1l-1 1.2c-.2.2-.4.2-.7.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6.3-.6c.1-.2 0-.5 0-.6l-.9-2.1c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.4-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.6c.1.2 2.4 3.7 5.9 5.2.8.4 1.5.6 2 .7.8.3 1.6.2 2.2.1.7-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg>
+              <span>Abrir WhatsApp</span><span aria-hidden="true">→</span>
+            </a>
+            <small><span aria-hidden="true">✓</span> Sin compromiso · Conversación directa · Tus datos no se publican</small>
+          </article>
+        </div>
+        <aside class="contact-email"><span>Otras formas de contactar</span><p>También puedes escribirnos a <a href="mailto:altarialights@gmail.com">altarialights@gmail.com</a></p></aside>
+      </section>
+
+      <section class="contact-services-cta" aria-labelledby="contact-services-title">
+        <img src="/media/servicios/optimized/marketing-320.webp" width="320" height="320" alt="" loading="lazy" decoding="async"/>
+        <div><p class="contact-eyebrow">Conoce todo lo que hacemos</p><h2 id="contact-services-title">¿Prefieres ver cómo trabajamos?</h2><p>Descubre nuestros servicios y cómo podemos ayudarte.</p></div>
+        <a class="contact-button contact-button--blue" href="/servicios" data-contact-services><span>Ver servicios</span><span aria-hidden="true">→</span></a>
+      </section>
+    </div>
+  </main>
+  <SiteFooter anchorPrefix="/" />
+</Base>
+
+<script>
+  import { captureEvent } from '../lib/analytics/posthog';
+  import { collectServiceInterests, createWhatsAppUrl } from '../lib/contact/service-interests';
+
+  const interests = collectServiceInterests(window.location.search);
+  const whatsappHref = createWhatsAppUrl(interests);
+  const whatsappLinks = document.querySelectorAll<HTMLAnchorElement>('[data-whatsapp-link], .hdr__cta, .hdr__menu-cta, .site-footer__cta');
+
+  whatsappLinks.forEach((link) => {
+    link.href = whatsappHref;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.addEventListener('click', () => {
+      void captureEvent('contact_whatsapp_click', {
+        source: link.dataset.whatsappSource ?? (link.classList.contains('site-footer__cta') ? 'footer' : 'header'),
+        interests,
+      });
+    });
+  });
+
+  document.querySelector<HTMLElement>('[data-contact-services]')?.addEventListener('click', () => {
+    void captureEvent('contact_services_click', { source: 'contact_final_cta' });
+  });
+</script>
+
+<style>
+  @import '../styles/contacto.css';
+</style>

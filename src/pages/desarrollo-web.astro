@@ -1,14 +1,15 @@
 ---
 import FloatingHeader from '../components/hero/FloatingHeader.astro';
+import ServiceInterestTracker from '../components/contact/ServiceInterestTracker.astro';
 import SiteFooter from '../components/sections/SiteFooter.astro';
 import WebIcon from '../components/web/WebIcon.astro';
 import Base from '../layouts/Base.astro';
 
-const contactHref = '/#contacto';
+const contactHref = '/contacto?interes=desarrollo-web';
 
 const headerNav = [
   { label: 'Servicios', href: '/servicios' },
-  { label: 'Caso real', href: '/#caso-real' },
+  { label: 'Caso real', href: '/proyectos/de-zamorano' },
   { label: 'Proceso', href: '/#como-funciona' },
 ] as const;
 
@@ -115,6 +116,7 @@ const included = [
   description="Diseñamos y desarrollamos páginas web rápidas, modernas y a medida para empresas que quieren mejorar su presencia digital y convertir más visitas en clientes."
   canonical="/desarrollo-web"
 >
+  <ServiceInterestTracker interest="desarrollo-web" />
   <FloatingHeader
     alwaysVisible
     brandHref="/"
@@ -182,7 +184,7 @@ const included = [
             type="image/webp"
           />
           <img
-            src="/media/web/hero.png"
+            src="/media/web/optimized/hero-1200.webp"
             width="1448"
             height="1086"
             alt="Composición tridimensional de una interfaz web, herramientas de diseño y un cohete"
@@ -217,7 +219,7 @@ const included = [
                   type="image/webp"
                 />
                 <img
-                  src={`/media/web/${step.asset}.png`}
+                  src={`/media/web/optimized/step-${step.asset}-420.webp`}
                   width="1254"
                   height="1254"
                   alt=""
@@ -269,7 +271,7 @@ const included = [
                 type="image/webp"
               />
               <img
-                src="/media/web/funnel.png"
+                src="/media/web/optimized/funnel-760.webp"
                 width="1448"
                 height="1086"
                 alt="Embudo de ventas con cinco etapas"

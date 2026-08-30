@@ -57,13 +57,6 @@ export function initResponsiveHero(): void {
     setMenu(false);
   });
 
-  root.querySelector<HTMLButtonElement>('.rh-intro__cta')?.addEventListener('click', () => {
-    document.querySelector('#contacto')?.scrollIntoView({
-      behavior: reduceMotion.matches ? 'auto' : 'smooth',
-      block: 'start',
-    });
-  });
-
   const carousel = root.querySelector<HTMLElement>('[data-responsive-carousel]');
   const track = carousel?.querySelector<HTMLElement>('[data-carousel-track]');
   const slides = Array.from(carousel?.querySelectorAll<HTMLElement>('[data-carousel-slide]') ?? []);

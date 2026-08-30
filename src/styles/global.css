@@ -13,6 +13,58 @@ html {
   scroll-padding-top: calc(var(--header-top) + var(--header-h) + 24px);
 }
 
+/* Keep the document as the only vertical scroll surface during normal
+   navigation. The preferences dialog is the one intentional exception:
+   its panel can scroll when it is taller than the viewport, so the page
+   behind it must not scroll at the same time. */
+html[data-privacy-panel-open='true'] {
+  overflow-y: hidden;
+}
+
+/* Desktop document scrollbar only. Component scroll areas keep their own
+   native/component-specific treatment and touch devices are left alone. */
+@media (hover: hover) and (pointer: fine) {
+  html {
+    scrollbar-color: #016ffc transparent;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+  }
+
+  /* `scrollbar-color` is inherited in Firefox. Stop that inheritance at
+     body so a genuinely scrollable panel does not accidentally turn blue. */
+  body {
+    scrollbar-color: auto;
+    scrollbar-width: auto;
+  }
+
+  /* Chromium also implements the Firefox properties now. Reset them where
+     WebKit pseudo-elements are available so their 5px width and hover state
+     remain authoritative; Firefox keeps the standard declarations above. */
+  @supports selector(::-webkit-scrollbar) {
+    html {
+      scrollbar-color: auto;
+      scrollbar-width: auto;
+    }
+  }
+
+  html::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  html::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  html::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background-color: rgba(1, 111, 252, 0.72);
+  }
+
+  html::-webkit-scrollbar-thumb:hover {
+    background-color: #016ffc;
+  }
+}
+
 body {
   margin: 0;
   font-family: var(--font-sans);

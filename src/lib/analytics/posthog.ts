@@ -10,7 +10,7 @@ export const POSTHOG_PROJECT_TOKEN = 'phc_xcT9Qf8ZzX6LqsVDa2BQVP5pVkqxtcG5yCpnM8
 export const POSTHOG_API_HOST = 'https://eu.i.posthog.com';
 export const POSTHOG_UI_HOST = 'https://eu.posthog.com';
 
-type AnalyticsProperties = Record<string, boolean | number | string | null | undefined>;
+type AnalyticsProperties = Record<string, boolean | number | string | readonly string[] | null | undefined>;
 
 let client: PostHog | null = null;
 let clientLoading: Promise<PostHog | null> | null = null;

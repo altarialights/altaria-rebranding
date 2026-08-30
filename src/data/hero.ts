@@ -39,10 +39,10 @@ export const header = {
     wordmark: "ALTARIA LIGHTS",
     nav: [
         { label: "Servicios", href: "/servicios" },
-        { label: "Caso real", href: "#caso-real" },
+        { label: "Caso real", href: "/proyectos/de-zamorano" },
         { label: "Proceso", href: "#como-funciona" },
     ],
-    cta: { label: "Hablemos", href: "#contacto" },
+    cta: { label: "Hablemos", href: "/contacto" },
 } as const;
 
 export const socialBeat = {

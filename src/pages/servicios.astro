@@ -1,9 +1,10 @@
 ---
 import FloatingHeader from '../components/hero/FloatingHeader.astro';
+import ServiceInterestTracker from '../components/contact/ServiceInterestTracker.astro';
 import SiteFooter from '../components/sections/SiteFooter.astro';
 import Base from '../layouts/Base.astro';
 
-const contactHref = 'mailto:altarialights@gmail.com?subject=Proyecto%20con%20Altaria%20Lights';
+const contactHref = '/contacto?interes=servicios';
 
 const services = [
   {
@@ -46,7 +47,7 @@ const services = [
 
 const headerNav = [
   { label: 'Servicios', href: '#nuestros-servicios' },
-  { label: 'Caso real', href: '/#caso-real' },
+  { label: 'Caso real', href: '/proyectos/de-zamorano' },
   { label: 'Proceso', href: '/#como-funciona' },
 ] as const;
 
@@ -62,6 +63,7 @@ const results = [
   title="Servicios | Altaria Lights"
   description="Marketing digital, desarrollo web, software a medida y branding conectados para impulsar tu negocio."
 >
+  <ServiceInterestTracker interest="servicios" />
   <FloatingHeader
     alwaysVisible
     brandHref="/"
@@ -134,7 +136,7 @@ const results = [
             type="image/webp"
           />
           <img
-            src="/media/servicios/hero.png"
+            src="/media/servicios/optimized/hero-1200.webp"
             width="1448"
             height="1086"
             alt="Composición de servicios de Altaria Lights alrededor de un portátil"
@@ -162,7 +164,7 @@ const results = [
                 type="image/webp"
               />
               <img
-                src={`/media/servicios/${service.image}.png`}
+                src={`/media/servicios/optimized/${service.image}-560.webp`}
                 width="1254"
                 height="1254"
                 alt={service.alt}
@@ -177,8 +179,8 @@ const results = [
               <ul aria-label={`Incluye ${service.eyebrow}`}>
                 {service.details.map((detail: string) => <li>{detail}</li>)}
               </ul>
-              <a href={service.id === 'marketing-digital' ? '/marketing' : service.id === 'desarrollo-web' ? '/desarrollo-web' : `${contactHref}&body=Me%20interesa%20el%20servicio%20de%20${encodeURIComponent(service.eyebrow)}.`}>
-                {service.id === 'marketing-digital' || service.id === 'desarrollo-web' ? 'Saber más' : 'Cuéntanos tu idea'} <span aria-hidden="true">→</span>
+              <a href={service.id === 'marketing-digital' ? '/marketing' : service.id === 'desarrollo-web' ? '/desarrollo-web' : service.id === 'software-a-medida' ? '/software' : '/branding'}>
+                Saber más <span aria-hidden="true">→</span>
               </a>
             </div>
           </article>
@@ -279,7 +281,7 @@ const results = [
         <div class="services-proof__note">
           <span aria-hidden="true">✓</span>
           <p><strong>Resultados medidos. Impacto real.</strong> Datos verificados durante los primeros 3 meses en línea.</p>
-          <a href="/#caso-real">Ver caso real <span aria-hidden="true">→</span></a>
+          <a href="/proyectos/de-zamorano">Ver caso real <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>

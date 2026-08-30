@@ -1,26 +1,27 @@
 ---
 import FloatingHeader from '../components/hero/FloatingHeader.astro';
+import ServiceInterestTracker from '../components/contact/ServiceInterestTracker.astro';
 import SiteFooter from '../components/sections/SiteFooter.astro';
 import SoftwareIcon from '../components/software/SoftwareIcon.astro';
 import Base from '../layouts/Base.astro';
 
-const contactHref = '/#contacto';
+const contactHref = '/contacto?interes=software';
 
 const headerNav = [
   { label: 'Servicios', href: '/servicios' },
-  { label: 'Caso real', href: '/#caso-real' },
+  { label: 'Caso real', href: '/proyectos/de-zamorano' },
   { label: 'Proceso', href: '/#como-funciona' },
 ] as const;
 
 const processSteps = [
-  { number: '01', asset: '/media/marketing/optimized/step-1', fallback: '/media/marketing/1.png', title: 'Hablamos contigo', description: 'Conocemos tu negocio, tus procesos, problemas y objetivos.' },
-  { number: '02', asset: '/media/marketing/optimized/step-2', fallback: '/media/marketing/2.png', title: 'Entendemos tus objetivos', description: 'Analizamos cómo trabajas y dónde existen oportunidades reales de mejora.' },
-  { number: '03', asset: '/media/marketing/optimized/step-3', fallback: '/media/marketing/3.png', title: 'Te asesoramos', description: 'Proponemos la solución, la tecnología y las automatizaciones adecuadas.' },
-  { number: '04', asset: '/media/marketing/optimized/step-4', fallback: '/media/marketing/4.png', title: 'Diseñamos la solución', description: 'Definimos funcionalidades, flujos, arquitectura, experiencia y plan de desarrollo.' },
-  { number: '05', asset: '/media/web/optimized/step-5', fallback: '/media/web/5.png', title: 'Primera mitad', description: 'Con el alcance aprobado, se abona el 50% inicial y comenzamos.' },
-  { number: '06', asset: '/media/web/optimized/step-6', fallback: '/media/web/6.png', title: 'Desarrollamos', description: 'Construimos un software sólido, seguro y ajustado a tus necesidades.' },
-  { number: '07', asset: '/media/web/optimized/step-7', fallback: '/media/web/7.png', title: 'Revisamos y modificamos', description: 'Probamos el sistema contigo, recogemos feedback y realizamos los ajustes.' },
-  { number: '08', asset: '/media/marketing/optimized/step-5', fallback: '/media/marketing/5.png', title: 'Segunda mitad y despliegue', description: 'Se abona el 50% restante y desplegamos, configuramos y entregamos tu software.' },
+  { number: '01', asset: '/media/marketing/optimized/step-1', fallback: '/media/marketing/optimized/step-1-420.webp', title: 'Hablamos contigo', description: 'Conocemos tu negocio, tus procesos, problemas y objetivos.' },
+  { number: '02', asset: '/media/marketing/optimized/step-2', fallback: '/media/marketing/optimized/step-2-420.webp', title: 'Entendemos tus objetivos', description: 'Analizamos cómo trabajas y dónde existen oportunidades reales de mejora.' },
+  { number: '03', asset: '/media/marketing/optimized/step-3', fallback: '/media/marketing/optimized/step-3-420.webp', title: 'Te asesoramos', description: 'Proponemos la solución, la tecnología y las automatizaciones adecuadas.' },
+  { number: '04', asset: '/media/marketing/optimized/step-4', fallback: '/media/marketing/optimized/step-4-420.webp', title: 'Diseñamos la solución', description: 'Definimos funcionalidades, flujos, arquitectura, experiencia y plan de desarrollo.' },
+  { number: '05', asset: '/media/web/optimized/step-5', fallback: '/media/web/optimized/step-5-420.webp', title: 'Primera mitad', description: 'Con el alcance aprobado, se abona el 50% inicial y comenzamos.' },
+  { number: '06', asset: '/media/web/optimized/step-6', fallback: '/media/web/optimized/step-6-420.webp', title: 'Desarrollamos', description: 'Construimos un software sólido, seguro y ajustado a tus necesidades.' },
+  { number: '07', asset: '/media/web/optimized/step-7', fallback: '/media/web/optimized/step-7-420.webp', title: 'Revisamos y modificamos', description: 'Probamos el sistema contigo, recogemos feedback y realizamos los ajustes.' },
+  { number: '08', asset: '/media/marketing/optimized/step-5', fallback: '/media/marketing/optimized/step-5-420.webp', title: 'Segunda mitad y despliegue', description: 'Se abona el 50% restante y desplegamos, configuramos y entregamos tu software.' },
 ] as const;
 
 const comparison = {
@@ -76,6 +77,7 @@ const benefits = [
   description="Desarrollamos software a medida, aplicaciones web, automatizaciones, sistemas de gestión e integraciones para hacer tu negocio más eficiente y escalable."
   canonical="/software"
 >
+  <ServiceInterestTracker interest="software" />
   <FloatingHeader alwaysVisible brandHref="/" nav={headerNav} cta={{ label: 'Hablemos', href: contactHref }} />
 
   <main class="software-page" id="top">
@@ -129,7 +131,7 @@ const benefits = [
 
         <picture class="software-hero__visual">
           <source srcset="/media/software/optimized/hero-720.webp 720w, /media/software/optimized/hero-1200.webp 1200w" sizes="(max-width: 699px) 102vw, (max-width: 1019px) 88vw, 50vw" type="image/webp" />
-          <img src="/media/software/hero.png" width="1448" height="1086" alt="Composición tridimensional de software a medida con paneles de datos, automatización y un cohete" decoding="async" fetchpriority="high" />
+          <img src="/media/software/optimized/hero-1200.webp" width="1448" height="1086" alt="Composición tridimensional de software a medida con paneles de datos, automatización y un cohete" decoding="async" fetchpriority="high" />
         </picture>
       </div>
     </section>
@@ -214,7 +216,7 @@ const benefits = [
       <section class="software-panel software-budget" aria-labelledby="software-budget-title">
         <picture class="software-budget__asset">
           <source srcset="/media/software/optimized/beneficio-3-180.webp 180w, /media/software/optimized/beneficio-3-320.webp 320w" sizes="(max-width: 699px) 72vw, (max-width: 1019px) 38vw, 390px" type="image/webp" />
-          <img src="/media/software/beneficio3.png" width="1254" height="1254" alt="Ilustración de crecimiento, datos y automatización" loading="lazy" decoding="async" />
+          <img src="/media/software/optimized/beneficio-3-320.webp" width="1254" height="1254" alt="Ilustración de crecimiento, datos y automatización" loading="lazy" decoding="async" />
         </picture>
         <div class="software-budget__copy">
           <p class="software-eyebrow">Una propuesta para ti</p>
@@ -238,7 +240,7 @@ const benefits = [
             <article>
               <picture>
                 <source srcset={`/media/software/optimized/beneficio-${benefit.asset}-180.webp 180w, /media/software/optimized/beneficio-${benefit.asset}-320.webp 320w`} sizes="(max-width: 699px) 100px, (max-width: 1019px) 130px, 145px" type="image/webp" />
-                <img src={`/media/software/beneficio${benefit.asset}.png`} width="1254" height="1254" alt="" loading="lazy" decoding="async" />
+                <img src={`/media/software/optimized/beneficio-${benefit.asset}-320.webp`} width="1254" height="1254" alt="" loading="lazy" decoding="async" />
               </picture>
               <h3>{benefit.title}</h3>
               <p>{benefit.description}</p>

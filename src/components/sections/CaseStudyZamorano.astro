@@ -151,7 +151,7 @@ const metricIcon = (icon: string) => {
         Descubre cómo ayudamos a De Zamorano a convertir su visión en una experiencia digital
         que impulsa ventas y fortalece su marca.
       </p>
-      <a class="case__cta" href="#contacto">
+      <a class="case__cta" href="/proyectos/de-zamorano">
         <span>Ver caso completo</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M14 8l4 4-4 4" /></svg>
       </a>
@@ -160,7 +160,7 @@ const metricIcon = (icon: string) => {
     <div class="case__showcase" aria-label="Web responsive creada para De Zamorano" data-case-reveal>
       <figure class="case-portrait">
         <img
-          src="/media/de-zamorano/portrait.png"
+          src="/media/de-zamorano/optimized/portrait-1200.webp"
           width="1448"
           height="1086"
           alt="Composición del proyecto De Zamorano con monitor, móvil, vídeo y pedestal sobre nubes"
@@ -181,7 +181,7 @@ const metricIcon = (icon: string) => {
               />
               <img
                 src="/media/de-zamorano/optimized/desktop-1440.jpg"
-                srcset="/media/de-zamorano/optimized/desktop-768.jpg 768w, /media/de-zamorano/optimized/desktop-1200.jpg 1200w, /media/de-zamorano/optimized/desktop-1440.jpg 1440w, /media/de-zamorano/desktop.png 1815w"
+                srcset="/media/de-zamorano/optimized/desktop-768.jpg 768w, /media/de-zamorano/optimized/desktop-1200.jpg 1200w, /media/de-zamorano/optimized/desktop-1440.jpg 1440w, /media/de-zamorano/optimized/desktop-1815.webp 1815w"
                 sizes="(min-width: 1200px) 52vw, (min-width: 700px) 72vw, calc(100vw - 36px)"
                 width="1440"
                 height="688"
@@ -361,13 +361,23 @@ const metricIcon = (icon: string) => {
      shallow left shoulder. This prevents the title, lead and CTA from
      visually escaping the silhouette at any desktop width. */
   @media (min-width: 1200px) {
+    .case {
+      min-height: 100vh;
+    }
+
+    .case__inner {
+      height: 100vh;
+      min-height: 100vh;
+    }
+
     .case__copy {
       --case-copy-safe-left: clamp(46px, 3.4vw, 64px);
       width: calc(100% + var(--case-copy-safe-left));
       max-width: calc(620px + var(--case-copy-safe-left));
       padding-left: var(--case-copy-safe-left);
     }
-    .case__copy-cloud { inset: -10px -24px -12px -140px; }
+    .case__copy-cloud { inset: -10px -76px -52px -140px; }
+
   }
 
   .case__eyebrow {
@@ -580,6 +590,26 @@ const metricIcon = (icon: string) => {
   .case-testimonial footer strong { font-size: 12px; }
   .case-testimonial footer small { margin-top: 2px; font-size: 10px; line-height: 1.35; color: rgba(20,58,96,.67); }
 
+  @media (min-width: 1200px) {
+    .case-testimonial {
+      width: min(37.5%, 456px);
+      padding: clamp(27px, 1.7vw, 32px);
+      border-radius: 36px;
+    }
+
+    .case-testimonial__stars { font-size: 22px; }
+    .case-testimonial blockquote {
+      max-width: 32ch;
+      margin: 17px 0 24px;
+      font-size: clamp(16px, 1vw, 18px);
+      line-height: 1.5;
+    }
+    .case-testimonial footer { gap: 16px; }
+    .case-testimonial__avatar { width: 72px; height: 72px; flex-basis: 72px; }
+    .case-testimonial footer strong { font-size: 16px; }
+    .case-testimonial footer small { margin-top: 4px; font-size: 12px; }
+  }
+
   .case--enhanced [data-case-reveal] { opacity: 0; transform: translateY(18px); }
   .case--enhanced.is-visible [data-case-reveal] { opacity: 1; transform: translateY(0); transition: opacity 520ms ease, transform 620ms cubic-bezier(.22,1,.36,1); transition-delay: calc(var(--case-order, 0) * 70ms); }
 
@@ -759,8 +789,8 @@ const metricIcon = (icon: string) => {
     .case__cloud--two { width: 110vw; height: 42vw; left: 5vw; }
     .case__cloud--three { width: 82vw; height: 36vw; }
     .case__inner { width: 100%; height: auto; min-height: 0; padding: 68px 18px 72px; gap: 38px; }
-    .case__copy { max-width: 410px; padding: 30px 14px 38px; }
-    .case__copy-cloud { inset: -22px -22px -28px; }
+    .case__copy { max-width: 410px; padding: 30px clamp(16px, 5vw, 22px) 38px; }
+    .case__copy-cloud { inset: -22px -24px -28px; }
     .case__copy-cloud .case__cloud-shape--wide { display: none; }
     .case__copy-cloud .case__cloud-shape--mobile { display: block; }
     .case__eyebrow { min-height: 38px; padding-inline: 14px; font-size: 10px; }

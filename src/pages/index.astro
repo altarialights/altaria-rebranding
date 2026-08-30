@@ -14,6 +14,9 @@ import SiteFooter from '../components/sections/SiteFooter.astro';
   <template data-viewport-header-template="desktop">
     <FloatingHeader />
   </template>
+  <template data-viewport-header-template="responsive">
+    <FloatingHeader alwaysVisible />
+  </template>
 
   <main>
     <div class="viewport-outlet" data-viewport-hero-outlet aria-busy="true"></div>
@@ -42,6 +45,23 @@ import SiteFooter from '../components/sections/SiteFooter.astro';
 
 <script is:inline>
   (() => {
+    /* `#top` is only a progressive-enhancement target. Leaving it in the
+       initial URL makes the browser resolve the fragment while the real
+       desktop hero is still inside its template. Normalise it before the
+       selected viewport tree is mounted so there is never a stale native
+       anchor jump competing with hero bootstrap. */
+    if (window.location.hash === '#top') {
+      try {
+        window.history.replaceState(
+          window.history.state,
+          '',
+          `${window.location.pathname}${window.location.search}`,
+        );
+      } catch {
+        /* History may be unavailable in locked-down embedded browsers. */
+      }
+    }
+
     const breakpoint = window.matchMedia('(max-width: 1019px)');
     const experience = breakpoint.matches ? 'responsive' : 'desktop';
     const headerOutlet = document.querySelector('[data-viewport-header-outlet]');
@@ -65,7 +85,68 @@ import SiteFooter from '../components/sections/SiteFooter.astro';
 </script>
 
 <script>
+  import { bootstrapHeroTier } from '../scripts/hero-tier-bootstrap';
+
+  const HERO_RETRY_KEY = 'altaria:hero-runtime-retry:v1';
   const experience = document.documentElement.dataset.heroExperience;
+
+  const clearHeroRetry = (): void => {
+    try {
+      window.sessionStorage.removeItem(HERO_RETRY_KEY);
+    } catch {
+      /* Runtime recovery must not depend on storage availability. */
+    }
+  };
+
+  const retryHeroRuntimeOnce = (error: unknown): boolean => {
+    const message = error instanceof Error ? error.message : String(error);
+    const isModuleLoadFailure = /dynamically imported module|module script|importing a module|load failed/i.test(message);
+    if (!isModuleLoadFailure) return false;
+
+    try {
+      if (window.sessionStorage.getItem(HERO_RETRY_KEY) === '1') return false;
+      window.sessionStorage.setItem(HERO_RETRY_KEY, '1');
+      window.location.reload();
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  /* Keep same-page “inicio” links out of the history. Apart from avoiding
+     `/\#top`, this prevents Back/Forward Cache from restoring a transient
+     bootstrap state associated with that fragment entry. */
+  document.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const link = target.closest<HTMLAnchorElement>('a[href]');
+    if (!link) return;
+
+    const destination = new URL(link.href, window.location.href);
+    if (
+      destination.origin !== window.location.origin ||
+      destination.pathname !== window.location.pathname ||
+      destination.search !== window.location.search ||
+      destination.hash !== '#top'
+    ) return;
+
+    event.preventDefault();
+    try {
+      window.history.replaceState(
+        window.history.state,
+        '',
+        `${window.location.pathname}${window.location.search}`,
+      );
+    } catch {
+      /* Scrolling still works if History is unavailable. */
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  void import('../scripts/floating-header')
+    .then(({ initFloatingHeader }) => initFloatingHeader())
+    .catch((error: unknown) => console.error('[Altaria] No se pudo iniciar la navegación principal.', error));
 
   if (experience === 'responsive') {
     void import('../scripts/responsive-hero')
@@ -75,17 +156,15 @@ import SiteFooter from '../components/sections/SiteFooter.astro';
         document.querySelector<HTMLElement>('[data-responsive-hero]')?.classList.add('is-ready');
       });
   } else {
-    void import('../scripts/hero-tier-bootstrap')
-      .then(({ bootstrapHeroTier }) =>
-        bootstrapHeroTier({
-          runtimes: {
-            full: () => import('../scripts/hero-full'),
-            balanced: () => import('../scripts/hero-balanced'),
-            lite: () => import('../scripts/hero-lite'),
-          },
-        }),
-      )
+    void bootstrapHeroTier({
+      runtimes: {
+        full: () => import('../scripts/hero-full'),
+        balanced: () => import('../scripts/hero-balanced'),
+        lite: () => import('../scripts/hero-lite'),
+      },
+    })
       .then(async (result) => {
+        clearHeroRetry();
         if (new URLSearchParams(window.location.search).get('debug') !== '1') return;
         const { formatPerformanceTierDebug } = await import('../scripts/performance-tier');
         const panel = document.querySelector<HTMLElement>('[data-performance-debug]');
@@ -96,11 +175,29 @@ import SiteFooter from '../components/sections/SiteFooter.astro';
       })
       .catch((error: unknown) => {
         console.error('[Altaria] No se pudo iniciar el hero adaptativo.', error);
+        if (retryHeroRuntimeOnce(error)) return;
+
         const outlet = document.querySelector<HTMLElement>('[data-hero-tier-outlet]');
         const fallback = document.querySelector<HTMLElement>('[data-hero-boot-fallback]');
         const header = document.querySelector<HTMLElement>('[data-header-capsule]');
-        if (outlet) outlet.style.display = 'none';
-        if (fallback) fallback.hidden = false;
+        const mountedHero = outlet?.querySelector<HTMLElement>('[data-hero]');
+
+        if (outlet && mountedHero) {
+          /* Runtime imports happen after the selected hero is mounted. If
+             animation code fails, retain that complete visual tree instead
+             of replacing it with the emergency text card. */
+          outlet.style.removeProperty('display');
+          outlet.dataset.heroTierPhase = 'static';
+          outlet.removeAttribute('aria-busy');
+          outlet.querySelectorAll<HTMLElement>('[data-performance-preflight-copy]').forEach((copy) => {
+            copy.style.removeProperty('visibility');
+            delete copy.dataset.performancePreflightCopy;
+          });
+          if (fallback) fallback.hidden = true;
+        } else {
+          if (outlet) outlet.style.display = 'none';
+          if (fallback) fallback.hidden = false;
+        }
         if (header) {
           header.style.opacity = '1';
           header.style.transform = 'none';

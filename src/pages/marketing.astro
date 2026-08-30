@@ -1,14 +1,15 @@
 ---
 import FloatingHeader from '../components/hero/FloatingHeader.astro';
+import ServiceInterestTracker from '../components/contact/ServiceInterestTracker.astro';
 import MarketingIcon from '../components/marketing/MarketingIcon.astro';
 import SiteFooter from '../components/sections/SiteFooter.astro';
 import Base from '../layouts/Base.astro';
 
-const contactHref = '/#contacto';
+const contactHref = '/contacto?interes=marketing';
 
 const headerNav = [
   { label: 'Servicios', href: '/servicios' },
-  { label: 'Caso real', href: '/#caso-real' },
+  { label: 'Caso real', href: '/proyectos/de-zamorano' },
   { label: 'Proceso', href: '/#como-funciona' },
 ] as const;
 
@@ -66,6 +67,7 @@ const benefits = [
   description="Diseñamos estrategias de marketing digital, contenido, redes sociales y acciones de crecimiento adaptadas a los objetivos reales de tu negocio."
   canonical="/marketing"
 >
+  <ServiceInterestTracker interest="marketing" />
   <FloatingHeader alwaysVisible brandHref="/" nav={headerNav} cta={{ label: 'Hablemos', href: contactHref }} />
 
   <main class="marketing-page" id="top">
@@ -119,7 +121,7 @@ const benefits = [
 
         <picture class="marketing-hero__visual">
           <source srcset="/media/marketing/optimized/hero-720.webp 720w, /media/marketing/optimized/hero-1200.webp 1200w" sizes="(max-width: 699px) 96vw, (max-width: 1019px) 88vw, 50vw" type="image/webp" />
-          <img src="/media/marketing/hero.png" width="1448" height="1086" alt="Composición tridimensional de marketing digital con un teléfono, un megáfono y una diana" decoding="async" fetchpriority="high" />
+          <img src="/media/marketing/optimized/hero-1200.webp" width="1448" height="1086" alt="Composición tridimensional de marketing digital con un teléfono, un megáfono y una diana" decoding="async" fetchpriority="high" />
         </picture>
       </div>
     </section>
@@ -140,7 +142,7 @@ const benefits = [
             <li class="marketing-process__card">
               <picture class="marketing-process__asset">
                 <source srcset={`/media/marketing/optimized/step-${step.asset}-240.webp 240w, /media/marketing/optimized/step-${step.asset}-420.webp 420w`} sizes="(max-width: 699px) 110px, (max-width: 1019px) 140px, 150px" type="image/webp" />
-                <img src={`/media/marketing/${step.asset}.png`} width="1254" height="1254" alt="" loading="lazy" decoding="async" />
+                <img src={`/media/marketing/optimized/step-${step.asset}-420.webp`} width="1254" height="1254" alt="" loading="lazy" decoding="async" />
               </picture>
               <span class="marketing-process__number">{step.number}</span>
               <h3>{step.title}</h3>
@@ -199,7 +201,7 @@ const benefits = [
       <section class="marketing-panel marketing-budget" aria-labelledby="budget-title">
         <picture class="marketing-budget__asset">
           <source srcset="/media/marketing/optimized/presupuesto-520.webp 520w, /media/marketing/optimized/presupuesto-760.webp 760w" sizes="(max-width: 699px) 86vw, (max-width: 1019px) 44vw, 520px" type="image/webp" />
-          <img src="/media/marketing/presupuesto.png" width="1254" height="1254" alt="Ilustración de análisis, planificación y medición de marketing" loading="lazy" decoding="async" />
+          <img src="/media/marketing/optimized/presupuesto-760.webp" width="1254" height="1254" alt="Ilustración de análisis, planificación y medición de marketing" loading="lazy" decoding="async" />
         </picture>
         <div class="marketing-budget__copy">
           <p class="marketing-eyebrow">Una propuesta para ti</p>

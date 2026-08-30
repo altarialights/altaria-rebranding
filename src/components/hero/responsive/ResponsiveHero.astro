@@ -3,6 +3,12 @@ import { growthBeat, header, intro } from '../../../data/hero';
 import { responsivePrinciples, responsiveServices } from '../../../data/responsiveHero';
 import ResponsiveServiceIcon from './ResponsiveServiceIcon.astro';
 
+interface Props {
+  includeHeader?: boolean;
+}
+
+const { includeHeader = false } = Astro.props;
+
 const responsiveMenuDescriptions = [
   'Todo lo que podemos hacer por tu negocio.',
   'Mira cómo trabajamos de verdad.',
@@ -18,7 +24,7 @@ const responsiveMenuDescriptions = [
   </div>
 
   <div class="rh__shell">
-    <header class="rh-header" data-responsive-header>
+    {includeHeader && (<header class="rh-header" data-responsive-header>
       <a class="rh-header__brand" href="#top" aria-label={`${header.wordmark} — inicio`}>
         <img
           src="/brand/optimized/altaria-v2-logo-header-responsive-600.webp"
@@ -91,7 +97,8 @@ const responsiveMenuDescriptions = [
           </div>
         </div>
       </nav>
-    </header>
+    </header>)}
+    <div class="rh-header-spacer" aria-hidden="true"></div>
 
     <div class="rh-intro">
       <p class="rh-intro__eyebrow">marketing, diseño y tecnología</p>
@@ -106,12 +113,12 @@ const responsiveMenuDescriptions = [
         <span class="rh-intro__sub-tablet">Su imagen tampoco debería serlo.</span>
         <span class="rh-intro__sub-mobile">Marketing. Web. Software. Marca.</span>
       </p>
-      <button class="rh-intro__cta" type="button">
+      <a class="rh-intro__cta" href="/contacto">
         <span>{growthBeat.cta}</span>
         <svg viewBox="0 0 20 20" aria-hidden="true">
           <path d="M4 10h11M11 6l4 4-4 4" />
         </svg>
-      </button>
+      </a>
     </div>
 
     <section class="rh-services" id="servicios-responsive" aria-labelledby="responsive-services-title">
@@ -298,6 +305,10 @@ const responsiveMenuDescriptions = [
     box-shadow: 0 16px 34px -24px rgba(10, 50, 98, 0.55);
   }
 
+  .rh-header-spacer {
+    height: 58px;
+  }
+
   .rh-header__brand {
     display: flex;
     align-items: center;
@@ -405,6 +416,7 @@ const responsiveMenuDescriptions = [
     box-shadow: 0 13px 24px -15px rgba(6, 43, 88, 0.95);
     font-size: 13px;
     font-weight: 750;
+    text-decoration: none;
     cursor: pointer;
   }
 
@@ -1071,6 +1083,11 @@ const responsiveMenuDescriptions = [
       margin: 0 12px;
       min-height: 54px;
       padding: 5px 6px 5px 13px;
+    }
+
+    .rh-header-spacer {
+      height: 54px;
+      margin-inline: 12px;
     }
 
     .rh-header.is-menu-open::before {

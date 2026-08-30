@@ -1,0 +1,20 @@
+---
+import type { ServiceInterest } from '../../lib/contact/service-interests';
+
+interface Props {
+  interest: ServiceInterest;
+}
+
+const { interest } = Astro.props;
+---
+
+<span hidden data-service-interest={interest}></span>
+
+<script>
+  import { isServiceInterest, recordServiceInterest } from '../../lib/contact/service-interests';
+
+  document.querySelectorAll<HTMLElement>('[data-service-interest]').forEach((element) => {
+    const interest = element.dataset.serviceInterest;
+    if (isServiceInterest(interest)) recordServiceInterest(interest);
+  });
+</script>

@@ -1,5 +1,6 @@
 ---
 import { header as defaultHeader } from '../../data/hero';
+import { serviceNavigation } from '../../data/site-navigation';
 
 interface HeaderLink {
   label: string;
@@ -19,6 +20,9 @@ const {
   nav = defaultHeader.nav,
   cta = defaultHeader.cta,
 } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const secondaryNav = nav.filter((item: HeaderLink) => !item.label.toLocaleLowerCase('es').startsWith('servicio'));
 
 /**
  * Floating capsule header. Absent from the first frame — not even the
@@ -49,7 +53,36 @@ const {
     </a>
 
     <nav class="hdr__nav" aria-label="Principal">
-      {nav.map((item: HeaderLink) => <a href={item.href}>{item.label}</a>)}
+      <div class="hdr__services" data-header-services-root>
+        <button
+          class="hdr__services-trigger"
+          type="button"
+          aria-expanded="false"
+          aria-controls="floating-header-services"
+          data-header-services-button
+        >
+          <span>Servicios</span>
+          <svg viewBox="0 0 12 8" aria-hidden="true"><path d="m1.5 1.5 4.5 4 4.5-4" /></svg>
+        </button>
+        <div class="hdr__services-panel" id="floating-header-services" aria-hidden="true" inert data-header-services-panel>
+          <div class="hdr__services-heading">
+            <span>Qué podemos hacer por ti</span>
+            <a href="/servicios">Ver todos <span aria-hidden="true">→</span></a>
+          </div>
+          <ul>
+            {serviceNavigation.map((service) => (
+              <li>
+                <a href={service.href} aria-current={currentPath === service.href.split('#')[0] ? 'page' : undefined}>
+                  <span class="hdr__services-mark" aria-hidden="true">{service.shortLabel}</span>
+                  <span><strong>{service.label}</strong><small>{service.description}</small></span>
+                  <span class="hdr__services-arrow" aria-hidden="true">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      {secondaryNav.map((item: HeaderLink) => <a href={item.href}>{item.label}</a>)}
     </nav>
 
     <a class="hdr__cta" href={cta.href}>{cta.label}</a>
@@ -80,18 +113,25 @@ const {
         inert
         data-header-menu-panel
       >
-        <ol>
-          {nav.map((item: HeaderLink, index: number) => (
-            <li style={`--hdr-menu-order: ${index}`}>
-              <a href={item.href}>
-                <span class="hdr__menu-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-                <strong>{item.label}</strong>
+        <div class="hdr__menu-heading" style="--hdr-menu-order: 0">
+          <span>Servicios</span>
+          <a href="/servicios">Ver todos <span aria-hidden="true">→</span></a>
+        </div>
+        <ol class="hdr__menu-services">
+          {serviceNavigation.map((service, index: number) => (
+            <li style={`--hdr-menu-order: ${index + 1}`}>
+              <a href={service.href}>
+                <span class="hdr__menu-service-mark" aria-hidden="true">{service.shortLabel}</span>
+                <span><strong>{service.label}</strong><small>{service.description}</small></span>
                 <span class="hdr__menu-arrow" aria-hidden="true">→</span>
               </a>
             </li>
           ))}
         </ol>
-        <a class="hdr__menu-cta" href={cta.href} style={`--hdr-menu-order: ${nav.length}`}>
+        <div class="hdr__menu-secondary" style={`--hdr-menu-order: ${serviceNavigation.length + 1}`}>
+          {secondaryNav.map((item: HeaderLink) => <a href={item.href}>{item.label}</a>)}
+        </div>
+        <a class="hdr__menu-cta" href={cta.href} style={`--hdr-menu-order: ${serviceNavigation.length + 2}`}>
           <span>{cta.label}</span><span aria-hidden="true">→</span>
         </a>
       </nav>
@@ -100,60 +140,8 @@ const {
 </header>
 
 <script>
-  const setHeaderRegionInert = (element: HTMLElement, value: boolean): void => {
-    element.inert = value;
-    if (value) element.setAttribute('inert', '');
-    else element.removeAttribute('inert');
-  };
-
-  document.querySelectorAll<HTMLElement>('[data-header-menu-root]').forEach((root) => {
-    if (root.dataset.initialised === 'true') return;
-    root.dataset.initialised = 'true';
-
-    const capsule = root.closest<HTMLElement>('[data-header-capsule]');
-    const button = root.querySelector<HTMLButtonElement>('[data-header-menu-button]');
-    const panel = root.querySelector<HTMLElement>('[data-header-menu-panel]');
-    const backgroundRegions = Array.from(document.querySelectorAll<HTMLElement>('main, footer'));
-    const responsive = window.matchMedia('(max-width: 1019px)');
-    let open = false;
-    let closeTimer = 0;
-
-    const setMenu = (nextOpen: boolean, restoreFocus = false): void => {
-      if (!capsule || !button || !panel || open === nextOpen) return;
-      window.clearTimeout(closeTimer);
-      open = nextOpen;
-      setHeaderRegionInert(panel, !open);
-      backgroundRegions.forEach((region) => setHeaderRegionInert(region, open));
-      button.setAttribute('aria-expanded', String(open));
-      button.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-
-      if (open) {
-        panel.hidden = false;
-        void panel.offsetHeight;
-        capsule.classList.add('is-menu-open');
-        return;
-      }
-
-      capsule.classList.remove('is-menu-open');
-      if (restoreFocus) button.focus({ preventScroll: true });
-      closeTimer = window.setTimeout(() => {
-        if (!open) panel.hidden = true;
-      }, 380);
-    };
-
-    button?.addEventListener('click', () => setMenu(!open, open));
-    panel?.addEventListener('click', (event) => {
-      if ((event.target as HTMLElement).closest('a')) setMenu(false);
-    });
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && open) setMenu(false, true);
-    });
-    document.addEventListener('pointerdown', (event) => {
-      if (!open || capsule?.contains(event.target as Node)) return;
-      setMenu(false);
-    });
-    responsive.addEventListener('change', () => setMenu(false));
-  });
+  import { initFloatingHeader } from '../../scripts/floating-header';
+  initFloatingHeader();
 </script>
 
 <style>
@@ -222,15 +210,177 @@ const {
     font-weight: 500;
   }
 
-  .hdr__nav a {
+  .hdr__nav > a,
+  .hdr__services-trigger {
     text-decoration: none;
     color: var(--ink);
     opacity: 0.78;
-    transition: opacity 200ms var(--ease-out);
+    transition: opacity 200ms var(--ease-out), color 200ms var(--ease-out);
   }
 
-  .hdr__nav a:hover {
+  .hdr__nav > a:hover,
+  .hdr__services-trigger:hover,
+  .hdr__services.is-services-open .hdr__services-trigger {
     opacity: 1;
+  }
+
+  .hdr__services {
+    position: relative;
+  }
+
+  .hdr__services-trigger {
+    display: inline-flex;
+    padding: 10px 0;
+    align-items: center;
+    gap: 7px;
+    border: 0;
+    font: inherit;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .hdr__services-trigger svg {
+    width: 10px;
+    height: 7px;
+    overflow: visible;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 240ms cubic-bezier(.22, 1, .36, 1);
+  }
+
+  .hdr__services.is-services-open .hdr__services-trigger svg {
+    transform: rotate(180deg);
+  }
+
+  .hdr__services-panel {
+    position: absolute;
+    z-index: 5;
+    top: calc(100% + 14px);
+    left: 50%;
+    width: min(520px, 70vw);
+    padding: 18px;
+    border: 1px solid rgba(255,255,255,.86);
+    border-radius: 24px;
+    background: rgba(248,252,255,.94);
+    backdrop-filter: blur(20px) saturate(1.18);
+    box-shadow: 0 28px 60px -28px rgba(5,48,92,.48), inset 0 1px 0 #fff;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-44%, -9px) scale(.975);
+    transform-origin: 42% 0;
+    transition: opacity 170ms ease, transform 260ms cubic-bezier(.22, 1, .36, 1), visibility 0s linear 260ms;
+  }
+
+  .hdr__services-panel::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    left: 0;
+    height: 18px;
+  }
+
+  .hdr__services.is-services-open .hdr__services-panel {
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-44%, 0) scale(1);
+    transition-delay: 0s;
+  }
+
+  .hdr__services-heading {
+    display: flex;
+    padding: 2px 3px 14px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    color: #547493;
+    font-size: 11px;
+    letter-spacing: .04em;
+  }
+
+  .hdr__services-heading > a {
+    color: #1767ae;
+    font-weight: 750;
+    text-decoration: none;
+  }
+
+  .hdr__services-panel ul {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    list-style: none;
+  }
+
+  .hdr__services-panel li a {
+    display: grid;
+    min-height: 82px;
+    padding: 12px;
+    grid-template-columns: 42px minmax(0, 1fr) 18px;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(23,103,174,.08);
+    border-radius: 17px;
+    color: #123963;
+    background: rgba(255,255,255,.68);
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .hdr__services-panel li a:hover,
+  .hdr__services-panel li a:focus-visible,
+  .hdr__services-panel li a[aria-current='page'] {
+    border-color: rgba(23,103,174,.2);
+    background: #fff;
+    box-shadow: 0 12px 24px -20px rgba(10,65,116,.8);
+    transform: translateY(-2px);
+  }
+
+  .hdr__services-mark,
+  .hdr__menu-service-mark {
+    display: grid;
+    width: 42px;
+    aspect-ratio: 1;
+    place-items: center;
+    border-radius: 13px;
+    color: #0966c1;
+    background: linear-gradient(145deg, #eef8ff, #d9edfc);
+    box-shadow: inset 0 1px 0 #fff;
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: -.02em;
+  }
+
+  .hdr__services-panel li a > span:nth-child(2) {
+    display: grid;
+    gap: 3px;
+  }
+
+  .hdr__services-panel strong {
+    font-size: 12px;
+    line-height: 1.15;
+  }
+
+  .hdr__services-panel small {
+    color: #6684a1;
+    font-size: 10px;
+    line-height: 1.25;
+  }
+
+  .hdr__services-arrow {
+    color: #2c7ac0;
+    transition: transform 180ms ease;
+  }
+
+  .hdr__services-panel li a:hover .hdr__services-arrow,
+  .hdr__services-panel li a:focus-visible .hdr__services-arrow {
+    transform: translateX(3px);
   }
 
   .hdr__cta {
@@ -503,12 +653,330 @@ const {
     }
   }
 
+  :global(html.has-header-menu-open) {
+    overflow: hidden;
+  }
+
+  @media (max-width: 1019px) {
+    .hdr {
+      inset-block-start: max(18px, env(safe-area-inset-top));
+      isolation: isolate;
+    }
+
+    .hdr::after {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      content: '';
+      pointer-events: none;
+      background: rgba(10,51,96,.11);
+      opacity: 0;
+      transition: opacity 220ms ease;
+    }
+
+    .hdr.is-menu-open::after {
+      opacity: 1;
+    }
+
+    .hdr__capsule {
+      isolation: isolate;
+      width: calc(100% - 40px);
+      height: 58px;
+      padding: 6px 8px 6px 18px;
+      border: 0;
+      border-radius: 29px;
+      background: transparent;
+      backdrop-filter: none;
+      box-shadow: none;
+    }
+
+    .hdr__capsule::before,
+    .hdr__capsule::after {
+      position: absolute;
+      z-index: -1;
+      content: '';
+      pointer-events: none;
+    }
+
+    .hdr__capsule::before {
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 100%;
+      border: 1px solid rgba(255,255,255,.82);
+      border-radius: 29px;
+      background: #f3f9fd;
+      box-shadow: 0 18px 36px -28px rgba(7,43,85,.78);
+      transition: height 360ms cubic-bezier(.22,1,.36,1), border-radius 360ms cubic-bezier(.22,1,.36,1), box-shadow 240ms ease;
+    }
+
+    .hdr__capsule::after {
+      top: 326px;
+      right: 3.5%;
+      width: 126px;
+      height: 82px;
+      border-radius: 50%;
+      background: #f3f9fd;
+      opacity: 0;
+      transform: scale(.76);
+      transform-origin: center;
+      transition: opacity 160ms ease 80ms, transform 320ms cubic-bezier(.22,1,.36,1) 40ms;
+    }
+
+    .hdr__capsule.is-menu-open {
+      height: 58px;
+      border-radius: 29px;
+      box-shadow: none;
+    }
+
+    .hdr__capsule.is-menu-open::before {
+      height: 410px;
+      border-radius: 29px 29px 40px 29px;
+      box-shadow: 0 28px 48px -30px rgba(7,43,85,.72);
+    }
+
+    .hdr__capsule.is-menu-open::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .hdr__brand {
+      position: relative;
+      z-index: 2;
+      width: 150px;
+      min-width: 150px;
+      height: 44px;
+    }
+
+    .hdr__menu-button {
+      width: 44px;
+      height: 44px;
+      background: #dceefa;
+      flex: 0 0 44px;
+    }
+
+    .hdr__menu-panel {
+      top: 59px;
+      right: 10px;
+      left: 10px;
+      width: 100%;
+      width: auto;
+      height: auto;
+      max-height: none;
+      padding: 9px 8px 16px;
+      overflow: visible;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      backdrop-filter: none;
+      box-shadow: none;
+      transform: translateY(-8px);
+    }
+
+    .hdr__capsule.is-menu-open .hdr__menu-panel {
+      transform: translateY(0);
+    }
+
+    .hdr__menu-heading {
+      display: flex;
+      padding: 1px 5px 10px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      color: #547493;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 180ms ease, transform 240ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .hdr__menu-heading > a {
+      color: #1767ae;
+      text-decoration: none;
+    }
+
+    .hdr__menu-panel .hdr__menu-services {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 20px;
+    }
+
+    .hdr__menu-panel .hdr__menu-services li a {
+      display: grid;
+      min-height: 86px;
+      padding: 9px 6px;
+      grid-template-columns: 42px minmax(0, 1fr) 18px;
+      align-items: center;
+      gap: 10px;
+      border: 0;
+      border-bottom: 1px solid rgba(21,89,152,.17);
+      border-radius: 0;
+      color: #123963;
+      background: transparent;
+    }
+
+    .hdr__menu-panel .hdr__menu-services li a:hover,
+    .hdr__menu-panel .hdr__menu-services li a:focus-visible {
+      color: #0e5596;
+      background: rgba(43,129,212,.06);
+      transform: translateX(4px);
+    }
+
+    .hdr__menu-panel .hdr__menu-services li a > span:nth-child(2) {
+      display: grid;
+      min-width: 0;
+      gap: 3px;
+    }
+
+    .hdr__menu-panel .hdr__menu-services strong {
+      font-family: var(--font-sans);
+      font-size: clamp(11px, 1.7vw, 13px);
+      font-weight: 780;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .hdr__menu-panel .hdr__menu-services small {
+      color: #6684a1;
+      font-size: 9.5px;
+      line-height: 1.25;
+    }
+
+    .hdr__menu-secondary {
+      display: flex;
+      margin-top: 8px;
+      padding-top: 7px;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 180ms ease, transform 240ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .hdr__menu-secondary a {
+      padding: 9px 14px;
+      border-radius: 999px;
+      color: #315d86;
+      background: rgba(228,242,252,.84);
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .hdr__menu-panel .hdr__menu-cta {
+      width: min(100%, 290px);
+      margin: 10px auto 0;
+    }
+
+    .hdr__menu-heading,
+    .hdr__menu-secondary,
+    .hdr__menu-cta {
+      transition-delay: 0ms;
+    }
+
+    .hdr__capsule.is-menu-open .hdr__menu-heading,
+    .hdr__capsule.is-menu-open .hdr__menu-secondary,
+    .hdr__capsule.is-menu-open .hdr__menu-cta {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: calc(70ms + var(--hdr-menu-order) * 45ms);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .hdr {
+      inset-block-start: max(14px, env(safe-area-inset-top));
+    }
+
+    .hdr__capsule {
+      width: calc(100% - 24px);
+      height: 54px;
+      padding: 5px 6px 5px 13px;
+      border-radius: 27px;
+    }
+
+    .hdr__capsule::before {
+      border-radius: 27px;
+    }
+
+    .hdr__capsule::after {
+      top: 369px;
+      right: -4px;
+      width: 104px;
+      height: 86px;
+    }
+
+    .hdr__capsule.is-menu-open {
+      height: 54px;
+      border-radius: 27px;
+    }
+
+    .hdr__capsule.is-menu-open::before {
+      height: 455px;
+      border-radius: 27px 27px 42px 27px;
+    }
+
+    .hdr__brand {
+      height: 44px;
+    }
+
+    .hdr__menu-panel {
+      top: 55px;
+      right: 10px;
+      left: 10px;
+      padding: 7px 4px 15px;
+    }
+
+    .hdr__menu-panel .hdr__menu-services {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .hdr__menu-panel .hdr__menu-services li a {
+      min-height: 61px;
+      padding: 6px 4px 6px 9px;
+      grid-template-columns: 38px minmax(0, 1fr) 22px;
+    }
+
+    .hdr__menu-service-mark {
+      width: 36px;
+      border-radius: 12px;
+    }
+
+    .hdr__menu-panel .hdr__menu-services small {
+      display: none;
+    }
+
+    .hdr__menu-secondary {
+      flex-wrap: wrap;
+      margin-top: 7px;
+      padding-top: 7px;
+    }
+
+    .hdr__menu-secondary a {
+      flex: 1 1 110px;
+      text-align: center;
+    }
+
+    .hdr__menu-panel .hdr__menu-cta {
+      width: min(100%, 270px);
+      min-height: 50px;
+      margin-top: 9px;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hdr__capsule,
+    .hdr__services-panel,
+    .hdr__services-trigger svg,
     .hdr__menu-panel,
     .hdr__menu-line,
     .hdr__close-line,
     .hdr__menu-panel li,
+    .hdr__menu-heading,
+    .hdr__menu-secondary,
     .hdr__menu-cta {
       transition-duration: 1ms !important;
       transition-delay: 0ms !important;
