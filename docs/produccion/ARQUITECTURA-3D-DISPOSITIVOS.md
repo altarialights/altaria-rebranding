@@ -317,7 +317,7 @@ ejecute la coreografía completa en vez de una versión recortada.
 ## 6. Cómo se verifica
 
 ```bash
-npm run build && npm run preview       # terminal 1
+pnpm build && pnpm preview       # terminal 1
 node scripts/diagnose-faces.mjs        # terminal 2
 ```
 

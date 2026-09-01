@@ -3,7 +3,7 @@
  *
  * Output goes to review/ — working images, never site assets.
  *
- * Usage:  npm run build && npm run preview   (one terminal)
+ * Usage:  pnpm build && pnpm preview   (one terminal)
  *         node scripts/shoot.mjs             (another)
  *
  * Optional:

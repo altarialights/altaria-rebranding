@@ -1,4 +1,4 @@
-export const CONSENT_VERSION = '1';
+export const CONSENT_VERSION = '2';
 export const CONSENT_STORAGE_KEY = 'altaria_cookie_consent';
 export const CONSENT_DURATION_MS = 365 * 24 * 60 * 60 * 1000;
 

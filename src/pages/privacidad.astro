@@ -7,7 +7,8 @@ import LegalPage from '../layouts/LegalPage.astro';
   description="Información sobre cómo Altaria Lights trata los datos de contacto, las preferencias de privacidad y la analítica consentida."
   eyebrow="Protección de datos"
   heading="Política de Privacidad"
-  intro="Esta política explica qué datos puede tratar Altaria Lights, con qué finalidad y qué opciones tienes. La web no incluye actualmente un formulario: el contacto se realiza de forma voluntaria por correo electrónico."
+  intro="Esta política explica cómo Altaria Lights trata los datos del diagnóstico digital, las solicitudes de contacto, las preferencias de privacidad y la analítica consentida."
+  updated="1 de septiembre de 2026"
 >
   <section class="legal-section">
     <p class="legal-section__number" aria-hidden="true">01</p>
@@ -19,6 +20,10 @@ import LegalPage from '../layouts/LegalPage.astro';
         <div><dt>Naturaleza actual</dt><dd>Grupo de estudiantes de software y marketing</dd></div>
         <div><dt>Ámbito indicado</dt><dd>Toledo – Madrid, España</dd></div>
       </dl>
+      <p>
+        La identidad legal completa del responsable, NIF/CIF y domicilio deben incorporarse antes
+        de operar comercialmente y mantener una recogida estable de datos personales en producción.
+      </p>
     </div>
   </section>
 
@@ -26,11 +31,13 @@ import LegalPage from '../layouts/LegalPage.astro';
     <p class="legal-section__number" aria-hidden="true">02</p>
     <div>
       <h2>Qué datos tratamos</h2>
-      <h3>Contacto por correo electrónico</h3>
+      <h3>Diagnóstico digital y contacto profesional</h3>
       <p>
-        Si escribes voluntariamente a Altaria Lights, podremos tratar la dirección del remitente, tu
-        nombre o empresa si los incluyes y el contenido de tu mensaje. La web no dispone actualmente
-        de formulario ni solicita campos de contacto directamente.
+        Al desbloquear el diagnóstico tratamos nombre, email profesional, cargo, empresa, web y
+        tamaño de empresa; respuestas al cuestionario, puntuaciones y oportunidades calculadas;
+        solicitud de revisión, consentimientos, atribución de campaña y eventos técnicos vinculados
+        al informe. Si escribes por email también tratamos la dirección del remitente y el contenido
+        del mensaje.
       </p>
 
       <h3>Navegación y analítica</h3>
@@ -63,10 +70,14 @@ import LegalPage from '../layouts/LegalPage.astro';
       <h2>Finalidades</h2>
       <h3>Contacto</h3>
       <ul>
+        <li>generar, guardar y permitir el acceso seguro al diagnóstico solicitado;</li>
+        <li>calcular el índice de madurez y priorizar oportunidades de forma determinista;</li>
         <li>responder consultas y atender solicitudes;</li>
         <li>preparar propuestas o información sobre servicios;</li>
         <li>gestionar una posible relación profesional.</li>
       </ul>
+      <h3>Comunicaciones opcionales</h3>
+      <p>Enviar contenidos y recursos de Altaria Lights únicamente cuando se haya marcado el consentimiento específico de marketing.</p>
       <h3>Analítica consentida</h3>
       <ul>
         <li>conocer el uso y medir las visitas de la web;</li>
@@ -87,9 +98,10 @@ import LegalPage from '../layouts/LegalPage.astro';
         que puedes retirar en cualquier momento sin afectar a la licitud del tratamiento previo.
       </p>
       <p>
-        Cuando solicitas información sobre servicios, el contacto se trata para aplicar medidas
-        precontractuales a petición tuya. En consultas que no tengan esa finalidad, la base será el
-        consentimiento manifestado al enviar voluntariamente el mensaje.
+        La generación y entrega del diagnóstico solicitado se basa en la solicitud del propio usuario
+        y en las medidas precontractuales que pueda pedir. La conservación de los datos de contacto y
+        la revisión personal se apoya en el consentimiento expresado al enviar el formulario. Las
+        comunicaciones comerciales opcionales tienen un consentimiento separado y revocable.
       </p>
       <p>
         La preferencia local es necesaria para gestionar y respetar la elección de privacidad que has
@@ -108,6 +120,11 @@ import LegalPage from '../layouts/LegalPage.astro';
         para cumplir obligaciones o atender posibles responsabilidades, cuando resulte aplicable.
       </p>
       <p>
+        Los diagnósticos y leads se conservan actualmente en Turso sin un proceso automático de
+        expiración. Altaria Lights debe aprobar e implantar un plazo operativo de conservación y un
+        procedimiento periódico de supresión antes de consolidar el tratamiento en producción.
+      </p>
+      <p>
         La configuración vigente del proyecto PostHog establece 12 meses de retención para eventos y
         30 días para grabaciones de Session Replay. La preferencia de consentimiento se considera válida
         durante 12 meses, salvo que la cambies antes o borres el almacenamiento del navegador.
@@ -120,6 +137,14 @@ import LegalPage from '../layouts/LegalPage.astro';
     <div>
       <h2>Destinatarios y proveedores</h2>
       <div class="legal-callout">
+        <h3>Vercel y Turso</h3>
+        <p>Vercel presta la infraestructura de ejecución web y Turso aloja la base libSQL donde se conservan diagnósticos, respuestas y datos profesionales.</p>
+      </div>
+      <div class="legal-callout">
+        <h3>Telegram</h3>
+        <p>Telegram recibe una notificación interna con los datos profesionales y el resumen del diagnóstico para que el equipo pueda atender el lead. Esta comunicación no se utiliza para publicidad de terceros.</p>
+      </div>
+      <div class="legal-callout">
         <h3>PostHog</h3>
         <p>
           Proveedor de analítica de producto, rendimiento, errores, mapas de calor y Session Replay.
@@ -128,9 +153,9 @@ import LegalPage from '../layouts/LegalPage.astro';
         </p>
       </div>
       <p>
-        No se han encontrado en la implementación formularios ni integraciones con plataformas de
-        publicidad, pagos, CRM o email marketing. La identidad del proveedor de alojamiento y la del
-        servicio que gestiona el buzón de contacto no constan en el repositorio revisado.
+        No existen integraciones activas con plataformas de publicidad, pagos, CRM o email marketing.
+        Antes de producción deben revisarse los acuerdos de tratamiento, regiones y subencargados de
+        Vercel, Turso, Telegram y PostHog para la configuración concreta de cada cuenta.
       </p>
     </div>
   </section>
@@ -140,7 +165,7 @@ import LegalPage from '../layouts/LegalPage.astro';
     <div>
       <h2>Transferencias internacionales</h2>
       <p>
-        La integración utiliza la región europea de PostHog, pero PostHog puede recurrir a
+        PostHog utiliza su región europea. Vercel, Turso y Telegram pueden recurrir a infraestructura,
         subencargados o accesos desde otros países. Cuando ello implique una transferencia
         internacional, deberán aplicarse las garantías previstas por la normativa, como una decisión
         de adecuación o cláusulas contractuales tipo, según corresponda.

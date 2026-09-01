@@ -77,7 +77,7 @@ Escribe `src/lib/db/leads.repository.ts`; lee `assessments.repository.ts` solo p
 
 ### `digital_lead_events`
 
-Histórico append-only de eventos asociados a un lead. FK con cascada. `metadata_json` guarda JSON serializado sin PII; v1 escribe `{}`. Eventos iniciales: `report_unlocked`, `review_requested`, `result_viewed`. Escribe `leads.repository.ts`.
+Histórico append-only de eventos asociados a un lead. FK con cascada. `metadata_json` guarda JSON serializado sin PII. Eventos: `report_unlocked`, `review_requested`, `result_viewed`, `telegram_notification_sent` y `telegram_notification_failed`. Los eventos de Telegram guardan únicamente fecha, proveedor, tipo de notificación, identificador de mensaje o motivo técnico de fallo. Escribe `leads.repository.ts`.
 
 ## Relaciones e índices
 
@@ -96,7 +96,8 @@ Hay índices por fecha/campaña, prioridad comercial, estado CRM y timeline de e
 3. Genera IDs UUID, token de 32 bytes y SHA-256.
 4. Calcula lead score con configuración centralizada.
 5. Un batch atómico escribe assessment, cinco scores, veinticinco respuestas, lead y eventos.
-6. Solo tras commit devuelve la URL con el token raw.
+6. Tras el commit genera la URL de resultado e intenta la notificación interna; su entrega o fallo se registra como evento sin PII.
+7. Devuelve la URL con el token raw aunque la notificación externa falle.
 
 Un fallo en cualquier sentencia revierte el batch completo.
 

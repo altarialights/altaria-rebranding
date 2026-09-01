@@ -23,7 +23,7 @@ import SiteFooter from '../components/sections/SiteFooter.astro';
     <article class="legal-card">
       <p class="legal-eyebrow">Privacidad</p>
       <h1>Política de cookies</h1>
-      <p class="legal-updated">Última actualización: 29 de agosto de 2026</p>
+      <p class="legal-updated">Última actualización: 1 de septiembre de 2026</p>
 
       <p class="legal-lead">
         Esta página explica qué tecnologías de almacenamiento utiliza Altaria Lights, para qué se
@@ -70,6 +70,20 @@ import SiteFooter from '../components/sections/SiteFooter.astro';
                 <td>12 meses</td>
               </tr>
               <tr>
+                <td><code>altaria_digital_assessment_draft_v1</code></td>
+                <td>Altaria Lights</td>
+                <td>Necesaria · localStorage</td>
+                <td>Permitir continuar el cuestionario. Solo guarda respuestas, sección y momento de inicio; no contiene los datos del formulario profesional.</td>
+                <td>Hasta completar el diagnóstico o borrar el almacenamiento</td>
+              </tr>
+              <tr>
+                <td><code>altaria_digital_assessment_attribution_v1</code></td>
+                <td>Altaria Lights</td>
+                <td>Necesaria · sessionStorage</td>
+                <td>Conservar durante la sesión la atribución de campaña y la página de referencia del diagnóstico.</td>
+                <td>Durante la sesión del navegador</td>
+              </tr>
+              <tr>
                 <td><code>__ph_opt_in_out_phc_xcT9Qf8ZzX6LqsVDa2BQVP5pVkqxtcG5yCpnM8kTwrYz</code></td>
                 <td>PostHog / Altaria Lights</td>
                 <td>Necesaria tras interactuar con PostHog · localStorage</td>
@@ -97,15 +111,17 @@ import SiteFooter from '../components/sections/SiteFooter.astro';
         <h2>4. Analítica de PostHog</h2>
         <p>
           Si activas la categoría Analítica, PostHog recibe pageviews y un conjunto limitado de
-          interacciones importantes: CTA de contacto, servicios, caso real, proceso y CTA final.
+          interacciones importantes, incluidos los hitos del diagnóstico digital.
           También puede tratar ruta o URL, fecha y hora, referencia, navegador, sistema y categoría
           de dispositivo. No enviamos nombres, correo, teléfono ni contenido de formularios.
         </p>
         <p>
           La instancia está alojada en la región europea de PostHog
           (<code>eu.i.posthog.com</code>). La captura de IP está desactivada en el proyecto, los
-          perfiles de persona están deshabilitados y no se utiliza identificación de usuarios,
-          Session Replay, mapas de calor, autocapture ni modo cookieless tras el rechazo.
+          perfiles de persona están deshabilitados y no se utiliza identificación de usuarios.
+          Con consentimiento sí se utilizan autocapture, mapas de calor y Session Replay. Los inputs
+          se enmascaran, todo el texto de formularios se oculta y el formulario profesional final se
+          bloquea completamente en la grabación. Tampoco se capturan cuerpos ni cabeceras de red.
         </p>
       </section>
 

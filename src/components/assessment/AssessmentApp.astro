@@ -100,7 +100,15 @@ const scaleValues = [1, 2, 3, 4, 5] as const;
             <div><span>{dimension.shortLabel}</span><i><b data-preview-bar={dimension.key}></b></i><strong data-preview-dimension={dimension.key}>—</strong></div>
           ))}
         </div>
-        <div class="assessment-preview__veil"><span aria-hidden="true">⌁</span><strong>Desbloquea el análisis completo</strong><small>Puntuaciones, oportunidades y recomendaciones</small></div>
+        <div class="assessment-preview__veil">
+          <span aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <rect x="5" y="10" width="14" height="11" rx="3"></rect>
+              <path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"></path>
+            </svg>
+          </span>
+          <strong>Desbloquea el análisis completo</strong><small>Puntuaciones, oportunidades y recomendaciones</small>
+        </div>
       </div>
       <div class="assessment-preview__action">
         <button class="assessment-button assessment-button--primary" type="button" data-open-gate>
@@ -116,7 +124,7 @@ const scaleValues = [1, 2, 3, 4, 5] as const;
         <div><p class="assessment-kicker">Último paso</p><h2>Desbloquea tu diagnóstico completo</h2><p>Usaremos estos datos para identificar tu informe. No pedimos teléfono y no enviaremos comunicaciones comerciales sin tu permiso.</p></div>
         <div class="assessment-gate__score"><span>Índice preliminar</span><strong data-gate-score>—/100</strong></div>
       </div>
-      <form class="assessment-lead-form" data-lead-form novalidate>
+      <form class="assessment-lead-form ph-no-capture" data-lead-form data-ph-sensitive data-ph-no-replay novalidate>
         <div class="assessment-form-grid">
           <label><span>Nombre <b>*</b></span><input name="fullName" type="text" autocomplete="name" minlength="2" maxlength="100" required /></label>
           <label><span>Email profesional <b>*</b></span><input name="email" type="email" autocomplete="email" maxlength="254" required /></label>
@@ -127,9 +135,12 @@ const scaleValues = [1, 2, 3, 4, 5] as const;
         </div>
         <div class="assessment-consents">
           <label><input name="reviewRequested" type="checkbox" /><span><strong>Quiero que Martín revise personalmente mi resultado.</strong><small>Opcional. Te daremos una segunda opinión con contexto humano.</small></span></label>
-          <label><input name="privacyConsent" type="checkbox" required /><span>He leído y acepto la <a href="/privacidad" target="_blank">Política de Privacidad</a>. <b>*</b></span></label>
+          <label class="assessment-consent--privacy"><input name="privacyConsent" type="checkbox" required /><span>He leído y acepto la <a href="/privacidad" target="_blank">Política de Privacidad</a>. <b>*</b></span></label>
           <label><input name="marketingConsent" type="checkbox" /><span>Quiero recibir ocasionalmente contenidos y recursos de Altaria Lights.</span></label>
         </div>
+        <p class="assessment-privacy-summary">
+          <strong>Información básica de privacidad:</strong> Altaria Lights utiliza estos datos para generar y conservar tu diagnóstico, facilitarte el informe y atender una revisión si la solicitas. Los datos se procesan mediante Vercel y Turso; Telegram recibe una alerta interna del diagnóstico. Puedes ejercer tus derechos escribiendo a <a href="mailto:altarialights@gmail.com">altarialights@gmail.com</a> y consultar el detalle en la <a href="/privacidad" target="_blank">Política de Privacidad</a>.
+        </p>
         <label class="assessment-honeypot" aria-hidden="true">No rellenar<input name="websiteConfirm" type="text" tabindex="-1" autocomplete="off" /></label>
         <p class="assessment-form-error" data-submit-error role="alert" hidden></p>
         <footer class="assessment-form-actions">
@@ -167,6 +178,52 @@ const scaleValues = [1, 2, 3, 4, 5] as const;
     let answers: AssessmentAnswers = {};
     let startedAt = Date.now();
     let attribution: AttributionState = {};
+    let scoreAnimationFrame: number | undefined;
+    let transitionPending = false;
+
+    type TransitionDirection = 'forward' | 'backward';
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const animateEntrance = (element: HTMLElement, direction: TransitionDirection): void => {
+      if (prefersReducedMotion.matches) return;
+      element.getAnimations().forEach((animation) => animation.cancel());
+      const offset = direction === 'forward' ? 34 : -34;
+      element.animate([
+        { opacity: 0, transform: `translate3d(${offset}px, 12px, 0) scale(.988)`, filter: 'blur(4px)' },
+        { opacity: 1, transform: 'translate3d(0, 0, 0) scale(1)', filter: 'blur(0)' },
+      ], {
+        duration: 500,
+        easing: 'cubic-bezier(.22, 1, .36, 1)',
+      });
+
+      element.querySelectorAll<HTMLElement>('.assessment-question').forEach((question, index) => {
+        question.animate([
+          { opacity: 0, transform: `translate3d(${offset * .45}px, 14px, 0)` },
+          { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+        ], {
+          duration: 420,
+          delay: 70 + index * 42,
+          easing: 'cubic-bezier(.22, 1, .36, 1)',
+          fill: 'backwards',
+        });
+      });
+    };
+
+    const animateExit = async (element: HTMLElement, direction: TransitionDirection): Promise<void> => {
+      if (prefersReducedMotion.matches) return;
+      const offset = direction === 'forward' ? -22 : 22;
+      const animation = element.animate([
+        { opacity: 1, transform: 'translate3d(0, 0, 0) scale(1)', filter: 'blur(0)' },
+        { opacity: 0, transform: `translate3d(${offset}px, -6px, 0) scale(.994)`, filter: 'blur(2px)' },
+      ], { duration: 180, easing: 'cubic-bezier(.4, 0, 1, 1)' });
+      await animation.finished.catch(() => undefined);
+    };
+
+    const runTransition = (transition: () => Promise<void>): void => {
+      if (transitionPending) return;
+      transitionPending = true;
+      void transition().finally(() => { transitionPending = false; });
+    };
 
     const getAttribution = (): AttributionState => {
       const parameters = new URLSearchParams(window.location.search);
@@ -218,16 +275,34 @@ const scaleValues = [1, 2, 3, 4, 5] as const;
 
     const stateForSection = (index: number): AppState => questionnaireV1.dimensions[index]?.key ?? 'presence';
 
-    const showPanel = (name: 'intro' | 'questionnaire' | 'preview' | 'lead_gate'): void => {
+    const showPanel = async (
+      name: 'intro' | 'questionnaire' | 'preview' | 'lead_gate',
+      direction: TransitionDirection = 'forward',
+    ): Promise<void> => {
+      const current = [...panels].find((panel) => !panel.hidden);
+      const target = root.querySelector<HTMLElement>(`[data-state-panel="${name}"]`);
+      if (!target || current === target) return;
+
+      await animateExit(current ?? target, direction);
       panels.forEach((panel) => { panel.hidden = panel.dataset.statePanel !== name; });
+      if (name !== 'questionnaire') animateEntrance(target, direction);
     };
 
-    const updateQuestionnaire = (): void => {
+    const updateQuestionnaire = async (direction: TransitionDirection = 'forward'): Promise<void> => {
       const dimension = questionnaireV1.dimensions[sectionIndex];
       if (!dimension) return;
+      const questionnaire = root.querySelector<HTMLElement>('[data-state-panel="questionnaire"]');
+      const targetSection = root.querySelector<HTMLElement>(`[data-section="${sectionIndex}"]`);
+      const currentSection = [...sections].find((section) => !section.hidden);
+
+      if (questionnaire?.hidden) {
+        await showPanel('questionnaire', direction);
+      } else if (currentSection && targetSection && currentSection !== targetSection) {
+        await animateExit(currentSection, direction);
+      }
       state = stateForSection(sectionIndex);
-      showPanel('questionnaire');
       sections.forEach((section, index) => { section.hidden = index !== sectionIndex; });
+      if (targetSection) animateEntrance(targetSection, direction);
       const percent = (sectionIndex + 1) * 20;
       const label = root.querySelector<HTMLElement>('[data-progress-label]');
       const percentLabel = root.querySelector<HTMLElement>('[data-progress-percent]');
@@ -238,21 +313,24 @@ const scaleValues = [1, 2, 3, 4, 5] as const;
       progressSteps.forEach((step, index) => {
         step.dataset.status = index < sectionIndex ? 'complete' : index === sectionIndex ? 'current' : 'pending';
       });
-      root.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      root.scrollIntoView({ behavior: prefersReducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
       root.querySelector<HTMLElement>(`[data-section="${sectionIndex}"] h2`)?.focus({ preventScroll: true });
       saveDraft();
     };
 
-    const startAssessment = (): void => {
+    const startAssessment = async (): Promise<void> => {
       if (!restoreDraft()) startedAt = Date.now();
-      updateQuestionnaire();
+      await updateQuestionnaire();
       void trackAssessmentEvent('assessment_started', { questionnaire_version: 'v1', resumed: Object.keys(answers).length > 0 });
     };
 
-    root.querySelector('[data-start-assessment]')?.addEventListener('click', startAssessment);
-    document.querySelector('[data-assessment-hero-start]')?.addEventListener('click', (event) => {
-      event.preventDefault(); startAssessment();
-    });
+    root.querySelector('[data-start-assessment]')?.addEventListener('click', () => runTransition(startAssessment));
+    document.querySelectorAll<HTMLAnchorElement>(
+      '[data-assessment-hero-start], .hdr__cta[href="#diagnostico"], .hdr__menu-cta[href="#diagnostico"]',
+    ).forEach((link) => link.addEventListener('click', (event) => {
+      event.preventDefault();
+      runTransition(startAssessment);
+    }));
 
     root.querySelectorAll<HTMLInputElement>('.assessment-options input').forEach((input) => {
       input.addEventListener('change', () => {
@@ -277,13 +355,16 @@ const scaleValues = [1, 2, 3, 4, 5] as const;
       return missingFieldsets.length === 0;
     };
 
-    const renderPreview = (): void => {
+    const renderPreview = async (): Promise<void> => {
       const result = calculateAssessment(answers);
       const score = root.querySelector<HTMLElement>('[data-preview-score]');
       const level = root.querySelector<HTMLElement>('[data-preview-level]');
       const copy = root.querySelector<HTMLElement>('[data-preview-copy]');
       const gateScore = root.querySelector<HTMLElement>('[data-gate-score]');
-      if (score) score.textContent = String(result.overallScore);
+      if (score) {
+        if (scoreAnimationFrame !== undefined) window.cancelAnimationFrame(scoreAnimationFrame);
+        score.textContent = prefersReducedMotion.matches ? String(result.overallScore) : '0';
+      }
       if (level) level.textContent = result.maturityLabel;
       if (copy) copy.textContent = result.maturityCopy;
       if (gateScore) gateScore.textContent = `${result.overallScore}/100`;
@@ -295,29 +376,39 @@ const scaleValues = [1, 2, 3, 4, 5] as const;
         if (bar) bar.style.width = `${value}%`;
       });
       state = 'preview';
-      showPanel('preview');
-      root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      await showPanel('preview', 'forward');
+      if (score && !prefersReducedMotion.matches) {
+        const animationStartedAt = performance.now();
+        const animateScore = (now: number): void => {
+          const progress = Math.min(1, (now - animationStartedAt) / 1_150);
+          const easedProgress = 1 - Math.pow(1 - progress, 4);
+          score.textContent = String(Math.round(result.overallScore * easedProgress));
+          if (progress < 1) scoreAnimationFrame = window.requestAnimationFrame(animateScore);
+        };
+        scoreAnimationFrame = window.requestAnimationFrame(animateScore);
+      }
+      root.scrollIntoView({ behavior: prefersReducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
       void trackAssessmentEvent('assessment_completed', { questionnaire_version: 'v1', preliminary_score: result.overallScore });
     };
 
-    root.querySelectorAll('[data-section-next]').forEach((button) => button.addEventListener('click', () => {
+    root.querySelectorAll('[data-section-next]').forEach((button) => button.addEventListener('click', () => runTransition(async () => {
       if (!validateCurrentSection()) return;
       const completedDimension = questionnaireV1.dimensions[sectionIndex];
       if (completedDimension) void trackAssessmentEvent('assessment_section_completed', { section: completedDimension.key, section_number: sectionIndex + 1 });
-      if (sectionIndex === 4) renderPreview(); else { sectionIndex += 1; updateQuestionnaire(); }
-    }));
+      if (sectionIndex === 4) await renderPreview(); else { sectionIndex += 1; await updateQuestionnaire('forward'); }
+    })));
 
-    root.querySelectorAll('[data-section-back]').forEach((button) => button.addEventListener('click', () => {
-      if (sectionIndex === 0) { state = 'intro'; showPanel('intro'); } else { sectionIndex -= 1; updateQuestionnaire(); }
-    }));
+    root.querySelectorAll('[data-section-back]').forEach((button) => button.addEventListener('click', () => runTransition(async () => {
+      if (sectionIndex === 0) { state = 'intro'; await showPanel('intro', 'backward'); } else { sectionIndex -= 1; await updateQuestionnaire('backward'); }
+    })));
 
-    root.querySelector('[data-preview-back]')?.addEventListener('click', () => { sectionIndex = 4; updateQuestionnaire(); });
-    root.querySelector('[data-open-gate]')?.addEventListener('click', () => {
-      state = 'lead_gate'; showPanel('lead_gate'); root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    root.querySelector('[data-preview-back]')?.addEventListener('click', () => runTransition(async () => { sectionIndex = 4; await updateQuestionnaire('backward'); }));
+    root.querySelector('[data-open-gate]')?.addEventListener('click', () => runTransition(async () => {
+      state = 'lead_gate'; await showPanel('lead_gate', 'forward'); root.scrollIntoView({ behavior: prefersReducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
       root.querySelector<HTMLInputElement>('input[name="fullName"]')?.focus({ preventScroll: true });
       void trackAssessmentEvent('report_gate_viewed');
-    });
-    root.querySelector('[data-gate-back]')?.addEventListener('click', () => { state = 'preview'; showPanel('preview'); });
+    }));
+    root.querySelector('[data-gate-back]')?.addEventListener('click', () => runTransition(async () => { state = 'preview'; await showPanel('preview', 'backward'); }));
 
     const leadForm = root.querySelector<HTMLFormElement>('[data-lead-form]');
     leadForm?.addEventListener('submit', async (event) => {

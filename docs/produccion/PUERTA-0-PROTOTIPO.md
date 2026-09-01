@@ -15,7 +15,7 @@ cajas, las escalas y el recorrido sean correctos **antes** de generar.
 ### Archivos creados
 
 ```
-astro.config.mjs                          Configuración Astro 5
+astro.config.mjs                          Configuración Astro 7
 package.json
 
 src/
@@ -48,8 +48,8 @@ review/*.png                              12 capturas de revisión
 ### Cómo revisarlo
 
 ```bash
-npm install
-npm run dev          # http://localhost:4321
+pnpm install
+pnpm dev          # http://localhost:4321
 ```
 
 - **Tecla `B`** (o `?boxes=1`): muestra las cajas exactas de HG-01, HG-02,

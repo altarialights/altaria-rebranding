@@ -17,7 +17,7 @@
  *      mind about a layer that nothing asked to change — that is the
  *      flicker, and a geometry probe can never see it.
  *
- * Usage:  npm run build && npm run preview   (one terminal)
+ * Usage:  pnpm build && pnpm preview   (one terminal)
  *         node scripts/diagnose-faces.mjs    (another)
  */
 import { chromium, firefox, webkit } from 'playwright';

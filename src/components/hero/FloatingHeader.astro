@@ -22,7 +22,11 @@ const {
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
-const secondaryNav = nav.filter((item: HeaderLink) => !item.label.toLocaleLowerCase('es').startsWith('servicio'));
+const navWithoutServices = nav.filter((item: HeaderLink) => !item.label.toLocaleLowerCase('es').startsWith('servicio'));
+const diagnosticLink = { label: 'Diagnóstico', href: '/medir-nivel-digital' };
+const secondaryNav = navWithoutServices.some((item: HeaderLink) => item.href === diagnosticLink.href)
+  ? navWithoutServices
+  : [...navWithoutServices, diagnosticLink];
 
 /**
  * Floating capsule header. Absent from the first frame — not even the

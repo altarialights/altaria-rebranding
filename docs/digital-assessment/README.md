@@ -45,7 +45,7 @@ Landing estática → 5 etapas → preview local → lead gate
 
 1. Copia `.env.example` a `.env`.
 2. Mantén `ASSESSMENT_DEMO_MODE=true`.
-3. Ejecuta `npm run dev`.
+3. Ejecuta `pnpm dev`.
 
 Demo solo se activa cuando Astro está en desarrollo. No persiste PII. El token demo codifica exclusivamente respuestas y permite probar el informe. En build/producción el flag no simula guardado; sin credenciales Turso la Action devuelve un error controlado.
 
@@ -56,7 +56,7 @@ Demo solo se activa cuando Astro está en desarrollo. No persiste PII. El token 
 3. No configures variables con prefijo `PUBLIC_`.
 4. Despliega y prueba una evaluación real.
 
-El proyecto usa `@astrojs/vercel@9.0.5`, última rama compatible con Astro 5.18. No se activó `output: 'server'`: landing y páginas históricas siguen estáticas; únicamente Actions y el resultado requieren funciones Vercel.
+El proyecto usa Astro 7.2.10 con `@astrojs/vercel@11.0.9`. No se activó `output: 'server'`: landing y páginas históricas siguen estáticas; únicamente Actions y el resultado requieren funciones Vercel.
 
 ## Analytics y eventos
 

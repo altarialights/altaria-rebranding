@@ -88,8 +88,8 @@ const headerNav = [
               <div class="result-hero__actions"><a class="result-button result-button--quiet" href="#oportunidades">Ver oportunidades <span>↓</span></a><a class="result-text-link" href="/medir-nivel-digital">Nueva evaluación</a></div>
             </div>
             <div class="result-score-card">
-              <div class="result-score-ring" style={`--score: ${result.overallScore}`} role="img" aria-label={`Índice general: ${result.overallScore} sobre 100`}>
-                <div><strong>{result.overallScore}</strong><span>/100</span></div>
+              <div class="result-score-ring" style="--score: 0" data-result-score={result.overallScore} role="img" aria-label={`Índice general: ${result.overallScore} sobre 100`}>
+                <div><strong data-result-score-number>{result.overallScore}</strong><span>/100</span></div>
               </div>
               <div><span>Índice Altaria</span><h2>{result.maturityLabel}</h2><p>Resultado orientativo</p></div>
             </div>
@@ -166,6 +166,28 @@ const headerNav = [
   const page = document.querySelector<HTMLElement>('[data-result-page]');
   if (page) {
     void trackAssessmentEvent('result_viewed');
+    const scoreRing = page.querySelector<HTMLElement>('[data-result-score]');
+    const scoreNumber = page.querySelector<HTMLElement>('[data-result-score-number]');
+    const targetScore = Number(scoreRing?.dataset.resultScore);
+    if (scoreRing && scoreNumber && Number.isFinite(targetScore)) {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reducedMotion) {
+        scoreRing.style.setProperty('--score', String(targetScore));
+        scoreNumber.textContent = String(targetScore);
+      } else {
+        scoreNumber.textContent = '0';
+        const startedAt = performance.now();
+        const animateScore = (now: number): void => {
+          const progress = Math.min(1, (now - startedAt) / 1_300);
+          const easedProgress = 1 - Math.pow(1 - progress, 4);
+          const currentScore = Math.round(targetScore * easedProgress);
+          scoreRing.style.setProperty('--score', String(currentScore));
+          scoreNumber.textContent = String(currentScore);
+          if (progress < 1) window.requestAnimationFrame(animateScore);
+        };
+        window.requestAnimationFrame(animateScore);
+      }
+    }
     const reviewButton = page.querySelector<HTMLButtonElement>('[data-request-review]');
     reviewButton?.addEventListener('click', async () => {
       const token = page.dataset.resultToken;

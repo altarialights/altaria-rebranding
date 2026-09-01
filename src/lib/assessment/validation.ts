@@ -9,7 +9,7 @@ const trimOptional = (max: number) => z.string().trim().max(max).optional();
 
 export const assessmentSubmissionSchema = z.object({
   questionnaireVersion: z.literal('v1'),
-  answers: z.record(answerValueSchema).superRefine((answers, context) => {
+  answers: z.record(z.string(), answerValueSchema).superRefine((answers, context) => {
     const receivedKeys = Object.keys(answers);
     const unknownKeys = receivedKeys.filter((key) => !QUESTION_KEYS.includes(key as (typeof QUESTION_KEYS)[number]));
     const missingKeys = QUESTION_KEYS.filter((key) => !(key in answers));

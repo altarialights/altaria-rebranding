@@ -20,7 +20,7 @@
  * currentTime is stepped 1/FPS per frame so it plays at true speed
  * instead of at screenshot speed.
  *
- * Usage:  npm run build && npm run preview   (one terminal)
+ * Usage:  pnpm build && pnpm preview   (one terminal)
  *         node scripts/preview-video.mjs     (another)
  *         node scripts/preview-video.mjs slow normal   (a subset)
  */

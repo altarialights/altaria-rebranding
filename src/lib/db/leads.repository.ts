@@ -42,11 +42,16 @@ export const createLeadStatements = (input: LeadWrite): BatchStatement[] => {
   return statements;
 };
 
-export const addLeadEvent = async (leadId: string, eventType: string): Promise<void> => {
+export const addLeadEvent = async (
+  leadId: string,
+  eventType: string,
+  metadata: Record<string, string | number | boolean | null> = {},
+): Promise<void> => {
+  const createdAt = new Date().toISOString();
   await getDatabase().run(
     `INSERT INTO digital_lead_events (id, lead_id, event_type, metadata_json, created_at)
-     VALUES (?, ?, ?, '{}', ?)`,
-    crypto.randomUUID(), leadId, eventType, new Date().toISOString(),
+     VALUES (?, ?, ?, ?, ?)`,
+    crypto.randomUUID(), leadId, eventType, JSON.stringify(metadata), createdAt,
   );
 };
 
