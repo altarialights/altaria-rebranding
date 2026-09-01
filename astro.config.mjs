@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel';
 
 const sitemapPaths = new Set([
   '/',
@@ -10,6 +11,7 @@ const sitemapPaths = new Set([
   '/software',
   '/branding',
   '/contacto',
+  '/medir-nivel-digital',
   '/proyectos/de-zamorano',
 ]);
 
@@ -29,6 +31,9 @@ export default defineConfig({
       },
     }),
   ],
+  // Vercel only handles routes that explicitly opt out of prerendering.
+  // The rest of the site keeps Astro's default static output.
+  adapter: vercel(),
   server: { port: 4321, host: true },
   build: { inlineStylesheets: 'auto' },
 });

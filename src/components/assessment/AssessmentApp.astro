@@ -1,0 +1,363 @@
+---
+import { questionnaireV1 } from '../../lib/assessment/questionnaires/v1';
+
+const isDevelopmentDemo = (import.meta.env.DEV || process.env.NODE_ENV === 'development')
+  && (import.meta.env.ASSESSMENT_DEMO_MODE || process.env.ASSESSMENT_DEMO_MODE) === 'true';
+const scaleValues = [1, 2, 3, 4, 5] as const;
+---
+
+<section class="assessment-tool" id="diagnostico" aria-labelledby="tool-title" data-assessment-app data-demo={String(isDevelopmentDemo)}>
+  {isDevelopmentDemo && <div class="assessment-demo-badge">Modo demo · no se guardan datos</div>}
+  <div class="assessment-tool__frame">
+    <div class="assessment-tool__intro" data-state-panel="intro">
+      <div class="assessment-tool__intro-copy">
+        <p class="assessment-kicker">Tu diagnóstico empieza aquí</p>
+        <h2 id="tool-title">Una fotografía útil del sistema digital de tu empresa.</h2>
+        <p>No necesitas preparar datos ni conocer términos técnicos. Responde pensando en cómo funciona realmente el negocio hoy.</p>
+        <ul>
+          <li><span>✓</span> 25 afirmaciones agrupadas en 5 áreas</li>
+          <li><span>✓</span> Puedes marcar «No aplica» cuando sea necesario</li>
+          <li><span>✓</span> El resultado se calcula a partir de tus respuestas</li>
+        </ul>
+        <button class="assessment-button assessment-button--primary" type="button" data-start-assessment>
+          <span>Empezar diagnóstico</span><span aria-hidden="true">→</span>
+        </button>
+      </div>
+      <div class="assessment-tool__map" aria-hidden="true">
+        <div class="assessment-map__center"><span>Índice</span><strong>0–100</strong></div>
+        {questionnaireV1.dimensions.map((dimension, index) => (
+          <div class={`assessment-map__node assessment-map__node--${index + 1}`}><i>{index + 1}</i><span>{dimension.shortLabel}</span></div>
+        ))}
+      </div>
+    </div>
+
+    <div class="assessment-questionnaire" data-state-panel="questionnaire" hidden>
+      <header class="assessment-progress">
+        <div>
+          <p data-progress-label>1 de 5 — Presencia</p>
+          <span>Responde según la situación actual, no según el objetivo futuro.</span>
+        </div>
+        <strong data-progress-percent>20%</strong>
+        <div class="assessment-progress__track" aria-hidden="true"><i data-progress-bar></i></div>
+        <ol aria-label="Progreso del diagnóstico">
+          {questionnaireV1.dimensions.map((dimension, index) => <li data-progress-step={index}><span>{index + 1}</span><small>{dimension.shortLabel}</small></li>)}
+        </ol>
+      </header>
+
+      <div class="assessment-scale-help" aria-label="Escala de respuesta">
+        <span><b>1</b> Nada cierto</span><i></i><span><b>5</b> Totalmente cierto</span><span><b>—</b> No aplica</span>
+      </div>
+
+      {questionnaireV1.dimensions.map((dimension, dimensionIndex) => (
+        <section class="assessment-section" data-section={dimensionIndex} hidden={dimensionIndex !== 0} aria-labelledby={`section-${dimension.key}`}>
+          <div class="assessment-section__heading">
+            <span>Área {dimensionIndex + 1}</span>
+            <div><h2 id={`section-${dimension.key}`} tabindex="-1">{dimension.label}</h2><p>{dimension.intro}</p></div>
+          </div>
+          <div class="assessment-questions">
+            {dimension.questions.map((question, questionIndex) => (
+              <fieldset class="assessment-question" data-question={question.key} tabindex="-1">
+                <legend><span>{String(questionIndex + 1).padStart(2, '0')}</span>{question.text}</legend>
+                <div class="assessment-options">
+                  {scaleValues.map((value) => (
+                    <label title={questionnaireV1.responseScale[value]}>
+                      <input type="radio" name={question.key} value={value} />
+                      <span>{value}</span>
+                    </label>
+                  ))}
+                  {question.allowNotApplicable && (
+                    <label class="assessment-option-na" title="No aplica a nuestra empresa">
+                      <input type="radio" name={question.key} value="na" />
+                      <span>N/A</span>
+                    </label>
+                  )}
+                </div>
+                <p class="assessment-question__error" data-question-error hidden>Selecciona una respuesta para continuar.</p>
+              </fieldset>
+            ))}
+          </div>
+          <footer class="assessment-section__actions">
+            <button class="assessment-button assessment-button--quiet" type="button" data-section-back>← Atrás</button>
+            <button class="assessment-button assessment-button--primary" type="button" data-section-next>
+              <span>{dimensionIndex === 4 ? 'Calcular mi índice' : 'Continuar'}</span><span aria-hidden="true">→</span>
+            </button>
+          </footer>
+        </section>
+      ))}
+    </div>
+
+    <div class="assessment-preview" data-state-panel="preview" hidden>
+      <div class="assessment-preview__summary">
+        <p class="assessment-kicker">Tu primera lectura</p>
+        <div class="assessment-preview__score"><strong data-preview-score>—</strong><span>/100</span></div>
+        <h2 data-preview-level>Índice preliminar</h2>
+        <p data-preview-copy></p>
+      </div>
+      <div class="assessment-preview__locked">
+        <div class="assessment-preview__locked-head"><span>Diagnóstico por áreas</span><small>Vista protegida</small></div>
+        <div class="assessment-preview__bars">
+          {questionnaireV1.dimensions.map((dimension) => (
+            <div><span>{dimension.shortLabel}</span><i><b data-preview-bar={dimension.key}></b></i><strong data-preview-dimension={dimension.key}>—</strong></div>
+          ))}
+        </div>
+        <div class="assessment-preview__veil"><span aria-hidden="true">⌁</span><strong>Desbloquea el análisis completo</strong><small>Puntuaciones, oportunidades y recomendaciones</small></div>
+      </div>
+      <div class="assessment-preview__action">
+        <button class="assessment-button assessment-button--primary" type="button" data-open-gate>
+          <span>Desbloquear mi diagnóstico</span><span aria-hidden="true">→</span>
+        </button>
+        <button class="assessment-link-button" type="button" data-preview-back>Revisar respuestas</button>
+      </div>
+      <p class="assessment-disclaimer">{questionnaireV1.disclaimer}</p>
+    </div>
+
+    <div class="assessment-gate" data-state-panel="lead_gate" hidden>
+      <div class="assessment-gate__heading">
+        <div><p class="assessment-kicker">Último paso</p><h2>Desbloquea tu diagnóstico completo</h2><p>Usaremos estos datos para identificar tu informe. No pedimos teléfono y no enviaremos comunicaciones comerciales sin tu permiso.</p></div>
+        <div class="assessment-gate__score"><span>Índice preliminar</span><strong data-gate-score>—/100</strong></div>
+      </div>
+      <form class="assessment-lead-form" data-lead-form novalidate>
+        <div class="assessment-form-grid">
+          <label><span>Nombre <b>*</b></span><input name="fullName" type="text" autocomplete="name" minlength="2" maxlength="100" required /></label>
+          <label><span>Email profesional <b>*</b></span><input name="email" type="email" autocomplete="email" maxlength="254" required /></label>
+          <label><span>Cargo <b>*</b></span><input name="jobTitle" type="text" autocomplete="organization-title" minlength="2" maxlength="120" required /></label>
+          <label><span>Empresa <b>*</b></span><input name="companyName" type="text" autocomplete="organization" minlength="2" maxlength="140" required /></label>
+          <label><span>Web de la empresa <b>*</b></span><input name="companyUrl" type="text" inputmode="url" autocomplete="url" placeholder="empresa.com" maxlength="500" required /></label>
+          <label><span>Tamaño de empresa <b>*</b></span><select name="companySize" required><option value="">Selecciona una opción</option><option value="1">1 persona</option><option value="2-10">2–10 personas</option><option value="11-50">11–50 personas</option><option value="51-200">51–200 personas</option><option value="201-500">201–500 personas</option><option value="501+">501+ personas</option></select></label>
+        </div>
+        <div class="assessment-consents">
+          <label><input name="reviewRequested" type="checkbox" /><span><strong>Quiero que Martín revise personalmente mi resultado.</strong><small>Opcional. Te daremos una segunda opinión con contexto humano.</small></span></label>
+          <label><input name="privacyConsent" type="checkbox" required /><span>He leído y acepto la <a href="/privacidad" target="_blank">Política de Privacidad</a>. <b>*</b></span></label>
+          <label><input name="marketingConsent" type="checkbox" /><span>Quiero recibir ocasionalmente contenidos y recursos de Altaria Lights.</span></label>
+        </div>
+        <label class="assessment-honeypot" aria-hidden="true">No rellenar<input name="websiteConfirm" type="text" tabindex="-1" autocomplete="off" /></label>
+        <p class="assessment-form-error" data-submit-error role="alert" hidden></p>
+        <footer class="assessment-form-actions">
+          <button class="assessment-button assessment-button--quiet" type="button" data-gate-back>← Atrás</button>
+          <button class="assessment-button assessment-button--primary" type="submit" data-submit-button>
+            <span data-submit-label>Ver mi diagnóstico completo</span><span aria-hidden="true">→</span>
+          </button>
+        </footer>
+        <p class="assessment-form-security"><span aria-hidden="true">◇</span> Tus datos se envían de forma segura y nunca se incluyen en el borrador local.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { actions } from 'astro:actions';
+  import { questionnaireV1 } from '../../lib/assessment/questionnaires/v1';
+  import { calculateAssessment } from '../../lib/assessment/scoring';
+  import { trackAssessmentEvent } from '../../lib/assessment/tracking';
+  import type { AnswerValue, AssessmentAnswers, CompanySize, QuestionKey } from '../../lib/assessment/types';
+
+  type AppState = 'intro' | 'presence' | 'acquisition' | 'brand' | 'operations' | 'technology' | 'preview' | 'lead_gate' | 'submitting' | 'completed' | 'error';
+  interface AttributionState { sourceChannel?: string; utmSource?: string; utmMedium?: string; utmCampaign?: string; utmContent?: string; referrer?: string }
+  interface AssessmentDraft { version: 'v1'; sectionIndex: number; answers: AssessmentAnswers; startedAt: number }
+
+  const root = document.querySelector<HTMLElement>('[data-assessment-app]');
+  if (root) {
+    const storageKey = 'altaria_digital_assessment_draft_v1';
+    const attributionKey = 'altaria_digital_assessment_attribution_v1';
+    const panels = root.querySelectorAll<HTMLElement>('[data-state-panel]');
+    const sections = root.querySelectorAll<HTMLElement>('[data-section]');
+    const progressSteps = root.querySelectorAll<HTMLElement>('[data-progress-step]');
+    let state: AppState = 'intro';
+    let sectionIndex = 0;
+    let answers: AssessmentAnswers = {};
+    let startedAt = Date.now();
+    let attribution: AttributionState = {};
+
+    const getAttribution = (): AttributionState => {
+      const parameters = new URLSearchParams(window.location.search);
+      const current: AttributionState = {
+        sourceChannel: parameters.get('utm_source') ?? undefined,
+        utmSource: parameters.get('utm_source') ?? undefined,
+        utmMedium: parameters.get('utm_medium') ?? undefined,
+        utmCampaign: parameters.get('utm_campaign') ?? undefined,
+        utmContent: parameters.get('utm_content') ?? undefined,
+        referrer: document.referrer || undefined,
+      };
+      try {
+        const saved = window.sessionStorage.getItem(attributionKey);
+        if (saved) {
+          const parsed: unknown = JSON.parse(saved);
+          if (parsed && typeof parsed === 'object') return parsed as AttributionState;
+        }
+        window.sessionStorage.setItem(attributionKey, JSON.stringify(current));
+      } catch { /* Storage can be unavailable. */ }
+      return current;
+    };
+
+    attribution = getAttribution();
+
+    const saveDraft = (): void => {
+      const draft: AssessmentDraft = { version: 'v1', sectionIndex, answers, startedAt };
+      try { window.localStorage.setItem(storageKey, JSON.stringify(draft)); } catch { /* Optional resilience only. */ }
+    };
+
+    const restoreDraft = (): boolean => {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return false;
+        const parsed: unknown = JSON.parse(raw);
+        if (!parsed || typeof parsed !== 'object') return false;
+        const draft = parsed as Partial<AssessmentDraft>;
+        if (draft.version !== 'v1' || typeof draft.sectionIndex !== 'number' || !draft.answers || typeof draft.answers !== 'object' || typeof draft.startedAt !== 'number') return false;
+        sectionIndex = Math.max(0, Math.min(4, draft.sectionIndex));
+        answers = draft.answers;
+        startedAt = draft.startedAt;
+        Object.entries(answers).forEach(([key, value]) => {
+          const selector = `input[name="${key}"][value="${value === null ? 'na' : value}"]`;
+          const input = root.querySelector<HTMLInputElement>(selector);
+          if (input) input.checked = true;
+        });
+        return true;
+      } catch { return false; }
+    };
+
+    const stateForSection = (index: number): AppState => questionnaireV1.dimensions[index]?.key ?? 'presence';
+
+    const showPanel = (name: 'intro' | 'questionnaire' | 'preview' | 'lead_gate'): void => {
+      panels.forEach((panel) => { panel.hidden = panel.dataset.statePanel !== name; });
+    };
+
+    const updateQuestionnaire = (): void => {
+      const dimension = questionnaireV1.dimensions[sectionIndex];
+      if (!dimension) return;
+      state = stateForSection(sectionIndex);
+      showPanel('questionnaire');
+      sections.forEach((section, index) => { section.hidden = index !== sectionIndex; });
+      const percent = (sectionIndex + 1) * 20;
+      const label = root.querySelector<HTMLElement>('[data-progress-label]');
+      const percentLabel = root.querySelector<HTMLElement>('[data-progress-percent]');
+      const bar = root.querySelector<HTMLElement>('[data-progress-bar]');
+      if (label) label.textContent = `${sectionIndex + 1} de 5 — ${dimension.shortLabel}`;
+      if (percentLabel) percentLabel.textContent = `${percent}%`;
+      if (bar) bar.style.width = `${percent}%`;
+      progressSteps.forEach((step, index) => {
+        step.dataset.status = index < sectionIndex ? 'complete' : index === sectionIndex ? 'current' : 'pending';
+      });
+      root.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      root.querySelector<HTMLElement>(`[data-section="${sectionIndex}"] h2`)?.focus({ preventScroll: true });
+      saveDraft();
+    };
+
+    const startAssessment = (): void => {
+      if (!restoreDraft()) startedAt = Date.now();
+      updateQuestionnaire();
+      void trackAssessmentEvent('assessment_started', { questionnaire_version: 'v1', resumed: Object.keys(answers).length > 0 });
+    };
+
+    root.querySelector('[data-start-assessment]')?.addEventListener('click', startAssessment);
+    document.querySelector('[data-assessment-hero-start]')?.addEventListener('click', (event) => {
+      event.preventDefault(); startAssessment();
+    });
+
+    root.querySelectorAll<HTMLInputElement>('.assessment-options input').forEach((input) => {
+      input.addEventListener('change', () => {
+        const key = input.name as QuestionKey;
+        answers[key] = input.value === 'na' ? null : Number(input.value) as AnswerValue;
+        input.closest<HTMLElement>('[data-question]')?.querySelector<HTMLElement>('[data-question-error]')?.setAttribute('hidden', '');
+        saveDraft();
+      });
+    });
+
+    const validateCurrentSection = (): boolean => {
+      const dimension = questionnaireV1.dimensions[sectionIndex];
+      if (!dimension) return false;
+      const missingFieldsets: HTMLElement[] = [];
+      dimension.questions.forEach((question) => {
+        const fieldset = root.querySelector<HTMLElement>(`[data-question="${question.key}"]`);
+        const missing = !Object.prototype.hasOwnProperty.call(answers, question.key);
+        fieldset?.querySelector<HTMLElement>('[data-question-error]')?.toggleAttribute('hidden', !missing);
+        if (missing && fieldset) missingFieldsets.push(fieldset);
+      });
+      missingFieldsets[0]?.focus();
+      return missingFieldsets.length === 0;
+    };
+
+    const renderPreview = (): void => {
+      const result = calculateAssessment(answers);
+      const score = root.querySelector<HTMLElement>('[data-preview-score]');
+      const level = root.querySelector<HTMLElement>('[data-preview-level]');
+      const copy = root.querySelector<HTMLElement>('[data-preview-copy]');
+      const gateScore = root.querySelector<HTMLElement>('[data-gate-score]');
+      if (score) score.textContent = String(result.overallScore);
+      if (level) level.textContent = result.maturityLabel;
+      if (copy) copy.textContent = result.maturityCopy;
+      if (gateScore) gateScore.textContent = `${result.overallScore}/100`;
+      result.dimensionScores.forEach((dimension) => {
+        const value = dimension.score ?? 0;
+        const label = root.querySelector<HTMLElement>(`[data-preview-dimension="${dimension.dimension}"]`);
+        const bar = root.querySelector<HTMLElement>(`[data-preview-bar="${dimension.dimension}"]`);
+        if (label) label.textContent = dimension.score === null ? 'Datos insuficientes' : `${dimension.score}/100`;
+        if (bar) bar.style.width = `${value}%`;
+      });
+      state = 'preview';
+      showPanel('preview');
+      root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      void trackAssessmentEvent('assessment_completed', { questionnaire_version: 'v1', preliminary_score: result.overallScore });
+    };
+
+    root.querySelectorAll('[data-section-next]').forEach((button) => button.addEventListener('click', () => {
+      if (!validateCurrentSection()) return;
+      const completedDimension = questionnaireV1.dimensions[sectionIndex];
+      if (completedDimension) void trackAssessmentEvent('assessment_section_completed', { section: completedDimension.key, section_number: sectionIndex + 1 });
+      if (sectionIndex === 4) renderPreview(); else { sectionIndex += 1; updateQuestionnaire(); }
+    }));
+
+    root.querySelectorAll('[data-section-back]').forEach((button) => button.addEventListener('click', () => {
+      if (sectionIndex === 0) { state = 'intro'; showPanel('intro'); } else { sectionIndex -= 1; updateQuestionnaire(); }
+    }));
+
+    root.querySelector('[data-preview-back]')?.addEventListener('click', () => { sectionIndex = 4; updateQuestionnaire(); });
+    root.querySelector('[data-open-gate]')?.addEventListener('click', () => {
+      state = 'lead_gate'; showPanel('lead_gate'); root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      root.querySelector<HTMLInputElement>('input[name="fullName"]')?.focus({ preventScroll: true });
+      void trackAssessmentEvent('report_gate_viewed');
+    });
+    root.querySelector('[data-gate-back]')?.addEventListener('click', () => { state = 'preview'; showPanel('preview'); });
+
+    const leadForm = root.querySelector<HTMLFormElement>('[data-lead-form]');
+    leadForm?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!leadForm.reportValidity() || state === 'submitting') return;
+      state = 'submitting';
+      const errorBox = root.querySelector<HTMLElement>('[data-submit-error]');
+      const submitButton = root.querySelector<HTMLButtonElement>('[data-submit-button]');
+      const submitLabel = root.querySelector<HTMLElement>('[data-submit-label]');
+      errorBox?.setAttribute('hidden', '');
+      if (submitButton) submitButton.disabled = true;
+      if (submitLabel) submitLabel.textContent = 'Calculando y guardando…';
+      const data = new FormData(leadForm);
+      const stringValue = (name: string): string => String(data.get(name) ?? '').trim();
+      let companyUrl = stringValue('companyUrl');
+      if (!/^https?:\/\//iu.test(companyUrl)) companyUrl = `https://${companyUrl}`;
+
+      const { data: response, error } = await actions.submitDigitalAssessment({
+        questionnaireVersion: 'v1', answers,
+        lead: {
+          fullName: stringValue('fullName'), email: stringValue('email'), jobTitle: stringValue('jobTitle'),
+          companyName: stringValue('companyName'), companyUrl,
+          companySize: stringValue('companySize') as CompanySize,
+          reviewRequested: data.get('reviewRequested') === 'on', privacyConsent: true,
+          marketingConsent: data.get('marketingConsent') === 'on',
+        },
+        attribution, startedAt, honeypot: stringValue('websiteConfirm'),
+      });
+
+      if (error || !response) {
+        state = 'error';
+        if (errorBox) { errorBox.textContent = error?.message ?? 'No hemos podido guardar el diagnóstico. Inténtalo de nuevo.'; errorBox.removeAttribute('hidden'); }
+        if (submitButton) submitButton.disabled = false;
+        if (submitLabel) submitLabel.textContent = 'Volver a intentarlo';
+        return;
+      }
+      state = 'completed';
+      try { window.localStorage.removeItem(storageKey); } catch { /* Optional storage. */ }
+      void trackAssessmentEvent('report_unlocked', { review_requested: data.get('reviewRequested') === 'on' });
+      window.location.assign(response.resultUrl);
+    });
+  }
+</script>

@@ -1,0 +1,73 @@
+---
+import AssessmentApp from '../components/assessment/AssessmentApp.astro';
+import FloatingHeader from '../components/hero/FloatingHeader.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+import Base from '../layouts/Base.astro';
+import '../styles/assessment.css';
+
+const headerNav = [
+  { label: 'Cómo funciona', href: '#como-funciona' },
+  { label: 'Qué mide', href: '#diagnostico' },
+  { label: 'Altaria Lights', href: '/servicios' },
+] as const;
+---
+
+<Base
+  title="Índice de Madurez Digital para Empresas | Altaria Lights"
+  description="Mide el nivel digital de tu empresa en presencia, captación, marca, operaciones y tecnología y descubre dónde existen oportunidades de mejora."
+  canonical="/medir-nivel-digital"
+>
+  <FloatingHeader
+    alwaysVisible
+    brandHref="/"
+    nav={headerNav}
+    cta={{ label: 'Medir mi empresa', href: '#diagnostico' }}
+  />
+
+  <main class="assessment-page" id="top">
+    <section class="assessment-hero" aria-labelledby="assessment-title">
+      <div class="assessment-hero__glow" aria-hidden="true"></div>
+      <div class="assessment-hero__cloud assessment-hero__cloud--one" aria-hidden="true"></div>
+      <div class="assessment-hero__cloud assessment-hero__cloud--two" aria-hidden="true"></div>
+      <div class="assessment-hero__inner">
+        <div class="assessment-hero__copy">
+          <p class="assessment-kicker"><span aria-hidden="true"></span> Índice Altaria de Madurez Digital</p>
+          <h1 id="assessment-title">¿Está la parte digital de tu empresa <em>a la altura del negocio?</em></h1>
+          <p class="assessment-hero__lead">Mide cinco áreas clave y descubre dónde puede estar perdiendo oportunidades tu empresa.</p>
+          <div class="assessment-benefits" aria-label="Características del diagnóstico">
+            <span><strong>5</strong> áreas</span>
+            <span><strong>~5</strong> minutos</span>
+            <span><strong>100%</strong> inmediato</span>
+            <span><strong>0</strong> compromiso</span>
+          </div>
+          <a class="assessment-button assessment-button--primary" href="#diagnostico" data-assessment-hero-start>
+            <span>Medir mi empresa</span><span aria-hidden="true">→</span>
+          </a>
+          <p class="assessment-hero__note">Antes de venderte nada, entendamos dónde está realmente el problema.</p>
+        </div>
+        <div class="assessment-hero__visual" aria-hidden="true">
+          <div class="assessment-hero__orbit"></div>
+          <picture>
+            <source srcset="/media/software/optimized/hero-720.webp 720w, /media/software/optimized/hero-1200.webp 1200w" sizes="(max-width: 800px) 88vw, 47vw" type="image/webp" />
+            <img src="/media/software/optimized/hero-1200.webp" width="1218" height="918" alt="" decoding="async" fetchpriority="high" />
+          </picture>
+          <div class="assessment-hero__metric assessment-hero__metric--one"><span>01</span><strong>Presencia</strong><i></i></div>
+          <div class="assessment-hero__metric assessment-hero__metric--two"><span>05</span><strong>Tecnología</strong><i></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="assessment-explainer" id="como-funciona" aria-labelledby="assessment-explainer-title">
+      <p class="assessment-kicker">Una lectura estructurada, no una auditoría ficticia</p>
+      <h2 id="assessment-explainer-title">Veinticinco respuestas. Cinco perspectivas. Una prioridad clara.</h2>
+      <div class="assessment-explainer__grid">
+        <article><span>01</span><h3>Responde con contexto</h3><p>Valora afirmaciones sobre cómo funciona hoy tu empresa, sin tecnicismos.</p></article>
+        <article><span>02</span><h3>Calculamos el índice</h3><p>Cada área se puntúa con una metodología versionada y transparente.</p></article>
+        <article><span>03</span><h3>Ordena tus prioridades</h3><p>Descubre qué merece atención primero y qué probablemente puede esperar.</p></article>
+      </div>
+    </section>
+
+    <AssessmentApp />
+  </main>
+  <SiteFooter anchorPrefix="/" />
+</Base>

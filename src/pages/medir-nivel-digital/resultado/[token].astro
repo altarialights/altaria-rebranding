@@ -1,0 +1,190 @@
+---
+export const prerender = false;
+
+import FloatingHeader from '../../../components/hero/FloatingHeader.astro';
+import SiteFooter from '../../../components/sections/SiteFooter.astro';
+import Base from '../../../layouts/Base.astro';
+import '../../../styles/assessment-result.css';
+import { questionnaireV1, getDimensionDefinition } from '../../../lib/assessment/questionnaires/v1';
+import { recommendationForDimension } from '../../../lib/assessment/recommendations';
+import { calculateAssessment } from '../../../lib/assessment/scoring';
+import { hashResultToken, readDemoResultToken } from '../../../lib/assessment/token';
+import type { AssessmentResult } from '../../../lib/assessment/types';
+import { findAssessmentByTokenHash, type StoredAssessmentResult } from '../../../lib/db/assessments.repository';
+import { hasTursoConfiguration, isAssessmentDemoMode } from '../../../lib/db/client';
+import { addLeadEvent } from '../../../lib/db/leads.repository';
+
+const token = Astro.params.token ?? '';
+let stored: StoredAssessmentResult | null = null;
+let demo = false;
+let unavailable = false;
+
+if (isAssessmentDemoMode()) {
+  const demoAnswers = readDemoResultToken(token);
+  if (demoAnswers) {
+    const result = calculateAssessment(demoAnswers);
+    stored = { ...result, companyName: 'Tu empresa', reviewRequested: false, leadId: 'demo' };
+    demo = true;
+  }
+}
+
+if (!stored && !demo) {
+  if (!hasTursoConfiguration()) {
+    unavailable = true;
+    Astro.response.status = 503;
+  } else {
+    stored = await findAssessmentByTokenHash(await hashResultToken(token));
+    if (!stored) Astro.response.status = 404;
+  }
+}
+
+if (stored && !demo) {
+  void addLeadEvent(stored.leadId, 'result_viewed').catch(() => undefined);
+}
+
+const result: AssessmentResult | null = stored;
+const validScores = result?.dimensionScores
+  .filter((item): item is (typeof item) & { score: number } => item.score !== null)
+  .sort((left, right) => left.score - right.score) ?? [];
+const opportunities = validScores.slice(0, 3).map((item) => ({
+  ...item,
+  definition: getDimensionDefinition(item.dimension),
+  recommendation: recommendationForDimension(item.dimension, item.score),
+}));
+const headerNav = [
+  { label: 'Resumen', href: '#resumen' },
+  { label: 'Áreas', href: '#areas' },
+  { label: 'Oportunidades', href: '#oportunidades' },
+] as const;
+---
+
+<Base
+  title="Resultado del Índice de Madurez Digital | Altaria Lights"
+  description="Resultado privado del Índice Altaria de Madurez Digital."
+  canonical={false}
+  robots="noindex, nofollow"
+>
+  <FloatingHeader alwaysVisible brandHref="/" nav={headerNav} cta={{ label: 'Nueva evaluación', href: '/medir-nivel-digital' }} />
+
+  <main class="assessment-result-page" id="top" data-result-page data-result-token={token}>
+    {demo && <div class="assessment-result-demo">Modo demo · resultado no persistido</div>}
+    {!result ? (
+      <section class="assessment-result-missing">
+        <div class="assessment-result-missing__cloud" aria-hidden="true"></div>
+        <p>{unavailable ? 'Servicio temporalmente no disponible' : 'Resultado no encontrado'}</p>
+        <h1>{unavailable ? 'No podemos abrir el informe ahora mismo.' : 'Este enlace no corresponde a un informe disponible.'}</h1>
+        <p>{unavailable ? 'La conexión segura con la base de datos todavía no está configurada o no está disponible.' : 'Comprueba que has copiado la dirección completa o realiza una nueva evaluación.'}</p>
+        <a class="result-button result-button--primary" href="/medir-nivel-digital">Realizar una evaluación <span>→</span></a>
+      </section>
+    ) : (
+      <>
+        <section class="result-hero" id="resumen" aria-labelledby="result-title">
+          <div class="result-hero__sky" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="result-hero__inner">
+            <div class="result-hero__copy">
+              <p class="result-kicker"><span>✓</span> Análisis completado</p>
+              <h1 id="result-title">La fotografía digital de <em>{stored?.companyName}</em></h1>
+              <p>{result.maturityCopy}</p>
+              <div class="result-hero__actions"><a class="result-button result-button--quiet" href="#oportunidades">Ver oportunidades <span>↓</span></a><a class="result-text-link" href="/medir-nivel-digital">Nueva evaluación</a></div>
+            </div>
+            <div class="result-score-card">
+              <div class="result-score-ring" style={`--score: ${result.overallScore}`} role="img" aria-label={`Índice general: ${result.overallScore} sobre 100`}>
+                <div><strong>{result.overallScore}</strong><span>/100</span></div>
+              </div>
+              <div><span>Índice Altaria</span><h2>{result.maturityLabel}</h2><p>Resultado orientativo</p></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="result-dashboard" id="areas" aria-labelledby="areas-title">
+          <header class="result-section-heading"><div><p class="result-kicker">Lectura por áreas</p><h2 id="areas-title">Cinco piezas del mismo sistema</h2></div><p>Una puntuación baja no señala un fallo aislado: indica dónde puede existir más margen de mejora.</p></header>
+          <div class="result-dimension-grid">
+            {result.dimensionScores.map((dimension, index) => {
+              const definition = getDimensionDefinition(dimension.dimension);
+              const score = dimension.score ?? 0;
+              return (
+                <article class:list={['result-dimension-card', { 'result-dimension-card--priority': dimension.dimension === result.primaryOpportunity }]}>
+                  <header><span>{String(index + 1).padStart(2, '0')}</span>{dimension.dimension === result.primaryOpportunity && <small>Mayor oportunidad</small>}</header>
+                  <h3>{definition.label}</h3>
+                  {dimension.score === null ? <strong class="result-dimension-card__insufficient">Datos insuficientes</strong> : <strong>{dimension.score}<small>/100</small></strong>}
+                  <div class="result-dimension-bar" aria-hidden="true"><i style={`width: ${score}%`}></i></div>
+                  <p>{dimension.status === 'valid' ? recommendationForDimension(dimension.dimension, score).title : `Solo hay ${dimension.validAnswers} respuestas válidas; se necesitan al menos 3.`}</p>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section class="result-opportunities" id="oportunidades" aria-labelledby="opportunities-title">
+          <header class="result-section-heading"><div><p class="result-kicker">Orden de actuación</p><h2 id="opportunities-title">Tus principales oportunidades</h2></div><p>Empieza por comprender el primer área antes de invertir en soluciones. El orden importa más que hacer muchas cosas a la vez.</p></header>
+          <div class="result-opportunity-list">
+            {opportunities.map((opportunity, index) => (
+              <article class="result-opportunity-card">
+                <div class="result-opportunity-card__rank"><span>0{index + 1}</span><i></i></div>
+                <div class="result-opportunity-card__main">
+                  <header><div><p>{opportunity.definition.label}</p><h3>{opportunity.recommendation.title}</h3></div><strong>{opportunity.score}<small>/100</small></strong></header>
+                  <div class="result-opportunity-card__analysis">
+                    <div><span>Qué hemos detectado</span><p>{opportunity.recommendation.detected}</p></div>
+                    <div><span>Por qué importa</span><p>{opportunity.recommendation.whyItMatters}</p></div>
+                    <div><span>Qué revisar primero</span><ul>{opportunity.recommendation.reviewFirst.map((item) => <li>{item}</li>)}</ul></div>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section class="result-next-step" aria-labelledby="next-step-title">
+          <div class="result-next-step__clouds" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="result-next-step__copy">
+            <p class="result-kicker">Contexto antes que soluciones</p>
+            <h2 id="next-step-title">¿Quieres una segunda opinión?</h2>
+            <p>El índice detecta patrones a partir de tus respuestas. Una revisión humana permite separar lo importante de lo que probablemente no merece inversión.</p>
+          </div>
+          <div class="result-next-step__actions">
+            {stored?.reviewRequested ? (
+              <button class="result-button result-button--received" type="button" disabled><span>✓</span> Solicitud de revisión recibida</button>
+            ) : (
+              <button class="result-button result-button--primary" type="button" data-request-review><span data-review-label>Quiero que reviséis mi caso</span><span aria-hidden="true">→</span></button>
+            )}
+            <a class="result-button result-button--quiet" href="/servicios">Conocer Altaria Lights</a>
+            <p data-review-error role="alert" hidden></p>
+          </div>
+        </section>
+
+        <p class="result-disclaimer">{questionnaireV1.disclaimer}</p>
+      </>
+    )}
+  </main>
+  <SiteFooter anchorPrefix="/" />
+</Base>
+
+<script>
+  import { actions } from 'astro:actions';
+  import { trackAssessmentEvent } from '../../../lib/assessment/tracking';
+
+  const page = document.querySelector<HTMLElement>('[data-result-page]');
+  if (page) {
+    void trackAssessmentEvent('result_viewed');
+    const reviewButton = page.querySelector<HTMLButtonElement>('[data-request-review]');
+    reviewButton?.addEventListener('click', async () => {
+      const token = page.dataset.resultToken;
+      if (!token || reviewButton.disabled) return;
+      reviewButton.disabled = true;
+      const label = reviewButton.querySelector<HTMLElement>('[data-review-label]');
+      if (label) label.textContent = 'Registrando solicitud…';
+      const { data, error } = await actions.requestAssessmentReview({ token });
+      if (error || !data?.requested) {
+        reviewButton.disabled = false;
+        if (label) label.textContent = 'Quiero que reviséis mi caso';
+        const errorBox = page.querySelector<HTMLElement>('[data-review-error]');
+        if (errorBox) { errorBox.textContent = error?.message ?? 'No se ha podido registrar la solicitud.'; errorBox.removeAttribute('hidden'); }
+        return;
+      }
+      reviewButton.classList.remove('result-button--primary');
+      reviewButton.classList.add('result-button--received');
+      if (label) label.textContent = 'Solicitud de revisión recibida';
+      void trackAssessmentEvent('review_requested');
+    });
+  }
+</script>
