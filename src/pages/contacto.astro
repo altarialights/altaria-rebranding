@@ -86,7 +86,7 @@ const steps = [
 
     <div class="contact-content">
       <section class="contact-panel contact-reasons" aria-labelledby="contact-reasons-title">
-        <header class="contact-heading"><p class="contact-eyebrow">Fácil desde el principio</p><h2 id="contact-reasons-title">¿Por qué es mejor hablar con nosotros?</h2></header>
+        <header class="contact-heading"><p class="contact-eyebrow">Fácil desde el principio</p><h2 id="contact-reasons-title">¿Por qué es mejor hablar con nosotros?</h2><p>Altaria Lights es un estudio digital fundado por Martín Camarero. Desde el primer contacto, la conversación se centra en entender qué necesita tu negocio.</p></header>
         <div class="contact-reasons__grid">{reasons.map((reason) => <article>
           <picture><source srcset={`/media/contacto/optimized/${reason.asset}-96.webp 96w, /media/contacto/optimized/${reason.asset}-180.webp 180w`} sizes="80px" type="image/webp"/><img src={`/media/contacto/optimized/${reason.asset}-180.webp`} width="300" height="300" alt="" loading="lazy" decoding="async"/></picture>
           <h3>{reason.title}</h3><p>{reason.description}</p>

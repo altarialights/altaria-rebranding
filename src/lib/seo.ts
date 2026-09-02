@@ -28,7 +28,11 @@ export const createOrganizationSchema = (site: URL): JsonLd => ({
     },
     email: "altarialights@gmail.com",
     description:
-        "Estudio digital que ayuda a negocios y empresas a desarrollar y conectar su presencia digital, marketing, software y branding.",
+        "Estudio digital fundado por Martín Camarero que ayuda a negocios y empresas a construir, mejorar y conectar su parte digital mediante desarrollo web, marketing, software, automatización y branding.",
+    founder: {
+        "@type": "Person",
+        name: "Martín Camarero",
+    },
 });
 
 export const createWebsiteSchema = (site: URL): JsonLd => ({

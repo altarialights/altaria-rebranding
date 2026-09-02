@@ -24,6 +24,8 @@ const services = [
     details: ['Estrategia de contenidos', 'Redes y campañas', 'Mensajes que conectan'],
     image: 'marketing',
     alt: 'Megáfono azul sobre una nube',
+    href: '/marketing',
+    linkLabel: 'Ver marketing digital',
   },
   {
     id: 'desarrollo-web',
@@ -33,6 +35,8 @@ const services = [
     details: ['Diseño responsive', 'Rendimiento y claridad', 'Experiencias que convierten'],
     image: 'web',
     alt: 'Interfaz web tridimensional sobre una nube',
+    href: '/desarrollo-web',
+    linkLabel: 'Ver desarrollo web',
   },
   {
     id: 'software-a-medida',
@@ -42,6 +46,8 @@ const services = [
     details: ['Desarrollo personalizado', 'Automatización', 'Sistemas conectados'],
     image: 'software',
     alt: 'Símbolo de código tridimensional sobre una nube',
+    href: '/software',
+    linkLabel: 'Ver software a medida',
   },
   {
     id: 'branding',
@@ -51,6 +57,8 @@ const services = [
     details: ['Identidad visual', 'Dirección de arte', 'Aplicaciones de marca'],
     image: 'branding',
     alt: 'Letra tridimensional en una herramienta de diseño sobre una nube',
+    href: '/branding',
+    linkLabel: 'Ver branding',
   },
 ] as const;
 
@@ -190,8 +198,8 @@ const results = [
               <ul aria-label={`Incluye ${service.eyebrow}`}>
                 {service.details.map((detail: string) => <li>{detail}</li>)}
               </ul>
-              <a href={service.id === 'marketing-digital' ? '/marketing' : service.id === 'desarrollo-web' ? '/desarrollo-web' : service.id === 'software-a-medida' ? '/software' : '/branding'}>
-                Saber más <span aria-hidden="true">→</span>
+              <a href={service.href}>
+                {service.linkLabel} <span aria-hidden="true">→</span>
               </a>
             </div>
           </article>

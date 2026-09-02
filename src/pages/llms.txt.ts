@@ -6,9 +6,9 @@ export const GET: APIRoute = ({ site }) => {
   const url = (pathname: string) => new URL(pathname, site).href;
   const body = `# Altaria Lights
 
-> Altaria Lights es un estudio digital que ayuda a negocios y empresas a desarrollar y conectar toda su parte digital.
+> Altaria Lights es un estudio digital fundado por Martín Camarero que ayuda a negocios y empresas a construir, mejorar y conectar toda su parte digital.
 
-Trabajamos especialmente con negocios que desarrollan su actividad en el mundo físico y necesitan trasladar, mejorar o ampliar esa actividad mediante tecnología. Combinamos desarrollo web, marketing digital, software a medida y branding para mejorar su presencia, captación de clientes, operaciones y marca.
+Trabajamos especialmente con negocios que desarrollan su actividad en el mundo físico y necesitan trasladar, mejorar o ampliar esa actividad mediante tecnología. Combinamos desarrollo web, marketing digital, software a medida, automatización y branding para mejorar su presencia, captación de clientes, operaciones y marca.
 
 No somos exclusivamente una agencia de marketing, una empresa de desarrollo web o una empresa de software. Podemos trabajar distintas áreas digitales de un negocio y conectarlas dentro de una misma estrategia.
 

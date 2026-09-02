@@ -51,6 +51,26 @@ const serviceTitles = [socialBeat, webBeat, softwareBeat, brandBeat, growthBeat]
     display: contents;
   }
 
+  /* The head boot has already selected a performance tier before this host
+     is parsed, but the selected template is mounted after DOMContentLoaded.
+     Give the still-empty outlet the exact scroll geometry of that tier so
+     the following section starts in its final position on the first layout.
+     As soon as bootstrap inserts the hero, :empty stops matching and the
+     outlet returns to display: contents; the mounted hero remains the sole
+     owner of its final dimensions and choreography. */
+  .tier-outlet:empty {
+    display: block;
+    height: var(--hero-scroll);
+  }
+
+  :global(html[data-performance-tier='balanced']) .tier-outlet:empty {
+    height: 1580svh;
+  }
+
+  :global(html[data-performance-tier='lite']) .tier-outlet:empty {
+    height: 1500svh;
+  }
+
   .tier-debug {
     position: fixed;
     z-index: 100;

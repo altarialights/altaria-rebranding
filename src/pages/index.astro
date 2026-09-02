@@ -221,6 +221,26 @@ import SiteFooter from '../components/sections/SiteFooter.astro';
     display: contents;
   }
 
+  /* The device class is decided synchronously in <head>, while this outlet
+     receives its selected (parser-inert) hero immediately after parsing.
+     Reserve the desktop hero's exact scroll geometry across that hand-off;
+     once cloned content arrives, :empty stops matching automatically. */
+  :global(html[data-device-class='desktop'])
+    .viewport-outlet[data-viewport-hero-outlet]:empty {
+    display: block;
+    height: var(--hero-scroll);
+  }
+
+  :global(html[data-device-class='desktop'][data-performance-tier='balanced'])
+    .viewport-outlet[data-viewport-hero-outlet]:empty {
+    height: 1580svh;
+  }
+
+  :global(html[data-device-class='desktop'][data-performance-tier='lite'])
+    .viewport-outlet[data-viewport-hero-outlet]:empty {
+    height: 1500svh;
+  }
+
   .viewport-noscript {
     display: grid;
     min-height: 100svh;
