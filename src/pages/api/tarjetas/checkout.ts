@@ -6,7 +6,7 @@ import {
   prepareCardOrderCheckout,
 } from '../../../lib/orders/checkout.service';
 import { acceptsJsonBody, assertSameOrigin, jsonResponse } from '../../../lib/orders/http';
-import { getStripeCheckoutGateway } from '../../../lib/orders/stripe.service';
+import { getSafeStripeErrorDetails, getStripeCheckoutGateway } from '../../../lib/orders/stripe.service';
 import { crearPedidoSchema, formatOrderValidationErrors } from '../../../lib/orders/validation';
 
 export const prerender = false;
@@ -46,7 +46,9 @@ export const POST: APIRoute = async ({ request }) => {
     if (error instanceof CheckoutUnavailableError) {
       return jsonResponse({ error: 'No hemos podido abrir el pago seguro. Inténtalo de nuevo.' }, 503);
     }
-    console.error('[orders] Error al preparar Checkout.');
+    const stripeError = getSafeStripeErrorDetails(error);
+    if (stripeError) console.error('[orders] Stripe rechazó Checkout.', stripeError);
+    else console.error('[orders] Error al preparar Checkout.', { type: error instanceof Error ? error.name : 'UnknownError' });
     return jsonResponse({ error: 'No hemos podido preparar el pago. Inténtalo de nuevo.' }, 500);
   }
 };

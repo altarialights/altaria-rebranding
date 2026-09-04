@@ -11,6 +11,7 @@ import { validateCheckoutPayment } from './payment-validation';
 import {
   assertStripeTestSecret,
   buildCheckoutSessionParams,
+  getSafeStripeErrorDetails,
   verifyStripeWebhookWithSecrets,
 } from './stripe.service';
 import type { CheckoutSessionData, NuevoPedidoTarjetas, PedidoTarjetas } from './types';
@@ -299,7 +300,32 @@ describe('Stripe test-mode and signature enforcement', () => {
     expect(params.line_items).toHaveLength(2);
     expect(params.line_items?.[0]).toMatchObject({ quantity: 5, price_data: { unit_amount: 2500, currency: 'eur' } });
     expect(params.line_items?.[1]).toMatchObject({ quantity: 1, price_data: { unit_amount: 490, currency: 'eur' } });
+    expect(params.success_url).toBe(
+      'https://altarialights.com/tarjetas-rese%C3%B1as-google/pedido-confirmado?session_id={CHECKOUT_SESSION_ID}',
+    );
+    expect(params.success_url).not.toContain('ñ');
+    expect(params.success_url).toContain('tarjetas-rese%C3%B1as-google');
     expect(params.success_url).toContain('{CHECKOUT_SESSION_ID}');
+    expect(params.cancel_url).toBe(
+      'https://altarialights.com/tarjetas-rese%C3%B1as-google?pago=cancelado#configurador',
+    );
+    expect(params.cancel_url).not.toContain('ñ');
+  });
+
+  it('keeps Stripe logs limited to safe diagnostic fields', () => {
+    const error = new Stripe.errors.StripeInvalidRequestError({
+      type: 'invalid_request_error',
+      message: 'Invalid URL',
+      code: 'url_invalid',
+      param: 'success_url',
+      requestId: 'req_test_altaria',
+    });
+    expect(getSafeStripeErrorDetails(error)).toEqual({
+      type: 'StripeInvalidRequestError',
+      code: 'url_invalid',
+      param: 'success_url',
+      requestId: 'req_test_altaria',
+    });
   });
 
   it('rejects live secret keys', () => {

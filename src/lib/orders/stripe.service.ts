@@ -38,8 +38,9 @@ export const buildCheckoutSessionParams = (
   pedido: PedidoTarjetas,
   origin: string,
 ): Stripe.Checkout.SessionCreateParams => {
-  const successUrl = `${origin}/tarjetas-reseñas-google/pedido-confirmado?session_id={CHECKOUT_SESSION_ID}`;
-  const cancelUrl = `${origin}/tarjetas-reseñas-google?pago=cancelado#configurador`;
+  const successBase = new URL('/tarjetas-reseñas-google/pedido-confirmado', origin);
+  const successUrl = `${successBase.href}?session_id={CHECKOUT_SESSION_ID}`;
+  const cancelUrl = new URL('/tarjetas-reseñas-google?pago=cancelado#configurador', origin).href;
   const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [{
     quantity: pedido.cantidad,
     price_data: {
@@ -68,6 +69,23 @@ export const buildCheckoutSessionParams = (
     metadata: { pedido_id: pedido.id, numero_pedido: pedido.numeroPedido },
     success_url: successUrl,
     cancel_url: cancelUrl,
+  };
+};
+
+export interface SafeStripeErrorDetails {
+  type: string;
+  code: string | null;
+  param: string | null;
+  requestId: string | null;
+}
+
+export const getSafeStripeErrorDetails = (error: unknown): SafeStripeErrorDetails | null => {
+  if (!(error instanceof Stripe.errors.StripeError)) return null;
+  return {
+    type: error.type,
+    code: error.code ?? null,
+    param: error.param ?? null,
+    requestId: error.requestId ?? null,
   };
 };
 
