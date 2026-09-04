@@ -93,13 +93,39 @@ const sessionFor = (pedido: PedidoTarjetas, overrides: Partial<CheckoutSessionDa
 });
 
 describe('card order pricing and validation', () => {
-  it('calculates all trusted amounts on the server without provisional tax', () => {
-    expect(calcularImportesPedido(5)).toEqual({
-      precioUnitarioCentimos: 2500,
-      subtotalCentimos: 12500,
+  it('applies quantity pricing tiers and makes shipping free from two cards', () => {
+    expect(calcularImportesPedido(1)).toEqual({
+      precioUnitarioCentimos: 2000,
+      subtotalCentimos: 2000,
       envioCentimos: 490,
       impuestosCentimos: 0,
-      totalCentimos: 12990,
+      totalCentimos: 2490,
+      moneda: 'eur',
+    });
+    expect(calcularImportesPedido(2)).toEqual({
+      precioUnitarioCentimos: 2000,
+      subtotalCentimos: 4000,
+      envioCentimos: 0,
+      impuestosCentimos: 0,
+      totalCentimos: 4000,
+      moneda: 'eur',
+    });
+    expect(calcularImportesPedido(9).precioUnitarioCentimos).toBe(2000);
+    expect(calcularImportesPedido(10)).toEqual({
+      precioUnitarioCentimos: 1750,
+      subtotalCentimos: 17500,
+      envioCentimos: 0,
+      impuestosCentimos: 0,
+      totalCentimos: 17500,
+      moneda: 'eur',
+    });
+    expect(calcularImportesPedido(19).precioUnitarioCentimos).toBe(1750);
+    expect(calcularImportesPedido(20)).toEqual({
+      precioUnitarioCentimos: 1500,
+      subtotalCentimos: 30000,
+      envioCentimos: 0,
+      impuestosCentimos: 0,
+      totalCentimos: 30000,
       moneda: 'eur',
     });
   });
@@ -297,9 +323,8 @@ describe('Stripe test-mode and signature enforcement', () => {
     expect(params.client_reference_id).toBe(pedido.id);
     expect(params.customer_email).toBe(input.cliente.email);
     expect(params.metadata).toEqual({ pedido_id: pedido.id, numero_pedido: pedido.numeroPedido });
-    expect(params.line_items).toHaveLength(2);
-    expect(params.line_items?.[0]).toMatchObject({ quantity: 5, price_data: { unit_amount: 2500, currency: 'eur' } });
-    expect(params.line_items?.[1]).toMatchObject({ quantity: 1, price_data: { unit_amount: 490, currency: 'eur' } });
+    expect(params.line_items).toHaveLength(1);
+    expect(params.line_items?.[0]).toMatchObject({ quantity: 5, price_data: { unit_amount: 2000, currency: 'eur' } });
     expect(params.success_url).toBe(
       'https://altarialights.com/tarjetas-rese%C3%B1as-google/pedido-confirmado?session_id={CHECKOUT_SESSION_ID}',
     );

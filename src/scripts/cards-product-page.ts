@@ -125,6 +125,7 @@ function initConfigurator(): void {
   const quantityUnit = builder.querySelector<HTMLElement>('[data-summary-unit]');
   const unitOutput = builder.querySelector<HTMLElement>('[data-unit-price]');
   const subtotalOutput = builder.querySelector<HTMLElement>('[data-summary-subtotal]');
+  const shippingOutput = builder.querySelector<HTMLElement>('[data-summary-shipping]');
   const taxOutput = builder.querySelector<HTMLElement>('[data-tax]');
   const totalOutput = builder.querySelector<HTMLElement>('[data-total]');
   const builderStatus = builder.querySelector<HTMLElement>('[data-builder-status]');
@@ -433,18 +434,23 @@ function initConfigurator(): void {
       if (quantityUnit) quantityUnit.textContent = '';
       if (unitOutput) unitOutput.textContent = currency.format(cardsProductConfig.unitPrice);
       if (subtotalOutput) subtotalOutput.textContent = '—';
+      if (shippingOutput) shippingOutput.textContent = '—';
       if (taxOutput) taxOutput.textContent = '—';
       if (totalOutput) totalOutput.textContent = '—';
       return;
     }
-    const subtotal = cardsProductConfig.unitPrice * quantity;
+    const unitPrice = cardsProductConfig.priceTiers.find((tier) => quantity >= tier.minQuantity)?.unitPrice
+      ?? cardsProductConfig.unitPrice;
+    const subtotal = unitPrice * quantity;
+    const shipping = quantity >= cardsProductConfig.freeShippingFrom ? 0 : cardsProductConfig.shipping;
     const tax = cardsProductConfig.taxes;
     if (quantityOutput) quantityOutput.textContent = String(quantity);
     if (quantityUnit) quantityUnit.textContent = quantity === 1 ? 'unidad' : 'unidades';
-    if (unitOutput) unitOutput.textContent = currency.format(cardsProductConfig.unitPrice);
+    if (unitOutput) unitOutput.textContent = currency.format(unitPrice);
     if (subtotalOutput) subtotalOutput.textContent = currency.format(subtotal);
-    if (taxOutput) taxOutput.textContent = currency.format(tax);
-    if (totalOutput) totalOutput.textContent = currency.format(subtotal + cardsProductConfig.shipping + tax);
+    if (shippingOutput) shippingOutput.textContent = shipping === 0 ? 'Gratis' : currency.format(shipping);
+    if (taxOutput) taxOutput.textContent = 'IVA incluido';
+    if (totalOutput) totalOutput.textContent = currency.format(subtotal + shipping + tax);
   };
 
   const selectQuantityButton = (selected: HTMLButtonElement): void => {
