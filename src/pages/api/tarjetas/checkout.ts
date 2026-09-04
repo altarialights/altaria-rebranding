@@ -7,7 +7,7 @@ import {
 } from '../../../lib/orders/checkout.service';
 import { acceptsJsonBody, assertSameOrigin, jsonResponse } from '../../../lib/orders/http';
 import { getStripeCheckoutGateway } from '../../../lib/orders/stripe.service';
-import { crearPedidoSchema } from '../../../lib/orders/validation';
+import { crearPedidoSchema, formatOrderValidationErrors } from '../../../lib/orders/validation';
 
 export const prerender = false;
 
@@ -23,7 +23,13 @@ export const POST: APIRoute = async ({ request }) => {
     return jsonResponse({ error: 'Los datos del pedido no son válidos.' }, 400);
   }
   const parsed = crearPedidoSchema.safeParse(input);
-  if (!parsed.success) return jsonResponse({ error: 'Revisa los datos del pedido e inténtalo de nuevo.' }, 400);
+  if (!parsed.success) {
+    return jsonResponse({
+      error: 'datos_invalidos',
+      message: 'Revisa los datos indicados.',
+      fields: formatOrderValidationErrors(parsed.error),
+    }, 400);
+  }
 
   try {
     const gateway = await getStripeCheckoutGateway();
@@ -32,7 +38,7 @@ export const POST: APIRoute = async ({ request }) => {
       checkoutUrl: result.checkoutUrl,
       sessionId: result.sessionId,
       numeroPedido: result.numeroPedido,
-    }, 201);
+    }, 200);
   } catch (error) {
     if (error instanceof OrderRequestConflictError) {
       return jsonResponse({ error: 'Los datos han cambiado. Recarga la página para iniciar un pedido nuevo.' }, 409);

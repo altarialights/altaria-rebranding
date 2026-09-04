@@ -980,7 +980,8 @@
 }
 
 .builder-custom-quantity input[aria-invalid='true'],
-.builder-field input.is-invalid {
+.builder-field input.is-invalid,
+.builder-search:has(input[aria-invalid='true']) {
   border-color: rgba(174,66,78,.58);
   box-shadow: 0 0 0 3px rgba(174,66,78,.08);
 }
@@ -1026,6 +1027,14 @@
 .builder-field em {
   color: #8399ad;
   font-weight: 500;
+}
+
+.builder-field > small[data-field-error] {
+  min-height: 13px;
+  margin: 4px 3px 0;
+  color: #a34c55;
+  font-size: 8.5px;
+  line-height: 1.35;
 }
 
 .builder-summary__product {

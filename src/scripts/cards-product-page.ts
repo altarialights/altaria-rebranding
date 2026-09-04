@@ -131,6 +131,12 @@ function initConfigurator(): void {
   const submitButton = builder.querySelector<HTMLButtonElement>('[data-builder-submit]');
   const submitLabel = builder.querySelector<HTMLElement>('[data-builder-submit-label]');
   const requiredFields = [...builder.querySelectorAll<HTMLInputElement>('[data-required-field]')];
+  const apiFields = new Map(
+    [...builder.querySelectorAll<HTMLInputElement>('[data-api-field]')].map((field) => [field.dataset.apiField ?? '', field]),
+  );
+  const apiErrorElements = new Map(
+    [...builder.querySelectorAll<HTMLElement>('[data-field-error]')].map((element) => [element.dataset.fieldError ?? '', element]),
+  );
   const placeFields = new Map(
     [...builder.querySelectorAll<HTMLInputElement>('[data-place-field]')].map((field) => [field.dataset.placeField ?? '', field]),
   );
@@ -151,6 +157,52 @@ function initConfigurator(): void {
   const setSearchState = (state: 'default' | 'loading' | 'results' | 'empty' | 'error' | 'selected', message = ''): void => {
     searchRoot.dataset.state = state;
     searchStatus.textContent = message;
+  };
+
+  const safeFieldMessages: Record<string, string> = {
+    'negocio.googlePlaceId': 'Selecciona un negocio de la lista de Google.',
+    cantidad: `Elige una cantidad entre 1 y ${cardsProductConfig.maxQuantity}.`,
+    'cliente.nombre': 'Introduce tu nombre completo.',
+    'cliente.email': 'Introduce un email válido.',
+    'cliente.telefono': 'Introduce un teléfono válido.',
+    'envio.direccion': 'Introduce la dirección de envío.',
+    'envio.codigoPostal': 'Introduce un código postal de 5 cifras.',
+    'envio.ciudad': 'Introduce la localidad.',
+    'envio.provincia': 'Introduce la provincia.',
+  };
+
+  const clearFieldError = (path: string): void => {
+    const field = apiFields.get(path);
+    field?.classList.remove('is-invalid');
+    field?.removeAttribute('aria-invalid');
+    const errorElement = apiErrorElements.get(path);
+    if (errorElement) errorElement.textContent = '';
+    if (path === 'cantidad' && customError) customError.textContent = '';
+  };
+
+  const showFieldErrors = (fields: Record<string, string>, focusFirst = true): boolean => {
+    let firstField: HTMLInputElement | null = null;
+    for (const [path, message] of Object.entries(fields)) {
+      if (path.startsWith('negocio.')) {
+        searchInput.setAttribute('aria-invalid', 'true');
+        setSearchState('error', message);
+        firstField ??= searchInput;
+        continue;
+      }
+      const field = apiFields.get(path);
+      if (!field) continue;
+      field.classList.add('is-invalid');
+      field.setAttribute('aria-invalid', 'true');
+      const errorElement = apiErrorElements.get(path);
+      if (errorElement) errorElement.textContent = message;
+      if (path === 'cantidad' && customError) customError.textContent = message;
+      firstField ??= field;
+    }
+    if (firstField && focusFirst) {
+      firstField.focus({ preventScroll: true });
+      firstField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    return Boolean(firstField);
   };
 
   const closeSuggestions = (): void => {
@@ -179,6 +231,7 @@ function initConfigurator(): void {
   };
 
   const clearSelection = (): void => {
+    clearFieldError('negocio.googlePlaceId');
     if (!selectedPlace) return;
     selectedPlace = null;
     selectedPlaceCard?.classList.remove('is-selected');
@@ -246,6 +299,7 @@ function initConfigurator(): void {
       suggestions = [];
       suggestionsList.replaceChildren();
       setSearchState('selected', 'Negocio seleccionado correctamente.');
+      clearFieldError('negocio.googlePlaceId');
       selectedPlaceCard?.classList.add('is-found');
       window.setTimeout(() => selectedPlaceCard?.classList.remove('is-found'), 550);
       builder.dispatchEvent(new CustomEvent<SelectedPlace>('cards:place-selected', { detail: selectedPlace }));
@@ -404,9 +458,14 @@ function initConfigurator(): void {
   const validateCustomQuantity = (showError = true): number | null => {
     if (!customInput) return null;
     const value = customInput.value.trim();
-    const valid = /^\d+$/.test(value) && Number.isSafeInteger(Number(value)) && Number(value) >= 1;
+    const valid = /^\d+$/.test(value)
+      && Number.isSafeInteger(Number(value))
+      && Number(value) >= 1
+      && Number(value) <= cardsProductConfig.maxQuantity;
     customInput.setAttribute('aria-invalid', String(!valid && showError));
-    if (customError) customError.textContent = !valid && showError ? 'Introduce un número entero igual o mayor que 1.' : '';
+    if (customError) customError.textContent = !valid && showError
+      ? `Introduce un número entero entre 1 y ${cardsProductConfig.maxQuantity}.`
+      : '';
     return valid ? Number(value) : null;
   };
 
@@ -431,18 +490,21 @@ function initConfigurator(): void {
   customInput?.addEventListener('keydown', (event) => {
     if (['-', '+', '.', ',', 'e', 'E'].includes(event.key)) event.preventDefault();
   });
-  customInput?.addEventListener('input', () => setQuantity(validateCustomQuantity(customInput.value !== '')));
+  customInput?.addEventListener('input', () => {
+    clearFieldError('cantidad');
+    setQuantity(validateCustomQuantity(customInput.value !== ''));
+  });
   customInput?.addEventListener('blur', () => setQuantity(validateCustomQuantity(true)));
 
   requiredFields.forEach((field) => {
     field.addEventListener('input', () => {
-      field.classList.remove('is-invalid');
-      field.removeAttribute('aria-invalid');
+      clearFieldError(field.dataset.apiField ?? '');
     });
     field.addEventListener('blur', () => {
       const invalid = !field.checkValidity();
-      field.classList.toggle('is-invalid', invalid);
-      field.setAttribute('aria-invalid', String(invalid));
+      const path = field.dataset.apiField ?? '';
+      if (invalid) showFieldErrors({ [path]: safeFieldMessages[path] ?? 'Revisa este campo.' }, false);
+      else clearFieldError(path);
     });
   });
 
@@ -482,22 +544,19 @@ function initConfigurator(): void {
     if (submitting) return;
     if (builderStatus) builderStatus.textContent = '';
     if (!selectedPlace) {
-      setSearchState('error', 'Selecciona tu negocio en la lista de Google.');
-      searchInput.focus();
+      showFieldErrors({ 'negocio.googlePlaceId': safeFieldMessages['negocio.googlePlaceId'] });
       return;
     }
     if (!selectedQuantity) {
       validateCustomQuantity(true);
-      customInput?.focus();
+      showFieldErrors({ cantidad: safeFieldMessages.cantidad });
       return;
     }
     const firstInvalid = requiredFields.find((field) => !field.checkValidity());
     if (firstInvalid) {
-      const label = firstInvalid.closest('label')?.querySelector('span')?.textContent?.trim() ?? 'este campo';
-      firstInvalid.classList.add('is-invalid');
-      firstInvalid.setAttribute('aria-invalid', 'true');
-      if (builderStatus) builderStatus.textContent = `Revisa ${label.toLocaleLowerCase('es')}.`;
-      firstInvalid.focus();
+      const path = firstInvalid.dataset.apiField ?? '';
+      showFieldErrors({ [path]: safeFieldMessages[path] ?? 'Revisa este campo.' });
+      if (builderStatus) builderStatus.textContent = 'Revisa los datos indicados.';
       return;
     }
 
@@ -538,7 +597,25 @@ function initConfigurator(): void {
         if (response.status === 409) {
           try { window.sessionStorage.removeItem('altaria.cards.checkout.idempotency-key'); } catch { /* Optional storage. */ }
         }
-        throw new Error(typeof result.error === 'string' ? result.error : 'No hemos podido preparar el pago.');
+        if (response.status === 400 && result.error === 'datos_invalidos' && result.fields && typeof result.fields === 'object') {
+          const fields = Object.fromEntries(
+            Object.entries(result.fields as Record<string, unknown>)
+              .filter((entry): entry is [string, string] => typeof entry[1] === 'string'),
+          );
+          setSubmitting(false);
+          showFieldErrors(fields);
+          if (builderStatus) builderStatus.textContent = typeof result.message === 'string'
+            ? result.message
+            : 'Revisa los datos indicados.';
+          return;
+        }
+        throw new Error(
+          typeof result.message === 'string'
+            ? result.message
+            : typeof result.error === 'string'
+              ? result.error
+              : 'No hemos podido preparar el pago.',
+        );
       }
       const checkoutUrl = new URL(result.checkoutUrl);
       if (checkoutUrl.protocol !== 'https:' || checkoutUrl.hostname !== 'checkout.stripe.com') {

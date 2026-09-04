@@ -135,7 +135,9 @@ const process = [
                   aria-expanded="false"
                   aria-controls="business-suggestions"
                   aria-activedescendant=""
+                  aria-describedby="business-search-status"
                   data-business-search
+                  data-api-field="negocio.googlePlaceId"
                 />
                 <span class="builder-search__loader" aria-hidden="true" data-search-loader></span>
               </label>
@@ -143,7 +145,7 @@ const process = [
                 <ul id="business-suggestions" role="listbox" aria-label="Negocios encontrados" data-business-suggestions></ul>
                 <div class="builder-suggestions__attribution" data-google-attribution hidden></div>
               </div>
-              <p class="builder-search__status" role="status" aria-live="polite" data-search-status></p>
+              <p id="business-search-status" class="builder-search__status" role="status" aria-live="polite" data-search-status></p>
             </div>
             <div class="builder-map" aria-label="Referencia visual de ubicación" data-place-map>
               <span class="builder-map__road builder-map__road--one"></span>
@@ -176,21 +178,21 @@ const process = [
               </div>
               <div class="builder-custom-quantity" data-custom-quantity-panel hidden>
                 <label for="custom-quantity">¿Cuántas necesitas?</label>
-                <input id="custom-quantity" type="number" min="1" step="1" inputmode="numeric" placeholder="Ej. 20" aria-describedby="custom-quantity-error" data-custom-quantity />
+                <input id="custom-quantity" type="number" min="1" max={cardsProductConfig.maxQuantity} step="1" inputmode="numeric" placeholder="Ej. 20" aria-describedby="custom-quantity-error" data-custom-quantity data-api-field="cantidad" />
                 <p id="custom-quantity-error" data-custom-quantity-error></p>
               </div>
               <p>Mismo precio por unidad para todas las cantidades.</p>
             </fieldset>
             <div class="builder-fields">
-              <label class="builder-field builder-field--wide"><span>Nombre completo</span><input name="customerName" type="text" autocomplete="name" minlength="2" maxlength="120" placeholder="Nombre y apellidos" required data-required-field /></label>
-              <label class="builder-field builder-field--wide"><span>Email</span><input name="customerEmail" type="email" autocomplete="email" maxlength="254" placeholder="nombre@empresa.com" required data-required-field /></label>
-              <label class="builder-field"><span>Teléfono</span><input name="customerPhone" type="tel" autocomplete="tel" minlength="7" maxlength="32" placeholder="+34 600 000 000" required data-required-field /></label>
-              <label class="builder-field"><span>Código postal</span><input name="shippingPostalCode" type="text" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" placeholder="28001" required data-required-field /></label>
-              <label class="builder-field builder-field--wide"><span>Dirección de envío</span><input name="shippingAddress" type="text" autocomplete="address-line1" maxlength="220" placeholder="Calle y número" required data-required-field /></label>
-              <label class="builder-field builder-field--wide"><span>Piso, puerta o local <em>opcional</em></span><input name="shippingAddressExtra" type="text" autocomplete="address-line2" maxlength="120" placeholder="Piso, puerta, bloque…" /></label>
-              <label class="builder-field"><span>Ciudad</span><input name="shippingCity" type="text" autocomplete="address-level2" maxlength="120" placeholder="Madrid" required data-required-field /></label>
-              <label class="builder-field"><span>Provincia</span><input name="shippingProvince" type="text" autocomplete="address-level1" maxlength="120" placeholder="Madrid" required data-required-field /></label>
-              <label class="builder-field builder-field--wide"><span>Referencia de entrega <em>opcional</em></span><input name="shippingReference" type="text" maxlength="220" placeholder="Horario o indicaciones para la entrega" /></label>
+              <label class="builder-field builder-field--wide"><span>Nombre completo</span><input name="customerName" type="text" autocomplete="name" minlength="2" maxlength="120" placeholder="Nombre y apellidos" aria-describedby="customer-name-error" required data-required-field data-api-field="cliente.nombre" /><small id="customer-name-error" data-field-error="cliente.nombre" aria-live="polite"></small></label>
+              <label class="builder-field builder-field--wide"><span>Email</span><input name="customerEmail" type="email" autocomplete="email" maxlength="254" placeholder="nombre@empresa.com" aria-describedby="customer-email-error" required data-required-field data-api-field="cliente.email" /><small id="customer-email-error" data-field-error="cliente.email" aria-live="polite"></small></label>
+              <label class="builder-field"><span>Teléfono</span><input name="customerPhone" type="tel" autocomplete="tel" minlength="9" maxlength="32" placeholder="600 000 000" aria-describedby="customer-phone-error" required data-required-field data-api-field="cliente.telefono" /><small id="customer-phone-error" data-field-error="cliente.telefono" aria-live="polite"></small></label>
+              <label class="builder-field"><span>Código postal</span><input name="shippingPostalCode" type="text" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" placeholder="28001" aria-describedby="shipping-postal-error" required data-required-field data-api-field="envio.codigoPostal" /><small id="shipping-postal-error" data-field-error="envio.codigoPostal" aria-live="polite"></small></label>
+              <label class="builder-field builder-field--wide"><span>Dirección de envío</span><input name="shippingAddress" type="text" autocomplete="address-line1" minlength="3" maxlength="220" placeholder="Calle y número" aria-describedby="shipping-address-error" required data-required-field data-api-field="envio.direccion" /><small id="shipping-address-error" data-field-error="envio.direccion" aria-live="polite"></small></label>
+              <label class="builder-field builder-field--wide"><span>Piso, puerta o local <em>opcional</em></span><input name="shippingAddressExtra" type="text" autocomplete="address-line2" maxlength="120" placeholder="Piso, puerta, bloque…" data-api-field="envio.direccionExtra" /><small data-field-error="envio.direccionExtra" aria-live="polite"></small></label>
+              <label class="builder-field"><span>Ciudad</span><input name="shippingCity" type="text" autocomplete="address-level2" minlength="2" maxlength="120" placeholder="Madrid" aria-describedby="shipping-city-error" required data-required-field data-api-field="envio.ciudad" /><small id="shipping-city-error" data-field-error="envio.ciudad" aria-live="polite"></small></label>
+              <label class="builder-field"><span>Provincia</span><input name="shippingProvince" type="text" autocomplete="address-level1" minlength="2" maxlength="120" placeholder="Madrid" aria-describedby="shipping-province-error" required data-required-field data-api-field="envio.provincia" /><small id="shipping-province-error" data-field-error="envio.provincia" aria-live="polite"></small></label>
+              <label class="builder-field builder-field--wide"><span>Referencia de entrega <em>opcional</em></span><input name="shippingReference" type="text" maxlength="220" placeholder="Horario o indicaciones para la entrega" data-api-field="envio.referencia" /><small data-field-error="envio.referencia" aria-live="polite"></small></label>
               <input name="shippingCountry" type="hidden" value="ES" />
             </div>
           </section>

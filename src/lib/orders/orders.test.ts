@@ -14,7 +14,11 @@ import {
   verifyStripeWebhookWithSecrets,
 } from './stripe.service';
 import type { CheckoutSessionData, NuevoPedidoTarjetas, PedidoTarjetas } from './types';
-import { crearPedidoSchema, type CrearPedidoInput } from './validation';
+import {
+  crearPedidoSchema,
+  formatOrderValidationErrors,
+  type CrearPedidoInput,
+} from './validation';
 import { handlePaidCheckout } from './webhook.service';
 
 const input: CrearPedidoInput = {
@@ -100,12 +104,61 @@ describe('card order pricing and validation', () => {
   });
 
   it('rejects invalid contact, postcode and quantity data', () => {
-    expect(crearPedidoSchema.safeParse({
+    const parsed = crearPedidoSchema.safeParse({
       ...input,
       cantidad: 0,
       cliente: { ...input.cliente, email: 'invalid' },
-      envio: { ...input.envio, codigoPostal: '28' },
-    }).success).toBe(false);
+      envio: { ...input.envio, codigoPostal: '28', ciudad: '' },
+    });
+    expect(parsed.success).toBe(false);
+    if (!parsed.success) {
+      expect(formatOrderValidationErrors(parsed.error)).toEqual(expect.objectContaining({
+        cantidad: 'Elige una cantidad entre 1 y 500.',
+        'cliente.email': 'Introduce un email válido.',
+        'envio.codigoPostal': 'Introduce un código postal de 5 cifras.',
+        'envio.ciudad': 'Introduce la localidad.',
+      }));
+    }
+  });
+
+  it('normalizes a Spanish phone without +34 and accepts non-essential Places fields as optional', () => {
+    const parsed = crearPedidoSchema.safeParse({
+      ...input,
+      negocio: {
+        googlePlaceId: 'ChIJAltariaTest',
+        nombre: 'Q',
+        googleMapsURI: 'https://maps.google.com/?cid=123',
+      },
+      cantidad: 17,
+      cliente: { ...input.cliente, telefono: '612/345/678' },
+    });
+    expect(parsed.success).toBe(true);
+    if (parsed.success) {
+      expect(parsed.data.cantidad).toBe(17);
+      expect(parsed.data.cliente.telefono).toBe('+34612345678');
+      expect(parsed.data.negocio.direccion).toBe('');
+      expect(parsed.data.negocio.googleMapsUrl).toBe('https://maps.google.com/?cid=123');
+    }
+  });
+
+  it('returns safe field errors for invalid phone, email, city, business and quantity', () => {
+    const parsed = crearPedidoSchema.safeParse({
+      ...input,
+      negocio: { ...input.negocio, googlePlaceId: '' },
+      cantidad: 0,
+      cliente: { ...input.cliente, email: 'invalid', telefono: 'teléfono desconocido' },
+      envio: { ...input.envio, ciudad: '' },
+    });
+    expect(parsed.success).toBe(false);
+    if (!parsed.success) {
+      expect(formatOrderValidationErrors(parsed.error)).toEqual(expect.objectContaining({
+        'negocio.googlePlaceId': 'Selecciona un negocio de la lista de Google.',
+        cantidad: 'Elige una cantidad entre 1 y 500.',
+        'cliente.email': 'Introduce un email válido.',
+        'cliente.telefono': 'Introduce un teléfono válido.',
+        'envio.ciudad': 'Introduce la localidad.',
+      }));
+    }
   });
 
   it('contains only append-only CREATE statements and required uniqueness', () => {
