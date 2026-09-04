@@ -9,11 +9,18 @@ import {
 } from './checkout.service';
 import { validateCheckoutPayment } from './payment-validation';
 import {
-  assertStripeTestSecret,
   buildCheckoutSessionParams,
   getSafeStripeErrorDetails,
   verifyStripeWebhookWithSecrets,
 } from './stripe.service';
+import {
+  assertStripeLivemode,
+  assertStripeSecretForMode,
+  parseStripeMode,
+  stripeEnvironmentMatches,
+} from './stripe-mode';
+import { getCardsCheckoutCopy } from '../../data/cards-checkout-copy';
+import { formatPaidCardOrderTelegramMessage } from '../notifications/templates';
 import type { CheckoutSessionData, NuevoPedidoTarjetas, PedidoTarjetas } from './types';
 import {
   crearPedidoSchema,
@@ -73,6 +80,7 @@ const toPedido = (nuevo: NuevoPedidoTarjetas, sessionId: string | null = null): 
   stripeCheckoutSessionId: sessionId,
   stripePaymentIntentId: null,
   stripeCustomerId: null,
+  stripeEntorno: nuevo.stripeEntorno,
   creadoEn: nuevo.creadoEn,
   pagadoEn: null,
   telegramNotificadoEn: null,
@@ -195,6 +203,14 @@ describe('card order pricing and validation', () => {
     expect(sql).toContain('CREATE TABLE eventos_stripe');
     expect(sql).toMatch(/stripe_event_id TEXT NOT NULL UNIQUE/u);
     expect(sql).not.toMatch(/\b(?:DROP|ALTER)\b/iu);
+    const environmentMigration = readFileSync(
+      new URL('../../../migrations/003_add_card_order_stripe_environment.sql', import.meta.url),
+      'utf8',
+    );
+    expect(environmentMigration).toMatch(/ALTER TABLE pedidos_tarjetas[\s\S]+ADD COLUMN stripe_entorno/iu);
+    expect(environmentMigration).toContain("DEFAULT 'test'");
+    expect(environmentMigration).toContain("CHECK (stripe_entorno IN ('test', 'live'))");
+    expect(environmentMigration).not.toMatch(/\bDROP\b/iu);
   });
 });
 
@@ -203,7 +219,7 @@ describe('Checkout creation idempotency', () => {
     let stored: PedidoTarjetas | null = null;
     const create = vi.fn(async () => ({ id: 'cs_test_altaria', url: 'https://checkout.stripe.com/c/pay/cs_test_altaria', livemode: false }));
     const retrieve = vi.fn(async () => ({ id: 'cs_test_altaria', url: 'https://checkout.stripe.com/c/pay/cs_test_altaria', livemode: false }));
-    const gateway: CheckoutGateway = { create, retrieve };
+    const gateway: CheckoutGateway = { mode: 'test', create, retrieve };
     const createPending = vi.fn(async (nuevo: NuevoPedidoTarjetas) => {
       stored = toPedido(nuevo);
       return { pedido: stored, creado: true };
@@ -232,6 +248,18 @@ describe('Checkout creation idempotency', () => {
     expect(retrieve).toHaveBeenCalledTimes(1);
     expect(saveSession).toHaveBeenCalledTimes(1);
     expect((stored as PedidoTarjetas | null)?.estado).toBe('pendiente_pago');
+
+    const liveGateway: CheckoutGateway = {
+      mode: 'live',
+      create: vi.fn(),
+      retrieve: vi.fn(),
+    };
+    await expect(prepareCardOrderCheckout(input, 'https://altarialights.com', {
+      ...dependencies,
+      gateway: liveGateway,
+    })).rejects.toBeInstanceOf(OrderRequestConflictError);
+    expect(liveGateway.create).not.toHaveBeenCalled();
+    expect(liveGateway.retrieve).not.toHaveBeenCalled();
   });
 
   it('rejects reuse of an idempotency key with different data', async () => {
@@ -242,9 +270,10 @@ describe('Checkout creation idempotency', () => {
       numeroPedido: 'ALT-TRJ-20260904-22222222',
       huellaSolicitud: 'different',
       creadoEn: '2026-09-04T10:00:00.000Z',
+      stripeEntorno: 'test',
     });
     await expect(prepareCardOrderCheckout(input, 'https://altarialights.com', {
-      gateway: { create: vi.fn(), retrieve: vi.fn() },
+      gateway: { mode: 'test', create: vi.fn(), retrieve: vi.fn() },
       findByIdempotencyKey: async () => fake,
     })).rejects.toBeInstanceOf(OrderRequestConflictError);
   });
@@ -258,6 +287,7 @@ describe('Stripe payment validation and webhook effects', () => {
     numeroPedido: 'ALT-TRJ-20260904-22222222',
     huellaSolicitud: 'hash',
     creadoEn: '2026-09-04T10:00:00.000Z',
+    stripeEntorno: 'test',
   }, 'cs_test_altaria');
 
   it('accepts only paid, matching EUR sessions with matching metadata', () => {
@@ -306,7 +336,7 @@ describe('Stripe payment validation and webhook effects', () => {
   });
 });
 
-describe('Stripe test-mode and signature enforcement', () => {
+describe('Stripe environment and signature enforcement', () => {
   const pedido = toPedido({
     ...input,
     ...calcularImportesPedido(input.cantidad),
@@ -314,6 +344,7 @@ describe('Stripe test-mode and signature enforcement', () => {
     numeroPedido: 'ALT-TRJ-20260904-22222222',
     huellaSolicitud: 'hash',
     creadoEn: '2026-09-04T10:00:00.000Z',
+    stripeEntorno: 'test',
   });
 
   it('builds hosted payment Checkout with server amounts and minimal metadata', () => {
@@ -353,9 +384,45 @@ describe('Stripe test-mode and signature enforcement', () => {
     });
   });
 
-  it('rejects live secret keys', () => {
-    expect(() => assertStripeTestSecret('sk_live_forbidden')).toThrow(/sk_test_/u);
-    expect(() => assertStripeTestSecret('sk_test_allowed')).not.toThrow();
+  it('requires the secret key prefix to match STRIPE_MODE', () => {
+    expect(() => assertStripeSecretForMode('test', 'sk_test_allowed')).not.toThrow();
+    expect(() => assertStripeSecretForMode('test', 'sk_live_forbidden')).toThrow(/STRIPE_MODE=test/u);
+    expect(() => assertStripeSecretForMode('live', 'sk_live_allowed')).not.toThrow();
+    expect(() => assertStripeSecretForMode('live', 'sk_test_forbidden')).toThrow(/STRIPE_MODE=live/u);
+  });
+
+  it('fails safely when STRIPE_MODE is missing or invalid', () => {
+    expect(() => parseStripeMode(undefined)).toThrow(/STRIPE_MODE/u);
+    expect(() => parseStripeMode('production')).toThrow(/STRIPE_MODE/u);
+  });
+
+  it('requires Stripe livemode to match the configured environment', () => {
+    expect(() => assertStripeLivemode('test', false)).not.toThrow();
+    expect(() => assertStripeLivemode('test', true)).toThrow(/STRIPE_MODE=test/u);
+    expect(() => assertStripeLivemode('live', true)).not.toThrow();
+    expect(() => assertStripeLivemode('live', false)).toThrow(/STRIPE_MODE=live/u);
+  });
+
+  it('rejects test orders with live events and live orders with test events', () => {
+    expect(stripeEnvironmentMatches('test', false)).toBe(true);
+    expect(stripeEnvironmentMatches('test', true)).toBe(false);
+    expect(stripeEnvironmentMatches('live', true)).toBe(true);
+    expect(stripeEnvironmentMatches('live', false)).toBe(false);
+  });
+
+  it('keeps live UI free of test wording and marks test UI clearly', () => {
+    const liveCopy = Object.values(getCardsCheckoutCopy('live')).join(' ').toLowerCase();
+    const testCopy = Object.values(getCardsCheckoutCopy('test')).join(' ').toLowerCase();
+    expect(liveCopy).not.toContain('prueba');
+    expect(liveCopy).not.toContain('test mode');
+    expect(testCopy).toContain('modo de prueba');
+  });
+
+  it('distinguishes live and test paid orders in Telegram', () => {
+    expect(formatPaidCardOrderTelegramMessage({ ...pedido, stripeEntorno: 'live' }))
+      .toContain('💳 NUEVO PEDIDO PAGADO');
+    expect(formatPaidCardOrderTelegramMessage({ ...pedido, stripeEntorno: 'test' }))
+      .toContain('🧪 PEDIDO DE PRUEBA PAGADO');
   });
 
   it('accepts a valid test signature and rejects an invalid one', async () => {
@@ -366,8 +433,24 @@ describe('Stripe test-mode and signature enforcement', () => {
     const webhookSecret = 'whsec_test_altaria';
     const stripe = new Stripe('sk_test_signature');
     const signature = stripe.webhooks.generateTestHeaderString({ payload, secret: webhookSecret });
-    const event = await verifyStripeWebhookWithSecrets(payload, signature, 'sk_test_signature', webhookSecret);
+    const event = await verifyStripeWebhookWithSecrets(payload, signature, 'test', 'sk_test_signature', webhookSecret);
     expect(event.id).toBe('evt_test_signed');
-    await expect(verifyStripeWebhookWithSecrets(payload, 't=1,v1=invalid', 'sk_test_signature', webhookSecret)).rejects.toThrow();
+    await expect(verifyStripeWebhookWithSecrets(payload, 't=1,v1=invalid', 'test', 'sk_test_signature', webhookSecret)).rejects.toThrow();
+
+    const livePayload = JSON.stringify({
+      id: 'evt_live_signed', type: 'checkout.session.completed', livemode: true,
+      object: 'event', data: { object: { id: 'cs_live_altaria', object: 'checkout.session' } },
+    });
+    const liveSignature = stripe.webhooks.generateTestHeaderString({ payload: livePayload, secret: webhookSecret });
+    const liveEvent = await verifyStripeWebhookWithSecrets(
+      livePayload, liveSignature, 'live', 'sk_live_signature', webhookSecret,
+    );
+    expect(liveEvent.id).toBe('evt_live_signed');
+    await expect(verifyStripeWebhookWithSecrets(
+      payload, signature, 'live', 'sk_live_signature', webhookSecret,
+    )).rejects.toThrow(/STRIPE_MODE=live/u);
+    await expect(verifyStripeWebhookWithSecrets(
+      livePayload, liveSignature, 'test', 'sk_test_signature', webhookSecret,
+    )).rejects.toThrow(/STRIPE_MODE=test/u);
   });
 });

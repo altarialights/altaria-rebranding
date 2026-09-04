@@ -1,6 +1,7 @@
 import { calcularImportesPedido } from './config';
 import type { PedidoTarjetas } from './types';
 import type { CrearPedidoInput } from './validation';
+import { stripeEnvironmentMatches, type StripeMode } from './stripe-mode';
 import {
   createPendingCardOrder,
   findCardOrderByIdempotencyKey,
@@ -8,6 +9,7 @@ import {
 } from '../db/card-orders.repository';
 
 export interface CheckoutGateway {
+  mode: StripeMode;
   create(pedido: PedidoTarjetas, origin: string, idempotencyKey: string): Promise<{ id: string; url: string | null; livemode: boolean }>;
   retrieve(sessionId: string): Promise<{ id: string; url: string | null; livemode: boolean }>;
 }
@@ -36,8 +38,13 @@ const createOrderNumber = (date: Date, randomUUID: () => string): string => {
   return `ALT-TRJ-${day}-${suffix}`;
 };
 
-const usableSession = (session: { id: string; url: string | null; livemode: boolean }): { sessionId: string; checkoutUrl: string } => {
-  if (session.livemode) throw new CheckoutUnavailableError('Stripe live no está permitido.');
+const usableSession = (
+  session: { id: string; url: string | null; livemode: boolean },
+  mode: StripeMode,
+): { sessionId: string; checkoutUrl: string } => {
+  if (!stripeEnvironmentMatches(mode, session.livemode)) {
+    throw new CheckoutUnavailableError('La sesión de Stripe no coincide con el entorno configurado.');
+  }
   if (!session.url) throw new CheckoutUnavailableError('La sesión de pago no tiene una URL disponible.');
   return { sessionId: session.id, checkoutUrl: session.url };
 };
@@ -68,6 +75,7 @@ export const prepareCardOrderCheckout = async (
       numeroPedido: createOrderNumber(fecha, randomUUID),
       huellaSolicitud,
       creadoEn: fecha.toISOString(),
+      stripeEntorno: dependencies.gateway.mode,
     });
     pedido = persisted.pedido;
     if (pedido.huellaSolicitud !== huellaSolicitud) {
@@ -75,16 +83,22 @@ export const prepareCardOrderCheckout = async (
     }
   }
 
+  if (pedido.stripeEntorno !== dependencies.gateway.mode) {
+    throw new OrderRequestConflictError('El pedido pertenece a otro entorno de Stripe.');
+  }
+
   if (pedido.stripeCheckoutSessionId) {
-    const existing = usableSession(await dependencies.gateway.retrieve(pedido.stripeCheckoutSessionId));
+    const existing = usableSession(
+      await dependencies.gateway.retrieve(pedido.stripeCheckoutSessionId),
+      dependencies.gateway.mode,
+    );
     return { pedidoId: pedido.id, numeroPedido: pedido.numeroPedido, ...existing };
   }
 
-  const created = usableSession(await dependencies.gateway.create(
-    pedido,
-    origin,
-    `tarjetas:${input.claveIdempotencia}`,
-  ));
+  const created = usableSession(
+    await dependencies.gateway.create(pedido, origin, `tarjetas:${input.claveIdempotencia}`),
+    dependencies.gateway.mode,
+  );
   await saveSession(pedido.id, created.sessionId);
   return { pedidoId: pedido.id, numeroPedido: pedido.numeroPedido, ...created };
 };

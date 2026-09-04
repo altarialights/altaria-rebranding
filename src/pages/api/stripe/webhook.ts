@@ -30,12 +30,17 @@ export const POST: APIRoute = async ({ request }) => {
 
   if (!CHECKOUT_EVENTS.has(event.type)) return jsonResponse({ received: true, handled: false });
 
+  let pedidoId: string | null = null;
   try {
     const session = normalizeCheckoutSession(event.data.object as Stripe.Checkout.Session);
+    pedidoId = session.clientReferenceId;
     const result = await handlePaidCheckout(event.id, event.type, session);
     return jsonResponse({ received: true, handled: true, result: result.resultado });
-  } catch {
-    console.error(`[orders] Fallo al procesar el evento Stripe ${event.id}.`);
+  } catch (error) {
+    console.error('[orders] Fallo al procesar un evento Stripe.', {
+      type: error instanceof Error ? error.name : 'UnknownError',
+      pedido_id: pedidoId,
+    });
     return jsonResponse({ error: 'No se ha podido procesar el evento.' }, 500);
   }
 };

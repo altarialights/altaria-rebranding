@@ -3,6 +3,8 @@ import FloatingHeader from '../components/hero/FloatingHeader.astro';
 import ProductIcon from '../components/tarjetas/ProductIcon.astro';
 import SiteFooter from '../components/sections/SiteFooter.astro';
 import { cardsProductConfig } from '../data/cards-product';
+import { getCardsCheckoutCopy } from '../data/cards-checkout-copy';
+import { readStripeMode } from '../lib/orders/stripe-mode';
 import Base from '../layouts/Base.astro';
 import '../styles/tarjetas.css';
 
@@ -10,6 +12,7 @@ const seoDescription = 'Tarjetas NFC y QR para facilitar reseñas de Google, ref
 const contactHref = '/contacto?interes=marketing';
 const googleMapsApiKey = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY?.trim() ?? '';
 const currency = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
+const checkoutCopy = getCardsCheckoutCopy(await readStripeMode());
 const initialSubtotal = cardsProductConfig.unitPrice;
 const initialTotal = initialSubtotal + cardsProductConfig.shipping + cardsProductConfig.taxes;
 
@@ -198,7 +201,7 @@ const process = [
           </section>
 
           <section class="builder-panel builder-summary" aria-labelledby="summary-title">
-            <div class="builder-panel__heading"><span>03</span><div><h3 id="summary-title">Resumen</h3><p>Pago seguro en modo prueba.</p></div></div>
+            <div class="builder-panel__heading"><span>03</span><div><h3 id="summary-title">Resumen</h3><p>{checkoutCopy.summary}</p></div></div>
             <div class="builder-summary__product">
               <img src="/media/tarjetas/optimized/tarjeta-320.webp" width="320" height="427" alt="Tarjeta NFC y QR" loading="lazy" decoding="async" />
               <div><strong>Tarjeta NFC + QR</strong><span>Diseño Altaria</span><small>Lista para usar</small></div>
@@ -212,9 +215,9 @@ const process = [
               <div><dt>Impuestos</dt><dd data-tax>IVA incluido</dd></div>
               <div class="builder-summary__total"><dt>Total</dt><dd data-total>{currency.format(initialTotal)}</dd></div>
             </dl>
-            <p class="builder-summary__notice">El servidor recalcula todos los importes antes de abrir Stripe. No se aplica fiscalidad automática en esta fase de pruebas.</p>
-            <button class="cards-button builder-summary__cta" type="submit" data-builder-submit><span data-builder-submit-label>Pagar con Stripe (prueba)</span><ProductIcon icon="arrow" size={19} /></button>
-            <span class="builder-summary__secure"><ProductIcon icon="shield" size={17} /> Checkout alojado y seguro de Stripe · test mode</span>
+            <p class="builder-summary__notice">{checkoutCopy.notice}</p>
+            <button class="cards-button builder-summary__cta" type="submit" data-builder-submit><span data-builder-submit-label>{checkoutCopy.button}</span><ProductIcon icon="arrow" size={19} /></button>
+            <span class="builder-summary__secure"><ProductIcon icon="shield" size={17} /> {checkoutCopy.secure}</span>
             <p class="builder-form-status" role="status" aria-live="polite" data-builder-status></p>
           </section>
 

@@ -95,7 +95,9 @@ export const formatNewAssessmentTelegramMessage = (
 const money = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
 
 export const formatPaidCardOrderTelegramMessage = (pedido: PedidoTarjetas): string => [
-  '<b>💳 NUEVO PEDIDO PAGADO</b>',
+  pedido.stripeEntorno === 'live'
+    ? '<b>💳 NUEVO PEDIDO PAGADO</b>'
+    : '<b>🧪 PEDIDO DE PRUEBA PAGADO</b>',
   '',
   `<b>Pedido:</b> ${escapeTelegramHtml(pedido.numeroPedido)}`,
   `<b>Negocio:</b> ${escapeTelegramHtml(pedido.negocioNombre)}`,

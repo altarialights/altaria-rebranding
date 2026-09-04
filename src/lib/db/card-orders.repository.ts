@@ -8,6 +8,7 @@ import type {
   ResumenPedidoPublico,
 } from '../orders/types';
 import { validateCheckoutPayment } from '../orders/payment-validation';
+import { stripeEnvironmentMatches, type StripeMode } from '../orders/stripe-mode';
 
 type DatabaseRow = Record<string, unknown>;
 
@@ -46,6 +47,7 @@ const mapPedido = (row: DatabaseRow): PedidoTarjetas => ({
   stripeCheckoutSessionId: textOrNull(row.stripe_checkout_session_id),
   stripePaymentIntentId: textOrNull(row.stripe_payment_intent_id),
   stripeCustomerId: textOrNull(row.stripe_customer_id),
+  stripeEntorno: requiredText(row.stripe_entorno) === 'live' ? 'live' : 'test',
   creadoEn: requiredText(row.creado_en),
   pagadoEn: textOrNull(row.pagado_en),
   telegramNotificadoEn: textOrNull(row.telegram_notificado_en),
@@ -58,7 +60,7 @@ const SELECT_PEDIDO = `SELECT
   total_centimos, moneda, cliente_nombre, cliente_email, cliente_telefono,
   envio_direccion, envio_direccion_extra, envio_codigo_postal, envio_ciudad,
   envio_provincia, envio_pais, referencia_envio, stripe_checkout_session_id,
-  stripe_payment_intent_id, stripe_customer_id, creado_en, pagado_en,
+  stripe_payment_intent_id, stripe_customer_id, stripe_entorno, creado_en, pagado_en,
   telegram_notificado_en
 FROM pedidos_tarjetas`;
 
@@ -79,8 +81,8 @@ export const createPendingCardOrder = async (input: NuevoPedidoTarjetas): Promis
           precio_unitario_centimos, subtotal_centimos, envio_centimos, impuestos_centimos,
           total_centimos, moneda, cliente_nombre, cliente_email, cliente_telefono,
           envio_direccion, envio_direccion_extra, envio_codigo_postal, envio_ciudad,
-          envio_provincia, envio_pais, referencia_envio, creado_en
-        ) VALUES (?, ?, ?, ?, 'pendiente_pago', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          envio_provincia, envio_pais, referencia_envio, stripe_entorno, creado_en
+        ) VALUES (?, ?, ?, ?, 'pendiente_pago', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         args: [
           input.id, input.numeroPedido, input.claveIdempotencia, input.huellaSolicitud,
           input.negocio.googlePlaceId, input.negocio.nombre, input.negocio.direccion,
@@ -89,7 +91,7 @@ export const createPendingCardOrder = async (input: NuevoPedidoTarjetas): Promis
           input.totalCentimos, input.moneda, input.cliente.nombre, input.cliente.email,
           input.cliente.telefono, input.envio.direccion, input.envio.direccionExtra ?? null,
           input.envio.codigoPostal, input.envio.ciudad, input.envio.provincia, input.envio.pais,
-          input.envio.referencia ?? null, input.creadoEn,
+          input.envio.referencia ?? null, input.stripeEntorno, input.creadoEn,
         ],
       },
       {
@@ -133,14 +135,14 @@ export type StripeEventResult =
   | { resultado: 'duplicado'; pedido: null; notificarTelegram: false }
   | { resultado: 'pagado'; pedido: PedidoTarjetas; notificarTelegram: true }
   | { resultado: 'ya_pagado'; pedido: PedidoTarjetas; notificarTelegram: false }
-  | { resultado: 'pago_pendiente' | 'importe_incorrecto' | 'moneda_incorrecta' | 'metadata_incorrecta' | 'pedido_no_encontrado'; pedido: PedidoTarjetas | null; notificarTelegram: false };
+  | { resultado: 'pago_pendiente' | 'importe_incorrecto' | 'moneda_incorrecta' | 'metadata_incorrecta' | 'pedido_no_encontrado' | 'entorno_incorrecto'; pedido: PedidoTarjetas | null; notificarTelegram: false };
 
 const insertStripeEvent = async (
   tx: Transaction,
   eventId: string,
   eventType: string,
   pedidoId: string | null,
-  resultado: Exclude<StripeEventResult['resultado'], 'duplicado' | 'pagado' | 'ya_pagado'> | 'procesado' | 'duplicado_estado',
+  resultado: Exclude<StripeEventResult['resultado'], 'duplicado' | 'pagado' | 'ya_pagado' | 'entorno_incorrecto'> | 'procesado' | 'duplicado_estado',
   data: Record<string, string | number | null>,
   timestamp: string,
 ): Promise<void> => {
@@ -182,6 +184,9 @@ export const processPaidCheckoutSession = async (
     if (!pedido) {
       await insertStripeEvent(tx, eventId, eventType, null, 'pedido_no_encontrado', eventData, timestamp);
       return { resultado: 'pedido_no_encontrado', pedido: null, notificarTelegram: false };
+    }
+    if (!stripeEnvironmentMatches(pedido.stripeEntorno, session.livemode)) {
+      return { resultado: 'entorno_incorrecto', pedido, notificarTelegram: false };
     }
     const paymentValidation = validateCheckoutPayment(pedido, session);
     if (paymentValidation === 'metadata_incorrecta') {
@@ -298,11 +303,15 @@ export const recordCardOrderTelegramResult = async (
   ], 'immediate');
 };
 
-export const findPublicCardOrderByCheckoutSession = async (sessionId: string): Promise<ResumenPedidoPublico | null> => {
+export const findPublicCardOrderByCheckoutSession = async (
+  sessionId: string,
+  stripeEntorno: StripeMode,
+): Promise<ResumenPedidoPublico | null> => {
   const row: unknown = await getDatabase().get(
     `SELECT numero_pedido, negocio_nombre, cantidad, total_centimos, moneda, estado
-     FROM pedidos_tarjetas WHERE stripe_checkout_session_id = ? LIMIT 1`,
-    sessionId,
+     FROM pedidos_tarjetas
+     WHERE stripe_checkout_session_id = ? AND stripe_entorno = ? LIMIT 1`,
+    sessionId, stripeEntorno,
   );
   if (!isRow(row)) return null;
   return {

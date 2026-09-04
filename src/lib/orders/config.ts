@@ -4,8 +4,8 @@ export const PRECIO_UNITARIO_20_CENTIMOS = 1_500;
 export const ENVIO_CENTIMOS = 490;
 export const CANTIDAD_ENVIO_GRATIS = 2;
 
-// La política fiscal aún no está definida. No activar Stripe Tax ni aplicar IVA
-// hasta que exista una decisión fiscal aprobada.
+// Los precios son importes finales con IVA incluido. No se suma una línea fiscal
+// adicional ni se activa Stripe Tax sobre estos importes.
 export const IMPUESTOS_CENTIMOS = 0;
 export const MONEDA_PEDIDO = 'eur' as const;
 export const PAIS_ENVIO = 'ES' as const;

@@ -1,5 +1,6 @@
 import type { ImportesPedido } from './config';
 import type { CrearPedidoInput } from './validation';
+import type { StripeMode } from './stripe-mode';
 
 export const ESTADOS_PEDIDO = [
   'pendiente_pago', 'pagado', 'preparando', 'enviado', 'entregado', 'cancelado', 'reembolsado',
@@ -31,6 +32,7 @@ export interface PedidoTarjetas extends ImportesPedido {
   stripeCheckoutSessionId: string | null;
   stripePaymentIntentId: string | null;
   stripeCustomerId: string | null;
+  stripeEntorno: StripeMode;
   creadoEn: string;
   pagadoEn: string | null;
   telegramNotificadoEn: string | null;
@@ -41,6 +43,7 @@ export interface NuevoPedidoTarjetas extends CrearPedidoInput, ImportesPedido {
   numeroPedido: string;
   huellaSolicitud: string;
   creadoEn: string;
+  stripeEntorno: StripeMode;
 }
 
 export interface ResumenPedidoPublico {

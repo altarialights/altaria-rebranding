@@ -89,9 +89,9 @@ Una fila por intento de pedido de tarjetas NFC + QR. La migración `002_create_c
 | Idempotencia | `clave_idempotencia`, `huella_solicitud` | La clave UUID del navegador es única y la huella SHA-256 impide reutilizarla con datos distintos. |
 | Estado | `estado` y timestamps operativos | Estados permitidos: `pendiente_pago`, `pagado`, `preparando`, `enviado`, `entregado`, `cancelado`, `reembolsado`. Solo el webhook confirmado marca `pagado`. |
 | Negocio | `google_place_id`, `negocio_nombre`, `negocio_direccion`, `google_maps_url` | Datos mínimos devueltos por Google Places. No se guardan reseñas, fotos ni horarios. |
-| Importes | cantidad e importes en céntimos | EUR. El servidor calcula precio, envío, impuestos y total; nunca acepta importes del navegador. `impuestos_centimos` queda a cero hasta aprobar una política fiscal. |
+| Importes | cantidad e importes en céntimos | EUR. El servidor calcula precio, envío y total; nunca acepta importes del navegador. Los precios son finales con IVA incluido y `impuestos_centimos` queda a cero porque no se suma un recargo fiscal adicional. |
 | Cliente y envío | nombre, email, teléfono y dirección | PII estrictamente necesaria para el pedido y futuro fulfillment. |
-| Stripe | IDs de Checkout, PaymentIntent y Customer | IDs técnicos; no se almacenan tarjetas ni datos bancarios. Checkout y PaymentIntent son únicos cuando existen. |
+| Stripe | IDs de Checkout, PaymentIntent y Customer; `stripe_entorno` | IDs técnicos; no se almacenan tarjetas ni datos bancarios. Checkout y PaymentIntent son únicos cuando existen. `stripe_entorno` distingue `test` y `live`; los registros anteriores a la migración 003 quedan como `test`. |
 | Operación | tracking, transportista y timestamps | Preparado para fulfillment futuro, sin integración InPost actual. |
 | Telegram | `telegram_notificado_en`, `telegram_ultimo_error` | Permite conocer la entrega y preparar reintentos sin revertir el pago. |
 
@@ -133,6 +133,7 @@ Un fallo en cualquier sentencia revierte el batch completo.
 - Nunca se edita una migración aplicada; se añade `002_descripcion.sql`, etc.
 - Después de cada cambio se actualiza este documento.
 - `002_create_card_orders.sql` añade exclusivamente las tres tablas de pedidos y sus índices; no contiene `DROP` ni altera datos existentes.
+- `003_add_card_order_stripe_environment.sql` añade `stripe_entorno` con default `test` y restricción `test/live`; no borra ni recrea tablas y clasifica como `test` los pedidos existentes.
 - Preguntas o scoring nuevos crean `questionnaires/v2.ts`; los registros históricos conservan `questionnaire_version` y `question_version`.
 - Todos los timestamps son texto ISO 8601 en UTC generado por el servidor.
 

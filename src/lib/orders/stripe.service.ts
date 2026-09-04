@@ -1,20 +1,20 @@
 import Stripe from 'stripe';
 import type { CheckoutGateway } from './checkout.service';
 import type { CheckoutSessionData, PedidoTarjetas } from './types';
+import {
+  assertStripeLivemode,
+  assertStripeSecretForMode,
+  readStripeMode,
+  type StripeMode,
+} from './stripe-mode';
 
 const readStripeSecret = async (name: 'STRIPE_SECRET_KEY' | 'STRIPE_WEBHOOK_SECRET'): Promise<string> => {
   const { getSecret } = await import('astro:env/server');
   return getSecret(name)?.trim() ?? '';
 };
 
-export const assertStripeTestSecret = (secretKey: string): void => {
-  if (!secretKey.startsWith('sk_test_')) {
-    throw new Error('Stripe debe configurarse exclusivamente con una clave sk_test_ en esta fase.');
-  }
-};
-
-const createStripeClient = (secretKey: string): Stripe => {
-  assertStripeTestSecret(secretKey);
+const createStripeClient = (mode: StripeMode, secretKey: string): Stripe => {
+  assertStripeSecretForMode(mode, secretKey);
   return new Stripe(secretKey, { maxNetworkRetries: 2 });
 };
 
@@ -90,8 +90,10 @@ export const getSafeStripeErrorDetails = (error: unknown): SafeStripeErrorDetail
 };
 
 export const getStripeCheckoutGateway = async (): Promise<CheckoutGateway> => {
-  const stripe = createStripeClient(await readStripeSecret('STRIPE_SECRET_KEY'));
+  const mode = await readStripeMode();
+  const stripe = createStripeClient(mode, await readStripeSecret('STRIPE_SECRET_KEY'));
   return {
+    mode,
     create: async (pedido: PedidoTarjetas, origin: string, idempotencyKey: string) => {
       const session = await stripe.checkout.sessions.create(
         buildCheckoutSessionParams(pedido, origin),
@@ -107,20 +109,22 @@ export const getStripeCheckoutGateway = async (): Promise<CheckoutGateway> => {
 };
 
 export const verifyStripeWebhook = async (rawBody: string, signature: string): Promise<Stripe.Event> => {
+  const mode = await readStripeMode();
   const secretKey = await readStripeSecret('STRIPE_SECRET_KEY');
   const webhookSecret = await readStripeSecret('STRIPE_WEBHOOK_SECRET');
-  return verifyStripeWebhookWithSecrets(rawBody, signature, secretKey, webhookSecret);
+  return verifyStripeWebhookWithSecrets(rawBody, signature, mode, secretKey, webhookSecret);
 };
 
 export const verifyStripeWebhookWithSecrets = async (
   rawBody: string,
   signature: string,
+  mode: StripeMode,
   secretKey: string,
   webhookSecret: string,
 ): Promise<Stripe.Event> => {
   if (!webhookSecret.startsWith('whsec_')) throw new Error('El secreto del webhook de Stripe no está configurado.');
-  const stripe = createStripeClient(secretKey);
+  const stripe = createStripeClient(mode, secretKey);
   const event = await stripe.webhooks.constructEventAsync(rawBody, signature, webhookSecret);
-  if (event.livemode) throw new Error('Se ha rechazado un evento Stripe live en el entorno de pruebas.');
+  assertStripeLivemode(mode, event.livemode);
   return event;
 };

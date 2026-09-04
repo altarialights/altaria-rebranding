@@ -85,7 +85,7 @@ const nav = [
     };
 
     const sessionId = new URLSearchParams(window.location.search).get('session_id')?.trim() ?? '';
-    if (!/^cs_test_[A-Za-z0-9_]+$/u.test(sessionId)) {
+    if (!/^cs_(?:test|live)_[A-Za-z0-9_]+$/u.test(sessionId)) {
       showError('Comprueba el enlace o contacta con Altaria indicando cuándo realizaste el pago.');
     } else {
       const checkOrder = async (attempt = 0): Promise<void> => {

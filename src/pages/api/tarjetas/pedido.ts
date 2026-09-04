@@ -2,18 +2,20 @@ import type { APIRoute } from 'astro';
 import { hasTursoConfiguration } from '../../../lib/db/client';
 import { findPublicCardOrderByCheckoutSession } from '../../../lib/db/card-orders.repository';
 import { jsonResponse } from '../../../lib/orders/http';
+import { readStripeMode } from '../../../lib/orders/stripe-mode';
 
 export const prerender = false;
 
 export const GET: APIRoute = async ({ request }) => {
   const sessionId = new URL(request.url).searchParams.get('session_id')?.trim() ?? '';
-  if (!/^cs_test_[A-Za-z0-9_]+$/u.test(sessionId)) {
+  if (!/^cs_(?:test|live)_[A-Za-z0-9_]+$/u.test(sessionId)) {
     return jsonResponse({ error: 'La referencia de pago no es válida.' }, 400);
   }
   if (!hasTursoConfiguration()) return jsonResponse({ error: 'No podemos consultar el pedido ahora mismo.' }, 503);
 
   try {
-    const pedido = await findPublicCardOrderByCheckoutSession(sessionId);
+    const mode = await readStripeMode();
+    const pedido = await findPublicCardOrderByCheckoutSession(sessionId, mode);
     if (!pedido) return jsonResponse({ error: 'No encontramos este pedido.' }, 404);
     return jsonResponse({ pedido });
   } catch {

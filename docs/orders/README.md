@@ -6,7 +6,7 @@
 2. El servidor calcula todos los importes y crea `pedidos_tarjetas` en `pendiente_pago`.
 3. Stripe Checkout se crea con la misma clave idempotente y sus IDs se guardan en Turso.
 4. `POST /api/stripe/webhook` verifica el cuerpo raw y `Stripe-Signature`.
-5. Solo un evento test con `payment_status=paid`, EUR e importe idéntico cambia el pedido a `pagado`.
+5. Solo un evento cuyo `livemode` coincida con `STRIPE_MODE` y con `pedido.stripe_entorno`, con `payment_status=paid`, EUR e importe idéntico, cambia el pedido a `pagado`.
 6. La transacción registra `eventos_stripe` y `eventos_pedido`; después del commit se intenta Telegram.
 7. `/tarjetas-reseñas-google/pedido-confirmado` consulta Turso por la sesión y nunca interpreta el redirect como prueba de pago.
 
@@ -17,19 +17,23 @@ Variables server-side:
 ```dotenv
 TURSO_DATABASE_URL=
 TURSO_AUTH_TOKEN=
+STRIPE_MODE=test
 STRIPE_SECRET_KEY=sk_test_...
 STRIPE_WEBHOOK_SECRET=whsec_...
 TELEGRAM_BOT_TOKEN=
 TELEGRAM_CHAT_ID=
 ```
 
-La aplicación rechaza cualquier `STRIPE_SECRET_KEY` que no empiece por `sk_test_` y cualquier webhook con `livemode=true`. No necesita publishable key porque usa Checkout alojado.
+La aplicación exige `STRIPE_MODE=test|live`. En `test` solo acepta `sk_test_` y eventos `livemode=false`; en `live` solo acepta `sk_live_` y eventos `livemode=true`. El secreto de webhook debe pertenecer al endpoint del mismo entorno. No necesita publishable key porque usa Checkout alojado.
 
-Aplica una sola vez la migración:
+En una instalación nueva, aplica cada migración una sola vez:
 
 ```powershell
 Get-Content -Raw migrations/002_create_card_orders.sql | turso db shell altaria-digital-index
+Get-Content -Raw migrations/003_add_card_order_stripe_environment.sql | turso db shell altaria-digital-index
 ```
+
+Si `002_create_card_orders.sql` ya está aplicada, ejecuta únicamente la migración `003`.
 
 Para escuchar webhooks locales en el puerto configurado de Astro:
 
@@ -40,15 +44,15 @@ stripe listen --events checkout.session.completed,checkout.session.async_payment
 
 Copia el secreto `whsec_...` que muestra Stripe CLI en `STRIPE_WEBHOOK_SECRET`. El secreto de CLI no es el mismo que el del endpoint del Dashboard.
 
-## Dashboard de Stripe (sandbox)
+## Dashboard de Stripe
 
-- Activa el modo de prueba/sandbox.
-- Usa una clave secreta `sk_test_...` en Vercel; nunca una `sk_live_...`.
-- Crea el endpoint `https://altarialights.com/api/stripe/webhook` en modo prueba.
+- Para local/desarrollo, usa `STRIPE_MODE=test`, `sk_test_...` y el signing secret test/CLI.
+- Para Vercel Production, usa `STRIPE_MODE=live` y una clave `sk_live_...`.
+- Crea el endpoint LIVE `https://altarialights.com/api/stripe/webhook` desde el modo LIVE del Dashboard.
 - Suscribe `checkout.session.completed`, `checkout.session.async_payment_succeeded` y `checkout.session.async_payment_failed`.
-- Guarda el signing secret test como `STRIPE_WEBHOOK_SECRET`.
+- Guarda el signing secret del endpoint LIVE como `STRIPE_WEBHOOK_SECRET` en Vercel Production.
 - Mantén Stripe Tax, facturas, cupones y suscripciones desactivados.
 
-## Fiscalidad pendiente
+## Importes e IVA
 
-`impuestos_centimos` existe, pero actualmente vale cero. Antes de aceptar pagos reales debe aprobarse la política fiscal, reflejarla en la UI y adaptar el cálculo server-side. No basta con cambiar las claves de Stripe.
+Los precios mostrados y cobrados incluyen IVA. `impuestos_centimos` permanece a cero porque no se añade una segunda cantidad fiscal al total; el importe autoritativo se calcula siempre en servidor.
