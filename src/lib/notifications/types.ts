@@ -5,6 +5,8 @@ import type {
 } from '../assessment/types';
 
 export const NEW_ASSESSMENT_NOTIFICATION = 'new_assessment' as const;
+export const PAID_CARD_ORDER_NOTIFICATION = 'paid_card_order' as const;
+export type NotificationType = typeof NEW_ASSESSMENT_NOTIFICATION | typeof PAID_CARD_ORDER_NOTIFICATION;
 
 export interface NewAssessmentNotificationInput {
   lead: LeadInput;
@@ -24,7 +26,7 @@ export type NotificationFailureReason =
 
 interface NotificationDeliveryBase {
   provider: 'telegram';
-  notificationType: typeof NEW_ASSESSMENT_NOTIFICATION;
+  notificationType: NotificationType;
   timestamp: string;
 }
 
@@ -49,4 +51,5 @@ export interface TelegramServiceOptions {
   timeoutMs?: number;
   development?: boolean;
   warn?: (message: string) => void;
+  notificationType?: NotificationType;
 }

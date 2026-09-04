@@ -39,6 +39,12 @@ import LegalPage from '../layouts/LegalPage.astro';
         al informe. Si escribes por email también tratamos la dirección del remitente y el contenido
         del mensaje.
       </p>
+      <p>
+        Al iniciar un pedido de tarjetas tratamos el negocio seleccionado, cantidad, nombre, email,
+        teléfono, dirección de entrega y referencias necesarias para preparar y entregar el pedido,
+        además de identificadores técnicos de Stripe y del estado del pago. Altaria Lights no recibe
+        ni almacena los datos de la tarjeta.
+      </p>
 
       <h3>Navegación y analítica</h3>
       <p>
@@ -78,6 +84,12 @@ import LegalPage from '../layouts/LegalPage.astro';
       </ul>
       <h3>Comunicaciones opcionales</h3>
       <p>Enviar contenidos y recursos de Altaria Lights únicamente cuando se haya marcado el consentimiento específico de marketing.</p>
+      <h3>Pedidos</h3>
+      <ul>
+        <li>crear, cobrar, preparar y entregar pedidos de tarjetas NFC + QR;</li>
+        <li>reconciliar de forma segura el pago de Stripe con el pedido interno;</li>
+        <li>informar internamente al equipo para preparar el envío y atender incidencias.</li>
+      </ul>
       <h3>Analítica consentida</h3>
       <ul>
         <li>conocer el uso y medir las visitas de la web;</li>
@@ -104,6 +116,11 @@ import LegalPage from '../layouts/LegalPage.astro';
         comunicaciones comerciales opcionales tienen un consentimiento separado y revocable.
       </p>
       <p>
+        El tratamiento de los datos de un pedido es necesario para ejecutar la compra solicitada y
+        aplicar medidas precontractuales. Las obligaciones legales aplicables pueden exigir conservar
+        determinada información durante plazos adicionales.
+      </p>
+      <p>
         La preferencia local es necesaria para gestionar y respetar la elección de privacidad que has
         solicitado; no se utiliza para medir tu actividad.
       </p>
@@ -125,6 +142,11 @@ import LegalPage from '../layouts/LegalPage.astro';
         procedimiento periódico de supresión antes de consolidar el tratamiento en producción.
       </p>
       <p>
+        Los pedidos y sus eventos se conservan durante el tiempo necesario para tramitar la compra,
+        atender incidencias y cumplir obligaciones legales. Antes de activar pagos reales deberá
+        aprobarse y documentarse el calendario concreto de conservación y supresión.
+      </p>
+      <p>
         La configuración vigente del proyecto PostHog establece 12 meses de retención para eventos y
         30 días para grabaciones de Session Replay. La preferencia de consentimiento se considera válida
         durante 12 meses, salvo que la cambies antes o borres el almacenamiento del navegador.
@@ -138,11 +160,15 @@ import LegalPage from '../layouts/LegalPage.astro';
       <h2>Destinatarios y proveedores</h2>
       <div class="legal-callout">
         <h3>Vercel y Turso</h3>
-        <p>Vercel presta la infraestructura de ejecución web y Turso aloja la base libSQL donde se conservan diagnósticos, respuestas y datos profesionales.</p>
+        <p>Vercel presta la infraestructura de ejecución web y Turso aloja la base libSQL donde se conservan diagnósticos, respuestas, datos profesionales y pedidos.</p>
+      </div>
+      <div class="legal-callout">
+        <h3>Stripe</h3>
+        <p>Stripe aloja el proceso de pago y comunica a Altaria Lights el resultado mediante webhooks firmados. Los datos de tarjeta se introducen directamente en Stripe y no se almacenan en nuestra base.</p>
       </div>
       <div class="legal-callout">
         <h3>Telegram</h3>
-        <p>Telegram recibe una notificación interna con los datos profesionales y el resumen del diagnóstico para que el equipo pueda atender el lead. Esta comunicación no se utiliza para publicidad de terceros.</p>
+        <p>Telegram recibe notificaciones internas sobre diagnósticos y pedidos pagados con los datos necesarios para atender el lead o preparar la entrega. Esta comunicación no se utiliza para publicidad de terceros.</p>
       </div>
       <div class="legal-callout">
         <h3>PostHog</h3>
@@ -153,9 +179,9 @@ import LegalPage from '../layouts/LegalPage.astro';
         </p>
       </div>
       <p>
-        No existen integraciones activas con plataformas de publicidad, pagos, CRM o email marketing.
+        No existen integraciones activas con plataformas de publicidad, CRM o email marketing.
         Antes de producción deben revisarse los acuerdos de tratamiento, regiones y subencargados de
-        Vercel, Turso, Telegram y PostHog para la configuración concreta de cada cuenta.
+        Vercel, Turso, Stripe, Telegram y PostHog para la configuración concreta de cada cuenta.
       </p>
     </div>
   </section>
@@ -165,7 +191,7 @@ import LegalPage from '../layouts/LegalPage.astro';
     <div>
       <h2>Transferencias internacionales</h2>
       <p>
-        PostHog utiliza su región europea. Vercel, Turso y Telegram pueden recurrir a infraestructura,
+        PostHog utiliza su región europea. Vercel, Turso, Stripe y Telegram pueden recurrir a infraestructura,
         subencargados o accesos desde otros países. Cuando ello implique una transferencia
         internacional, deberán aplicarse las garantías previstas por la normativa, como una decisión
         de adecuación o cláusulas contractuales tipo, según corresponda.

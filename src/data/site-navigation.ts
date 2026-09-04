@@ -23,4 +23,10 @@ export const serviceNavigation = [
     href: '/branding',
     shortLabel: 'BR',
   },
+  {
+    label: 'Tarjetas NFC + QR',
+    description: 'Producto para reseñas',
+    href: '/tarjetas-reseñas-google',
+    shortLabel: 'NFC',
+  },
 ] as const;

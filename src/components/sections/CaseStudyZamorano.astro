@@ -677,6 +677,7 @@ const metricIcon = (icon: string) => {
   }
 
   @media (min-width: 1020px) and (max-width: 1199px) and (max-height: 820px) {
+    :global(html[data-device-class='desktop']) .case { overflow: clip; }
     :global(html[data-performance-tier='full']) .case__inner { min-height: 100svh; }
     .case__copy { padding-left: 42px; }
   }

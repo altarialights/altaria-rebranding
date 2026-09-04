@@ -2,6 +2,7 @@ import {
   NEW_ASSESSMENT_NOTIFICATION,
   type NotificationDeliveryResult,
   type NotificationFailureReason,
+  type NotificationType,
   type TelegramEnvironment,
   type TelegramServiceOptions,
 } from './types';
@@ -19,10 +20,11 @@ const readServerEnvironment = async (): Promise<TelegramEnvironment> => {
 const failure = (
   reason: NotificationFailureReason,
   timestamp: string,
+  notificationType: NotificationType = NEW_ASSESSMENT_NOTIFICATION,
 ): NotificationDeliveryResult => ({
   status: 'failed',
   provider: 'telegram',
-  notificationType: NEW_ASSESSMENT_NOTIFICATION,
+  notificationType,
   reason,
   timestamp,
 });
@@ -34,6 +36,7 @@ export const sendTelegramMessage = async (
   const timestamp = new Date().toISOString();
   const environment = options.environment ?? await readServerEnvironment();
   const development = options.development ?? process.env.NODE_ENV === 'development';
+  const notificationType = options.notificationType ?? NEW_ASSESSMENT_NOTIFICATION;
 
   if (!environment.botToken || !environment.chatId) {
     if (development) {
@@ -41,7 +44,7 @@ export const sendTelegramMessage = async (
         '[notifications] Telegram no está configurado; se omite la notificación.',
       );
     }
-    return failure('missing_configuration', timestamp);
+    return failure('missing_configuration', timestamp, notificationType);
   }
 
   const controller = new AbortController();
@@ -63,7 +66,7 @@ export const sendTelegramMessage = async (
       },
     );
 
-    if (!response.ok) return failure('http_error', timestamp);
+    if (!response.ok) return failure('http_error', timestamp, notificationType);
 
     const payload: unknown = await response.json();
     if (
@@ -72,18 +75,18 @@ export const sendTelegramMessage = async (
       || (payload as { ok?: unknown }).ok !== true
       || typeof (payload as { result?: { message_id?: unknown } }).result?.message_id !== 'number'
     ) {
-      return failure('invalid_response', timestamp);
+      return failure('invalid_response', timestamp, notificationType);
     }
 
     return {
       status: 'sent',
       provider: 'telegram',
-      notificationType: NEW_ASSESSMENT_NOTIFICATION,
+      notificationType,
       providerMessageId: (payload as { result: { message_id: number } }).result.message_id,
       timestamp,
     };
   } catch {
-    return failure(controller.signal.aborted ? 'timeout' : 'network_error', timestamp);
+    return failure(controller.signal.aborted ? 'timeout' : 'network_error', timestamp, notificationType);
   } finally {
     clearTimeout(timeout);
   }

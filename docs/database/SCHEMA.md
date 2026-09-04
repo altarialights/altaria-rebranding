@@ -79,15 +79,41 @@ Escribe `src/lib/db/leads.repository.ts`; lee `assessments.repository.ts` solo p
 
 Histórico append-only de eventos asociados a un lead. FK con cascada. `metadata_json` guarda JSON serializado sin PII. Eventos: `report_unlocked`, `review_requested`, `result_viewed`, `telegram_notification_sent` y `telegram_notification_failed`. Los eventos de Telegram guardan únicamente fecha, proveedor, tipo de notificación, identificador de mensaje o motivo técnico de fallo. Escribe `leads.repository.ts`.
 
+### `pedidos_tarjetas`
+
+Una fila por intento de pedido de tarjetas NFC + QR. La migración `002_create_card_orders.sql` es append-only y no modifica las tablas del diagnóstico.
+
+| Grupo | Columnas | Regla |
+|---|---|---|
+| Identidad | `id`, `numero_pedido` | UUID interno y número público `ALT-TRJ-AAAAMMDD-XXXXXXXXXXXX`, ambos únicos. |
+| Idempotencia | `clave_idempotencia`, `huella_solicitud` | La clave UUID del navegador es única y la huella SHA-256 impide reutilizarla con datos distintos. |
+| Estado | `estado` y timestamps operativos | Estados permitidos: `pendiente_pago`, `pagado`, `preparando`, `enviado`, `entregado`, `cancelado`, `reembolsado`. Solo el webhook confirmado marca `pagado`. |
+| Negocio | `google_place_id`, `negocio_nombre`, `negocio_direccion`, `google_maps_url` | Datos mínimos devueltos por Google Places. No se guardan reseñas, fotos ni horarios. |
+| Importes | cantidad e importes en céntimos | EUR. El servidor calcula precio, envío, impuestos y total; nunca acepta importes del navegador. `impuestos_centimos` queda a cero hasta aprobar una política fiscal. |
+| Cliente y envío | nombre, email, teléfono y dirección | PII estrictamente necesaria para el pedido y futuro fulfillment. |
+| Stripe | IDs de Checkout, PaymentIntent y Customer | IDs técnicos; no se almacenan tarjetas ni datos bancarios. Checkout y PaymentIntent son únicos cuando existen. |
+| Operación | tracking, transportista y timestamps | Preparado para fulfillment futuro, sin integración InPost actual. |
+| Telegram | `telegram_notificado_en`, `telegram_ultimo_error` | Permite conocer la entrega y preparar reintentos sin revertir el pago. |
+
+### `eventos_pedido`
+
+Timeline append-only del pedido. Guarda tipo, transición de estado y JSON mínimo sin PII. `clave_idempotencia` evita repetir eventos de creación de Checkout, Stripe o Telegram. FK a `pedidos_tarjetas` con cascada.
+
+### `eventos_stripe`
+
+Registro idempotente de webhooks. `stripe_event_id` es `UNIQUE`; antes de cualquier transición se comprueba si ya existe dentro de una transacción `immediate`. Guarda solo el tipo, resultado, pedido relacionado, importe/currency/payment status y fecha, nunca el payload completo.
+
 ## Relaciones e índices
 
 ```text
 digital_assessments 1 ── 5 digital_assessment_scores
 digital_assessments 1 ── 25 digital_assessment_answers
 digital_assessments 1 ── 1 digital_leads 1 ── N digital_lead_events
+pedidos_tarjetas 1 ── N eventos_pedido
+pedidos_tarjetas 1 ── N eventos_stripe
 ```
 
-Hay índices por fecha/campaña, prioridad comercial, estado CRM y timeline de eventos. El hash de token y las claves únicas ya crean índices SQLite implícitos.
+Hay índices por fecha/campaña, prioridad comercial, estado CRM, estado/fecha de pedidos y timelines. Las claves únicas de número de pedido, idempotencia y Stripe crean además índices SQLite implícitos.
 
 ## Flujo de escritura
 
@@ -106,6 +132,7 @@ Un fallo en cualquier sentencia revierte el batch completo.
 - `migrations/` es append-only y usa prefijos numéricos.
 - Nunca se edita una migración aplicada; se añade `002_descripcion.sql`, etc.
 - Después de cada cambio se actualiza este documento.
+- `002_create_card_orders.sql` añade exclusivamente las tres tablas de pedidos y sus índices; no contiene `DROP` ni altera datos existentes.
 - Preguntas o scoring nuevos crean `questionnaires/v2.ts`; los registros históricos conservan `questionnaire_version` y `question_version`.
 - Todos los timestamps son texto ISO 8601 en UTC generado por el servidor.
 

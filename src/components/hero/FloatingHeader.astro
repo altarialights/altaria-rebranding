@@ -734,7 +734,7 @@ const secondaryNav = navWithoutServices.some((item: HeaderLink) => item.href ===
     }
 
     .hdr__capsule.is-menu-open::before {
-      height: 410px;
+      height: var(--hdr-menu-open-height, 410px);
       border-radius: 29px 29px 40px 29px;
       box-shadow: 0 28px 48px -30px rgba(7,43,85,.72);
     }
@@ -918,7 +918,7 @@ const secondaryNav = navWithoutServices.some((item: HeaderLink) => item.href ===
     }
 
     .hdr__capsule.is-menu-open::before {
-      height: 455px;
+      height: var(--hdr-menu-open-height, 455px);
       border-radius: 27px 27px 42px 27px;
     }
 
@@ -968,6 +968,337 @@ const secondaryNav = navWithoutServices.some((item: HeaderLink) => item.href ===
       width: min(100%, 270px);
       min-height: 50px;
       margin-top: 9px;
+    }
+  }
+
+  /* Wide touch tablets keep the established responsive menu even when
+     their CSS width crosses the desktop breakpoint. Device classification
+     distinguishes them from real 1024px+ desktop windows. */
+  @media (min-width: 1020px) and (max-width: 1366px) {
+    :global(html[data-device-class='tablet']) .hdr {
+      inset-block-start: max(18px, env(safe-area-inset-top));
+      isolation: isolate;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr::after {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      content: '';
+      pointer-events: none;
+      background: rgba(10,51,96,.11);
+      opacity: 0;
+      transition: opacity 220ms ease;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr.is-menu-open::after {
+      opacity: 1;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__capsule {
+      position: relative;
+      isolation: isolate;
+      width: calc(100% - 40px);
+      height: 58px;
+      padding: 6px 8px 6px 18px;
+      align-items: flex-start;
+      overflow: visible;
+      border: 0;
+      border-radius: 29px;
+      background: transparent;
+      backdrop-filter: none;
+      box-shadow: none;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__capsule::before,
+    :global(html[data-device-class='tablet']) .hdr__capsule::after {
+      position: absolute;
+      z-index: -1;
+      content: '';
+      pointer-events: none;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__capsule::before {
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 100%;
+      border: 1px solid rgba(255,255,255,.82);
+      border-radius: 29px;
+      background: #f3f9fd;
+      box-shadow: 0 18px 36px -28px rgba(7,43,85,.78);
+      transition: height 360ms cubic-bezier(.22,1,.36,1), border-radius 360ms cubic-bezier(.22,1,.36,1), box-shadow 240ms ease;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__capsule::after {
+      top: calc(var(--hdr-menu-open-height, 410px) - 84px);
+      right: 3.5%;
+      width: 126px;
+      height: 82px;
+      border-radius: 50%;
+      background: #f3f9fd;
+      opacity: 0;
+      transform: scale(.76);
+      transform-origin: center;
+      transition: opacity 160ms ease 80ms, transform 320ms cubic-bezier(.22,1,.36,1) 40ms;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__capsule.is-menu-open::before {
+      height: var(--hdr-menu-open-height, 410px);
+      border-radius: 29px 29px 40px 29px;
+      box-shadow: 0 28px 48px -30px rgba(7,43,85,.72);
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__capsule.is-menu-open::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__brand {
+      position: relative;
+      z-index: 2;
+      width: 150px;
+      min-width: 150px;
+      height: 44px;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__nav,
+    :global(html[data-device-class='tablet']) .hdr__cta {
+      display: none;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu {
+      position: static;
+      display: block;
+      margin-left: auto;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-button {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      place-items: center;
+      flex: 0 0 44px;
+      border: 1px solid rgba(48,126,190,.18);
+      border-radius: 50%;
+      color: #1760a5;
+      background: #dceefa;
+      cursor: pointer;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-button svg {
+      width: 20px;
+      height: 20px;
+      overflow: visible;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-width: 1.5;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-line,
+    :global(html[data-device-class='tablet']) .hdr__close-line {
+      transform-origin: center;
+      transition: opacity 140ms ease, transform 220ms cubic-bezier(.22,1,.36,1);
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__close-line {
+      opacity: 0;
+      transform: scale(.65);
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-button[aria-expanded='true'] .hdr__menu-line {
+      opacity: 0;
+      transform: scaleX(.35);
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-button[aria-expanded='true'] .hdr__close-line {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-button:focus-visible,
+    :global(html[data-device-class='tablet']) .hdr__menu-panel a:focus-visible {
+      outline: 3px solid rgba(43,129,212,.42);
+      outline-offset: 3px;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-panel {
+      position: absolute;
+      z-index: 1;
+      top: 59px;
+      right: 10px;
+      left: 10px;
+      width: auto;
+      height: auto;
+      max-height: none;
+      padding: 9px 8px 16px;
+      overflow: visible;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      backdrop-filter: none;
+      box-shadow: none;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity 170ms ease, transform 260ms cubic-bezier(.22,1,.36,1), visibility 0s linear 260ms;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-panel[hidden] {
+      display: none;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__capsule.is-menu-open .hdr__menu-panel {
+      pointer-events: auto;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      transition-delay: 40ms, 40ms, 0s;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-heading {
+      display: flex;
+      padding: 1px 5px 10px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      color: #547493;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-heading > a {
+      color: #1767ae;
+      text-decoration: none;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-panel .hdr__menu-services {
+      display: grid;
+      margin: 0;
+      padding: 0;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 20px;
+      list-style: none;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-panel li,
+    :global(html[data-device-class='tablet']) .hdr__menu-cta {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 180ms ease, transform 240ms cubic-bezier(.22,1,.36,1);
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__capsule.is-menu-open .hdr__menu-panel li,
+    :global(html[data-device-class='tablet']) .hdr__capsule.is-menu-open .hdr__menu-cta {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: calc(90ms + var(--hdr-menu-order) * 45ms);
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-panel .hdr__menu-services li a {
+      display: grid;
+      min-height: 86px;
+      padding: 9px 6px;
+      grid-template-columns: 42px minmax(0, 1fr) 18px;
+      align-items: center;
+      gap: 10px;
+      border: 0;
+      border-bottom: 1px solid rgba(21,89,152,.17);
+      border-radius: 0;
+      color: #123963;
+      background: transparent;
+      text-decoration: none;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-service-mark {
+      display: grid;
+      width: 42px;
+      aspect-ratio: 1;
+      place-items: center;
+      border-radius: 13px;
+      color: #0966c1;
+      background: linear-gradient(145deg,#eef8ff,#d9edfc);
+      box-shadow: inset 0 1px 0 #fff;
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-panel .hdr__menu-services li a > span:nth-child(2) {
+      display: grid;
+      min-width: 0;
+      gap: 3px;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-panel .hdr__menu-services strong {
+      font-family: var(--font-sans);
+      font-size: clamp(11px,1.7vw,13px);
+      font-weight: 780;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-panel .hdr__menu-services small {
+      color: #6684a1;
+      font-size: 9.5px;
+      line-height: 1.25;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-arrow {
+      justify-self: end;
+      font-size: 18px;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-secondary {
+      display: flex;
+      margin-top: 8px;
+      padding-top: 7px;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-secondary a {
+      padding: 9px 14px;
+      border-radius: 999px;
+      color: #315d86;
+      background: rgba(228,242,252,.84);
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__menu-panel .hdr__menu-cta {
+      display: flex;
+      width: min(100%,290px);
+      min-height: 48px;
+      margin: 10px auto 0;
+      padding: 0 18px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border-radius: 999px;
+      color: #fff;
+      background: linear-gradient(135deg,#1762ad,#093b76);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    :global(html[data-device-class='tablet']) .hdr__capsule.is-menu-open .hdr__menu-heading,
+    :global(html[data-device-class='tablet']) .hdr__capsule.is-menu-open .hdr__menu-secondary,
+    :global(html[data-device-class='tablet']) .hdr__capsule.is-menu-open .hdr__menu-cta {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: calc(70ms + var(--hdr-menu-order) * 45ms);
     }
   }
 

@@ -15,6 +15,7 @@ function initialiseDesktopServices(): void {
     const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
     let open = false;
     let closeTimer = 0;
+    let restoringFocus = false;
 
     const setServices = (nextOpen: boolean, restoreFocus = false): void => {
       if (!button || !panel || open === nextOpen) return;
@@ -24,7 +25,11 @@ function initialiseDesktopServices(): void {
       button.setAttribute('aria-expanded', String(open));
       panel.setAttribute('aria-hidden', String(!open));
       setHeaderRegionInert(panel, !open);
-      if (!open && restoreFocus) button.focus({ preventScroll: true });
+      if (!open && restoreFocus) {
+        restoringFocus = true;
+        button.focus({ preventScroll: true });
+        restoringFocus = false;
+      }
     };
 
     const scheduleClose = (): void => {
@@ -45,7 +50,9 @@ function initialiseDesktopServices(): void {
     root.addEventListener('pointerleave', () => {
       if (desktop.matches && canHover.matches) scheduleClose();
     });
-    root.addEventListener('focusin', () => setServices(true));
+    root.addEventListener('focusin', () => {
+      if (!restoringFocus) setServices(true);
+    });
     root.addEventListener('focusout', (event) => {
       if (!root.contains(event.relatedTarget as Node | null)) scheduleClose();
     });
@@ -73,6 +80,12 @@ function initialiseResponsiveMenu(): void {
     let open = false;
     let closeTimer = 0;
 
+    const updateOpenHeight = (): void => {
+      if (!capsule || !panel || panel.hidden) return;
+      const openHeight = Math.ceil(panel.offsetTop + panel.scrollHeight + 14);
+      capsule.style.setProperty('--hdr-menu-open-height', `${openHeight}px`);
+    };
+
     const setMenu = (nextOpen: boolean, restoreFocus = false): void => {
       if (!capsule || !button || !panel || open === nextOpen) return;
       window.clearTimeout(closeTimer);
@@ -87,6 +100,7 @@ function initialiseResponsiveMenu(): void {
       if (open) {
         panel.hidden = false;
         void panel.offsetHeight;
+        updateOpenHeight();
         capsule.classList.add('is-menu-open');
         return;
       }
@@ -110,6 +124,10 @@ function initialiseResponsiveMenu(): void {
       setMenu(false);
     });
     responsive.addEventListener('change', () => setMenu(false));
+    document.addEventListener('altaria:device-class-change', () => setMenu(false));
+    window.addEventListener('resize', () => {
+      if (open) window.requestAnimationFrame(updateOpenHeight);
+    }, { passive: true });
   });
 }
 

@@ -1,0 +1,136 @@
+---
+import FloatingHeader from '../../components/hero/FloatingHeader.astro';
+import ProductIcon from '../../components/tarjetas/ProductIcon.astro';
+import SiteFooter from '../../components/sections/SiteFooter.astro';
+import Base from '../../layouts/Base.astro';
+import '../../styles/tarjetas.css';
+
+const nav = [
+  { label: 'Servicios', href: '/servicios' },
+  { label: 'Tarjetas NFC + QR', href: '/tarjetas-reseñas-google' },
+] as const;
+---
+
+<Base
+  title="Estado de tu pedido | Altaria Lights"
+  description="Consulta segura del estado de tu pedido de tarjetas NFC y QR."
+  canonical={false}
+  robots="noindex,nofollow"
+  schema={false}
+>
+  <FloatingHeader alwaysVisible brandHref="/" nav={nav} cta={{ label: 'Hablemos', href: '/contacto' }} />
+  <main class="order-confirmation" data-order-confirmation>
+    <div class="order-confirmation__sky" aria-hidden="true"></div>
+    <section class="order-confirmation__card" aria-labelledby="confirmation-title">
+      <span class="order-confirmation__icon" data-confirmation-icon><ProductIcon icon="shield" size={34} /></span>
+      <p class="cards-eyebrow">Pedido de tarjetas</p>
+      <h1 id="confirmation-title" data-confirmation-title>Comprobando tu pago…</h1>
+      <p class="order-confirmation__lead" data-confirmation-lead>Estamos consultando el estado guardado de tu pedido.</p>
+
+      <dl class="order-confirmation__summary" data-confirmation-summary hidden>
+        <div><dt>Pedido</dt><dd data-order-number>—</dd></div>
+        <div><dt>Negocio</dt><dd data-order-business>—</dd></div>
+        <div><dt>Cantidad</dt><dd data-order-quantity>—</dd></div>
+        <div><dt>Importe</dt><dd data-order-total>—</dd></div>
+        <div><dt>Estado</dt><dd data-order-status>—</dd></div>
+      </dl>
+
+      <div class="order-confirmation__steps" data-confirmation-steps hidden>
+        <h2>¿Qué ocurre ahora?</h2>
+        <ol>
+          <li><span>1</span><p><strong>Revisamos los datos</strong><small>Comprobamos que todo esté correcto.</small></p></li>
+          <li><span>2</span><p><strong>Preparamos las tarjetas</strong><small>Las dejamos listas para tu negocio.</small></p></li>
+          <li><span>3</span><p><strong>Las enviamos</strong><small>Preparamos la entrega a tu dirección.</small></p></li>
+          <li><span>4</span><p><strong>Te informamos</strong><small>Recibirás los datos del envío.</small></p></li>
+        </ol>
+      </div>
+
+      <p class="order-confirmation__status" role="status" aria-live="polite" data-confirmation-status></p>
+      <div class="order-confirmation__actions">
+        <a class="cards-button" href="/tarjetas-reseñas-google">Volver a las tarjetas</a>
+        <a class="cards-text-link" href="/contacto">¿Necesitas ayuda?</a>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+
+  <script>
+    const root = document.querySelector<HTMLElement>('[data-order-confirmation]');
+    const title = root?.querySelector<HTMLElement>('[data-confirmation-title]');
+    const lead = root?.querySelector<HTMLElement>('[data-confirmation-lead]');
+    const summary = root?.querySelector<HTMLElement>('[data-confirmation-summary]');
+    const steps = root?.querySelector<HTMLElement>('[data-confirmation-steps]');
+    const status = root?.querySelector<HTMLElement>('[data-confirmation-status]');
+    const currency = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
+    const statusLabels: Record<string, string> = {
+      pendiente_pago: 'Pendiente de confirmación',
+      pagado: 'Pagado',
+      preparando: 'En preparación',
+      enviado: 'Enviado',
+      entregado: 'Entregado',
+      cancelado: 'Cancelado',
+      reembolsado: 'Reembolsado',
+    };
+
+    const setText = (selector: string, value: string): void => {
+      const element = root?.querySelector<HTMLElement>(selector);
+      if (element) element.textContent = value;
+    };
+
+    const showError = (message: string): void => {
+      root?.setAttribute('data-state', 'error');
+      if (title) title.textContent = 'No podemos confirmar el pedido';
+      if (lead) lead.textContent = 'El enlace no es válido o el estado no está disponible.';
+      if (status) status.textContent = message;
+    };
+
+    const sessionId = new URLSearchParams(window.location.search).get('session_id')?.trim() ?? '';
+    if (!/^cs_test_[A-Za-z0-9_]+$/u.test(sessionId)) {
+      showError('Comprueba el enlace o contacta con Altaria indicando cuándo realizaste el pago.');
+    } else {
+      const checkOrder = async (attempt = 0): Promise<void> => {
+        try {
+          const response = await fetch(`/api/tarjetas/pedido?session_id=${encodeURIComponent(sessionId)}`, {
+            credentials: 'same-origin',
+            headers: { accept: 'application/json' },
+          });
+          const payload: unknown = await response.json().catch(() => null);
+          const pedido = payload && typeof payload === 'object'
+            ? (payload as { pedido?: Record<string, unknown> }).pedido
+            : undefined;
+          if (!response.ok || !pedido) throw new Error('Pedido no disponible.');
+
+          const estado = typeof pedido.estado === 'string' ? pedido.estado : 'pendiente_pago';
+          setText('[data-order-number]', String(pedido.numeroPedido ?? '—'));
+          setText('[data-order-business]', String(pedido.negocioNombre ?? '—'));
+          setText('[data-order-quantity]', `${String(pedido.cantidad ?? '—')} ${pedido.cantidad === 1 ? 'tarjeta' : 'tarjetas'}`);
+          setText('[data-order-total]', currency.format(Number(pedido.totalCentimos ?? 0) / 100));
+          setText('[data-order-status]', statusLabels[estado] ?? estado);
+          summary?.removeAttribute('hidden');
+
+          if (estado === 'pendiente_pago' && attempt < 7) {
+            if (status) status.textContent = 'Stripe ha redirigido correctamente. Esperando la confirmación segura del webhook…';
+            window.setTimeout(() => void checkOrder(attempt + 1), 2_000);
+            return;
+          }
+
+          root?.setAttribute('data-state', estado === 'pendiente_pago' ? 'pending' : 'confirmed');
+          if (title) title.textContent = estado === 'pendiente_pago' ? 'Pago pendiente de confirmar' : 'Pedido recibido';
+          if (lead) lead.textContent = estado === 'pendiente_pago'
+            ? 'Todavía no tenemos confirmación bancaria. No marcaremos el pedido como pagado hasta recibirla.'
+            : 'Ya tenemos tus tarjetas en marcha.';
+          if (status) status.textContent = estado === 'pendiente_pago'
+            ? 'Puedes volver a consultar esta página dentro de unos minutos.'
+            : 'El pago está confirmado en nuestro sistema.';
+          if (estado !== 'pendiente_pago') {
+            steps?.removeAttribute('hidden');
+            try { window.sessionStorage.removeItem('altaria.cards.checkout.idempotency-key'); } catch { /* Optional storage. */ }
+          }
+        } catch {
+          showError('No hemos podido consultar el pedido. Inténtalo de nuevo dentro de unos minutos.');
+        }
+      };
+      void checkOrder();
+    }
+  </script>
+</Base>

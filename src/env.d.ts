@@ -7,6 +7,9 @@ interface ImportMetaEnv {
   readonly ASSESSMENT_DEMO_MODE?: string;
   readonly TELEGRAM_BOT_TOKEN?: string;
   readonly TELEGRAM_CHAT_ID?: string;
+  readonly PUBLIC_GOOGLE_MAPS_API_KEY?: string;
+  readonly STRIPE_SECRET_KEY?: string;
+  readonly STRIPE_WEBHOOK_SECRET?: string;
 }
 
 interface ImportMeta {

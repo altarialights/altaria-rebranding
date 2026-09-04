@@ -10,6 +10,7 @@ const sitemapPaths = new Set([
   '/marketing',
   '/software',
   '/branding',
+  '/tarjetas-reseñas-google',
   '/contacto',
   '/medir-nivel-digital',
   '/proyectos/de-zamorano',
@@ -21,7 +22,8 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter(page) {
-        return sitemapPaths.has(new URL(page).pathname.replace(/\/$/, '') || '/');
+        const pathname = decodeURI(new URL(page).pathname).replace(/\/$/, '') || '/';
+        return sitemapPaths.has(pathname);
       },
       serialize(item) {
         const url = new URL(item.url);

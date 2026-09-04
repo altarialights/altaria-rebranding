@@ -1,5 +1,6 @@
 import type { AssessmentDimension, CommercialPriority } from '../assessment/types';
 import type { NewAssessmentNotificationInput } from './types';
+import type { PedidoTarjetas } from '../orders/types';
 
 const DIMENSION_LABELS: Record<AssessmentDimension, string> = {
   presence: 'Presencia digital',
@@ -90,3 +91,28 @@ export const formatNewAssessmentTelegramMessage = (
     escapeTelegramHtml(input.resultUrl),
   ].join('\n');
 };
+
+const money = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
+
+export const formatPaidCardOrderTelegramMessage = (pedido: PedidoTarjetas): string => [
+  '<b>💳 NUEVO PEDIDO PAGADO</b>',
+  '',
+  `<b>Pedido:</b> ${escapeTelegramHtml(pedido.numeroPedido)}`,
+  `<b>Negocio:</b> ${escapeTelegramHtml(pedido.negocioNombre)}`,
+  `<b>Cantidad:</b> ${pedido.cantidad} ${pedido.cantidad === 1 ? 'tarjeta' : 'tarjetas'}`,
+  `<b>Total:</b> ${escapeTelegramHtml(money.format(pedido.totalCentimos / 100))}`,
+  '',
+  `<b>Cliente:</b> ${escapeTelegramHtml(pedido.clienteNombre)}`,
+  `<b>Teléfono:</b> ${escapeTelegramHtml(pedido.clienteTelefono)}`,
+  `<b>Email:</b> ${escapeTelegramHtml(pedido.clienteEmail)}`,
+  '',
+  '<b>Envío:</b>',
+  escapeTelegramHtml(pedido.envioDireccion),
+  pedido.envioDireccionExtra ? escapeTelegramHtml(pedido.envioDireccionExtra) : '',
+  `${escapeTelegramHtml(pedido.envioCodigoPostal)} ${escapeTelegramHtml(pedido.envioCiudad)}`,
+  escapeTelegramHtml(pedido.envioProvincia),
+  pedido.referenciaEnvio ? `<b>Referencia:</b> ${escapeTelegramHtml(pedido.referenciaEnvio)}` : '',
+  '',
+  pedido.googleMapsUrl ? `<b>Google:</b> ${escapeTelegramHtml(pedido.googleMapsUrl)}` : '',
+  '<b>Estado:</b> PAGADO ✅',
+].filter(Boolean).join('\n');
