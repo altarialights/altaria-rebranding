@@ -16,6 +16,7 @@ import { POST } from '../../pages/api/tarjetas/checkout';
 
 const validRequest = {
   claveIdempotencia: '17a9d45d-72a6-4f35-a7b8-145f901b0123',
+  aceptaCondicionesCompra: true,
   negocio: {
     googlePlaceId: 'ChIJAltariaTest',
     nombre: 'Café Altaria',
@@ -66,6 +67,7 @@ describe('POST /api/tarjetas/checkout validation contract', () => {
   });
 
   it.each([
+    ['aceptaCondicionesCompra', { aceptaCondicionesCompra: false }, 'Debes aceptar las Condiciones de compra para continuar.'],
     ['cliente.telefono', { cliente: { ...validRequest.cliente, telefono: 'incorrecto' } }, 'Introduce un teléfono válido.'],
     ['cliente.email', { cliente: { ...validRequest.cliente, email: 'incorrecto' } }, 'Introduce un email válido.'],
     ['envio.ciudad', { envio: { ...validRequest.envio, ciudad: '' } }, 'Introduce la localidad.'],

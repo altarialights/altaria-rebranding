@@ -556,6 +556,13 @@
   font-size: 11px;
 }
 
+/* Safari amplía automáticamente inputs con texto menor de 16 px al enfocarlos. */
+@media (hover: none) and (pointer: coarse) {
+  .builder-search input {
+    font-size: 16px;
+  }
+}
+
 .builder-search input::placeholder,
 .builder-field input::placeholder {
   color: #8ba1b6;
@@ -1106,6 +1113,71 @@
   color: #7a91a7;
   font-size: 8.5px;
   line-height: 1.45;
+}
+
+.builder-precontract {
+  display: grid;
+  margin-top: 13px;
+  padding: 12px 13px;
+  gap: 7px;
+  border: 1px solid rgba(20, 91, 158, .11);
+  border-radius: 13px;
+  color: #527493;
+  background: rgba(239, 248, 254, .78);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.builder-precontract p {
+  margin: 0;
+}
+
+.builder-precontract strong {
+  color: #164a7e;
+}
+
+.builder-terms {
+  display: grid;
+  margin-top: 13px;
+  grid-template-columns: 18px minmax(0, 1fr);
+  align-items: start;
+  gap: 9px;
+  color: #476b8d;
+  font-size: 10px;
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+.builder-terms input {
+  width: 17px;
+  height: 17px;
+  margin: 1px 0 0;
+  accent-color: #0873e8;
+}
+
+.builder-terms a {
+  color: #075eae;
+  font-weight: 720;
+  text-underline-offset: 2px;
+}
+
+.builder-terms input:focus-visible {
+  outline: 3px solid rgba(8, 115, 232, .22);
+  outline-offset: 2px;
+}
+
+.builder-terms input.is-invalid {
+  outline: 2px solid #a34c55;
+  outline-offset: 2px;
+}
+
+.builder-terms__error {
+  display: block;
+  min-height: 13px;
+  margin: 4px 0 0 27px;
+  color: #a34c55;
+  font-size: 8.5px;
+  line-height: 1.35;
 }
 
 .builder-summary__cta {

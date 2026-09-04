@@ -31,6 +31,7 @@ import { handlePaidCheckout } from './webhook.service';
 
 const input: CrearPedidoInput = {
   claveIdempotencia: '17a9d45d-72a6-4f35-a7b8-145f901b0123',
+  aceptaCondicionesCompra: true,
   negocio: {
     googlePlaceId: 'ChIJAltariaTest',
     nombre: 'Café Altaria',

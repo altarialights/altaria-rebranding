@@ -9,6 +9,7 @@ import type {
 } from '../orders/types';
 import { validateCheckoutPayment } from '../orders/payment-validation';
 import { stripeEnvironmentMatches, type StripeMode } from '../orders/stripe-mode';
+import { PURCHASE_TERMS_VERSION } from '../orders/purchase-terms';
 
 type DatabaseRow = Record<string, unknown>;
 
@@ -98,8 +99,12 @@ export const createPendingCardOrder = async (input: NuevoPedidoTarjetas): Promis
         sql: `INSERT INTO eventos_pedido (
           id, pedido_id, tipo_evento, estado_anterior, estado_nuevo,
           datos_minimos_json, clave_idempotencia, creado_en
-        ) VALUES (?, ?, 'pedido_creado', NULL, 'pendiente_pago', '{}', ?, ?)`,
-        args: [crypto.randomUUID(), input.id, `pedido:${input.id}:creado`, input.creadoEn],
+        ) VALUES (?, ?, 'pedido_creado', NULL, 'pendiente_pago', ?, ?, ?)`,
+        args: [
+          crypto.randomUUID(), input.id,
+          JSON.stringify({ condiciones_compra_version: PURCHASE_TERMS_VERSION }),
+          `pedido:${input.id}:creado`, input.creadoEn,
+        ],
       },
     ], 'immediate');
   } catch (error) {

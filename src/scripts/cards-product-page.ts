@@ -131,6 +131,8 @@ function initConfigurator(): void {
   const builderStatus = builder.querySelector<HTMLElement>('[data-builder-status]');
   const submitButton = builder.querySelector<HTMLButtonElement>('[data-builder-submit]');
   const submitLabel = builder.querySelector<HTMLElement>('[data-builder-submit-label]');
+  const idleSubmitLabel = submitLabel?.textContent?.trim() ?? 'Pagar de forma segura';
+  const termsAccepted = builder.querySelector<HTMLInputElement>('[data-terms-accepted]');
   const requiredFields = [...builder.querySelectorAll<HTMLInputElement>('[data-required-field]')];
   const apiFields = new Map(
     [...builder.querySelectorAll<HTMLInputElement>('[data-api-field]')].map((field) => [field.dataset.apiField ?? '', field]),
@@ -162,6 +164,7 @@ function initConfigurator(): void {
 
   const safeFieldMessages: Record<string, string> = {
     'negocio.googlePlaceId': 'Selecciona un negocio de la lista de Google.',
+    aceptaCondicionesCompra: 'Debes aceptar las Condiciones de compra para continuar.',
     cantidad: `Elige una cantidad entre 1 y ${cardsProductConfig.maxQuantity}.`,
     'cliente.nombre': 'Introduce tu nombre completo.',
     'cliente.email': 'Introduce un email válido.',
@@ -520,7 +523,7 @@ function initConfigurator(): void {
       submitButton.disabled = active;
       submitButton.classList.toggle('is-loading', active);
     }
-    if (submitLabel) submitLabel.textContent = active ? 'Preparando pago…' : 'Pagar con Stripe (prueba)';
+    if (submitLabel) submitLabel.textContent = active ? 'Preparando pago…' : idleSubmitLabel;
   };
 
   const readValue = (name: string): string => {
@@ -574,6 +577,7 @@ function initConfigurator(): void {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           claveIdempotencia: getIdempotencyKey(),
+          aceptaCondicionesCompra: termsAccepted?.checked === true,
           negocio: {
             googlePlaceId: selectedPlace.placeId,
             nombre: selectedPlace.displayName,

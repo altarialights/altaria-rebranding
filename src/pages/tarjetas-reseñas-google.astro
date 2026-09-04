@@ -59,6 +59,19 @@ const process = [
   { icon: 'package', title: 'Recibe tus tarjetas', copy: 'Las preparamos y enviamos listas para colocar.' },
   { icon: 'star', title: 'Consigue reseñas', copy: 'Tus clientes acercan el móvil o escanean el QR.' },
 ] as const;
+
+const faqs = [
+  { question: '¿En cuánto tiempo recibiré mi tarjeta?', answer: 'El plazo estimado de entrega es de 5–7 días desde la confirmación del pago.' },
+  { question: '¿Cómo funciona?', answer: 'El NFC y el código QR llevan al cliente al destino configurado para el negocio seleccionado. Puede acercar un móvil compatible o escanear el QR.' },
+  { question: '¿La tarjeta viene configurada?', answer: 'Sí. Cada tarjeta se programa y prepara específicamente para el negocio seleccionado durante el pedido.' },
+  { question: '¿Puedo devolverla?', answer: 'Al configurarse específicamente para tu negocio, puede resultar aplicable la excepción legal al derecho de desistimiento para productos confeccionados según las especificaciones del cliente o claramente personalizados. Esto no afecta a tus derechos si el producto es defectuoso, está mal configurado o no corresponde con lo solicitado.' },
+  { question: '¿Qué pasa si el NFC o el QR no funciona?', answer: 'Contacta con Altaria Lights para que revisemos la incidencia y, si existe una falta de conformidad, pongamos el producto en conformidad conforme a la normativa aplicable.' },
+  { question: '¿Cómo pago?', answer: 'El pago se realiza mediante Stripe Checkout.' },
+  { question: '¿Altaria guarda mi tarjeta bancaria?', answer: 'No. Altaria Lights no guarda los datos completos de tu tarjeta bancaria; el pago se procesa a través de Stripe.' },
+  { question: '¿Puedo pedir varias tarjetas?', answer: 'Sí. Puedes elegir una de las cantidades disponibles o indicar una cantidad personalizada dentro del límite mostrado en el configurador.' },
+  { question: '¿Necesito una aplicación?', answer: 'No. Un móvil compatible puede acercarse a la tarjeta y la cámara del dispositivo puede escanear el código QR.' },
+  { question: '¿Cómo sé a qué negocio estará enlazada?', answer: 'La tarjeta se configura para el negocio que selecciones entre las sugerencias de Google durante el pedido. Su nombre aparece en el resumen antes de pagar.' },
+] as const;
 ---
 
 <Base
@@ -216,6 +229,15 @@ const process = [
               <div class="builder-summary__total"><dt>Total</dt><dd data-total>{currency.format(initialTotal)}</dd></div>
             </dl>
             <p class="builder-summary__notice">{checkoutCopy.notice}</p>
+            <div class="builder-precontract">
+              <p><strong>Entrega estimada en 5–7 días</strong> desde la confirmación del pago.</p>
+              <p>La tarjeta será programada específicamente para el negocio seleccionado. Una vez configurada, puede resultar aplicable la excepción legal al derecho de desistimiento de los productos confeccionados según las especificaciones del cliente o claramente personalizados. Esto no afecta a tus derechos si el producto es defectuoso, está mal configurado o no corresponde con lo solicitado.</p>
+            </div>
+            <label class="builder-terms" for="purchase-terms">
+              <input id="purchase-terms" name="termsAccepted" type="checkbox" required data-required-field data-api-field="aceptaCondicionesCompra" data-terms-accepted aria-describedby="purchase-terms-error" />
+              <span>He leído y acepto las <a href="/condiciones-de-compra" target="_blank">Condiciones de compra</a> y declaro conocer la <a href="/privacidad" target="_blank">Política de privacidad</a> y las condiciones aplicables a los productos configurados específicamente para mi negocio.</span>
+            </label>
+            <small id="purchase-terms-error" class="builder-terms__error" data-field-error="aceptaCondicionesCompra" aria-live="polite"></small>
             <button class="cards-button builder-summary__cta" type="submit" data-builder-submit><span data-builder-submit-label>{checkoutCopy.button}</span><ProductIcon icon="arrow" size={19} /></button>
             <span class="builder-summary__secure"><ProductIcon icon="shield" size={17} /> {checkoutCopy.secure}</span>
             <p class="builder-form-status" role="status" aria-live="polite" data-builder-status></p>
@@ -292,26 +314,16 @@ const process = [
           <a class="cards-text-link" href={contactHref}>Hablar con Altaria <ProductIcon icon="arrow" size={18} /></a>
         </header>
         <div class="cards-faq__list" data-cards-faq>
-          <article class="cards-faq__item is-open">
-            <button type="button" id="faq-button-1" aria-expanded="true" aria-controls="faq-panel-1">¿Cuánto tarda el envío?<span aria-hidden="true">+</span></button>
-            <div id="faq-panel-1" role="region" aria-labelledby="faq-button-1" data-faq-panel><div><p>El plazo final dependerá de la cantidad. Lo confirmaremos contigo antes de preparar el pedido.</p></div></div>
-          </article>
-          <article class="cards-faq__item">
-            <button type="button" id="faq-button-2" aria-expanded="false" aria-controls="faq-panel-2">¿Qué incluye el pedido?<span aria-hidden="true">+</span></button>
-            <div id="faq-panel-2" role="region" aria-labelledby="faq-button-2" data-faq-panel hidden><div><p>Las tarjetas NFC + QR, la configuración del acceso a tu ficha y una comprobación técnica antes de preparar el pedido.</p></div></div>
-          </article>
-          <article class="cards-faq__item">
-            <button type="button" id="faq-button-3" aria-expanded="false" aria-controls="faq-panel-3">¿Sirve para cualquier negocio?<span aria-hidden="true">+</span></button>
-            <div id="faq-panel-3" role="region" aria-labelledby="faq-button-3" data-faq-panel hidden><div><p>Sí, siempre que el negocio tenga una ficha pública de Google donde sus clientes puedan dejar una reseña.</p></div></div>
-          </article>
-          <article class="cards-faq__item">
-            <button type="button" id="faq-button-4" aria-expanded="false" aria-controls="faq-panel-4">¿Se puede actualizar más adelante?<span aria-hidden="true">+</span></button>
-            <div id="faq-panel-4" role="region" aria-labelledby="faq-button-4" data-faq-panel hidden><div><p>La configuración queda preparada para gestionar cambios futuros. Te indicaremos qué ajustes admite cada pedido.</p></div></div>
-          </article>
-          <article class="cards-faq__item">
-            <button type="button" id="faq-button-5" aria-expanded="false" aria-controls="faq-panel-5">¿Necesita una app?<span aria-hidden="true">+</span></button>
-            <div id="faq-panel-5" role="region" aria-labelledby="faq-button-5" data-faq-panel hidden><div><p>No. Un móvil compatible puede acercarse a la tarjeta y cualquier cámara puede escanear el código QR.</p></div></div>
-          </article>
+          {faqs.map((faq, index) => {
+            const number = index + 1;
+            const isOpen = index === 0;
+            return (
+              <article class:list={['cards-faq__item', { 'is-open': isOpen }]}>
+                <button type="button" id={`faq-button-${number}`} aria-expanded={String(isOpen)} aria-controls={`faq-panel-${number}`}>{faq.question}<span aria-hidden="true">+</span></button>
+                <div id={`faq-panel-${number}`} role="region" aria-labelledby={`faq-button-${number}`} data-faq-panel hidden={!isOpen}><div><p>{faq.answer}</p></div></div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

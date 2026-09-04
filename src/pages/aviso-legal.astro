@@ -10,7 +10,7 @@ const siteUrl = Astro.site ?? new URL(Astro.url.origin);
   eyebrow="Información legal"
   heading="Aviso Legal"
   intro="Las condiciones que regulan el acceso y uso del sitio web de Altaria Lights, así como la información disponible sobre el titular y los términos aplicables."
-  updated="1 de septiembre de 2026"
+  updated="4 de septiembre de 2026"
 >
   <section class="legal-section">
     <p class="legal-section__number" aria-hidden="true">01</p>
@@ -23,10 +23,14 @@ const siteUrl = Astro.site ?? new URL(Astro.url.origin);
       <dl class="legal-facts">
         <div><dt>Marca</dt><dd>Altaria Lights</dd></div>
         <div><dt>Descripción pública</dt><dd>Estudio digital</dd></div>
-        <div><dt>Ámbito indicado</dt><dd>Toledo – Madrid, España</dd></div>
         <div><dt>Correo electrónico</dt><dd><a href="mailto:altarialights@gmail.com">altarialights@gmail.com</a></dd></div>
         <div><dt>Sitio web</dt><dd><a href={siteUrl.href}>{siteUrl.hostname}</a></dd></div>
       </dl>
+      <p>
+        No constan todavía en el proyecto el nombre o denominación legal del titular, NIF, domicilio
+        completo ni, cuando proceda, sus datos registrales. Deben incorporarse para completar la
+        información exigida al prestador y vendedor.
+      </p>
       <p>
         Altaria Lights ayuda a negocios y empresas a construir, mejorar y conectar su parte digital
         mediante desarrollo web, marketing, software, automatización y branding.
@@ -42,6 +46,8 @@ const siteUrl = Astro.site ?? new URL(Astro.url.origin);
         El presente sitio web tiene por objeto ofrecer información sobre los servicios, proyectos e
         iniciativas desarrolladas por Altaria Lights, así como facilitar el contacto con empresas y
         profesionales interesados en soluciones de marketing, digitalización, software y tecnología.
+        También permite comprar tarjetas físicas NFC + QR configuradas para el negocio seleccionado,
+        cuya contratación se regula en las <a href="/condiciones-de-compra">Condiciones de compra</a>.
       </p>
     </div>
   </section>

@@ -37,6 +37,7 @@ const businessSchema = z.preprocess((input) => {
 
 export const crearPedidoSchema = z.object({
   claveIdempotencia: z.string().uuid(),
+  aceptaCondicionesCompra: z.literal(true),
   negocio: businessSchema,
   cantidad: z.number().int().min(1).max(CANTIDAD_MAXIMA),
   cliente: z.object({
@@ -61,6 +62,7 @@ export const crearPedidoSchema = z.object({
 export type CrearPedidoInput = z.infer<typeof crearPedidoSchema>;
 
 const validationMessages: Record<string, string> = {
+  aceptaCondicionesCompra: 'Debes aceptar las Condiciones de compra para continuar.',
   'negocio.googlePlaceId': 'Selecciona un negocio de la lista de Google.',
   'negocio.nombre': 'Selecciona un negocio válido.',
   cantidad: `Elige una cantidad entre 1 y ${CANTIDAD_MAXIMA}.`,

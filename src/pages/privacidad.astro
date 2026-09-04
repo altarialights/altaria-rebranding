@@ -4,11 +4,11 @@ import LegalPage from '../layouts/LegalPage.astro';
 
 <LegalPage
   title="Política de Privacidad | Altaria Lights"
-  description="Información sobre cómo Altaria Lights trata los datos de contacto, las preferencias de privacidad y la analítica consentida."
+  description="Información sobre cómo Altaria Lights trata datos de contacto, pedidos de tarjetas NFC + QR, pagos y analítica consentida."
   eyebrow="Protección de datos"
   heading="Política de Privacidad"
-  intro="Esta política explica cómo Altaria Lights trata los datos del diagnóstico digital, las solicitudes de contacto, las preferencias de privacidad y la analítica consentida."
-  updated="1 de septiembre de 2026"
+  intro="Esta política explica cómo Altaria Lights trata los datos del diagnóstico digital, las solicitudes de contacto, los pedidos de tarjetas NFC + QR, las preferencias de privacidad y la analítica consentida."
+  updated="4 de septiembre de 2026"
 >
   <section class="legal-section">
     <p class="legal-section__number" aria-hidden="true">01</p>
@@ -18,11 +18,10 @@ import LegalPage from '../layouts/LegalPage.astro';
         <div><dt>Marca</dt><dd>Altaria Lights</dd></div>
         <div><dt>Correo electrónico</dt><dd><a href="mailto:altarialights@gmail.com">altarialights@gmail.com</a></dd></div>
         <div><dt>Descripción pública</dt><dd>Estudio digital</dd></div>
-        <div><dt>Ámbito indicado</dt><dd>Toledo – Madrid, España</dd></div>
       </dl>
       <p>
-        La identidad legal completa del responsable, NIF/CIF y domicilio deben incorporarse antes
-        de operar comercialmente y mantener una recogida estable de datos personales en producción.
+        La identidad legal completa del responsable, NIF y domicilio no constan todavía en el
+        proyecto y deben incorporarse para completar esta información.
       </p>
     </div>
   </section>
@@ -40,10 +39,11 @@ import LegalPage from '../layouts/LegalPage.astro';
         del mensaje.
       </p>
       <p>
-        Al iniciar un pedido de tarjetas tratamos el negocio seleccionado, cantidad, nombre, email,
-        teléfono, dirección de entrega y referencias necesarias para preparar y entregar el pedido,
-        además de identificadores técnicos de Stripe y del estado del pago. Altaria Lights no recibe
-        ni almacena los datos de la tarjeta.
+        Al iniciar un pedido de tarjetas NFC + QR tratamos nombre, email, teléfono, negocio, Google
+        Place ID, dirección de entrega, ciudad, provincia, código postal, referencias de entrega,
+        cantidad, importes, datos y estado del pedido, estado del pago, identificadores de Stripe y,
+        cuando exista, información de seguimiento. Altaria Lights no almacena ni procesa directamente
+        los datos completos de la tarjeta bancaria.
       </p>
 
       <h3>Navegación y analítica</h3>
@@ -86,9 +86,12 @@ import LegalPage from '../layouts/LegalPage.astro';
       <p>Enviar contenidos y recursos de Altaria Lights únicamente cuando se haya marcado el consentimiento específico de marketing.</p>
       <h3>Pedidos</h3>
       <ul>
-        <li>crear, cobrar, preparar y entregar pedidos de tarjetas NFC + QR;</li>
+        <li>tramitar y cobrar pedidos de tarjetas NFC + QR;</li>
+        <li>programar el NFC y preparar el QR para el negocio seleccionado;</li>
+        <li>organizar la entrega y gestionar su seguimiento cuando exista;</li>
         <li>reconciliar de forma segura el pago de Stripe con el pedido interno;</li>
-        <li>informar internamente al equipo para preparar el envío y atender incidencias.</li>
+        <li>atender incidencias, reclamaciones y faltas de conformidad;</li>
+        <li>cumplir las obligaciones legales, contables y fiscales aplicables.</li>
       </ul>
       <h3>Analítica consentida</h3>
       <ul>
@@ -116,9 +119,10 @@ import LegalPage from '../layouts/LegalPage.astro';
         comunicaciones comerciales opcionales tienen un consentimiento separado y revocable.
       </p>
       <p>
-        El tratamiento de los datos de un pedido es necesario para ejecutar la compra solicitada y
-        aplicar medidas precontractuales. Las obligaciones legales aplicables pueden exigir conservar
-        determinada información durante plazos adicionales.
+        El tratamiento de los datos necesarios para preparar, cobrar, configurar y entregar un pedido
+        se basa en la aplicación de medidas precontractuales y en la ejecución del contrato. La
+        conservación y comunicación de determinada información cuando resulte exigible se basa en el
+        cumplimiento de obligaciones legales, incluidas las contables, fiscales y de consumo.
       </p>
       <p>
         La preferencia local es necesaria para gestionar y respetar la elección de privacidad que has
@@ -143,8 +147,10 @@ import LegalPage from '../layouts/LegalPage.astro';
       </p>
       <p>
         Los pedidos y sus eventos se conservan durante el tiempo necesario para tramitar la compra,
-        atender incidencias y cumplir obligaciones legales. Antes de activar pagos reales deberá
-        aprobarse y documentarse el calendario concreto de conservación y supresión.
+        preparar y entregar el producto, atender incidencias y reclamaciones y, posteriormente,
+        durante los plazos exigidos por las obligaciones legales o necesarios para formular, ejercer
+        o defender reclamaciones. No se ha definido un plazo operativo adicional distinto de esos
+        criterios.
       </p>
       <p>
         La configuración vigente del proyecto PostHog establece 12 meses de retención para eventos y
@@ -164,7 +170,30 @@ import LegalPage from '../layouts/LegalPage.astro';
       </div>
       <div class="legal-callout">
         <h3>Stripe</h3>
-        <p>Stripe aloja el proceso de pago y comunica a Altaria Lights el resultado mediante webhooks firmados. Los datos de tarjeta se introducen directamente en Stripe y no se almacenan en nuestra base.</p>
+        <p>
+          Stripe aloja el proceso de pago y comunica a Altaria Lights el resultado mediante webhooks
+          firmados. Los datos de tarjeta se introducen directamente en Stripe y no se almacenan en
+          nuestra base. Stripe trata determinados datos como proveedor de servicios de pago y, para
+          algunas finalidades propias como la seguridad y la prevención del fraude, conforme a su
+          <a href="https://stripe.com/es/privacy" rel="external noreferrer">Política de privacidad</a>.
+        </p>
+      </div>
+      <div class="legal-callout">
+        <h3>Google</h3>
+        <p>
+          Google Places permite buscar y seleccionar la ficha pública del negocio. Google Maps solo
+          se carga si el usuario selecciona un resultado, para mostrar su ubicación. Google puede
+          tratar datos técnicos de la solicitud conforme a sus propias condiciones y política de
+          privacidad.
+        </p>
+      </div>
+      <div class="legal-callout">
+        <h3>Empresa de transporte</h3>
+        <p>
+          Los datos imprescindibles para efectuar la entrega podrán comunicarse a la empresa de
+          transporte que se asigne al pedido. El proyecto todavía no identifica un proveedor único y
+          no se atribuye aquí el servicio a una empresa concreta.
+        </p>
       </div>
       <div class="legal-callout">
         <h3>Telegram</h3>
@@ -180,8 +209,8 @@ import LegalPage from '../layouts/LegalPage.astro';
       </div>
       <p>
         No existen integraciones activas con plataformas de publicidad, CRM o email marketing.
-        Antes de producción deben revisarse los acuerdos de tratamiento, regiones y subencargados de
-        Vercel, Turso, Stripe, Telegram y PostHog para la configuración concreta de cada cuenta.
+        Los acuerdos de tratamiento, regiones y subencargados de cada proveedor deben mantenerse
+        revisados de acuerdo con la configuración efectiva de las cuentas utilizadas.
       </p>
     </div>
   </section>
@@ -199,7 +228,8 @@ import LegalPage from '../layouts/LegalPage.astro';
       <p>
         Puedes consultar la <a href="https://posthog.com/privacy" rel="external noreferrer">política de privacidad de PostHog</a>,
         su <a href="https://posthog.com/dpa" rel="external noreferrer">acuerdo de tratamiento de datos</a>
-        y la <a href="https://posthog.com/subprocessors" rel="external noreferrer">información sobre subencargados</a>.
+        y la <a href="https://posthog.com/subprocessors" rel="external noreferrer">información sobre subencargados</a>,
+        así como la <a href="https://stripe.com/es/privacy" rel="external noreferrer">Política de privacidad de Stripe</a>.
       </p>
     </div>
   </section>
