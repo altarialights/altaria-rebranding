@@ -1,0 +1,399 @@
+---
+const services = [
+  {
+    eyebrow: 'Marketing digital',
+    title: 'Hacemos que te vean.',
+    description: 'Estrategia y contenido para conectar con las personas correctas.',
+    image: 'marketing',
+    alt: 'Megáfono azul sobre una nube',
+    href: '/marketing',
+    cta: 'Ver marketing digital',
+  },
+  {
+    eyebrow: 'Desarrollo web',
+    title: 'Creamos tu página web.',
+    description: 'Webs rápidas, claras y pensadas para convertir visitas en clientes.',
+    image: 'web',
+    alt: 'Interfaz web tridimensional sobre una nube',
+    href: '/desarrollo-web',
+    cta: 'Ver desarrollo web',
+  },
+  {
+    eyebrow: 'Software a medida',
+    title: 'Software a tu medida.',
+    description: 'Herramientas que ordenan procesos y automatizan tareas.',
+    image: 'software',
+    alt: 'Símbolo de código tridimensional sobre una nube',
+    href: '/software',
+    cta: 'Ver software a medida',
+  },
+  {
+    eyebrow: 'Branding',
+    title: 'Diseñamos tu imagen.',
+    description: 'Una identidad coherente, reconocible y hecha para tu negocio.',
+    image: 'branding',
+    alt: 'Letra tridimensional en una herramienta de diseño sobre una nube',
+    href: '/branding',
+    cta: 'Ver branding',
+  },
+] as const;
+---
+
+<section class="home-services" aria-labelledby="home-services-title">
+  <header class="home-services__header">
+    <div class="home-services__cloud">
+      <svg viewBox="0 0 900 500" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="home-services-cloud-fill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffffff" />
+            <stop offset="0.62" stop-color="#fafdff" />
+            <stop offset="1" stop-color="#e7f2fa" />
+          </linearGradient>
+        </defs>
+        <g fill="rgba(46, 103, 151, .14)" transform="translate(0 18)">
+          <ellipse cx="450" cy="292" rx="352" ry="164" />
+          <ellipse cx="276" cy="232" rx="176" ry="150" />
+          <ellipse cx="468" cy="174" rx="216" ry="166" />
+          <ellipse cx="650" cy="240" rx="172" ry="144" />
+        </g>
+        <g fill="url(#home-services-cloud-fill)">
+          <ellipse cx="450" cy="292" rx="352" ry="164" />
+          <ellipse cx="276" cy="232" rx="176" ry="150" />
+          <ellipse cx="468" cy="174" rx="216" ry="166" />
+          <ellipse cx="650" cy="240" rx="172" ry="144" />
+        </g>
+      </svg>
+      <div class="home-services__heading-copy">
+        <p>Una visión completa</p>
+        <h2 id="home-services-title"><span>Nuestros</span><span>servicios</span></h2>
+      </div>
+    </div>
+    <p class="home-services__intro">Soluciones que pueden funcionar por separado y ganan fuerza cuando trabajan juntas.</p>
+  </header>
+
+  <div class="home-services__grid">
+    {services.map((service) => (
+      <a class="home-service" href={service.href}>
+        <picture class="home-service__asset">
+          <source
+            srcset={`/media/servicios/optimized/${service.image}-320.webp 320w, /media/servicios/optimized/${service.image}-560.webp 560w`}
+            sizes="(max-width: 699px) 112px, 180px"
+            type="image/webp"
+          />
+          <img
+            src={`/media/servicios/optimized/${service.image}-320.webp`}
+            width="1254"
+            height="1254"
+            alt={service.alt}
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+        <span class="home-service__copy">
+          <span class="home-service__eyebrow">{service.eyebrow}</span>
+          <h3 class="home-service__title">{service.title}</h3>
+          <span class="home-service__description">{service.description}</span>
+          <span class="home-service__cta">{service.cta} <span aria-hidden="true">→</span></span>
+        </span>
+      </a>
+    ))}
+
+    <a class="home-service home-service--product" href="/tarjetas-reseñas-google">
+      <picture class="home-service__asset home-service__asset--product">
+        <source
+          srcset="/media/tarjetas/optimized/hero-560.webp 560w, /media/tarjetas/optimized/hero-900.webp 900w"
+          sizes="(max-width: 699px) 150px, 270px"
+          type="image/webp"
+        />
+        <img
+          src="/media/tarjetas/optimized/hero-560.webp"
+          width="560"
+          height="701"
+          alt="Dos tarjetas NFC y QR de Altaria Lights"
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+      <span class="home-service__copy">
+        <span class="home-service__eyebrow">Tarjetas NFC + QR</span>
+        <h3 class="home-service__title">Conecta tu negocio.</h3>
+        <span class="home-service__description">Reseñas, redes, WhatsApp, reservas o tu web con un toque o un QR.</span>
+        <span class="home-service__cta">Ver tarjetas NFC + QR <span aria-hidden="true">→</span></span>
+      </span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .home-services {
+    display: none;
+  }
+
+  @media (max-width: 1019px) {
+    .home-services {
+      position: relative;
+      display: block;
+      overflow: clip;
+      padding: 64px 28px 92px;
+      color: #0f2c56;
+      background:
+        radial-gradient(ellipse at 12% 15%, rgba(255,255,255,.3), transparent 31%),
+        radial-gradient(ellipse at 86% 42%, rgba(255,255,255,.2), transparent 27%),
+        linear-gradient(180deg, #72b9e5 0%, #a8d5ed 52%, #d9ecf8 100%);
+    }
+
+    .home-services__header {
+      display: grid;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .home-services__cloud {
+      position: relative;
+      width: min(680px, 92vw);
+      aspect-ratio: 900 / 500;
+      filter: drop-shadow(0 24px 24px rgba(25, 86, 137, .14));
+    }
+
+    .home-services__cloud svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .home-services__heading-copy {
+      position: absolute;
+      inset: 27% 18% 17%;
+      display: grid;
+      place-content: center;
+    }
+
+    .home-services__heading-copy p,
+    .home-service__eyebrow {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 780;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: #1872c4;
+    }
+
+    .home-services__heading-copy h2 {
+      margin-top: 8px;
+      font-family: var(--font-display);
+      font-size: clamp(44px, 7vw, 62px);
+      font-weight: 900;
+      line-height: .9;
+      letter-spacing: -.008em;
+      text-transform: uppercase;
+      color: #0f2c56;
+    }
+
+    .home-services__heading-copy h2 span {
+      display: block;
+    }
+
+    .home-services__intro {
+      max-width: 54ch;
+      margin: -18px auto 0;
+      font-size: 15px;
+      line-height: 1.55;
+      color: #0f2c56;
+    }
+
+    .home-services__grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      width: min(820px, 100%);
+      margin: 42px auto 0;
+    }
+
+    .home-service {
+      display: grid;
+      grid-template-rows: 160px 1fr;
+      min-width: 0;
+      min-height: 360px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .92);
+      border-radius: 28px;
+      color: #0f2c56;
+      background: rgba(255, 255, 255, .84);
+      box-shadow: 0 26px 54px -42px rgba(10, 59, 105, .64), inset 0 1px #fff;
+      text-decoration: none;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .home-service__asset {
+      display: grid;
+      place-items: center;
+      background: linear-gradient(180deg, rgba(183, 223, 248, .48), rgba(239, 248, 254, .24));
+    }
+
+    .home-service__asset img {
+      width: min(150px, 72%);
+      height: 150px;
+      object-fit: contain;
+    }
+
+    .home-service__copy {
+      display: flex;
+      min-width: 0;
+      padding: 20px 22px 22px;
+      flex-direction: column;
+    }
+
+    .home-service__title {
+      margin-top: 7px;
+      font-family: var(--font-display);
+      font-size: clamp(23px, 3.4vw, 30px);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .home-service__description {
+      margin-top: 11px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: #527391;
+    }
+
+    .home-service__cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 44px;
+      margin-top: auto;
+      padding-top: 12px;
+      font-size: 11px;
+      font-weight: 760;
+      color: #176ebc;
+    }
+
+    .home-service__cta > span {
+      font-size: 17px;
+    }
+
+    .home-service--product {
+      grid-column: 1 / -1;
+      grid-template-columns: minmax(250px, .8fr) minmax(0, 1.2fr);
+      grid-template-rows: none;
+      min-height: 270px;
+      background: rgba(247, 252, 255, .94);
+    }
+
+    .home-service__asset--product img {
+      width: min(250px, 88%);
+      height: 260px;
+    }
+
+    .home-service--product .home-service__copy {
+      justify-content: center;
+      padding: 30px clamp(26px, 5vw, 46px);
+    }
+
+    .home-service--product .home-service__title {
+      font-size: clamp(30px, 4.4vw, 40px);
+    }
+
+    .home-service:focus-visible {
+      outline: 3px solid #016ffc;
+      outline-offset: 4px;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .home-service:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 30px 58px -40px rgba(10, 59, 105, .72), inset 0 1px #fff;
+      }
+    }
+  }
+
+  @media (max-width: 699px) {
+    .home-services {
+      padding: 46px 14px 76px;
+    }
+
+    .home-services__cloud {
+      width: 100%;
+      max-width: 500px;
+      justify-self: center;
+    }
+
+    .home-services__heading-copy {
+      inset: 23% 16% 15%;
+    }
+
+    .home-services__heading-copy h2 {
+      font-size: clamp(35px, 10.5vw, 46px);
+    }
+
+    .home-services__intro {
+      max-width: 34ch;
+      margin-top: -5px;
+      padding-inline: 8px;
+      font-size: 13px;
+    }
+
+    .home-services__grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+      width: min(100%, 430px);
+      margin-top: 32px;
+    }
+
+    .home-service,
+    .home-service--product {
+      grid-column: auto;
+      grid-template-columns: 116px minmax(0, 1fr);
+      grid-template-rows: none;
+      min-height: 184px;
+      border-radius: 24px;
+    }
+
+    .home-service__asset img {
+      width: 112px;
+      height: 158px;
+    }
+
+    .home-service__copy,
+    .home-service--product .home-service__copy {
+      justify-content: center;
+      padding: 18px 17px 17px;
+    }
+
+    .home-service__title,
+    .home-service--product .home-service__title {
+      font-size: clamp(20px, 5.7vw, 25px);
+    }
+
+    .home-service__description {
+      margin-top: 8px;
+      font-size: 11px;
+    }
+
+    .home-service__cta {
+      min-height: 40px;
+      padding-top: 8px;
+      font-size: 10px;
+    }
+
+    .home-service--product {
+      grid-template-columns: 142px minmax(0, 1fr);
+      min-height: 210px;
+    }
+
+    .home-service__asset--product img {
+      width: 142px;
+      height: 204px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-service {
+      transition: none;
+    }
+  }
+</style>

@@ -15,7 +15,7 @@ export function initResponsiveHero(): void {
   const menuButton = root.querySelector<HTMLButtonElement>('[data-responsive-menu-button]');
   const menu = root.querySelector<HTMLElement>('[data-responsive-menu]');
   const backgroundRegions = Array.from(
-    root.querySelectorAll<HTMLElement>('.rh-intro, .rh-services, .rh-principles'),
+    root.querySelectorAll<HTMLElement>('.rh-intro, .rh-services, .rh-product, .rh-principles'),
   );
   let menuOpen = false;
   let menuCloseTimer = 0;

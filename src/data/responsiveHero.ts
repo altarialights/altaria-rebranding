@@ -5,6 +5,7 @@ export type ResponsiveServiceIcon =
   | 'web'
   | 'software'
   | 'brand'
+  | 'nfc'
   | 'connected';
 
 export interface ResponsiveService {
@@ -84,6 +85,20 @@ export const responsiveServices: ResponsiveService[] = [
       width: 768,
       height: 512,
       alt: 'Tablero de identidad visual de Altaria Lights',
+    },
+  },
+  {
+    id: 'nfc',
+    eyebrow: 'Producto',
+    title: ['Tarjetas', 'NFC + QR'],
+    description: 'Reseñas, redes, WhatsApp, reservas y mucho más.',
+    icon: 'nfc',
+    image: {
+      src: '/media/tarjetas/optimized/hero-560.webp',
+      srcset: '/media/tarjetas/optimized/hero-560.webp 560w, /media/tarjetas/optimized/hero-900.webp 900w',
+      width: 560,
+      height: 701,
+      alt: 'Dos tarjetas NFC y QR de Altaria Lights',
     },
   },
   {

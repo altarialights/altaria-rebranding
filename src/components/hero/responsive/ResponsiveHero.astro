@@ -113,12 +113,20 @@ const responsiveMenuDescriptions = [
         <span class="rh-intro__sub-tablet">Su imagen tampoco debería serlo.</span>
         <span class="rh-intro__sub-mobile">Marketing. Web. Software. Marca.</span>
       </p>
-      <a class="rh-intro__cta" href="/contacto">
-        <span>{growthBeat.cta}</span>
-        <svg viewBox="0 0 20 20" aria-hidden="true">
-          <path d="M4 10h11M11 6l4 4-4 4" />
-        </svg>
-      </a>
+      <div class="rh-intro__actions">
+        <a class="rh-intro__cta" href="/contacto">
+          <span>{growthBeat.cta}</span>
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M4 10h11M11 6l4 4-4 4" />
+          </svg>
+        </a>
+        <a class="rh-intro__cta rh-intro__cta--secondary" href="/servicios">
+          <span>Ver nuestros servicios</span>
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M4 10h11M11 6l4 4-4 4" />
+          </svg>
+        </a>
+      </div>
     </div>
 
     <section class="rh-services" id="servicios-responsive" aria-labelledby="responsive-services-title">
@@ -173,11 +181,11 @@ const responsiveMenuDescriptions = [
                   <p class="rh-service__eyebrow">{service.eyebrow}</p>
                   <h3>{service.title.join(' ')}</h3>
                   <p class="rh-service__description">{service.description}</p>
-                  {service.id === 'contenido' || service.id === 'web' ? (
+                  {service.id === 'contenido' || service.id === 'web' || service.id === 'nfc' ? (
                     <a
                       class="rh-service__decorative-arrow"
-                      href={service.id === 'contenido' ? '/marketing' : '/desarrollo-web'}
-                      aria-label={service.id === 'contenido' ? 'Saber más sobre marketing digital' : 'Saber más sobre desarrollo web'}
+                      href={service.id === 'contenido' ? '/marketing' : service.id === 'web' ? '/desarrollo-web' : '/tarjetas-reseñas-google'}
+                      aria-label={service.id === 'contenido' ? 'Saber más sobre marketing digital' : service.id === 'web' ? 'Saber más sobre desarrollo web' : 'Ver tarjetas NFC y QR'}
                     >
                       →
                     </a>
@@ -225,6 +233,30 @@ const responsiveMenuDescriptions = [
         }
       </nav>
     </section>
+
+    <a class="rh-product" href="/tarjetas-reseñas-google" aria-label="Ver tarjetas NFC y QR">
+      <picture class="rh-product__visual">
+        <source
+          srcset="/media/tarjetas/optimized/hero-560.webp 560w, /media/tarjetas/optimized/hero-900.webp 900w"
+          sizes="240px"
+          type="image/webp"
+        />
+        <img
+          src="/media/tarjetas/optimized/hero-560.webp"
+          width="560"
+          height="701"
+          alt="Dos tarjetas NFC y QR de Altaria Lights"
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+      <span class="rh-product__copy">
+        <span class="rh-product__eyebrow">Producto físico + digital</span>
+        <strong>Tarjetas NFC + QR</strong>
+        <span>Conecta reseñas, redes, WhatsApp, reservas o tu web con un toque o un QR.</span>
+        <span class="rh-product__cta">Ver tarjetas <span aria-hidden="true">→</span></span>
+      </span>
+    </a>
 
     <aside class="rh-principles" aria-label="Principios del trabajo de Altaria Lights">
       <p><strong>Confianza que se construye.</strong> Una presencia clara de principio a fin.</p>
@@ -401,13 +433,20 @@ const responsiveMenuDescriptions = [
     display: none;
   }
 
+  .rh-intro__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 22px;
+  }
+
   .rh-intro__cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 16px;
     min-height: 48px;
-    margin-top: 22px;
     padding: 0 21px;
     border: 0;
     border-radius: 999px;
@@ -428,6 +467,13 @@ const responsiveMenuDescriptions = [
     stroke-width: 1.7;
     stroke-linecap: round;
     stroke-linejoin: round;
+  }
+
+  .rh-intro__cta--secondary {
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    color: var(--ink-navy);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 12px 22px -17px rgba(6, 43, 88, 0.72);
   }
 
   .rh-services {
@@ -560,6 +606,10 @@ const responsiveMenuDescriptions = [
     visibility: visible;
   }
 
+  .rh-product {
+    display: none;
+  }
+
   .rh-principles {
     display: grid;
     grid-template-columns: minmax(180px, 0.8fr) minmax(0, 2fr);
@@ -626,12 +676,14 @@ const responsiveMenuDescriptions = [
 
     .rh-intro,
     .rh-services,
+    .rh-product,
     .rh-principles {
       transition: opacity 220ms ease;
     }
 
     .rh.is-menu-open .rh-intro,
     .rh.is-menu-open .rh-services,
+    .rh.is-menu-open .rh-product,
     .rh.is-menu-open .rh-principles {
       pointer-events: none;
       opacity: 0.14;
@@ -1017,6 +1069,7 @@ const responsiveMenuDescriptions = [
       gap: clamp(12px, 1.8vw, 18px);
     }
 
+    .rh-service[data-service-id='nfc'],
     .rh-service[data-service-id='conectado'] {
       display: none;
     }
@@ -1036,6 +1089,70 @@ const responsiveMenuDescriptions = [
 
     .rh-service__description {
       font-size: 10.5px;
+    }
+
+    .rh-product {
+      display: grid;
+      grid-template-columns: minmax(190px, 0.7fr) minmax(0, 1.3fr);
+      align-items: center;
+      min-height: 188px;
+      margin-top: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.76);
+      border-radius: 22px;
+      color: var(--ink-navy);
+      background: rgba(248, 252, 255, 0.9);
+      box-shadow: 0 16px 34px -28px rgba(10, 49, 94, 0.72);
+      text-decoration: none;
+    }
+
+    .rh-product__visual {
+      display: grid;
+      height: 188px;
+      place-items: center;
+      background: linear-gradient(180deg, rgba(183, 223, 248, 0.58), rgba(239, 248, 254, 0.35));
+    }
+
+    .rh-product__visual img {
+      width: min(178px, 100%);
+      height: 178px;
+      object-fit: contain;
+    }
+
+    .rh-product__copy {
+      display: grid;
+      padding: 22px clamp(22px, 4vw, 38px);
+    }
+
+    .rh-product__eyebrow {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: #247fcc;
+    }
+
+    .rh-product__copy strong {
+      margin-top: 6px;
+      font-family: var(--font-display);
+      font-size: clamp(23px, 3.4vw, 31px);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .rh-product__copy > span:nth-child(3) {
+      max-width: 48ch;
+      margin-top: 8px;
+      font-size: 11px;
+      line-height: 1.4;
+      color: var(--ink-soft);
+    }
+
+    .rh-product__cta {
+      margin-top: 11px;
+      font-size: 11px;
+      font-weight: 760;
+      color: #176ebc;
     }
 
     .rh-principles {
@@ -1214,8 +1331,18 @@ const responsiveMenuDescriptions = [
 
     .rh-intro__cta {
       min-height: 48px;
-      margin-top: 22px;
       font-size: 12px;
+    }
+
+    .rh-intro__actions {
+      width: min(100%, 286px);
+      flex-direction: column;
+      gap: 9px;
+      margin-top: 22px;
+    }
+
+    .rh-intro__cta {
+      width: 100%;
     }
 
     .rh-services {
@@ -1293,6 +1420,12 @@ const responsiveMenuDescriptions = [
 
     .rh-service__visual--conectado img {
       max-width: 82%;
+    }
+
+    .rh-service__visual--nfc img {
+      inset: 7px 16px 2px;
+      width: calc(100% - 32px);
+      height: calc(100% - 9px);
     }
 
     .rh-service__copy {
@@ -1411,7 +1544,7 @@ const responsiveMenuDescriptions = [
 
     .rh-shortcuts {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 4px;
       padding: 4px 9px 0;
     }
