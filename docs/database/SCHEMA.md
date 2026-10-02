@@ -111,7 +111,7 @@ y `created_at`. Ubicación física: `card_artwork.content_base64` en Turso, orig
 codificado base64, no en `/public`, Vercel Blob ni disco efímero. Sin recomprimir,
 deformar, ampliar o recortar los bytes originales. SQL siempre parametrizado.
 
-PNG/JPEG/WebP estáticos, máximo 2 MiB y 40 MP como límite de decodificación segura.
+PNG/JPEG/WebP estáticos, máximo 3 MiB y 40 MP como límite de decodificación segura.
 CR80 85,60 × 53,98 mm, tolerancia relativa de proporción ±2 %, referencia mínima
 1012 × 638 px (~300 ppp). No hay máximo de dimensiones aparte del límite de píxeles.
 Otra proporción, resolución baja o recorte visual voluntario marcan `review` sin
@@ -234,3 +234,7 @@ turso db tokens create altaria-digital-index
 ```
 
 Guarda la URL y el token únicamente como `TURSO_DATABASE_URL` y `TURSO_AUTH_TOKEN` en las variables cifradas de Vercel. Antes de aplicar futuras migraciones, registra externamente qué números ya se ejecutaron; v1 no introduce una tabla automática de migraciones.
+
+## Ampliacion de subida a 3 MiB
+
+El codigo admite 3.145.728 bytes. Requiere `006_card_artwork_3mb.sql`, aplicada en produccion el 2026-10-02 con copia previa e integridad verificada. Reconstruye card_artwork en una transaccion conservando todas sus columnas, originales, relaciones e indices; solo amplia el CHECK de size_bytes. No modifica 005. Turso ya admite 3 MiB. Falta desplegar el codigo actualizado para habilitar el nuevo limite en la web. Copia privada: review/migrations-production/006-before-1790945942264.json. La tabla tenia 0 archivos al aplicar la migracion.

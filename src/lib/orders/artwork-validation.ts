@@ -1,7 +1,7 @@
 import sharp from 'sharp';
 import { ARTWORK_MAX_BYTES, ARTWORK_MAX_PIXELS, assessArtwork, type ArtworkLayout } from './artwork';
 export async function validateArtwork(bytes: Uint8Array, layout: ArtworkLayout = {fit:'contain',x:50,y:50}) {
-  if (!bytes.length || bytes.length > ARTWORK_MAX_BYTES) throw new Error('El archivo debe pesar como máximo 2 MB.');
+  if (!bytes.length || bytes.length > ARTWORK_MAX_BYTES) throw new Error('El archivo debe pesar como máximo 3 MB.');
   try {
     const image = sharp(bytes, { limitInputPixels: ARTWORK_MAX_PIXELS, failOn: 'warning' });
     const meta = await image.metadata();

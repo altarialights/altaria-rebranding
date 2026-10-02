@@ -30,7 +30,7 @@ También hay un enlace directo a WhatsApp
 para quien no quiera completar el asistente.
 
 Al elegir «Tengo mi diseño» se abre un modal PNG/JPG/JPEG/WebP estático: máximo
-2 MiB y 40 MP. CR80: 85,60 × 53,98 mm; tolerancia ±2 % de proporción. Referencia mínima
+3 MiB y 40 MP. CR80: 85,60 × 53,98 mm; tolerancia ±2 % de proporción. Referencia mínima
 1012 × 638 px (~300 ppp), sin rechazar mayor resolución. Otra proporción o baja
 resolución producen aviso y «Enviar para revisión», sin bloquear toda la compra.
 Se comprueba formato real, tamaño, píxeles, orientación EXIF y decodificación en servidor.
@@ -170,3 +170,7 @@ La cancelación usa `?pago=cancelado#comprar`; el hash antiguo sigue resolviénd
   el POST de Checkout y su redirección están interceptados, sin servicios externos,
   18 assets, categorías, búsqueda, teclado, selección, borrador y tamaños
   360/390/768/1024/1440/1920. Evidencia en `review/altaria-cards/whatsapp-catalog/`.
+
+## Ampliacion de subida a 3 MiB
+
+El codigo admite 3.145.728 bytes. Requiere `006_card_artwork_3mb.sql`, aplicada en produccion el 2026-10-02 con copia previa e integridad verificada. Reconstruye card_artwork en una transaccion conservando todas sus columnas, originales, relaciones e indices; solo amplia el CHECK de size_bytes. No modifica 005. Turso ya admite 3 MiB. Falta desplegar el codigo actualizado para habilitar el nuevo limite en la web. Copia privada: review/migrations-production/006-before-1790945942264.json. La tabla tenia 0 archivos al aplicar la migracion.

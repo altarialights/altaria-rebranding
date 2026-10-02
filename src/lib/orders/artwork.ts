@@ -1,6 +1,6 @@
 export const ARTWORK_WIDTH = 1012;
 export const ARTWORK_HEIGHT = 638;
-export const ARTWORK_MAX_BYTES = 2 * 1024 * 1024;
+export const ARTWORK_MAX_BYTES = 3 * 1024 * 1024;
 export const ARTWORK_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
 export const CR80_RATIO = 85.60 / 53.98;
 export const ARTWORK_RATIO_TOLERANCE = .02;

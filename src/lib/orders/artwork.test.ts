@@ -27,6 +27,13 @@ describe('Print artwork validation and delivery', () => {
   it.each([[638,1016],[400,250],[1016,637],[1000,1000]])('flags %ix%i for review without rejecting the original', async(w,h)=>{
     expect(await validateArtwork(await png(w,h))).toMatchObject({width:w,height:h,status:'review'});
   });
+  it('accepts an original above 2 MB and up to 3 MB', async () => {
+    const image = await png();
+    const original = Buffer.concat([image, Buffer.alloc(3 * 1024 * 1024 - image.length)]);
+    expect((await upload(original)).status).toBe(201);
+    expect(Buffer.from(mocks.save.mock.calls[0][0]).equals(original)).toBe(true);
+    expect((await upload(Buffer.concat([original, Buffer.from([0])]))).status).not.toBe(201);
+  });
   it('rejects false images, truncation, SVG and oversized files', async () => {
     for (const bytes of [Buffer.from('<svg width="1016" height="638"></svg>'), (await png()).subarray(0,40), Buffer.alloc(ARTWORK_MAX_BYTES+1)]) {
       await expect(validateArtwork(bytes)).rejects.toThrow();

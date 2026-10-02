@@ -10,13 +10,13 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   if (!assertSameOrigin(request)) return jsonResponse({ error: 'Origen no permitido.' }, 403);
   if (!request.headers.get('content-type')?.startsWith('multipart/form-data')) return jsonResponse({ error: 'Sube un archivo de imagen.' }, 415);
   const limit = ARTWORK_MAX_BYTES + 16384;
-  if (Number(request.headers.get('content-length')) > limit) return jsonResponse({ error: 'Máximo 2 MB por imagen.' }, 413);
+  if (Number(request.headers.get('content-length')) > limit) return jsonResponse({ error: 'Máximo 3 MB por imagen.' }, 413);
   let file: File; let layout: ArtworkLayout = {fit:'contain',x:50,y:50};
   try {
     const reader = request.body?.getReader(); if (!reader) throw new Error();
     const chunks: Uint8Array[] = []; let length = 0;
     while (true) { const part = await reader.read(); if (part.done) break; length += part.value.length;
-      if (length > limit) { await reader.cancel(); return jsonResponse({ error: 'Máximo 2 MB por imagen.' }, 413); } chunks.push(part.value); }
+      if (length > limit) { await reader.cancel(); return jsonResponse({ error: 'Máximo 3 MB por imagen.' }, 413); } chunks.push(part.value); }
     const form = await new Response(Buffer.concat(chunks), { headers: { 'content-type': request.headers.get('content-type')! } }).formData();
     const input = form.get('file'); if (!(input instanceof File)) throw new Error(); file = input;
     if (form.get('layout')) layout = JSON.parse(String(form.get('layout')));

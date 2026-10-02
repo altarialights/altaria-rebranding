@@ -20,8 +20,8 @@ export function initCardsArtwork(onSaved: (file: CardArtwork | undefined) => voi
   const show = async (file:File) => {
     const version=++revision; selected=null; save.disabled=true; q('[data-artwork-frame]').hidden=true;q('[data-artwork-layout]').hidden=true;
     if(objectUrl)URL.revokeObjectURL(objectUrl);
-    if(!ARTWORK_TYPES.includes(file.type)||file.size>ARTWORK_MAX_BYTES){status.textContent='Elige un PNG, JPG o WebP de máximo 2 MB.';return;}
-    status.textContent='Comprobando la imagen?';
+    if(!ARTWORK_TYPES.includes(file.type)||file.size>ARTWORK_MAX_BYTES){status.textContent='Elige un PNG, JPG o WebP de máximo 3 MB.';return;}
+    status.textContent='Comprobando la imagen...';
     objectUrl=URL.createObjectURL(file);
     const source=objectUrl;
     // Decode independently of the hidden preview: hidden/lazy images may defer loading.
