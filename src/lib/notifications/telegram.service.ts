@@ -32,6 +32,7 @@ const failure = (
 export const sendTelegramMessage = async (
   text: string,
   options: TelegramServiceOptions = {},
+  document?: { bytes: Uint8Array; filename: string; mime: string; replyTo: number },
 ): Promise<NotificationDeliveryResult> => {
   const timestamp = new Date().toISOString();
   const environment = options.environment ?? await readServerEnvironment();
@@ -51,12 +52,19 @@ export const sendTelegramMessage = async (
   const timeout = setTimeout(() => controller.abort(), options.timeoutMs ?? DEFAULT_TIMEOUT_MS);
 
   try {
+    const multipart = new FormData();
+    if (document) {
+      multipart.set('chat_id', environment.chatId);
+      multipart.set('document', new Blob([new Uint8Array(document.bytes)], {type:document.mime}), document.filename);
+      multipart.set('caption', text);
+      multipart.set('reply_parameters', JSON.stringify({message_id:document.replyTo}));
+    }
     const response = await (options.fetchImplementation ?? fetch)(
-      `https://api.telegram.org/bot${environment.botToken}/sendMessage`,
+      `https://api.telegram.org/bot${environment.botToken}/${document ? 'sendDocument' : 'sendMessage'}`,
       {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
+        headers: document ? undefined : { 'content-type': 'application/json' },
+        body: document ? multipart : JSON.stringify({
           chat_id: environment.chatId,
           text,
           parse_mode: 'HTML',

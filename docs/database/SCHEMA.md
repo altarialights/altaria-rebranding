@@ -126,7 +126,7 @@ Solo pueden eliminarse desde la web borradores propios sin pedido ni consulta;
 reemplazar no altera un diseño ya asociado. No hay borrado automático de expedientes.
 
 Descarga del visitante: sesión propietaria y attachment/no-store/nosniff. No hay
-listado público. Telegram solo recibe referencia y estado, nunca credenciales ni
+listado público. Telegram recibe referencia, estado y el original adjunto al aviso de pedido pagado; nunca credenciales ni
 enlace permanente. No existe panel admin autenticado ni firma temporal desplegada.
 El equipo exporta el original por pedido/consulta con `scripts/export-card-artwork.mjs`
 y credenciales internas Turso, comprobando SHA-256. No se envían bytes a Stripe.
@@ -238,3 +238,16 @@ Guarda la URL y el token únicamente como `TURSO_DATABASE_URL` y `TURSO_AUTH_TOK
 ## Ampliacion de subida a 3 MiB
 
 El codigo admite 3.145.728 bytes. Requiere `006_card_artwork_3mb.sql`, aplicada en produccion el 2026-10-02 con copia previa e integridad verificada. Reconstruye card_artwork en una transaccion conservando todas sus columnas, originales, relaciones e indices; solo amplia el CHECK de size_bytes. No modifica 005. Turso ya admite 3 MiB. Falta desplegar el codigo actualizado para habilitar el nuevo limite en la web. Copia privada: review/migrations-production/006-before-1790945942264.json. La tabla tenia 0 archivos al aplicar la migracion.
+
+## Original descargable en Telegram (2026-10-02)
+
+El aviso de pedido pagado con artwork incluye un segundo mensaje `sendDocument`,
+como respuesta al aviso, con el original sin recomprimir. Consulta interna por
+`card_artwork.order_id` unido a un pedido con `pagado_en`; verifica peso y SHA-256.
+No usa URL del navegador, no abre endpoints nuevos ni publica enlaces. El destino
+es exclusivamente TELEGRAM_CHAT_ID del servidor. No requiere migracion.
+El fichero conserva su nombre y bytes. Si el adjunto falla, se registra fallo de
+notificacion sin revertir el pago. El webhook duplicado mantiene la deduplicacion
+existente; no hay reintento automatico de adjuntos ni reenvio historico.
+Las solicitudes de propuesta siguen sin notificacion Telegram automatica.
+Validacion de envio mediante fetch simulado; no se enviaron archivos reales.

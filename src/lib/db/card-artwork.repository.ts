@@ -32,3 +32,15 @@ export async function removeCardArtwork(token: string, ownerHash: string) {
   });
   return operation.immediate();
 }
+
+// Internal notification use only. Never expose this lookup through a public endpoint.
+export async function findPaidOrderArtwork(orderId: string) {
+  const row = await getDatabase().get(`SELECT a.* FROM card_artwork a
+    JOIN pedidos_tarjetas p ON p.id = a.order_id
+    WHERE a.order_id = ? AND p.pagado_en IS NOT NULL`, orderId);
+  if (!row) return null;
+  const bytes = Buffer.from(String(row.content_base64), 'base64');
+  if (bytes.length !== Number(row.size_bytes) || createHash('sha256').update(bytes).digest('hex') !== row.sha256)
+    throw new Error('Artwork integrity check failed');
+  return {bytes,filename:String(row.filename),mime:String(row.mime_type),status:String(row.validation_status)};
+}
