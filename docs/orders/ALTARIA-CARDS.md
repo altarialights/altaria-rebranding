@@ -1,3 +1,13 @@
+> Estado actualizado 2026-10-02: el usuario autoriz? omitir TEST y aplicar 004 y 005
+> en producci?n (`altaria-digital-index-altarialights.aws-eu-west-1.turso.io`).
+> Ambas se confirmaron en una transacci?n; copia privada de las 8 tablas en
+> `review/migrations-production/2026-10-02T12-44-51.574Z-before.json` (no versionada).
+> Los 8 pedidos anteriores conservaron sus campos e importes. ?ndices, FK e integridad
+> verificados. Informe y hashes en el archivo `-applied.json` de la misma carpeta.
+> No se hicieron pagos, notificaciones ni despliegues. La prueba funcional queda
+> a cargo del usuario. Las referencias posteriores a migraciones pendientes describen
+> el estado anterior a esta aplicaci?n, no el estado actual de producci?n.
+
 # Altaria Cards — estado actual
 
 ## Contacto y configuración
