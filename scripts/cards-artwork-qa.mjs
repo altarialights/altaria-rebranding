@@ -9,6 +9,13 @@ const browser=await chromium.launch({headless:true,executablePath:process.env.PW
 const report=[];
 try{
  const ctx=await browser.newContext({viewport:{width:390,height:1000},reducedMotion:'reduce'});await ctx.route('https://**/*',r=>r.abort());
+ // Regression: a hidden preview whose decode never settles must not block selection.
+ await ctx.addInitScript(()=>{
+  const decode=HTMLImageElement.prototype.decode;
+  HTMLImageElement.prototype.decode=function(){
+   return this.hasAttribute('data-artwork-preview')?new Promise(()=>{}):decode.call(this);
+  };
+ });
  const saved=new Map();let counter=0;
  await ctx.route('**/api/tarjetas/diseno',async r=>{
   const request=r.request();const body=await new Response(request.postDataBuffer(),{headers:{'content-type':request.headers()['content-type']}}).formData();
