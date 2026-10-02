@@ -1,0 +1,142 @@
+---
+import { CARDS_WHATSAPP_URL } from '../../lib/contact/cards-whatsapp';
+import { cardsCatalog, cardsPricing } from '../../data/cards-catalog';
+import { readStripeMode } from '../../lib/orders/stripe-mode';
+import ProductIcon from './ProductIcon.astro';
+const mode = await readStripeMode();
+const euros = (amount: number) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount / 100);
+const steps = ['Diseño', 'Tipo de tarjeta', 'Destino', 'Personaliza', 'Revisión'];
+const icons = ['star', 'users', 'chat', 'calendar', 'menu', 'globe', 'users', 'shield', 'sparkle'];
+const descriptions = ['Lleva directamente a dejar una reseña.', 'Reúne tus perfiles en un solo toque.', 'Abre una conversación directamente.', 'Lleva al sistema de reservas.', 'Abre la carta o menú del negocio.'];
+const designs = [
+  ['own', 'card', 'Sí, tengo mi diseño', 'Tengo el archivo de diseño listo para imprimir.'],
+  ['custom', 'edit', 'No, quiero que lo diseñéis vosotros', 'Quiero que el equipo de Altaria diseñe mi tarjeta.'],
+];
+const destinations = [
+  ['link', 'arrow', 'Sí, ya tengo el enlace', 'Compártelo con nosotros.'],
+  ['help', 'search', 'Necesito ayuda para conseguirlo', 'Localizar un destino sencillo existente est? incluido.'],
+  ['create', 'edit', 'Quiero que me lo creéis', 'Definimos contigo el alcance y la propuesta.'],
+];
+---
+<section class="ac-section ac-shell" id="comprar" aria-labelledby="configure-title">
+  <header class="ac-section-heading">
+    <div><p class="ac-eyebrow">Altaria Cards · a tu manera</p><h2 id="configure-title">Tu tarjeta en pocos pasos</h2></div>
+    <p>Elige tu tarjeta, revisa el precio y compra. Si necesitas crear un destino digital, solicita una propuesta.</p>
+  </header>
+  <form class="ac-wizard ac-form ph-no-capture" novalidate data-cards-config data-mode={mode} data-google-maps-api-key={import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY ?? ''} data-ph-no-replay data-ph-sensitive>
+    <nav class="ac-stepper" aria-label="Pasos del configurador">
+      {steps.map((label, i) => <button type="button" data-go-step={i + 1} aria-current={i === 0 ? 'step' : undefined}><span>{i + 1}</span>{label}</button>)}
+    </nav>
+    <div class="ac-wizard__body">
+      <div class="ac-wizard__panel">
+        <p class="ac-step-count" data-step-count>Paso 1 de 5</p>
+        <fieldset data-step="1">
+          <legend tabindex="-1">¿Ya tienes diseño?</legend>
+          <p class="ac-step-intro">Cuéntanos si tienes material preparado o si prefieres que lo diseñemos para ti.</p>
+          <div class="ac-choice-grid">
+            {designs.map(([id, icon, title, copy]) => <label class="ac-choice ac-choice--design"><input type="radio" name="design" value={id} /><ProductIcon icon={icon} size={46} /><strong>{title}</strong><span>{copy}</span><small>{euros(cardsPricing.design[id as 'own' | 'custom'])} adicional por pedido</small></label>)}
+          </div>
+          <div data-own-artwork hidden><p data-artwork-summary>No has adjuntado un diseño.</p><button type="button" class="ac-button ac-button--soft" data-open-artwork>Adjuntar o cambiar diseño</button></div>
+          <p class="ac-wizard-note">Revisarás el desglose completo antes de ir al pago. Crear un destino digital se presupuesta por separado.</p>
+        </fieldset>
+        <fieldset data-step="2" hidden disabled>
+          <legend tabindex="-1">¿Qué quieres que haga tu tarjeta?</legend>
+          <p class="ac-step-intro">La misma tecnología, distintas formas de conectar.</p>
+          <div class="ac-choice-grid ac-choice-grid--types">
+            {cardsCatalog.map((product, i) => <label class="ac-choice ac-choice--type"><input type="radio" name="productoId" value={product.id} /><ProductIcon icon={icons[i]} size={34} /><strong>{product.name}</strong><span>{descriptions[i] ?? product.description}</span></label>)}
+          </div>
+        </fieldset>
+        <fieldset data-step="3" hidden disabled>
+          <legend tabindex="-1">¿Ya sabes dónde quieres que lleve la tarjeta?</legend>
+          <div class="ac-destination-choices">
+            {destinations.map(([id, icon, title, copy]) => <label class="ac-choice ac-choice--destination"><input type="radio" name="destination" value={id} /><ProductIcon icon={icon} size={28} /><span><strong>{title}</strong><small>{copy}</small></span></label>)}
+          </div>
+          <div class="ac-conditional ac-field-grid" data-branch="link">
+            <label class="ac-wide"><span data-destination-label>Enlace de destino</span><input name="url" type="url" maxlength="700" placeholder="https://…" data-required="url" /></label>
+            <p class="ac-help ac-wide" data-google-url-note>Pega el enlace de tu plataforma de reseñas. Si no lo conoces, elige «Necesito ayuda».</p>
+          </div>
+          <div class="ac-conditional ac-field-grid" data-branch="help">
+            <label>Nombre del negocio<input name="helpBusiness" maxlength="180" data-required="always" autocomplete="organization" /></label>
+            <label>Localidad<input name="locality" maxlength="180" data-required="always" /></label>
+            <div class="ac-wide ac-place" data-google-fields>
+              <label for="cards-google-search">Localizar ficha de Google <span class="ac-optional">(opcional)</span></label>
+              <input id="cards-google-search" type="search" placeholder="Nombre del negocio y localidad" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="cards-google-options" aria-describedby="cards-google-status" />
+              <div class="ac-place__popover" data-place-popover hidden><ul id="cards-google-options" role="listbox" aria-label="Negocios encontrados"></ul><img src="https://maps.gstatic.com/mapfiles/api-3/images/powered-by-google-on-white3.png" width="120" height="15" alt="Powered by Google" loading="lazy" /></div>
+              <p class="ac-help" id="cards-google-status" role="status"></p>
+            </div>
+            <p class="ac-help ac-wide">Localizar un destino sencillo existente está incluido. Crear contenido o integrar sistemas requiere una propuesta.</p>
+          </div>
+          <div class="ac-conditional" data-branch="create"><label>¿Qué necesitas que creemos?<textarea name="project" rows="3" minlength="10" maxlength="1500" data-required="always" placeholder="Una carta digital, una landing, una página de enlaces…"></textarea></label><p class="ac-help">Lo revisaremos contigo y te enviaremos una propuesta antes de cualquier pago.</p></div>
+          <div class="ac-conditional ac-field-grid" data-type-fields="redes-sociales">
+            <p class="ac-wide ac-help">Añade los perfiles que quieras compartir. Todos son opcionales; si necesitas reunirlos en una página nueva, elige «Quiero que me lo creéis».</p>
+            {['Instagram', 'TikTok', 'Facebook', 'YouTube', 'LinkedIn', 'Otros'].map((label, i) => <label>{label}<input name={['instagram','tiktok','facebook','youtube','linkedin','other'][i]} type="url" placeholder="https://…" maxlength="700" /></label>)}
+          </div>
+          <div class="ac-conditional ac-field-grid" data-type-fields="whatsapp">
+            <label>Teléfono de WhatsApp<input name="phone" type="tel" maxlength="32" placeholder="+34 600 000 000" data-required="phone" /></label>
+            <label>Mensaje inicial <span class="ac-optional">(opcional)</span><input name="message" maxlength="600" /></label>
+          </div>
+          <div class="ac-conditional ac-field-grid" data-type-fields="contacto">
+            <label>Nombre para la tarjeta<input name="name" maxlength="120" data-required="contact" /></label>
+            <label>Empresa <span class="ac-optional">(opcional)</span><input name="company" maxlength="180" /></label>
+            <label>Teléfono de contacto<input name="vcardPhone" type="tel" maxlength="32" /></label>
+            <label>Email de contacto<input name="email" type="email" maxlength="254" /></label>
+            <label class="ac-wide">Web <span class="ac-optional">(opcional)</span><input name="web" type="url" maxlength="700" /></label>
+          </div>
+          <div class="ac-conditional" data-type-fields="acceso otra-idea"><label>Cuéntanos qué tienes en mente<textarea name="otherProject" minlength="10" maxlength="1500" rows="3" data-required="always" placeholder="Qué quieres que haga y, si existe, qué sistema utilizas."></textarea></label></div>
+        </fieldset>
+        <fieldset data-step="4" hidden disabled>
+          <legend tabindex="-1">Vamos a darle forma.</legend>
+          <p class="ac-step-intro" data-contact-copy>Indica tus datos para preparar el pedido.</p>
+          <div class="ac-field-grid">
+            <label>Nombre del negocio<input name="negocioNombre" maxlength="180" autocomplete="organization" /></label>
+            <label>Nombre y apellidos<input name="clienteNombre" minlength="2" maxlength="120" autocomplete="name" /></label>
+            <label>Email<input name="clienteEmail" type="email" maxlength="254" autocomplete="email" /></label>
+            <label>Teléfono<input name="clienteTelefono" type="tel" maxlength="32" autocomplete="tel" /></label>
+          </div>
+          <div class="ac-wizard-note" data-artwork-pending><strong>Tu diseño listo para imprimir</strong><p data-artwork-summary>No has adjuntado un diseño.</p><button type="button" class="ac-text-button" data-open-artwork>Ver o cambiar diseño</button></div>
+          <div class="ac-conditional ac-field-grid" data-design-fields>
+            <label>Colores de marca <span class="ac-optional">(opcional)</span><input name="colors" maxlength="180" /></label>
+            <label>Texto de la tarjeta <span class="ac-optional">(opcional)</span><input name="text" maxlength="600" /></label>
+            <label class="ac-wide">Estilo o referencias <span class="ac-optional">(opcional)</span><textarea name="style" rows="2" maxlength="600"></textarea></label>
+            <label class="ac-wide">Instrucciones <span class="ac-optional">(opcional)</span><textarea name="instructions" rows="2" maxlength="600"></textarea></label>
+          </div>
+          <div class="ac-quantity"><label>Cantidad de tarjetas<select name="quantityPreset">{[1,5,10,20,50,100].map(n => <option value={n}>{n} {n === 1 ? 'tarjeta' : 'tarjetas'}</option>)}<option value="custom">Otra cantidad</option></select></label><label data-custom-quantity hidden>Cantidad personalizada<input name="cantidad" type="number" min="1" max="500" step="1" value="1" required inputmode="numeric" /></label><p class="ac-help">Elige una cantidad o indica la que necesitas, entre 1 y 500 tarjetas.</p></div>
+        </fieldset>
+        <fieldset data-step="5" hidden disabled>
+          <legend tabindex="-1" data-final-title>Revisa tu tarjeta</legend>
+          <p class="ac-step-intro" data-final-copy>Comprueba el resumen. Puedes editar cualquier paso antes de enviar.</p>
+          <div class="ac-field-grid" data-shipping-fields>
+            <p class="ac-wide ac-help">Usaremos el nombre, email y teléfono que ya has indicado.</p>
+            <label class="ac-wide">Dirección de envío<input name="envioDireccion" minlength="3" maxlength="220" autocomplete="address-line1" required /></label>
+            <label class="ac-wide">Piso, puerta o local <span class="ac-optional">(opcional)</span><input name="envioDireccionExtra" maxlength="120" autocomplete="address-line2" /></label>
+            <label>Localidad<input name="envioCiudad" minlength="2" maxlength="120" autocomplete="address-level2" required /></label>
+            <label>Provincia<input name="envioProvincia" minlength="2" maxlength="120" autocomplete="address-level1" required /></label>
+            <label>Código postal<input name="envioCodigoPostal" pattern="[0-9]{5}" maxlength="5" inputmode="numeric" autocomplete="postal-code" required /></label>
+            <label>País<select name="envioPais"><option value="ES">España</option></select></label>
+          </div>
+          <label class="ac-check" data-purchase-consent><input type="checkbox" name="consent" required /><span data-consent-copy>He leído y acepto la <a href="/privacidad" target="_blank" rel="noopener">Política de privacidad</a> para gestionar mi solicitud.</span></label>
+          <div data-whatsapp-review><label>Este es el mensaje que podrás enviar<textarea data-whatsapp-preview rows="8" readonly></textarea></label><p class="ac-help">Se abrirá WhatsApp. Tú revisas el mensaje y decides cuándo enviarlo.</p></div>
+          <label class="ac-honeypot" aria-hidden="true">Web<input name="website" tabindex="-1" autocomplete="off" /></label>
+        </fieldset>
+        <div class="ac-wizard__navigation"><button type="button" class="ac-button ac-button--soft" data-back disabled>← Volver</button><button type="button" class="ac-button" data-next>Continuar →</button></div>
+        <p class="ac-help" data-step-missing aria-live="polite"></p>
+      </div>
+      <aside class="ac-wizard__summary">
+        <details data-summary-details open>
+          <summary>Ver resumen <span>Tu tarjeta Altaria</span></summary>
+          <h3>Tu tarjeta, tu idea.</h3>
+          <img class="ac-wizard__art" src="/media/altaria-cards/optimized/cards-hero-480.webp" width="480" height="320" alt="Tarjetas NFC personalizadas Altaria Cards" loading="lazy" />
+          <dl>{[['design','Diseño',1],['product','Tipo',2],['destination','Destino',3],['quantity','Cantidad',4],['personalization','Personalización',4],['contact','Contacto',4],['shipping','Envío',5]].map(([key,label,step]) => <div data-summary-row={key}><dt>{label}</dt><dd data-summary={key}>Por indicar</dd><button type="button" class="ac-text-button" data-go-step={step} aria-label={`Editar ${label}`}>Editar</button></div>)}</dl>
+          <p class="ac-help" data-scope></p>
+        </details>
+        <div class="ac-wizard__price"><span data-total-label>Precio</span><strong data-summary="total">Pendiente de selección</strong></div>
+        <p class="ac-help" data-price-breakdown></p>
+        <button type="submit" class="ac-button" data-final-submit disabled>Solicitar propuesta</button>
+        <p class="ac-help" data-final-missing></p>
+        <a class="ac-text-link" href={CARDS_WHATSAPP_URL} data-direct-whatsapp>Prefiero hablar directamente por WhatsApp</a>
+        <p class="ac-form-status" data-config-status role="status" aria-live="polite"></p>
+      </aside>
+    </div>
+  </form>
+  <noscript><p>Activa JavaScript para configurar tu tarjeta o <a href="/contacto">contacta con nosotros</a>.</p></noscript>
+</section>

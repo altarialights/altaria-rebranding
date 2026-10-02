@@ -1,1 +1,1 @@
-export const PURCHASE_TERMS_VERSION = '2026-09-04';
+export const PURCHASE_TERMS_VERSION = '2026-10-02';

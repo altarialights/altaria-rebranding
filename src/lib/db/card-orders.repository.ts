@@ -10,6 +10,7 @@ import type {
 import { validateCheckoutPayment } from '../orders/payment-validation';
 import { stripeEnvironmentMatches, type StripeMode } from '../orders/stripe-mode';
 import { PURCHASE_TERMS_VERSION } from '../orders/purchase-terms';
+import { assertUnboundArtwork } from './card-artwork.repository';
 
 type DatabaseRow = Record<string, unknown>;
 
@@ -19,6 +20,9 @@ const requiredText = (value: unknown): string => typeof value === 'string' ? val
 const requiredNumber = (value: unknown): number => typeof value === 'number' ? value : Number(value);
 
 const mapPedido = (row: DatabaseRow): PedidoTarjetas => ({
+  productoId: requiredText(row.producto_id) || 'resenas',
+  productoNombre: requiredText(row.producto_nombre) || 'Tarjeta NFC + QR para reseñas de Google',
+  personalizacion: JSON.parse(requiredText(row.personalizacion_json) || '{}'),
   id: requiredText(row.id),
   numeroPedido: requiredText(row.numero_pedido),
   claveIdempotencia: requiredText(row.clave_idempotencia),
@@ -62,7 +66,7 @@ const SELECT_PEDIDO = `SELECT
   envio_direccion, envio_direccion_extra, envio_codigo_postal, envio_ciudad,
   envio_provincia, envio_pais, referencia_envio, stripe_checkout_session_id,
   stripe_payment_intent_id, stripe_customer_id, stripe_entorno, creado_en, pagado_en,
-  telegram_notificado_en
+  telegram_notificado_en, producto_id, producto_nombre, personalizacion_json
 FROM pedidos_tarjetas`;
 
 export const findCardOrderByIdempotencyKey = async (key: string): Promise<PedidoTarjetas | null> => {
@@ -74,7 +78,7 @@ export const createPendingCardOrder = async (input: NuevoPedidoTarjetas): Promis
   const database = getDatabase();
   await database.pragma('foreign_keys = ON');
   try {
-    await database.batch([
+    const statements = [
       {
         sql: `INSERT INTO pedidos_tarjetas (
           id, numero_pedido, clave_idempotencia, huella_solicitud, estado,
@@ -82,8 +86,9 @@ export const createPendingCardOrder = async (input: NuevoPedidoTarjetas): Promis
           precio_unitario_centimos, subtotal_centimos, envio_centimos, impuestos_centimos,
           total_centimos, moneda, cliente_nombre, cliente_email, cliente_telefono,
           envio_direccion, envio_direccion_extra, envio_codigo_postal, envio_ciudad,
-          envio_provincia, envio_pais, referencia_envio, stripe_entorno, creado_en
-        ) VALUES (?, ?, ?, ?, 'pendiente_pago', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          envio_provincia, envio_pais, referencia_envio, stripe_entorno, creado_en,
+          producto_id, producto_nombre, personalizacion_json
+        ) VALUES (?, ?, ?, ?, 'pendiente_pago', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         args: [
           input.id, input.numeroPedido, input.claveIdempotencia, input.huellaSolicitud,
           input.negocio.googlePlaceId, input.negocio.nombre, input.negocio.direccion,
@@ -93,6 +98,8 @@ export const createPendingCardOrder = async (input: NuevoPedidoTarjetas): Promis
           input.cliente.telefono, input.envio.direccion, input.envio.direccionExtra ?? null,
           input.envio.codigoPostal, input.envio.ciudad, input.envio.provincia, input.envio.pais,
           input.envio.referencia ?? null, input.stripeEntorno, input.creadoEn,
+          input.productoId ?? 'resenas', input.productoNombre ?? 'Tarjeta NFC + QR para reseñas de Google',
+          JSON.stringify(input.personalizacion ?? {}),
         ],
       },
       {
@@ -106,7 +113,16 @@ export const createPendingCardOrder = async (input: NuevoPedidoTarjetas): Promis
           `pedido:${input.id}:creado`, input.creadoEn,
         ],
       },
-    ], 'immediate');
+    ];
+    const artwork = input.personalizacion?.configuracion?.artworkFile;
+    if (artwork) {
+      await database.transactionAsync(async tx => {
+        await tx.exec('PRAGMA foreign_keys = ON');
+        await assertUnboundArtwork(tx,artwork.token,input.artworkOwnerHash ?? '');
+        await tx.batch(statements);
+        await tx.run('UPDATE card_artwork SET order_id = ? WHERE token = ? AND owner_hash = ?',input.id,artwork.token,input.artworkOwnerHash ?? '');
+      }).immediate();
+    } else await database.batch(statements, 'immediate');
   } catch (error) {
     const existente = await findCardOrderByIdempotencyKey(input.claveIdempotencia);
     if (existente) return { pedido: existente, creado: false };
@@ -187,6 +203,12 @@ export const processPaidCheckoutSession = async (
     };
 
     if (!pedido) {
+      // Stripe puede llegar antes de que saveCheckoutSession termine. No
+      // consumir ese evento: el 500 permite que Stripe vuelva a entregarlo.
+      const pending: unknown = session.clientReferenceId ? await tx.get(
+        'SELECT id FROM pedidos_tarjetas WHERE id = ? AND stripe_checkout_session_id IS NULL LIMIT 1', session.clientReferenceId,
+      ) : null;
+      if (isRow(pending)) throw new Error('La sesión del pedido aún se está vinculando.');
       await insertStripeEvent(tx, eventId, eventType, null, 'pedido_no_encontrado', eventData, timestamp);
       return { resultado: 'pedido_no_encontrado', pedido: null, notificarTelegram: false };
     }
@@ -313,13 +335,14 @@ export const findPublicCardOrderByCheckoutSession = async (
   stripeEntorno: StripeMode,
 ): Promise<ResumenPedidoPublico | null> => {
   const row: unknown = await getDatabase().get(
-    `SELECT numero_pedido, negocio_nombre, cantidad, total_centimos, moneda, estado
+    `SELECT numero_pedido, negocio_nombre, cantidad, total_centimos, moneda, estado, producto_nombre
      FROM pedidos_tarjetas
      WHERE stripe_checkout_session_id = ? AND stripe_entorno = ? LIMIT 1`,
     sessionId, stripeEntorno,
   );
   if (!isRow(row)) return null;
   return {
+    productoNombre: requiredText(row.producto_nombre) || 'Tarjeta NFC + QR para reseñas de Google',
     numeroPedido: requiredText(row.numero_pedido),
     negocioNombre: requiredText(row.negocio_nombre),
     cantidad: requiredNumber(row.cantidad),

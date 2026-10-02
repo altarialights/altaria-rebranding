@@ -32,6 +32,9 @@ importers:
       stripe:
         specifier: ^22.6.1
         version: 22.6.1(@types/node@24.13.3)
+      sharp:
+        specifier: ^0.35.4
+        version: 0.35.4(@types/node@24.13.3)
     devDependencies:
       '@astrojs/check':
         specifier: ^0.9.10
@@ -39,9 +42,6 @@ importers:
       playwright:
         specifier: ^1.62.1
         version: 1.62.1
-      sharp:
-        specifier: ^0.35.4
-        version: 0.35.4(@types/node@24.13.3)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3

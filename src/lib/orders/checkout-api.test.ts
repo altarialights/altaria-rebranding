@@ -67,6 +67,47 @@ describe('POST /api/tarjetas/checkout validation contract', () => {
   });
 
   it.each([
+    ['redes-sociales'], ['whatsapp'], ['reservas'], ['cartas-digitales'],
+  ])('blocks missing configuration for %s even when the client supplies a price or Google business', async (productoId) => {
+    const response = await invoke({ ...validRequest, productoId, amount: 1, moneda: 'usd', price: 'price_forged' });
+    expect(response.status).toBe(400);
+    expect(mocks.prepare).not.toHaveBeenCalled();
+  });
+
+  it('rejects an unknown product rather than charging the legacy model', async () => {
+    expect((await invoke({ ...validRequest, productoId: 'inventado' })).status).toBe(400);
+    expect(mocks.prepare).not.toHaveBeenCalled();
+  });
+
+  it('accepts explicit reviews and strips client-controlled amounts', async () => {
+    expect((await invoke({ ...validRequest, productoId: 'resenas', amount: 1, currency: 'usd' })).status).toBe(200);
+    const parsed = mocks.prepare.mock.calls[0][0];
+    expect(parsed.productoId).toBe('resenas');
+    expect(parsed).not.toHaveProperty('amount');
+    expect(parsed).not.toHaveProperty('currency');
+  });
+
+  it.each([
+    ['own', 'create'], ['custom', 'create'], ['existing', 'create'], ['own', 'help'], ['custom', 'help'],
+  ])('blocks forged purchasable configuration %s / %s before any gateway call', async (design, destination) => {
+    const response = await invoke({ ...validRequest, productoId: 'resenas', personalizacion: {
+      configuracion: { version: 2, design, destination, artwork: 'not-required', details: {
+        url: 'https://search.google.com/local/writereview?placeid=ChIJTest', project: destination === 'create' ? 'Una landing para mi negocio' : undefined,
+      } },
+    } });
+    expect(response.status).toBe(400);
+    expect(mocks.prepare).not.toHaveBeenCalled();
+  });
+
+  it('allows the existing model with a real Google review URL without requiring Places', async () => {
+    const response = await invoke({ ...validRequest, productoId: 'resenas', negocio: { nombre: 'Negocio QA' }, personalizacion: {
+      configuracion: { version: 2, design: 'existing', destination: 'link', artwork: 'not-required', details: { url: 'https://g.page/r/example/review' } },
+    } });
+    expect(response.status).toBe(200);
+    expect(mocks.prepare.mock.calls[0][0].personalizacion.configuracion.details.url).toBe('https://g.page/r/example/review');
+  });
+
+  it.each([
     ['aceptaCondicionesCompra', { aceptaCondicionesCompra: false }, 'Debes aceptar las Condiciones de compra para continuar.'],
     ['cliente.telefono', { cliente: { ...validRequest.cliente, telefono: 'incorrecto' } }, 'Introduce un teléfono válido.'],
     ['cliente.email', { cliente: { ...validRequest.cliente, email: 'incorrecto' } }, 'Introduce un email válido.'],

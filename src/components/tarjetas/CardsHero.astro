@@ -1,0 +1,37 @@
+---
+import { CARDS_WHATSAPP_URL } from '../../lib/contact/cards-whatsapp';
+import ProductIcon from './ProductIcon.astro';
+interface Props { home?: boolean }
+const { home = false } = Astro.props;
+const Heading = home ? 'h2' : 'h1';
+const base = home ? '/tarjetas-nfc-personalizadas' : '';
+const benefits = home ? [
+  ['edit', 'Personalizadas', 'Tu marca, tu estilo'],
+  ['tap', 'NFC + QR', 'Un toque, mil posibilidades'],
+  ['package', 'Hechas para tu negocio', 'Restaurantes, hoteles, tiendas y más'],
+] : [
+  ['tap', 'NFC + QR', 'Un toque o un escaneo'],
+  ['users', 'Todo en uno', 'Redes, reseñas, reservas…'],
+  ['sparkle', 'Hechas para tu marca', 'Totalmente personalizadas'],
+];
+---
+<section class:list={['ac-hero', { 'ac-hero--home': home }]} aria-labelledby={home ? 'altaria-cards-title' : 'cards-title'}>
+  <div class="ac-shell ac-hero__grid">
+    <div class="ac-hero__copy">
+      <p class="ac-eyebrow">{home ? 'Altaria Cards' : 'Pequeñas tarjetas, grandes conexiones'}</p>
+      <Heading id={home ? 'altaria-cards-title' : 'cards-title'}>Tarjetas NFC personalizadas</Heading>
+      <p class="ac-lead">Conecta con tus clientes de la forma más simple. Nuestras tarjetas NFC + QR pueden llevar a tus reseñas, redes sociales, WhatsApp, tu web, reservas, cartas digitales y mucho más. Tú decides.</p>
+      <div class="ac-actions">
+        <a class="ac-button" href={home ? base : CARDS_WHATSAPP_URL}>{home ? 'Ver tarjetas' : 'Cuéntanos tu idea'}<ProductIcon icon="arrow" size={20} /></a>
+        <a class="ac-button ac-button--soft" href={home ? CARDS_WHATSAPP_URL : '#tipos-de-tarjeta'}>{home ? 'Cuéntanos tu idea' : 'Ver opciones'}</a>
+      </div>
+    </div>
+    <figure class="ac-hero__art">
+      <img src="/media/altaria-cards/optimized/cards-hero-960.webp" srcset="/media/altaria-cards/optimized/cards-hero-480.webp 480w, /media/altaria-cards/optimized/cards-hero-960.webp 960w, /media/altaria-cards/optimized/cards-hero-1440.webp 1440w" sizes={home ? '(max-width: 767px) 90vw, (min-width: 1776px) 824px, 46vw' : '(max-width: 767px) 90vw, (min-width: 1376px) 603px, 46vw'} width="1440" height="960" alt="Tres tarjetas NFC Altaria Lights personalizadas en azul marino, blanco y azul cielo, sobre nubes" loading={home ? 'lazy' : 'eager'} fetchpriority={home ? 'auto' : 'high'} decoding="async" />
+      <figcaption>Tu idea. Tu marca. Tu tarjeta.</figcaption>
+    </figure>
+    <ul class="ac-benefits" aria-label="Ventajas de Altaria Cards">
+      {benefits.map(([icon, title, copy]) => <li><ProductIcon icon={icon} size={29} /><span><strong>{title}</strong><small>{copy}</small></span></li>)}
+    </ul>
+  </div>
+</section>

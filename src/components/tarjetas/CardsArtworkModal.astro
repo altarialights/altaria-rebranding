@@ -1,0 +1,18 @@
+<dialog class="ac-artwork" data-artwork-modal aria-labelledby="artwork-title">
+  <button type="button" class="ac-artwork__close" data-artwork-close aria-label="Cerrar diseño">×</button>
+  <p class="ac-eyebrow">Tu tarjeta, tu diseño</p><h2 id="artwork-title">Sube tu diseño</h2>
+  <p>Tarjeta <strong>CR80 · 85,60 × 53,98 mm</strong>. Recomendado: al menos 1012 × 638 px. Aceptamos más resolución. PNG, JPG/JPEG o WebP, máximo 2 MB y 40 megapíxeles.</p>
+  <p class="ac-help">Conservamos el original intacto. Si la proporción o resolución no es adecuada, podrás enviarlo para revisión.</p>
+  <label class="ac-artwork__file">Seleccionar imagen<input type="file" data-artwork-input accept="image/png,image/jpeg,image/webp" /></label>
+  <div class="ac-artwork__frame" data-artwork-frame hidden><img class="ac-artwork__preview" data-artwork-preview alt="Vista previa visual de tu diseño, sin modificar el original" /></div>
+  <div data-artwork-layout hidden>
+    <label><input type="radio" name="artworkFit" value="contain" checked /> Encajar completa (sin cortar)</label>
+    <label><input type="radio" name="artworkFit" value="cover" /> Recortar vista previa (requiere revisión)</label>
+    <div data-artwork-position hidden><label>Posición horizontal<input type="range" data-artwork-x min="0" max="100" value="50" /></label><label>Posición vertical<input type="range" data-artwork-y min="0" max="100" value="50" /></label></div>
+    <p class="ac-help">El encuadre es una indicación para el equipo. Nunca reemplaza el archivo original ni aplica un recorte automático.</p>
+  </div>
+  <p data-artwork-status role="status" aria-live="polite"></p>
+  <p class="ac-help">Al guardar, envías el archivo a Altaria para preparar tu tarjeta. El acceso al original está protegido por tu sesión. <a href="/privacidad" target="_blank" rel="noopener">Privacidad</a>.</p>
+  <button type="button" class="ac-text-button" data-artwork-remove hidden>Eliminar diseño</button>
+  <div class="ac-actions"><button type="button" class="ac-button" data-artwork-save disabled>Guardar diseño</button><button type="button" class="ac-button ac-button--soft" data-artwork-close>Volver</button></div>
+</dialog>

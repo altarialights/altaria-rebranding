@@ -38,17 +38,22 @@ export const buildCheckoutSessionParams = (
   pedido: PedidoTarjetas,
   origin: string,
 ): Stripe.Checkout.SessionCreateParams => {
-  const successBase = new URL('/tarjetas-reseñas-google/pedido-confirmado', origin);
+  const successBase = new URL('/tarjetas-nfc-personalizadas/pedido-confirmado', origin);
   const successUrl = `${successBase.href}?session_id={CHECKOUT_SESSION_ID}`;
-  const cancelUrl = new URL('/tarjetas-reseñas-google?pago=cancelado#configurador', origin).href;
+  const cancelUrl = new URL('/tarjetas-nfc-personalizadas?pago=cancelado#comprar', origin).href;
   const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [{
     quantity: pedido.cantidad,
     price_data: {
       currency: pedido.moneda,
       unit_amount: pedido.precioUnitarioCentimos,
-      product_data: { name: 'Tarjeta NFC + QR para reseñas de Google' },
+      product_data: { name: pedido.productoNombre || 'Tarjeta NFC + QR para reseñas de Google' },
     },
   }];
+  const designAmount = pedido.personalizacion?.tarifa?.disenoCentimos ?? 0;
+  if (designAmount > 0) lineItems.push({ quantity: 1, price_data: {
+    currency: pedido.moneda, unit_amount: designAmount,
+    product_data: { name: 'Diseño de tarjeta por Altaria' },
+  } });
   if (pedido.envioCentimos > 0) {
     lineItems.push({
       quantity: 1,

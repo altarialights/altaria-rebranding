@@ -1,0 +1,35 @@
+---
+import { cardsCatalog } from '../../data/cards-catalog';
+import { cardExamples } from '../../data/card-examples';
+import { cardsWhatsAppUrl } from '../../lib/contact/cards-whatsapp';
+---
+<dialog class="ac-catalog" data-cards-catalog aria-labelledby="catalog-title" aria-describedby="catalog-intro">
+  <header class="ac-catalog__header">
+    <div><p class="ac-eyebrow">Un toque. Muchas posibilidades.</p><h2 id="catalog-title">Encuentra tu tarjeta</h2><p id="catalog-intro">Explora diseños y descubre qué puede hacer cada tarjeta por tu negocio.</p></div>
+    <button type="button" class="ac-catalog__close" data-close-catalog aria-label="Cerrar catálogo">×</button>
+    <label class="ac-catalog__search"><span>Busca una idea</span><input type="search" data-catalog-search placeholder="Café, reservas, Instagram, eventos…" autocomplete="off" /></label>
+  </header>
+  <div class="ac-catalog__layout">
+    <nav class="ac-catalog__nav" aria-label="Categorías de tarjetas">
+      <button type="button" data-catalog-category="all" aria-pressed="true">Todas las ideas <span>{cardExamples.length}</span></button>
+      {cardsCatalog.map(category => <button type="button" data-catalog-category={category.id} aria-pressed="false">{category.name}<span>{cardExamples.filter(example => example.category === category.id).length}</span></button>)}
+    </nav>
+    <div class="ac-catalog__content" data-catalog-scroll>
+      <p class="ac-catalog__count" data-catalog-count role="status" aria-live="polite">{cardExamples.length} ideas para inspirarte</p>
+      <div class="ac-catalog__grid">
+        {cardExamples.map(example => <article class="ac-catalog-card" data-example-id={example.id} data-category={example.category} data-search={`${example.name} ${example.title} ${example.effect} ${example.tags}`}>
+          <img src={example.image} srcset={`${example.image.replace('.webp', '-450.webp')} 450w, ${example.image} 900w`} sizes="(max-width: 699px) calc(100vw - 60px), (max-width: 1099px) 65vw, 450px" width="900" height="600" alt={`Diseño de tarjeta ${example.name} y vista en el móvil: ${example.effect}`} loading="lazy" decoding="async" />
+          <div class="ac-catalog-card__body">
+            <p class="ac-eyebrow">{cardsCatalog.find(category => category.id === example.category)?.name} · {example.name}</p>
+            <h3>{example.title}</h3>
+            <p class="ac-catalog-card__effect"><span aria-hidden="true">↗</span>{example.effect}</p>
+            <details><summary>Cómo funciona</summary><p>{example.detail}</p></details>
+            <div class="ac-catalog-card__actions"><a class="ac-button" href={cardsWhatsAppUrl(`Hola, me interesa una tarjeta de Altaria Cards como el ejemplo «${example.name}». Quiero adaptarla a mi negocio.`)}>Quiero una así ↗</a><button type="button" class="ac-text-button" data-configure-example={example.id}>Personalizar</button></div>
+          </div>
+        </article>)}
+      </div>
+      <div class="ac-catalog__empty" data-catalog-empty hidden><h3>No encontramos esa idea.</h3><p>Prueba con otra palabra o explora todas las tarjetas.</p><button type="button" class="ac-button ac-button--soft" data-reset-catalog>Ver todas las ideas</button></div>
+      <p class="ac-catalog__note">Diseños y pantallas de ejemplo para inspirarte. Adaptamos la tarjeta a tu marca y definimos los enlaces o sistemas que necesite tu proyecto.</p>
+    </div>
+  </div>
+</dialog>

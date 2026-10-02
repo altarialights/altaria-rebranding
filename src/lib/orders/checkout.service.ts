@@ -1,4 +1,8 @@
-import { calcularImportesPedido } from './config';
+import { canCheckoutConfiguration, cardDestinationUrl } from './card-configuration';
+import { findCardArtwork } from '../db/card-artwork.repository';
+import { ProductUnavailableError } from './catalog-pricing';
+import { calculateCardProductPrice } from './catalog-pricing';
+import { CARD_PRICING_VERSION, findCardProduct, LEGACY_CARD_PRODUCT_ID } from '../../data/cards-catalog';
 import type { PedidoTarjetas } from './types';
 import type { CrearPedidoInput } from './validation';
 import { stripeEnvironmentMatches, type StripeMode } from './stripe-mode';
@@ -15,6 +19,8 @@ export interface CheckoutGateway {
 }
 
 interface CheckoutDependencies {
+  artworkOwnerHash?: string;
+  findArtwork?: typeof findCardArtwork;
   gateway: CheckoutGateway;
   findByIdempotencyKey?: typeof findCardOrderByIdempotencyKey;
   createPending?: typeof createPendingCardOrder;
@@ -54,6 +60,11 @@ export const prepareCardOrderCheckout = async (
   origin: string,
   dependencies: CheckoutDependencies,
 ): Promise<{ pedidoId: string; numeroPedido: string; sessionId: string; checkoutUrl: string }> => {
+  // También se valida aquí: ningún llamador puede saltarse la disponibilidad.
+  if (!canCheckoutConfiguration(input.productoId ?? LEGACY_CARD_PRODUCT_ID, input.personalizacion?.configuracion, input.negocio.googlePlaceId)) {
+    throw new ProductUnavailableError('Esta configuración requiere una propuesta.');
+  }
+  const product = findCardProduct(input.productoId ?? LEGACY_CARD_PRODUCT_ID)!;
   const findByIdempotencyKey = dependencies.findByIdempotencyKey ?? findCardOrderByIdempotencyKey;
   const createPending = dependencies.createPending ?? createPendingCardOrder;
   const saveSession = dependencies.saveSession ?? saveCheckoutSession;
@@ -67,10 +78,27 @@ export const prepareCardOrderCheckout = async (
   }
 
   if (!pedido) {
+    const config: import('./card-configuration').CardConfiguration | undefined = input.personalizacion?.configuracion ? structuredClone(input.personalizacion.configuracion) : undefined;
+    if (!config || config.design === 'existing') throw new ProductUnavailableError('Vuelve al configurador para usar el catálogo actual.');
+    if (config.design === 'own') {
+      const file = config.artworkFile && await (dependencies.findArtwork ?? findCardArtwork)(config.artworkFile.token, dependencies.artworkOwnerHash);
+      if (!file || file.orderId || file.inquiryId) throw new ProductUnavailableError('Adjunta un diseño de tu sesión que no pertenezca a otro pedido.');
+      config.artwork = 'uploaded';
+      config.artworkFile = { token: config.artworkFile!.token, filename: file.filename, width:file.width,height:file.height,status:file.status,warnings:file.warnings,layout:file.layout };
+    } else { delete config.artworkFile; config.artwork = 'not-required'; }
+    const amounts = calculateCardProductPrice(product.id, input.cantidad, config.design);
     const fecha = now();
     const persisted = await createPending({
       ...input,
-      ...calcularImportesPedido(input.cantidad),
+      ...amounts,
+      artworkOwnerHash: dependencies.artworkOwnerHash,
+      productoNombre: product.orderName,
+      personalizacion: {
+        ...input.personalizacion,
+        configuracion: config,
+        destino: cardDestinationUrl(config, product.id, input.negocio.googlePlaceId),
+        tarifa: { version: CARD_PRICING_VERSION, disenoCentimos: amounts.disenoCentimos },
+      },
       id: randomUUID(),
       numeroPedido: createOrderNumber(fecha, randomUUID),
       huellaSolicitud,

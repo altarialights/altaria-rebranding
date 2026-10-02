@@ -10,7 +10,7 @@ const sitemapPaths = new Set([
   '/marketing',
   '/software',
   '/branding',
-  '/tarjetas-reseñas-google',
+  '/tarjetas-nfc-personalizadas',
   '/contacto',
   '/medir-nivel-digital',
   '/proyectos/de-zamorano',

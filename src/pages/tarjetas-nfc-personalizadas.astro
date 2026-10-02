@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import FloatingHeader from '../components/hero/FloatingHeader.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+import CardsHero from '../components/tarjetas/CardsHero.astro';
+import CardsConfigurator from '../components/tarjetas/CardsConfigurator.astro';
+import CardsCatalogModal from '../components/tarjetas/CardsCatalogModal.astro';
+import CardsArtworkModal from '../components/tarjetas/CardsArtworkModal.astro';
+import { CARDS_WHATSAPP_URL } from '../lib/contact/cards-whatsapp';
+import CardsInquiry from '../components/tarjetas/CardsInquiry.astro';
+import ProductIcon from '../components/tarjetas/ProductIcon.astro';
+import { featuredCardsCatalog as cardsCatalog } from '../data/cards-catalog';
+import '../styles/altaria-cards.css';
+const site = Astro.site ?? new URL(Astro.url.origin);
+const schema = {
+  '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: new URL('/', site).href },
+    { '@type': 'ListItem', position: 2, name: 'Altaria Cards', item: new URL('/tarjetas-nfc-personalizadas', site).href },
+  ],
+};
+const steps = [
+  ['card', 'Elige tu tarjeta', 'Selecciona el modelo y la cantidad.'],
+  ['edit', 'Personaliza', 'Cuéntanos qué enlaces, funciones o diseño quieres.'],
+  ['package', 'Recibe y conecta', 'Nosotros la preparamos. Tú solo tienes que usarla.'],
+];
+---
+<Base title="Tarjetas NFC personalizadas | Altaria Cards · Altaria Lights" description="Conecta con un toque. Tarjetas NFC + QR para reseñas, redes sociales, WhatsApp, reservas y cartas digitales. Descubre Altaria Cards y cuéntanos tu idea." canonical="/tarjetas-nfc-personalizadas" schema={schema}>
+  <FloatingHeader alwaysVisible brandHref="/" nav={[{ label: 'Tipos de tarjeta', href: '#tipos-de-tarjeta' }]} cta={{ label: 'Cuéntanos tu idea', href: CARDS_WHATSAPP_URL }} />
+  <main class="ac-page" id="top">
+    <CardsHero />
+    <section class="ac-section ac-shell ac-types" id="tipos-de-tarjeta" aria-labelledby="types-title">
+      <header class="ac-section-heading"><div><p class="ac-eyebrow">Inspiración para tu negocio</p><h2 id="types-title">Tipos de tarjeta</h2></div><p>Distintas ideas, un mismo objetivo: conectar. Cada tarjeta se adapta a lo que necesitas.</p><button type="button" class="ac-button ac-button--soft" data-open-catalog>Ver todas las opciones</button></header>
+      <div class="ac-types__grid">
+        {cardsCatalog.map((product) => <article class="ac-type">
+          <img src={product.image} width="180" height="180" alt="" loading="lazy" decoding="async" />
+          <h3>{product.name}</h3><p>{product.description}</p>
+          <button type="button" class="ac-example-button" data-card-example={product.id}>Ver ejemplo<span class="u-visually-hidden"> de {product.name}</span></button>
+        </article>)}
+        <article class="ac-type ac-type--all">
+          <div class="ac-type__all-icon"><ProductIcon icon="card" size={56} /></div>
+          <h3>Más ideas</h3><p>Descubre todos los diseños y encuentra tu tarjeta.</p>
+          <button type="button" class="ac-example-button" data-open-catalog>Ver todas</button>
+        </article>
+      </div>
+    </section>
+    <section class="ac-process ac-shell" aria-labelledby="process-title">
+      <div><p class="ac-eyebrow">Muy fácil, como debe ser</p><h2 id="process-title">Elige tu tarjeta. Hablemos de tu idea.</h2><p>Tú nos dices qué quieres que haga la tarjeta y nosotros la configuramos para ti. Sin complicaciones.</p><div class="ac-actions"><a class="ac-button" href="#comprar">Configurar mi tarjeta <span aria-hidden="true">→</span></a><a class="ac-button ac-button--soft" href={CARDS_WHATSAPP_URL}>Cuéntanos tu idea</a></div></div>
+      <ol>{steps.map(([icon, title, description], index) => <li><div class="ac-process__icon"><span>{index + 1}</span><ProductIcon icon={icon} size={46} /></div><h3>{title}</h3><p>{description}</p></li>)}</ol>
+    </section>
+    <CardsConfigurator />
+    <CardsInquiry />
+  </main>
+  <SiteFooter />
+  <CardsCatalogModal />
+  <CardsArtworkModal />
+</Base>
+<script>
+  import { initFloatingHeader } from '../scripts/floating-header';
+  import { initAltariaCards } from '../scripts/altaria-cards';
+  initFloatingHeader();
+  initAltariaCards();
+</script>

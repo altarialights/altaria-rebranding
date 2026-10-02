@@ -1,5 +1,8 @@
+import { cardConfigurationSchema } from './card-configuration-schema';
+import { canCheckoutConfiguration } from './card-configuration';
 import { z, type ZodError } from 'astro/zod';
 import { CANTIDAD_MAXIMA, PAIS_ENVIO } from './config';
+import { findCardProduct, LEGACY_CARD_PRODUCT_ID } from '../../data/cards-catalog';
 
 const text = (minimum: number, maximum: number) => z.string().trim().min(minimum).max(maximum);
 const optionalText = (maximum: number) => z.string().trim().max(maximum).optional().transform((value) => value || undefined);
@@ -29,13 +32,19 @@ const businessSchema = z.preprocess((input) => {
     googleMapsUrl: business.googleMapsUrl ?? business.googleMapsURI,
   };
 }, z.object({
-  googlePlaceId: text(3, 255),
+  googlePlaceId: z.string().trim().max(255).default(''),
   nombre: text(1, 180),
   direccion: z.string().trim().max(300).optional().default(''),
   googleMapsUrl: optionalHttpUrl,
 }));
 
 export const crearPedidoSchema = z.object({
+  productoId: text(1, 80).optional(),
+  personalizacion: z.object({
+    configuracion: cardConfigurationSchema.optional(),
+    destino: z.string().trim().max(700).optional(),
+    notas: z.string().trim().max(600).optional(),
+  }).optional(),
   claveIdempotencia: z.string().uuid(),
   aceptaCondicionesCompra: z.literal(true),
   negocio: businessSchema,
@@ -57,11 +66,38 @@ export const crearPedidoSchema = z.object({
     pais: z.literal(PAIS_ENVIO),
     referencia: optionalText(220),
   }),
+}).superRefine((input, context) => {
+  const product = findCardProduct(input.productoId ?? LEGACY_CARD_PRODUCT_ID);
+  if (!product) {
+    context.addIssue({ code: 'custom', path: ['productoId'], message: 'Selecciona una opción válida.' });
+    return;
+  }
+  if (input.personalizacion?.configuracion && !canCheckoutConfiguration(product.id, input.personalizacion.configuracion, input.negocio.googlePlaceId)) {
+    context.addIssue({ code: 'custom', path: ['personalizacion', 'configuracion'], message: 'Esta configuración requiere una propuesta antes del pago.' });
+  }
+  if (input.personalizacion?.configuracion) return; // El destino canónico se deriva de la configuración validada en servidor.
+  if (product.destination.kind === 'google') {
+    if (!input.personalizacion?.configuracion && input.negocio.googlePlaceId.length < 3) {
+      context.addIssue({ code: 'custom', path: ['negocio', 'googlePlaceId'], message: 'Selecciona un negocio de la lista de Google.' });
+    }
+  } else {
+    try {
+      const url = new URL(input.personalizacion?.destino ?? '');
+      if (!['https:', 'http:'].includes(url.protocol) || url.username || url.password) throw new Error();
+      if (product.destination.kind === 'whatsapp'
+        && (url.protocol !== 'https:' || url.hostname !== 'wa.me' || !/^\/[1-9]\d{7,14}$/u.test(url.pathname))) throw new Error();
+    } catch {
+      context.addIssue({ code: 'custom', path: ['personalizacion', 'destino'], message: 'Introduce un destino válido para esta tarjeta.' });
+    }
+  }
 });
 
 export type CrearPedidoInput = z.infer<typeof crearPedidoSchema>;
 
 const validationMessages: Record<string, string> = {
+  productoId: 'Selecciona una opción válida.',
+  'personalizacion.destino': 'Introduce un destino válido para esta tarjeta.',
+  'personalizacion.notas': 'Las indicaciones no pueden superar los 600 caracteres.',
   aceptaCondicionesCompra: 'Debes aceptar las Condiciones de compra para continuar.',
   'negocio.googlePlaceId': 'Selecciona un negocio de la lista de Google.',
   'negocio.nombre': 'Selecciona un negocio válido.',

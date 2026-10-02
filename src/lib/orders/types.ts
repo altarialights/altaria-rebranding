@@ -2,6 +2,12 @@ import type { ImportesPedido } from './config';
 import type { CrearPedidoInput } from './validation';
 import type { StripeMode } from './stripe-mode';
 
+// Snapshot calculado exclusivamente en servidor y conservado en el JSON existente.
+export type OrderPersonalization = Omit<NonNullable<CrearPedidoInput['personalizacion']>, 'configuracion'> & {
+  configuracion?: import('./card-configuration').CardConfiguration;
+  tarifa?: { version: string; disenoCentimos: number };
+};
+
 export const ESTADOS_PEDIDO = [
   'pendiente_pago', 'pagado', 'preparando', 'enviado', 'entregado', 'cancelado', 'reembolsado',
 ] as const;
@@ -9,6 +15,9 @@ export const ESTADOS_PEDIDO = [
 export type EstadoPedido = (typeof ESTADOS_PEDIDO)[number];
 
 export interface PedidoTarjetas extends ImportesPedido {
+  productoId?: string;
+  productoNombre?: string;
+  personalizacion?: OrderPersonalization;
   id: string;
   numeroPedido: string;
   claveIdempotencia: string;
@@ -39,6 +48,9 @@ export interface PedidoTarjetas extends ImportesPedido {
 }
 
 export interface NuevoPedidoTarjetas extends CrearPedidoInput, ImportesPedido {
+  artworkOwnerHash?: string;
+  personalizacion?: OrderPersonalization;
+  productoNombre?: string;
   id: string;
   numeroPedido: string;
   huellaSolicitud: string;
@@ -47,6 +59,7 @@ export interface NuevoPedidoTarjetas extends CrearPedidoInput, ImportesPedido {
 }
 
 export interface ResumenPedidoPublico {
+  productoNombre: string;
   numeroPedido: string;
   negocioNombre: string;
   cantidad: number;

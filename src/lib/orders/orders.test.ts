@@ -217,6 +217,7 @@ describe('card order pricing and validation', () => {
 
 describe('Checkout creation idempotency', () => {
   it('creates one pending order, saves the session and reuses it on retry', async () => {
+    const newInput: CrearPedidoInput = { ...input, personalizacion: { configuracion: { version: 2, design: 'own', destination: 'link', artwork: 'uploaded', artworkFile: { token: 'a'.repeat(64), filename: 'card.png' }, details: { url: 'https://example.com/reviews' } } } };
     let stored: PedidoTarjetas | null = null;
     const create = vi.fn(async () => ({ id: 'cs_test_altaria', url: 'https://checkout.stripe.com/c/pay/cs_test_altaria', livemode: false }));
     const retrieve = vi.fn(async () => ({ id: 'cs_test_altaria', url: 'https://checkout.stripe.com/c/pay/cs_test_altaria', livemode: false }));
@@ -229,6 +230,7 @@ describe('Checkout creation idempotency', () => {
       if (stored) stored = { ...stored, stripeCheckoutSessionId: sessionId };
     });
     const dependencies = {
+      findArtwork: async () => ({ filename: 'card.png', mime: 'image/png', bytes: Buffer.from('fixture'), width:1016,height:638,status:'ready' as const,warnings:[],layout:{fit:'contain',x:50,y:50},orderId:null,inquiryId:null }),
       gateway,
       findByIdempotencyKey: async () => stored,
       createPending,
@@ -239,8 +241,8 @@ describe('Checkout creation idempotency', () => {
         .mockReturnValueOnce('22222222-2222-4222-8222-222222222222'),
     };
 
-    const first = await prepareCardOrderCheckout(input, 'https://altarialights.com', dependencies);
-    const second = await prepareCardOrderCheckout(input, 'https://altarialights.com', dependencies);
+    const first = await prepareCardOrderCheckout(newInput, 'https://altarialights.com', dependencies);
+    const second = await prepareCardOrderCheckout(newInput, 'https://altarialights.com', dependencies);
 
     expect(first.sessionId).toBe('cs_test_altaria');
     expect(second.sessionId).toBe('cs_test_altaria');
@@ -255,7 +257,7 @@ describe('Checkout creation idempotency', () => {
       create: vi.fn(),
       retrieve: vi.fn(),
     };
-    await expect(prepareCardOrderCheckout(input, 'https://altarialights.com', {
+    await expect(prepareCardOrderCheckout(newInput, 'https://altarialights.com', {
       ...dependencies,
       gateway: liveGateway,
     })).rejects.toBeInstanceOf(OrderRequestConflictError);
@@ -358,13 +360,13 @@ describe('Stripe environment and signature enforcement', () => {
     expect(params.line_items).toHaveLength(1);
     expect(params.line_items?.[0]).toMatchObject({ quantity: 5, price_data: { unit_amount: 2000, currency: 'eur' } });
     expect(params.success_url).toBe(
-      'https://altarialights.com/tarjetas-rese%C3%B1as-google/pedido-confirmado?session_id={CHECKOUT_SESSION_ID}',
+      'https://altarialights.com/tarjetas-nfc-personalizadas/pedido-confirmado?session_id={CHECKOUT_SESSION_ID}',
     );
     expect(params.success_url).not.toContain('ñ');
-    expect(params.success_url).toContain('tarjetas-rese%C3%B1as-google');
+    expect(params.success_url).toContain('tarjetas-nfc-personalizadas');
     expect(params.success_url).toContain('{CHECKOUT_SESSION_ID}');
     expect(params.cancel_url).toBe(
-      'https://altarialights.com/tarjetas-rese%C3%B1as-google?pago=cancelado#configurador',
+      'https://altarialights.com/tarjetas-nfc-personalizadas?pago=cancelado#comprar',
     );
     expect(params.cancel_url).not.toContain('ñ');
   });

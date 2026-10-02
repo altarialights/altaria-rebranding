@@ -1,5 +1,8 @@
 # Pedidos de tarjetas NFC + QR
 
+La ampliación Altaria Cards, configuración del catálogo/precios, migración 004,
+rutas y límites de verificación se describen en [ALTARIA-CARDS.md](ALTARIA-CARDS.md).
+
 ## Flujo
 
 1. `POST /api/tarjetas/checkout` valida origen y payload.
@@ -8,7 +11,7 @@
 4. `POST /api/stripe/webhook` verifica el cuerpo raw y `Stripe-Signature`.
 5. Solo un evento cuyo `livemode` coincida con `STRIPE_MODE` y con `pedido.stripe_entorno`, con `payment_status=paid`, EUR e importe idéntico, cambia el pedido a `pagado`.
 6. La transacción registra `eventos_stripe` y `eventos_pedido`; después del commit se intenta Telegram.
-7. `/tarjetas-reseñas-google/pedido-confirmado` consulta Turso por la sesión y nunca interpreta el redirect como prueba de pago.
+7. `/tarjetas-nfc-personalizadas/pedido-confirmado` consulta Turso por la sesión y nunca interpreta el redirect como prueba de pago. La URL anterior `/tarjetas-reseñas-google/pedido-confirmado` sigue operativa.
 
 ## Configuración local
 

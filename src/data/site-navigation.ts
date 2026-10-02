@@ -24,9 +24,9 @@ export const serviceNavigation = [
     shortLabel: 'BR',
   },
   {
-    label: 'Tarjetas NFC + QR',
-    description: 'Producto para reseñas',
-    href: '/tarjetas-reseñas-google',
+    label: 'Altaria Cards',
+    description: 'Tarjetas NFC personalizadas',
+    href: '/tarjetas-nfc-personalizadas',
     shortLabel: 'NFC',
   },
 ] as const;

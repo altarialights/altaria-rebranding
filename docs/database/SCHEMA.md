@@ -1,4 +1,4 @@
-# Esquema de datos — Índice Altaria de Madurez Digital
+# Esquema de datos — Altaria Lights
 
 ## Objetivo
 
@@ -94,6 +94,89 @@ Una fila por intento de pedido de tarjetas NFC + QR. La migración `002_create_c
 | Stripe | IDs de Checkout, PaymentIntent y Customer; `stripe_entorno` | IDs técnicos; no se almacenan tarjetas ni datos bancarios. Checkout y PaymentIntent son únicos cuando existen. `stripe_entorno` distingue `test` y `live`; los registros anteriores a la migración 003 quedan como `test`. |
 | Operación | tracking, transportista y timestamps | Preparado para fulfillment futuro, sin integración InPost actual. |
 | Telegram | `telegram_notificado_en`, `telegram_ultimo_error` | Permite conocer la entrega y preparar reintentos sin revertir el pago. |
+| Altaria Cards (004) | `producto_id`, `producto_nombre`, `personalizacion_json` | Identificador estable y nombre del producto congelado al crear el pedido; JSON con destino e indicaciones de preparación (PII); opcionalmente `configuracion` v2 del asistente, descrita abajo. Los pedidos anteriores reciben `resenas`, el nombre del modelo Google y `{}`. Para usos sin Google las columnas antiguas obligatorias conservan cadenas vacías, sin exigir una ficha. |
+
+### `card_artwork` (005)
+
+Originales de impresión subidos voluntariamente desde el modal. `token` es un ID
+aleatorio (PK), **no una credencial de descarga**. `owner_hash` contiene SHA-256 del
+secreto de sesión (cookie HttpOnly, SameSite=Strict, Secure en HTTPS, 24 horas).
+Toda lectura, eliminación y asociación comprueba ID + propietario en el servidor.
+Una sesión ajena no obtiene el archivo aunque conozca su ID o URL.
+
+Metadatos: `filename` original, MIME detectado por decodificación, `size_bytes`,
+`width`, `height` orientados según EXIF, `validation_status` (`ready|review`),
+`warnings_json`, `layout_json` (encajar/recortar vista, posición), `sha256` del original
+y `created_at`. Ubicación física: `card_artwork.content_base64` en Turso, original
+codificado base64, no en `/public`, Vercel Blob ni disco efímero. Sin recomprimir,
+deformar, ampliar o recortar los bytes originales. SQL siempre parametrizado.
+
+PNG/JPEG/WebP estáticos, máximo 2 MiB y 40 MP como límite de decodificación segura.
+CR80 85,60 × 53,98 mm, tolerancia relativa de proporción ±2 %, referencia mínima
+1012 × 638 px (~300 ppp). No hay máximo de dimensiones aparte del límite de píxeles.
+Otra proporción, resolución baja o recorte visual voluntario marcan `review` sin
+bloquear el pedido. `ready` no sustituye la comprobación profesional previa a imprimir.
+
+`order_id` FK a `pedidos_tarjetas.id`, `inquiry_id` FK a `consultas_tarjetas.id`,
+ON DELETE RESTRICT; CHECK impide ambas asociaciones a la vez. Archivo sin asociación
+es un borrador. Crear pedido/consulta y asociar archivo se realiza en una transacción
+inmediata, verificando propietario y que esté libre. El JSON conserva una referencia
+y metadatos canónicos del servidor. No se confía en URL, medidas o estado del cliente.
+Solo pueden eliminarse desde la web borradores propios sin pedido ni consulta;
+reemplazar no altera un diseño ya asociado. No hay borrado automático de expedientes.
+
+Descarga del visitante: sesión propietaria y attachment/no-store/nosniff. No hay
+listado público. Telegram solo recibe referencia y estado, nunca credenciales ni
+enlace permanente. No existe panel admin autenticado ni firma temporal desplegada.
+El equipo exporta el original por pedido/consulta con `scripts/export-card-artwork.mjs`
+y credenciales internas Turso, comprobando SHA-256. No se envían bytes a Stripe.
+005 revisada sigue **sin aplicar a TEST ni producción**; no se ha modificado ninguna
+migración aplicada. Ver plan de aplicación y rollback en `docs/orders/MIGRATIONS-TEST.md`.
+
+### `consultas_tarjetas` (004)
+
+Solicitudes a medida separadas del pago. Columnas: `id` UUID PK; `clave_idempotencia` UNIQUE;
+`huella_solicitud` SHA-256; `producto_id` (catálogo o `a-medida`); `nombre`, `contacto`,
+`idea` obligatorios; `negocio`, `cantidad` opcionales; `configuracion_json` con destino, notas y opcionalmente `tarjeta` v2;
+`privacidad_aceptada_en`, `creado_en` UTC; `estado` (`nueva`, `contactada`, `cerrada`).
+Cantidad entre 1 y 500 cuando existe. Índice por estado y fecha.
+
+PII: nombre, contacto, negocio, idea y configuración. Escribe
+`src/lib/db/card-inquiries.repository.ts` mediante parámetros, únicamente después del envío
+voluntario con consentimiento. La clave única deduplica reintentos y la huella rechaza
+la reutilización con otros datos. La consulta se considera recibida solo tras recuperar
+la fila persistida. No se envía a Telegram ni se registran textos o contactos en logs.
+El equipo consulta estas filas en Turso; no existe aún un panel de gestión.
+
+### Configuración guiada de tarjetas (JSON v2)
+
+Sin cambiar el SQL de 004, `pedidos_tarjetas.personalizacion_json.configuracion` y
+`consultas_tarjetas.configuracion_json.tarjeta` admiten:
+
+- `version: 2`, `design: own | custom | existing`, `destination: link | help | create`.
+- `details`: URL; negocio/localidad para ayuda; perfiles sociales opcionales;
+  teléfono y mensaje de WhatsApp; nombre, empresa, teléfono, email y web de vCard;
+  descripción del proyecto; colores, texto, estilo e instrucciones de diseño.
+- `artwork: requested-later | not-required | uploaded`: los pedidos nuevos con diseño
+  propio exigen `uploaded` y `artworkFile: {token, filename}` verificado en servidor.
+  Los valores anteriores se conservan para compatibilidad histórica.
+- `contactPhone`: teléfono de quien solicita (el email está en `contacto` en consultas).
+
+Zod limita campos y longitudes; solo se envían detalles activos del asistente.
+El servidor permite diseño propio o por Altaria y un destino existente o ayuda
+sencilla; bloquea Checkout para creación de destino e integraciones por revisar.
+El destino canónico queda congelado en `personalizacion_json.destino`; puede quedar
+vacío cuando el pedido incluye ayuda para localizar el enlace existente.
+
+Sin modificar el SQL, `personalizacion_json.tarifa` conserva un snapshot calculado
+exclusivamente por el servidor: `{ version, disenoCentimos }`. El subtotal incluye
+cantidad × precio unitario más diseño por pedido. El total añade envío; IVA incluido
+sin recargo adicional. Stripe crea una línea de diseño de cantidad 1 desde este
+snapshot, nunca desde el catálogo actual. Los pedidos anteriores sin `tarifa` no
+añaden diseño y conservan todos sus importes. La tarifa Google antigua no se aplica
+a nuevos pedidos. Un reintento recupera el pedido persistido sin recalcularlo.
+Estas propiedades pueden contener PII. Las filas anteriores con `{}` siguen siendo
+válidas. **004 no cambia respecto al primer pase y sigue sin aplicarse a producción.**
 
 ### `eventos_pedido`
 
@@ -130,10 +213,13 @@ Un fallo en cualquier sentencia revierte el batch completo.
 ## Versionado y migraciones
 
 - `migrations/` es append-only y usa prefijos numéricos.
+- `005_card_artwork.sql` añade únicamente la tabla de originales; no modifica pedidos
+  ni migraciones anteriores. Aplicar después de 004 antes de habilitar subidas.
 - Nunca se edita una migración aplicada; se añade `002_descripcion.sql`, etc.
 - Después de cada cambio se actualiza este documento.
 - `002_create_card_orders.sql` añade exclusivamente las tres tablas de pedidos y sus índices; no contiene `DROP` ni altera datos existentes.
 - `003_add_card_order_stripe_environment.sql` añade `stripe_entorno` con default `test` y restricción `test/live`; no borra ni recrea tablas y clasifica como `test` los pedidos existentes.
+- `004_altaria_cards_catalog_and_inquiries.sql` añade tres columnas a pedidos y la tabla de consultas. No borra ni reescribe importes, IDs de Stripe ni estados históricos. Aplicar una vez, después de 003 y antes de desplegar el código de Altaria Cards. No se ha ejecutado contra una base remota durante esta implementación.
 - Preguntas o scoring nuevos crean `questionnaires/v2.ts`; los registros históricos conservan `questionnaire_version` y `question_version`.
 - Todos los timestamps son texto ISO 8601 en UTC generado por el servidor.
 

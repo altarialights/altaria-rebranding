@@ -22,6 +22,8 @@ No somos exclusivamente una agencia de marketing, una empresa de desarrollo web 
 
 ## Caso real
 
+- [Altaria Cards](${url('/tarjetas-nfc-personalizadas')}): tarjetas NFC + QR para reseñas, redes sociales, WhatsApp, reservas y cartas digitales; configuración y consultas a medida.
+
 - [De Zamorano](${url('/proyectos/de-zamorano')}): digitalización de un restaurante con desarrollo web, reservas online, experiencia móvil, carta digital y SEO local.
 
 ## Contacto
