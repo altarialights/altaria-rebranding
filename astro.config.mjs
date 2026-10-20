@@ -2,6 +2,10 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
+import { resolve } from 'node:path';
+
+// Local Astro commands must never merge the project's production .env.
+const vercelProduction = process.env.VERCEL === '1' && process.env.VERCEL_ENV === 'production';
 
 const sitemapPaths = new Set([
   '/',
@@ -18,6 +22,7 @@ const sitemapPaths = new Set([
 
 export default defineConfig({
   site: 'https://altarialights.com',
+  vite: vercelProduction ? {} : { envDir: resolve('review/altaria-os/empty-env') },
   trailingSlash: 'never',
   integrations: [
     sitemap({

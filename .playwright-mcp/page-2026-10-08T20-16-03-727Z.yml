@@ -1,0 +1,257 @@
+- generic [ref=f44e1]:
+  - generic [ref=f44e2]:
+    - generic [ref=f44e3]:
+      - generic [ref=f44e4]:
+        - complementary "Omitir vínculos" [ref=f44e5]:
+          - link "Ir al contenido principal" [ref=f44e6] [cursor=pointer]:
+            - /url: /billing/01094A-7D987C-3F4738/manage?project=altaria-os-gmail-test
+          - button "Combinación de teclas para acceso directo" [ref=f44e8]
+          - link [ref=f44e10] [cursor=pointer]:
+            - /url: https://cloud.google.com/docs/accessibility?hl=es_419
+            - generic [ref=f44e11]:
+              - text: Ayuda sobre la accesibilidad
+              - generic "externo, se abre en una ventana nueva" [ref=f44e12]:
+                - img "externo, se abre en una ventana nueva" [ref=f44e13]
+          - link [ref=f44e16] [cursor=pointer]:
+            - /url: https://support.google.com/accessibility/contact/feedback?hl=es_419
+            - generic [ref=f44e17]:
+              - text: Comentarios sobre accesibilidad
+              - generic "externo, se abre en una ventana nueva" [ref=f44e18]:
+                - img "externo, se abre en una ventana nueva" [ref=f44e19]
+        - banner [ref=f44e23]:
+          - generic [ref=f44e24]:
+            - navigation [ref=f44e27]:
+              - button "Menú de navegación (.)" [ref=f44e28] [cursor=pointer]
+            - link "Google Cloud Platform - Página principal" [ref=f44e32] [cursor=pointer]:
+              - /url: /?project=altaria-os-gmail-test
+          - search "Google Cloud Platform" [ref=f44e37]:
+            - combobox [ref=f44e38]:
+              - searchbox "Ingresa una consulta para buscar recursos, documentos, productos y mucho más" [ref=f44e39]
+            - button "Ver todos los resultados de la búsqueda" [disabled]:
+              - generic: Buscar
+          - generic [ref=f44e40]:
+            - generic [ref=f44e41]:
+              - button "Abrir chat de Gemini AI (Alt G)" [ref=f44e45] [cursor=pointer]
+              - button "Activar Cloud Shell (G then S)" [ref=f44e52] [cursor=pointer]
+              - button "1 notificaciones no leídas Abrir notificaciones" [ref=f44e59] [cursor=pointer]:
+                - generic [ref=f44e60]: "1"
+              - button "Configuración y utilidades" [ref=f44e67] [cursor=pointer]
+            - 'button "Cuenta: Altaria Lights (altarialights@gmail.com)" [ref=f44e75]'
+      - generic [ref=f44e85]:
+        - navigation "Ruta de navegación" [ref=f44e90]:
+          - link "Facturación" [ref=f44e93] [cursor=pointer]:
+            - /url: /billing?project=altaria-os-gmail-test
+          - list [ref=f44e96]:
+            - listitem [ref=f44e97]:
+              - generic [aria-hidden] [ref=f44e98]: /
+              - link "Administración de cuentas" [ref=f44e101] [cursor=pointer]:
+                - /url: /billing/01094A-7D987C-3F4738/manage?project=altaria-os-gmail-test
+        - generic [ref=f44e114]:
+          - navigation "Facturación" [ref=f44e121]:
+            - generic [ref=f44e122]:
+              - generic [ref=f44e123]:
+                - heading [level=2] [ref=f44e124]:
+                  - link "Facturación" [ref=f44e125] [cursor=pointer]:
+                    - /url: /billing?project=altaria-os-gmail-test
+                - button "Activar o desactivar el menú de navegación de Facturación" [expanded] [ref=f44e139] [cursor=pointer]
+              - generic [ref=f44e144]:
+                - generic [ref=f44e150]:
+                  - generic [ref=f44e151]: Cuenta de facturación
+                  - combobox "Cuenta de facturación Mi cuenta de facturación" [ref=f44e152]:
+                    - generic [ref=f44e153]: Mi cuenta de facturación
+                - generic [ref=f44e159]:
+                  - group [ref=f44e160]:
+                    - list "Descripción general, 1 de 1 Más opciones" [ref=f44e161]:
+                      - listitem [ref=f44e162]:
+                        - generic [ref=f44e165]:
+                          - link "Descripción general, 1 de 1" [ref=f44e166] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738?project=altaria-os-gmail-test
+                            - generic [ref=f44e167]: Descripción general
+                          - button "Más opciones" [ref=f44e174] [cursor=pointer]
+                  - group "Administración de costos" [ref=f44e178]:
+                    - heading [level=3] [ref=f44e183]:
+                      - button "Administración de costos" [disabled] [expanded] [ref=f44e184]
+                    - list "Administración de costos" [ref=f44e188]:
+                      - listitem [ref=f44e189]:
+                        - generic [ref=f44e192]:
+                          - link "Informes, 1 de 5" [ref=f44e193] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/reports?project=altaria-os-gmail-test
+                            - generic [ref=f44e194]: Informes
+                          - button "Más opciones" [ref=f44e201] [cursor=pointer]
+                      - listitem [ref=f44e205]:
+                        - generic [ref=f44e208]:
+                          - link "Tabla de costos, 2 de 5" [ref=f44e209] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/reports/tabular?project=altaria-os-gmail-test
+                            - generic [ref=f44e210]: Tabla de costos
+                          - button "Más opciones" [ref=f44e217] [cursor=pointer]
+                      - listitem [ref=f44e221]:
+                        - generic [ref=f44e224]:
+                          - link "Desglose del costo, 3 de 5" [ref=f44e225] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/reports/cost-breakdown?project=altaria-os-gmail-test
+                            - generic [ref=f44e226]: Desglose del costo
+                          - button "Más opciones" [ref=f44e233] [cursor=pointer]
+                      - listitem [ref=f44e237]:
+                        - generic [ref=f44e240]:
+                          - link "Incentivos, 4 de 5" [ref=f44e241] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/incentives?project=altaria-os-gmail-test
+                            - generic [ref=f44e242]: Incentivos
+                          - button "Más opciones" [ref=f44e249] [cursor=pointer]
+                      - listitem [ref=f44e253]:
+                        - generic [ref=f44e256]:
+                          - link "Exportación de la facturación, 5 de 5" [ref=f44e257] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/export?project=altaria-os-gmail-test
+                            - generic [ref=f44e258]: Exportación de la facturación
+                          - button "Más opciones" [ref=f44e265] [cursor=pointer]
+                  - group "Cost control" [ref=f44e269]:
+                    - heading [level=3] [ref=f44e274]:
+                      - button "Cost control" [disabled] [expanded] [ref=f44e275]
+                    - list "Cost control" [ref=f44e279]:
+                      - listitem [ref=f44e280]:
+                        - generic [ref=f44e283]:
+                          - link "Budgets & caps, 1 de 2" [ref=f44e284] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/budgets?project=altaria-os-gmail-test
+                            - generic [ref=f44e285]: Budgets & caps
+                          - button "Más opciones" [ref=f44e292] [cursor=pointer]
+                      - listitem [ref=f44e296]:
+                        - generic [ref=f44e299]:
+                          - link "Anomalías, 2 de 2" [ref=f44e300] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/anomalies?project=altaria-os-gmail-test
+                            - generic [ref=f44e301]: Anomalías
+                          - button "Más opciones" [ref=f44e308] [cursor=pointer]
+                  - group "Optimización de costos" [ref=f44e312]:
+                    - heading [level=3] [ref=f44e317]:
+                      - button "Optimización de costos" [disabled] [expanded] [ref=f44e318]
+                    - list "Optimización de costos" [ref=f44e322]:
+                      - listitem [ref=f44e323]:
+                        - generic [ref=f44e326]:
+                          - link "Centro de FinOps, 1 de 6" [ref=f44e327] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/optimize?project=altaria-os-gmail-test
+                            - generic [ref=f44e328]: Centro de FinOps
+                          - button "Más opciones" [ref=f44e335] [cursor=pointer]
+                      - listitem [ref=f44e339]:
+                        - generic [ref=f44e342]:
+                          - link "Descuentos por compromiso de uso (CUD), 2 de 6" [ref=f44e343] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/reports/commitments?project=altaria-os-gmail-test
+                            - generic [ref=f44e344]: Descuentos por compromiso de uso (CUD)
+                          - button "Más opciones" [ref=f44e351] [cursor=pointer]
+                      - listitem [ref=f44e355]:
+                        - generic [ref=f44e358]:
+                          - link "Análisis del CUD, 3 de 6" [ref=f44e359] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/commitments/analysis?project=altaria-os-gmail-test
+                            - generic [ref=f44e360]: Análisis del CUD
+                          - button "Más opciones" [ref=f44e367] [cursor=pointer]
+                      - listitem [ref=f44e371]:
+                        - generic [ref=f44e374]:
+                          - link "Precios, 4 de 6" [ref=f44e375] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/pricing?project=altaria-os-gmail-test
+                            - generic [ref=f44e376]: Precios
+                          - button "Más opciones" [ref=f44e383] [cursor=pointer]
+                      - listitem [ref=f44e387]:
+                        - generic [ref=f44e390]:
+                          - link "Estimación de costos, 5 de 6" [ref=f44e391] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/estimate?project=altaria-os-gmail-test
+                            - generic [ref=f44e392]: Estimación de costos
+                          - button "Más opciones" [ref=f44e400] [cursor=pointer]
+                      - listitem [ref=f44e404]:
+                        - generic [ref=f44e407]:
+                          - link "Créditos, 6 de 6" [ref=f44e408] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/credits?project=altaria-os-gmail-test
+                            - generic [ref=f44e409]: Créditos
+                          - button "Más opciones" [ref=f44e416] [cursor=pointer]
+                  - group "Pagos" [ref=f44e420]:
+                    - heading [level=3] [ref=f44e425]:
+                      - button "Pagos" [disabled] [expanded] [ref=f44e426]
+                    - list "Pagos" [ref=f44e430]:
+                      - listitem [ref=f44e431]:
+                        - generic [ref=f44e434]:
+                          - link "Facturas, 1 de 4" [ref=f44e435] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/invoices?project=altaria-os-gmail-test
+                            - generic [ref=f44e436]: Facturas
+                          - button "Más opciones" [ref=f44e443] [cursor=pointer]
+                      - listitem [ref=f44e447]:
+                        - generic [ref=f44e450]:
+                          - link "Transacciones, 2 de 4" [ref=f44e451] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/history?project=altaria-os-gmail-test
+                            - generic [ref=f44e452]: Transacciones
+                          - button "Más opciones" [ref=f44e459] [cursor=pointer]
+                      - listitem [ref=f44e463]:
+                        - generic [ref=f44e466]:
+                          - link "Configuración de pagos, 3 de 4" [ref=f44e467] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/profile?project=altaria-os-gmail-test
+                            - generic [ref=f44e468]: Configuración de pagos
+                          - button "Más opciones" [ref=f44e475] [cursor=pointer]
+                      - listitem [ref=f44e479]:
+                        - generic [ref=f44e482]:
+                          - link "Forma de pago, 4 de 4" [ref=f44e483] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/settings?project=altaria-os-gmail-test
+                            - generic [ref=f44e484]: Forma de pago
+                          - button "Más opciones" [ref=f44e491] [cursor=pointer]
+                  - group "Administración de facturación" [ref=f44e495]:
+                    - heading [level=3] [ref=f44e500]:
+                      - button "Administración de facturación" [disabled] [expanded] [ref=f44e501]
+                    - list "Administración de facturación" [ref=f44e505]:
+                      - listitem [ref=f44e506]:
+                        - generic [ref=f44e509]:
+                          - link "Administración de cuentas, 1 de 1" [ref=f44e510] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/manage?project=altaria-os-gmail-test
+                            - generic [ref=f44e511]: Administración de cuentas
+                          - button "Más opciones" [ref=f44e518] [cursor=pointer]
+              - button "Explorar Notas de versión de Billing" [ref=f44e527]:
+                - generic [ref=f44e532]: Notas de versión
+          - main [ref=f44e534]:
+            - generic [ref=f44e546]:
+              - generic [ref=f44e549]:
+                - heading "Administración de cuentas" [level=1] [ref=f44e552]
+                - toolbar "Administración de cuentas" [ref=f44e556]:
+                  - generic [ref=f44e558]:
+                    - button "Cambiar organización" [ref=f44e559]
+                    - button "Cambiar el nombre de la cuenta de facturación" [ref=f44e565]
+                    - button "Cerrar la cuenta de facturación" [ref=f44e573]
+                  - generic [ref=f44e580]:
+                    - button "Ocultar panel de información" [expanded] [ref=f44e583]
+                    - button "Más información" [expanded] [ref=f44e587]
+              - generic [ref=f44e596]:
+                - generic [ref=f44e602]:
+                  - generic [ref=f44e603]:
+                    - generic [ref=f44e604]:
+                      - strong [ref=f44e605]: ID de cuenta de facturación
+                      - paragraph [ref=f44e606]: 01094A-7D987C-3F4738
+                    - generic [ref=f44e607]:
+                      - strong [ref=f44e608]: Tipo de cuenta
+                      - paragraph [ref=f44e609]: Directa
+                  - generic [ref=f44e611]:
+                    - heading "Proyectos vinculados con esta cuenta de facturación" [level=2] [ref=f44e612]
+                    - grid "Proyectos vinculados con esta cuenta de facturación , Navega por la tabla con las teclas de flecha. Ingresa la tecla para interactuar con la celda. Presiona Tab para navegar por la celda. Presiona Escape para salir de la celda." [ref=f44e616]:
+                      - rowgroup [ref=f44e622]:
+                        - row [ref=f44e623] [cursor=pointer]:
+                          - columnheader "Nombre del proyecto" [ref=f44e624]
+                          - columnheader "ID de proyecto" [ref=f44e627]
+                          - columnheader "Acciones" [ref=f44e630]:
+                            - generic [ref=f44e632]:
+                              - text: Acciones
+                              - button "Ventana emergente de ayuda" [ref=f44e635]
+                      - rowgroup [ref=f44e640]:
+                        - row [ref=f44e641] [cursor=pointer]:
+                          - gridcell "My First Project" [ref=f44e642]
+                          - gridcell "project-2170ef0c-fe34-4f35-af9" [ref=f44e644]
+                          - gridcell [ref=f44e645]:
+                            - button "Abre el menú ampliado para más opciones" [ref=f44e647]
+                        - row [ref=f44e653] [cursor=pointer]:
+                          - gridcell "Altaria OS Gmail TEST" [ref=f44e654]
+                          - gridcell "altaria-os-gmail-test" [ref=f44e656]
+                          - gridcell [ref=f44e657]:
+                            - button "Abre el menú ampliado para más opciones" [ref=f44e659]
+                - region "Panel de información" [ref=f44e666]:
+                  - generic [ref=f44e670]:
+                    - heading "Mi cuenta de facturación" [active] [level=2] [ref=f44e676]
+                    - img "Cargando" [ref=f44e684]
+    - iframe [ref=f44e693]:
+      - generic [ref=f51e3]:
+        - generic [ref=f51e6]:
+          - text: Aprender Instructivo
+          - button "Más opciones" [ref=f51e11] [cursor=pointer]
+          - button "Cerrar panel" [ref=f51e17] [cursor=pointer]
+        - region [ref=f51e26]:
+          - progressbar "Cargando" [ref=f51e28]
+  - iframe [aria-hidden] [ref=f44e694]
+  - paragraph

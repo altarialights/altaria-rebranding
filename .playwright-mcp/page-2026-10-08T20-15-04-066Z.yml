@@ -1,0 +1,47 @@
+- generic [active] [ref=f26e1]:
+  - region "console.cloud.google.com usa cookies de Google para brindar sus servicios, mejorar su calidad y analizar el tráfico." [ref=f26e2]:
+    - paragraph [ref=f26e3]:
+      - text: console.cloud.google.com usa cookies de Google para brindar sus servicios, mejorar su calidad y analizar el tráfico.
+      - link "Obtenga más información sobre cómo Google utiliza las cookies. Se abrirá en una nueva pestaña." [ref=f26e4] [cursor=pointer]:
+        - /url: https://policies.google.com/technologies/cookies
+        - text: Más información
+    - button "Entendido" [ref=f26e5] [cursor=pointer]
+  - generic [ref=f26e7]:
+    - generic [ref=f26e8]:
+      - complementary "Omitir vínculos" [ref=f26e9]:
+        - link "Ir al contenido principal" [ref=f26e10] [cursor=pointer]:
+          - /url: /billing/linkedaccount?project=altaria-os-gmail-test
+        - button "Combinación de teclas para acceso directo" [ref=f26e12]
+        - link [ref=f26e14] [cursor=pointer]:
+          - /url: https://cloud.google.com/docs/accessibility?hl=es_419
+          - generic [ref=f26e15]:
+            - text: Ayuda sobre la accesibilidad
+            - generic "externo, se abre en una ventana nueva" [ref=f26e16]:
+              - img "externo, se abre en una ventana nueva" [ref=f26e17]
+        - link [ref=f26e20] [cursor=pointer]:
+          - /url: https://support.google.com/accessibility/contact/feedback?hl=es_419
+          - generic [ref=f26e21]:
+            - text: Comentarios sobre accesibilidad
+            - generic "externo, se abre en una ventana nueva" [ref=f26e22]:
+              - img "externo, se abre en una ventana nueva" [ref=f26e23]
+      - banner [ref=f26e27]:
+        - generic [ref=f26e28]:
+          - navigation [ref=f26e31]:
+            - button "Menú de navegación (.)" [ref=f26e32] [cursor=pointer]
+          - link "Google Cloud Platform - Página principal" [ref=f26e36] [cursor=pointer]:
+            - /url: /?project=altaria-os-gmail-test
+          - button "No se seleccionó ningún proyecto. Presiona Intro para seleccionar un proyecto, una carpeta o una organización." [ref=f26e44]
+        - search "Google Cloud Platform" [ref=f26e50]:
+          - combobox [ref=f26e51]:
+            - searchbox "Ingresa una consulta para buscar recursos, documentos, productos y mucho más" [ref=f26e52]
+          - button "Ver todos los resultados de la búsqueda" [disabled]:
+            - generic: Buscar
+        - generic [ref=f26e54]:
+          - button "Abrir chat de Gemini AI (Alt G)" [ref=f26e58] [cursor=pointer]
+          - button "Activar Cloud Shell (G then S)" [ref=f26e65] [cursor=pointer]
+          - button "1 notificaciones no leídas Abrir notificaciones" [ref=f26e72] [cursor=pointer]:
+            - generic [ref=f26e73]: "1"
+          - button "Configuración y utilidades" [ref=f26e80] [cursor=pointer]
+    - main [ref=f26e108]
+  - iframe [aria-hidden] [ref=f26e120]
+  - paragraph

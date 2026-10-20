@@ -1,0 +1,73 @@
+- generic [ref=f25e1]:
+  - generic [ref=f25e3]:
+    - generic [ref=f25e444]:
+      - link "Skip to main content" [ref=f25e445] [cursor=pointer]:
+        - /url: "#main-_r_14_"
+      - navigation "Settings" [ref=f25e447]:
+        - link "Back to WorkOS" [ref=f25e449] [cursor=pointer]:
+          - /url: /
+        - generic [ref=f25e457]:
+          - generic [ref=f25e458]:
+            - heading "Account" [level=3] [ref=f25e460]
+            - list [ref=f25e461]:
+              - listitem [ref=f25e462]:
+                - link "Profile" [ref=f25e463] [cursor=pointer]:
+                  - /url: /settings/account/profile
+          - generic [ref=f25e469]:
+            - heading "Team" [level=3] [ref=f25e471]
+            - list [ref=f25e472]:
+              - listitem [ref=f25e473]:
+                - link "Settings" [ref=f25e474] [cursor=pointer]:
+                  - /url: /settings/team
+              - listitem [ref=f25e480]:
+                - link "Members" [ref=f25e481] [cursor=pointer]:
+                  - /url: /settings/team/members
+              - listitem [ref=f25e487]:
+                - link "Exports" [ref=f25e488] [cursor=pointer]:
+                  - /url: /settings/team/exports
+              - listitem [ref=f25e494]:
+                - link "Authentication" [ref=f25e495] [cursor=pointer]:
+                  - /url: /settings/team/authentication
+              - listitem [ref=f25e501]:
+                - link "Billing" [ref=f25e502] [cursor=pointer]:
+                  - /url: /settings/team/billing
+      - main [ref=f25e510]:
+        - generic [ref=f25e582]:
+          - generic [ref=f25e584]:
+            - heading "Members" [level=2] [ref=f25e585]
+            - generic [ref=f25e586]:
+              - text: Invite teammates to the dashboard and choose what each one can do.
+              - link "Learn more" [ref=f25e587] [cursor=pointer]:
+                - /url: https://workos.com/docs/dashboard/members-and-roles
+          - generic [ref=f25e592]:
+            - generic [ref=f25e593]:
+              - generic [ref=f25e596]:
+                - textbox "Search by name or email" [ref=f25e599]
+                - combobox "Role" [ref=f25e604] [cursor=pointer]
+                - combobox "Status" [ref=f25e609] [cursor=pointer]
+              - button "Invite team members" [ref=f25e614] [cursor=pointer]
+            - table [ref=f25e623]:
+              - rowgroup [ref=f25e624]:
+                - row [ref=f25e625]:
+                  - columnheader "Name" [ref=f25e626]
+                  - columnheader "MFA" [ref=f25e627]
+                  - columnheader "Role" [ref=f25e628]
+                  - columnheader "Last active" [ref=f25e629]
+                  - columnheader [ref=f25e630]
+              - rowgroup [ref=f25e631]:
+                - row [ref=f25e632]:
+                  - cell "altaria lights You altarialights@gmail.com" [ref=f25e633]:
+                    - generic [ref=f25e635]:
+                      - generic [ref=f25e636]:
+                        - generic [ref=f25e637]: altaria lights
+                        - generic [ref=f25e638]: You
+                      - generic [ref=f25e640]: altarialights@gmail.com
+                  - cell "Disabled" [ref=f25e641]
+                  - cell "Admin" [ref=f25e648]
+                  - cell "Oct 15, 2026" [ref=f25e651]
+                  - cell [ref=f25e653]
+    - region "Notifications (F8)":
+      - list
+    - region "Notifications (F8)":
+      - list
+  - alert [ref=f25e581]: Members | WorkOS

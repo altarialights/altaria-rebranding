@@ -1,0 +1,29 @@
+---
+import AdminShell from '../../../../layouts/AdminShell.astro';
+import CrmNav from '../../../../components/admin/CrmNav.astro';
+import { createAdminCsrfToken, hasAdminPermission } from '../../../../lib/admin/access';
+import { getGmailThread } from '../../../../lib/admin/gmail/service';
+import { formatCrmDate } from '../../../../lib/admin/crm/presentation';
+import '../../../../styles/admin-proposals.css';
+export const prerender = false;
+const principal = Astro.locals.admin;
+if (!principal) return new Response('Acceso denegado.', { status: 403 });
+let detail;
+try { detail = await getGmailThread(principal, Astro.params.id || ''); }
+catch { return new Response('Conversación no encontrada.', { status: 404 }); }
+const { thread, messages } = detail;
+const canWrite = hasAdminPermission(principal, 'crm:write')
+  && (principal.roles.includes('owner') || thread.responsible_user_id === principal.id);
+const csrf = createAdminCsrfToken(principal.sessionHash, process.env.WORKOS_COOKIE_PASSWORD || '', 'crm');
+---
+<AdminShell title="Conversación comercial." eyebrow="CRM / GMAIL" description="Sólo metadatos y extractos de mensajes etiquetados ALTARIA/CRM." active="/admin/crm" principal={principal}>
+  <CrmNav active="companies" />
+  <div class="crm-toolbar"><a class="crm-button secondary" href={`/admin/crm/empresas/${String(thread.organization_id)}#communications`}>← {String(thread.organization_name)}</a><span class="crm-badge">TEST · {String(thread.association_status)}</span></div>
+  <div class="proposal-detail-hero"><div><p class="admin-eyebrow">CONVERSACIÓN ETIQUETADA · ALTARIA/CRM</p><h2>{String(thread.subject || 'Sin asunto')}</h2><p>{messages.length} mensajes registrados · Última actividad {formatCrmDate(thread.last_message_at)}</p></div></div>
+  <div class="proposal-layout"><section class="crm-card"><div class="crm-card-heading"><div><h2>Historial de mensajes</h2><p>Se conserva sólo un extracto breve, dirección, remitente y fecha. No se guarda el cuerpo completo.</p></div></div>
+    <ol class="proposal-messages">{messages.map((message) => <li><div><strong>{message.direction === 'incoming' ? 'Respuesta recibida' : 'Mensaje saliente'}</strong><time datetime={String(message.received_at)}>{formatCrmDate(message.received_at)}</time></div><small>{String(message.sender_email)}</small><p>{String(message.snippet || 'Sin extracto disponible')}</p></li>)}</ol>
+    {messages.length === 0 && <div class="crm-empty"><strong>Sin mensajes importados.</strong><p>Sincroniza la etiqueta desde Propuestas cuando Gmail staging esté conectado.</p></div>}
+  </section><aside class="crm-stack"><section class="crm-card"><div class="crm-card-heading"><div><h2>Contexto</h2><p>Asociación revisada en el CRM.</p></div></div><p class="crm-help">Contacto: {String(thread.contact_name || 'Sin asociar')}</p><p class="crm-help">Propuesta: {String(thread.proposal_title || 'Sin asociar')}</p>{thread.proposal_id && <a class="crm-button secondary" style="margin-top:12px" href={`/admin/crm/propuestas/${String(thread.proposal_id)}`}>Abrir propuesta</a>}</section>
+    {canWrite && thread.contact_id && <section class="crm-card"><div class="crm-card-heading"><div><h2>Preparar respuesta</h2><p>Borrador local para revisión. No se envía.</p></div></div><form action="/api/admin/gmail/draft" method="post"><input type="hidden" name="csrf" value={csrf} /><input type="hidden" name="organizationId" value={String(thread.organization_id)} /><input type="hidden" name="contactId" value={String(thread.contact_id)} /><input type="hidden" name="threadId" value={String(thread.id)} /><input type="hidden" name="proposalId" value={String(thread.proposal_id || '')} /><label class="crm-field">Asunto<input name="subject" value={`Re: ${String(thread.subject || '')}`} required minlength="2" maxlength="240" /></label><label class="crm-field" style="margin-top:10px">Mensaje<textarea name="body" required minlength="5" maxlength="10000"></textarea></label><button class="crm-button" style="margin-top:12px" type="submit">Guardar borrador</button></form></section>}
+  </aside></div>
+</AdminShell>

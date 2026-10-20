@@ -1,0 +1,208 @@
+- generic [active] [ref=f120e1]:
+  - link "Saltar al contenido" [ref=f120e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f120e3]:
+    - complementary "Panel de navegación" [ref=f120e4]:
+      - generic [ref=f120e5]:
+        - link "Altaria OS, inicio" [ref=f120e6] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f120e7]
+          - generic [ref=f120e8]: OS
+        - paragraph [ref=f120e10]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f120e11]:
+        - paragraph [ref=f120e12]: PLATAFORMA
+        - link "Inicio" [ref=f120e13] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f120e18] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards" [ref=f120e23] [cursor=pointer]:
+          - /url: /admin/cards
+        - link "Contenido" [ref=f120e28] [cursor=pointer]:
+          - /url: /admin/contenido
+        - link "Informes En preparación" [ref=f120e33] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f120e37]: Informes
+          - generic "En preparación" [ref=f120e38]: ·
+        - link "Configuración" [ref=f120e39] [cursor=pointer]:
+          - /url: /admin/configuracion
+      - generic [ref=f120e44]:
+        - generic [ref=f120e49]:
+          - text: Área privada
+          - strong [ref=f120e50]: Acceso protegido
+        - link "Ver sitio público" [ref=f120e51] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f120e52]: ↗
+    - generic [ref=f120e53]:
+      - banner [ref=f120e54]:
+        - generic [ref=f120e55]:
+          - text: ALTARIA OS /
+          - strong [ref=f120e56]: Contenido
+        - generic [ref=f120e57]:
+          - button "Buscar en Altaria OS" [ref=f120e58] [cursor=pointer]:
+            - generic [ref=f120e62]: ⌘ K
+          - generic "altarialights@gmail.com" [ref=f120e63]:
+            - generic [aria-hidden] [ref=f120e64]: A
+          - button "Cerrar y revocar esta sesión" [ref=f120e67] [cursor=pointer]: Salir
+      - main [ref=f120e68]:
+        - generic [ref=f120e69]:
+          - generic [ref=f120e70]:
+            - paragraph [ref=f120e71]: CONTENIDO / FICHA DE PRODUCCIÓN
+            - heading "TEST · Recorrido editorial sintético 6.5E" [level=1] [ref=f120e72]
+            - paragraph [ref=f120e73]: Altaria Cards · Instagram · Carrusel TEST
+          - generic [ref=f120e74]: ENTORNO TEST
+        - navigation "Contenido" [ref=f120e76]:
+          - link "Calendario" [ref=f120e77] [cursor=pointer]:
+            - /url: /admin/contenido
+          - link "Producción" [ref=f120e78] [cursor=pointer]:
+            - /url: /admin/contenido/produccion
+          - link "Biblioteca" [ref=f120e79] [cursor=pointer]:
+            - /url: /admin/contenido/biblioteca
+          - link "Marcas" [ref=f120e80] [cursor=pointer]:
+            - /url: /admin/contenido/marcas
+        - status [ref=f120e81]: Cambio registrado en TEST con auditoría.
+        - generic [ref=f120e82]:
+          - link "← Producción" [ref=f120e83] [cursor=pointer]:
+            - /url: /admin/contenido/produccion
+          - generic [ref=f120e84]: Revisión
+          - generic [ref=f120e85]: Sin programar
+          - generic [ref=f120e86]: Versión actual v2 · consulta v2
+        - generic [ref=f120e87]:
+          - generic [ref=f120e88]:
+            - article [ref=f120e89]:
+              - generic [ref=f120e90]:
+                - generic [ref=f120e91]:
+                  - paragraph [ref=f120e92]: Altaria Cards / Carrusel TEST
+                  - heading "TEST · Recorrido editorial sintético 6.5E" [level=2] [ref=f120e93]
+                - generic [ref=f120e94]: v2
+              - generic [ref=f120e95]:
+                - heading "Objetivo" [level=3] [ref=f120e96]
+                - paragraph [ref=f120e97]: Validar la experiencia editorial sin publicación.
+              - generic [ref=f120e98]:
+                - heading "Brief" [level=3] [ref=f120e99]
+                - paragraph [ref=f120e100]: Material enteramente sintético. No representa una campaña real.
+              - generic [ref=f120e101]:
+                - heading "Hook" [level=3] [ref=f120e102]
+                - paragraph [ref=f120e103]: Pendiente de definir
+              - generic [ref=f120e104]:
+                - heading "Guion" [level=3] [ref=f120e105]
+                - paragraph [ref=f120e106]: "Guion TEST: apertura sobre cómo organizar una tarjeta ficticia. Mostrar el recurso sintético y cerrar con una invitación a revisión interna."
+              - generic [ref=f120e107]:
+                - heading "Copy" [level=3] [ref=f120e108]
+                - paragraph [ref=f120e109]: Texto sintético de prueba; no publicar.
+              - generic [ref=f120e110]:
+                - heading "CTA" [level=3] [ref=f120e111]
+                - paragraph [ref=f120e112]: Pendiente de definir
+              - generic [ref=f120e113]:
+                - heading "Referencias" [level=3] [ref=f120e114]
+                - paragraph [ref=f120e115]: Pendiente de definir
+              - text: Versión inmutable · SHA-256 5f6e762b544d6969… · origen new_draft
+              - group [ref=f120e116]:
+                - generic "Editar y crear nueva versión" [ref=f120e117] [cursor=pointer]
+            - generic [ref=f120e118]:
+              - generic [ref=f120e119]:
+                - generic [ref=f120e120]:
+                  - paragraph [ref=f120e121]: FLUJO HUMANO
+                  - heading "Próximo paso" [level=2] [ref=f120e122]
+                - generic [ref=f120e123]: Revisión sencilla
+              - paragraph [ref=f120e124]:
+                - text: "Etapa actual:"
+                - strong [ref=f120e125]: Revisión
+                - text: ". Responsable: 8c0acded-d168-473e-a001-a4a134dc931f."
+              - generic [ref=f120e126]:
+                - button "← Edición" [ref=f120e128] [cursor=pointer]
+                - button "Avanzar a Lista →" [disabled] [ref=f120e130] [cursor=pointer]
+              - group [ref=f120e131]:
+                - generic "Registrar EN ESPERA" [ref=f120e132] [cursor=pointer]
+              - generic [ref=f120e135]:
+                - strong [ref=f120e136]: final · v2
+                - generic [ref=f120e137]: approved· simple · 2026-10-13T12:22
+            - generic [ref=f120e138]:
+              - generic [ref=f120e139]:
+                - heading "Recursos de la pieza" [level=2] [ref=f120e140]
+                - link "Abrir biblioteca ↗" [ref=f120e141] [cursor=pointer]:
+                  - /url: /admin/contenido/biblioteca?marca=altaria-cards
+              - generic [ref=f120e142]:
+                - generic [ref=f120e143]:
+                  - generic [ref=f120e144]:
+                    - strong [ref=f120e145]: synthetic.png
+                    - generic [ref=f120e146]: v2 · original · verified
+                    - img "Vista previa privada de synthetic.png" [ref=f120e147]
+                  - link "Descargar ↗" [ref=f120e148] [cursor=pointer]:
+                    - /url: /api/admin/content/assets/9c6e881e-e2b2-4405-87fb-819ea9fb6786
+                - generic [ref=f120e149]:
+                  - generic [ref=f120e150]:
+                    - strong [ref=f120e151]: synthetic.png
+                    - generic [ref=f120e152]: v1 · original · verified
+                    - img "Vista previa privada de synthetic.png" [ref=f120e153]
+                  - link "Descargar ↗" [ref=f120e154] [cursor=pointer]:
+                    - /url: /api/admin/content/assets/9c6e881e-e2b2-4405-87fb-819ea9fb6786
+              - paragraph [ref=f120e155]: Para modificar recursos tras pedir revisión, crea antes una nueva versión.
+            - generic [ref=f120e156]:
+              - heading "Conversación y cambios" [level=2] [ref=f120e158]
+              - paragraph [ref=f120e159]: Sin comentarios todavía.
+              - generic [ref=f120e160]:
+                - generic [ref=f120e161]:
+                  - text: Añadir comentario
+                  - textbox "Añadir comentario" [ref=f120e162]
+                - button "Registrar comentario" [ref=f120e163] [cursor=pointer]
+          - complementary [ref=f120e164]:
+            - generic [ref=f120e165]:
+              - heading "Publicación" [level=2] [ref=f120e167]
+              - paragraph [ref=f120e168]: Programar registra un plan editorial. Ninguna acción envía contenido a redes.
+            - generic [ref=f120e169]:
+              - heading "Versiones" [level=2] [ref=f120e171]
+              - list [ref=f120e172]:
+                - listitem [ref=f120e173]:
+                  - link "v2 · 2026-10-13T12:21" [ref=f120e174] [cursor=pointer]:
+                    - /url: /admin/contenido/piezas/4ddf66bc-d932-4703-9d71-40a76d52146d?version=2
+                - listitem [ref=f120e175]:
+                  - link "v1 · 2026-10-13T12:18" [ref=f120e176] [cursor=pointer]:
+                    - /url: /admin/contenido/piezas/4ddf66bc-d932-4703-9d71-40a76d52146d?version=1
+            - generic [ref=f120e177]:
+              - heading "Contexto CRM" [level=2] [ref=f120e179]
+              - paragraph [ref=f120e180]: Sin empresa asociada. No se deduce una relación por nombre.
+              - group [ref=f120e181]:
+                - generic "Vincular empresa autorizada" [ref=f120e182] [cursor=pointer]
+                - option "Empresa DEMO TEST Sales OS" [selected]
+            - generic [ref=f120e183]:
+              - heading "Historial" [level=2] [ref=f120e185]
+              - list [ref=f120e186]:
+                - listitem [ref=f120e187]:
+                  - strong [ref=f120e188]: content.review.approved
+                  - text: · v2 · 2026-10-13T12:22
+                  - paragraph [ref=f120e189]: final
+                - listitem [ref=f120e190]:
+                  - strong [ref=f120e191]: content.review_requested
+                  - text: · v2 · 2026-10-13T12:22
+                  - paragraph [ref=f120e192]: final
+                - listitem [ref=f120e193]:
+                  - strong [ref=f120e194]: content.stage
+                  - text: · v2 · 2026-10-13T12:22
+                  - paragraph [ref=f120e195]: editing->review
+                - listitem [ref=f120e196]:
+                  - strong [ref=f120e197]: content.stage
+                  - text: · v2 · 2026-10-13T12:22
+                  - paragraph [ref=f120e198]: visuals->editing
+                - listitem [ref=f120e199]:
+                  - strong [ref=f120e200]: content.stage
+                  - text: · v2 · 2026-10-13T12:21
+                  - paragraph [ref=f120e201]: script->visuals
+                - listitem [ref=f120e202]:
+                  - strong [ref=f120e203]: content.revised
+                  - text: · v2 · 2026-10-13T12:21
+                - listitem [ref=f120e204]:
+                  - strong [ref=f120e205]: content.script_pending
+                  - text: · v1 · 2026-10-13T12:21
+                  - paragraph [ref=f120e206]: idea->script
+                - listitem [ref=f120e207]:
+                  - strong [ref=f120e208]: content.created
+                  - text: · v1 · 2026-10-13T12:18
+        - generic [ref=f120e209]:
+          - generic [ref=f120e210]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f120e211]: Entorno privado
+  - generic [ref=f120e214]:
+    - button [ref=f120e215]
+    - button [ref=f120e221]
+    - button [ref=f120e225]
+    - button [ref=f120e233]

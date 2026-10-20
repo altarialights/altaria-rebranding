@@ -15,6 +15,7 @@
  * stops that child when the run finishes. A production `dist/` must exist.
  */
 import { chromium } from 'playwright';
+import { assertLocalQaUrl } from './lib/local-qa-url.mjs';
 import { createHash } from 'node:crypto';
 import {
   createReadStream,
@@ -36,6 +37,7 @@ const arg = (name, fallback) => {
 };
 
 const EXPLICIT_BASE = arg('base', process.env.BASE_URL);
+if (EXPLICIT_BASE) assertLocalQaUrl(EXPLICIT_BASE);
 const STATIC_ROOT_INPUT = arg('static-root', process.env.STATIC_ROOT);
 if (EXPLICIT_BASE && STATIC_ROOT_INPUT) {
   throw new Error('Usa --base/BASE_URL o --static-root, no ambos a la vez.');
@@ -240,7 +242,7 @@ async function ensurePreview() {
     throw new Error('BASE_URL no responde y no existe dist/index.html. Ejecuta primero el build.');
   }
 
-  const astroBin = path.resolve('node_modules/astro/astro.js');
+  const astroBin = path.resolve('node_modules/astro/bin/astro.mjs');
   if (!existsSync(astroBin)) throw new Error('No se encuentra Astro en node_modules.');
   const target = new URL(BASE);
   const port = target.port || (target.protocol === 'https:' ? '443' : '80');

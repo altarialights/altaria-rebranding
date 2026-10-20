@@ -1,0 +1,26 @@
+---
+interface Props {active:'calendar'|'production'|'library'|'brands'}
+const {active}=Astro.props;
+const tabs=[
+  {key:'calendar',label:'Calendario',href:'/admin/contenido'},
+  {key:'production',label:'Producción',href:'/admin/contenido/produccion'},
+  {key:'library',label:'Biblioteca',href:'/admin/contenido/biblioteca'},
+  {key:'brands',label:'Marcas',href:'/admin/contenido/marcas'},
+] as const;
+const errorCode=Astro.url.searchParams.get('error');
+const errorMessages:Record<string,string>={
+  forbidden:'No tienes permiso para esta acción o esta marca.',
+  invalid_input:'Revisa los campos y vuelve a intentarlo.',
+  media_too_large:'El archivo supera el límite de 20 MiB en TEST.',
+  unsupported_media:'Formato no admitido o contenido de archivo incorrecto.',
+  version_conflict:'La pieza cambió. Recarga antes de continuar.',
+  version_reviewed_create_new:'Crea una versión nueva antes de adjuntar material.',
+};
+---
+<nav class="content-tabs" aria-label="Contenido">
+  {tabs.map(tab=><a href={tab.href} class:list={[{'is-active':active===tab.key}]}
+    aria-current={active===tab.key?'page':undefined}>{tab.label}</a>)}
+</nav>
+{errorCode&&<p class="content-form-error" role="alert">
+  {errorMessages[errorCode]??'No se pudo completar la acción. Revisa los datos e inténtalo de nuevo.'}</p>}
+<script>import '../../scripts/admin-content-forms';</script>

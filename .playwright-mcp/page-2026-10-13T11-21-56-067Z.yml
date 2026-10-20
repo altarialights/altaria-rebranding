@@ -1,0 +1,204 @@
+- generic [active] [ref=f70e1]:
+  - link "Saltar al contenido" [ref=f70e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f70e3]:
+    - complementary "Panel de navegación" [ref=f70e4]:
+      - button "Cerrar navegación" [ref=f70e5] [cursor=pointer]
+      - generic [ref=f70e8]:
+        - link "Altaria OS, inicio" [ref=f70e9] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f70e10]
+          - generic [ref=f70e11]: OS
+        - paragraph [ref=f70e13]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f70e14]:
+        - paragraph [ref=f70e15]: PLATAFORMA
+        - link "Inicio" [ref=f70e16] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f70e21] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards" [ref=f70e26] [cursor=pointer]:
+          - /url: /admin/cards
+        - link "Contenido" [ref=f70e31] [cursor=pointer]:
+          - /url: /admin/contenido
+        - link "Informes En preparación" [ref=f70e36] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f70e40]: Informes
+          - generic "En preparación" [ref=f70e41]: ·
+        - link "Configuración" [ref=f70e42] [cursor=pointer]:
+          - /url: /admin/configuracion
+      - generic [ref=f70e47]:
+        - generic [ref=f70e52]:
+          - text: Área privada
+          - strong [ref=f70e53]: Acceso protegido
+        - link "Ver sitio público" [ref=f70e54] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f70e55]: ↗
+    - generic [ref=f70e56]:
+      - banner [ref=f70e57]:
+        - button "Abrir navegación" [ref=f70e58] [cursor=pointer]
+        - generic [ref=f70e61]:
+          - text: ALTARIA OS /
+          - strong [ref=f70e62]: Contenido
+        - generic [ref=f70e63]:
+          - button "Buscar en Altaria OS" [ref=f70e64] [cursor=pointer]
+          - button "Cerrar y revocar esta sesión" [ref=f70e68] [cursor=pointer]: Salir
+      - main [ref=f70e69]:
+        - generic [ref=f70e70]:
+          - generic [ref=f70e71]:
+            - paragraph [ref=f70e72]: CONTENIDO / PLANIFICACIÓN
+            - heading "Calendario editorial" [level=1] [ref=f70e73]
+            - paragraph [ref=f70e74]: Fechas y estados reales de cada marca. La programación no publica en redes.
+          - generic [ref=f70e75]: ENTORNO TEST
+        - navigation "Contenido" [ref=f70e77]:
+          - link "Calendario" [ref=f70e78] [cursor=pointer]:
+            - /url: /admin/contenido
+          - link "Producción" [ref=f70e79] [cursor=pointer]:
+            - /url: /admin/contenido/produccion
+          - link "Biblioteca" [ref=f70e80] [cursor=pointer]:
+            - /url: /admin/contenido/biblioteca
+          - link "Marcas" [ref=f70e81] [cursor=pointer]:
+            - /url: /admin/contenido/marcas
+        - generic [ref=f70e82]:
+          - generic [ref=f70e83]:
+            - paragraph [ref=f70e84]: ALTARIA CONTENT OS · TEST
+            - heading "Planifica con contexto." [level=2] [ref=f70e85]
+            - paragraph [ref=f70e86]: La agenda muestra piezas registradas, revisiones y fechas previstas. Los huecos permanecen vacíos hasta crear una idea.
+          - link "Crear una idea ↗" [ref=f70e87] [cursor=pointer]:
+            - /url: /admin/contenido/produccion#crear-pieza
+        - form "Filtrar calendario" [ref=f70e88]:
+          - generic [ref=f70e89]:
+            - text: Marca
+            - combobox "Marca" [ref=f70e90]:
+              - option "Todas las autorizadas" [selected]
+              - option "Altaria Cards"
+              - option "Martín Altaria"
+              - option "Restaurante De Zamorano"
+          - generic [ref=f70e91]:
+            - text: Canal
+            - combobox "Canal" [ref=f70e92]:
+              - option "Todos" [selected]
+              - option "Instagram"
+              - option "LinkedIn"
+          - generic [ref=f70e93]:
+            - text: Responsable
+            - combobox "Responsable" [ref=f70e94]:
+              - option "Todos" [selected]
+          - button "Filtrar" [ref=f70e95] [cursor=pointer]
+        - generic [ref=f70e96]:
+          - heading "octubre de 2026" [level=2] [ref=f70e97]
+          - generic "Vista del calendario" [ref=f70e98]:
+            - link "Mes" [ref=f70e99] [cursor=pointer]:
+              - /url: /admin/contenido?vista=mes&mes=2026-10&dia=2026-10-13
+            - link "Semana" [ref=f70e100] [cursor=pointer]:
+              - /url: /admin/contenido?vista=semana&mes=2026-10&dia=2026-10-13
+            - link "Lista" [ref=f70e101] [cursor=pointer]:
+              - /url: /admin/contenido?vista=lista&mes=2026-10&dia=2026-10-13
+          - generic [ref=f70e102]:
+            - link "Mes anterior" [ref=f70e103] [cursor=pointer]:
+              - /url: /admin/contenido?vista=mes&mes=2026-09&dia=2026-10-13
+              - text: ←
+            - link "Mes siguiente" [ref=f70e104] [cursor=pointer]:
+              - /url: /admin/contenido?vista=mes&mes=2026-11&dia=2026-10-13
+              - text: →
+        - grid "octubre de 2026" [ref=f70e106]:
+          - columnheader "Lun" [ref=f70e107]
+          - columnheader "Mar" [ref=f70e108]
+          - columnheader "Mié" [ref=f70e109]
+          - columnheader "Jue" [ref=f70e110]
+          - columnheader "Vie" [ref=f70e111]
+          - columnheader "Sáb" [ref=f70e112]
+          - columnheader "Dom" [ref=f70e113]
+          - gridcell "2026-09-28" [ref=f70e114]:
+            - strong [ref=f70e115]: "28"
+          - gridcell "2026-09-29" [ref=f70e116]:
+            - strong [ref=f70e117]: "29"
+          - gridcell "2026-09-30" [ref=f70e118]:
+            - strong [ref=f70e119]: "30"
+          - gridcell "2026-10-01" [ref=f70e120]:
+            - strong [ref=f70e121]: "1"
+          - gridcell "2026-10-02" [ref=f70e122]:
+            - strong [ref=f70e123]: "2"
+          - gridcell "2026-10-03" [ref=f70e124]:
+            - strong [ref=f70e125]: "3"
+          - gridcell "2026-10-04" [ref=f70e126]:
+            - strong [ref=f70e127]: "4"
+          - gridcell "2026-10-05" [ref=f70e128]:
+            - strong [ref=f70e129]: "5"
+          - gridcell "2026-10-06" [ref=f70e130]:
+            - strong [ref=f70e131]: "6"
+          - gridcell "2026-10-07" [ref=f70e132]:
+            - strong [ref=f70e133]: "7"
+          - gridcell "2026-10-08" [ref=f70e134]:
+            - strong [ref=f70e135]: "8"
+          - gridcell "2026-10-09" [ref=f70e136]:
+            - strong [ref=f70e137]: "9"
+          - gridcell "2026-10-10" [ref=f70e138]:
+            - strong [ref=f70e139]: "10"
+          - gridcell "2026-10-11" [ref=f70e140]:
+            - strong [ref=f70e141]: "11"
+          - gridcell "2026-10-12" [ref=f70e142]:
+            - strong [ref=f70e143]: "12"
+          - gridcell "2026-10-13" [ref=f70e144]:
+            - strong [ref=f70e145]: "13"
+          - gridcell "2026-10-14" [ref=f70e146]:
+            - strong [ref=f70e147]: "14"
+          - gridcell "2026-10-15" [ref=f70e148]:
+            - strong [ref=f70e149]: "15"
+          - gridcell "2026-10-16" [ref=f70e150]:
+            - strong [ref=f70e151]: "16"
+          - gridcell "2026-10-17" [ref=f70e152]:
+            - strong [ref=f70e153]: "17"
+          - gridcell "2026-10-18" [ref=f70e154]:
+            - strong [ref=f70e155]: "18"
+          - gridcell "2026-10-19" [ref=f70e156]:
+            - strong [ref=f70e157]: "19"
+          - gridcell "2026-10-20" [ref=f70e158]:
+            - strong [ref=f70e159]: "20"
+          - gridcell "2026-10-21" [ref=f70e160]:
+            - strong [ref=f70e161]: "21"
+          - gridcell "2026-10-22" [ref=f70e162]:
+            - strong [ref=f70e163]: "22"
+          - gridcell "2026-10-23" [ref=f70e164]:
+            - strong [ref=f70e165]: "23"
+          - gridcell "2026-10-24" [ref=f70e166]:
+            - strong [ref=f70e167]: "24"
+          - gridcell "2026-10-25" [ref=f70e168]:
+            - strong [ref=f70e169]: "25"
+          - gridcell "2026-10-26" [ref=f70e170]:
+            - strong [ref=f70e171]: "26"
+          - gridcell "2026-10-27" [ref=f70e172]:
+            - strong [ref=f70e173]: "27"
+          - gridcell "2026-10-28" [ref=f70e174]:
+            - strong [ref=f70e175]: "28"
+          - gridcell "2026-10-29" [ref=f70e176]:
+            - strong [ref=f70e177]: "29"
+          - gridcell "2026-10-30" [ref=f70e178]:
+            - strong [ref=f70e179]: "30"
+          - gridcell "2026-10-31" [ref=f70e180]:
+            - strong [ref=f70e181]: "31"
+          - gridcell "2026-11-01" [ref=f70e182]:
+            - strong [ref=f70e183]: "1"
+          - gridcell "2026-11-02" [ref=f70e184]:
+            - strong [ref=f70e185]: "2"
+          - gridcell "2026-11-03" [ref=f70e186]:
+            - strong [ref=f70e187]: "3"
+          - gridcell "2026-11-04" [ref=f70e188]:
+            - strong [ref=f70e189]: "4"
+          - gridcell "2026-11-05" [ref=f70e190]:
+            - strong [ref=f70e191]: "5"
+          - gridcell "2026-11-06" [ref=f70e192]:
+            - strong [ref=f70e193]: "6"
+          - gridcell "2026-11-07" [ref=f70e194]:
+            - strong [ref=f70e195]: "7"
+          - gridcell "2026-11-08" [ref=f70e196]:
+            - strong [ref=f70e197]: "8"
+        - paragraph [ref=f70e198]: PUBLICADA solo aparecerá tras evidencia registrada. En TEST cualquier confirmación es sintética y se identifica como simulación.
+        - generic [ref=f70e199]:
+          - generic [ref=f70e200]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f70e201]: Entorno privado
+  - generic [ref=f70e204]:
+    - button [ref=f70e205]
+    - button [ref=f70e211]
+    - button [ref=f70e215]
+    - button [ref=f70e220]

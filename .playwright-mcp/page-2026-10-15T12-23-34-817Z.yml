@@ -1,0 +1,117 @@
+- generic [ref=f9e1]:
+  - generic [ref=f9e3]:
+    - generic [ref=f9e4]:
+      - link "Skip to main content" [ref=f9e5] [cursor=pointer]:
+        - /url: "#main-_R_35tamcnmlb_"
+      - banner [ref=f9e6]:
+        - generic [ref=f9e7]:
+          - 'button "Change project, current project: Altarialights''s Project" [ref=f9e9] [cursor=pointer]':
+            - generic [ref=f9e11]: Altarialights's Project
+          - button "Show suggestions" [ref=f9e18] [cursor=pointer]:
+            - generic [ref=f9e19]: Staging
+            - generic [ref=f9e23]: Staging
+        - generic [ref=f9e26]:
+          - generic [ref=f9e27]:
+            - button "Search ^K" [ref=f9e29] [cursor=pointer]:
+              - text: Search
+              - generic [ref=f9e32]: ^K
+            - generic [ref=f9e33]:
+              - link "Docs" [ref=f9e35] [cursor=pointer]:
+                - /url: https://workos.com/docs
+              - link [ref=f9e38] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/notifications
+                - img "Notifications" [ref=f9e39]
+          - button "Your profile" [ref=f9e41] [cursor=pointer]
+      - navigation "app" [ref=f9e43]:
+        - generic [ref=f9e44]:
+          - link "Overview" [ref=f9e48] [cursor=pointer]:
+            - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/get-started
+          - button [ref=f9e57] [cursor=pointer]
+        - generic [ref=f9e62]:
+          - generic [ref=f9e67]:
+            - generic [ref=f9e68]:
+              - link "Overview" [ref=f9e69] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/get-started
+              - link "Organizations" [ref=f9e75] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/organizations
+              - link "Users" [ref=f9e82] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/users
+              - link "Agents" [ref=f9e89] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/agents/agent-auth
+              - link "Applications" [ref=f9e96] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/applications
+            - generic [ref=f9e104]:
+              - generic [ref=f9e106]: Products
+              - link "Authentication" [ref=f9e108] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication
+              - link "Authorization" [ref=f9e114] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authorization
+              - link "Radar" [ref=f9e121] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/radar
+              - link "Audit Logs" [ref=f9e128] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/audit-logs
+              - link "Feature Flags" [ref=f9e136] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/flags
+              - link "Pipes" [ref=f9e143] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/pipes
+              - link "Connect" [ref=f9e149] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/connect
+              - link "Vault" [ref=f9e156] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/vault
+            - generic [ref=f9e164]:
+              - generic [ref=f9e166]: Developer
+              - link "Admin Portal" [ref=f9e168] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/admin-portal
+              - link "Domains" [ref=f9e174] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/domains
+              - link "API Keys" [ref=f9e180] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/api-keys
+              - link "IdP Attributes" [ref=f9e187] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/identity-provider-attributes
+              - link "Branding" [ref=f9e193] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/branding
+              - link "Emails" [ref=f9e200] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/emails/events
+              - link "Events" [ref=f9e206] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/events
+              - link "Actions" [ref=f9e212] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/actions/logs
+              - link "Webhooks" [ref=f9e218] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/webhooks
+              - link "Test SSO" [ref=f9e224] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/test-sso
+          - button "Altarialights's Team" [ref=f9e233] [cursor=pointer]:
+            - generic [aria-hidden] [ref=f9e235]: A
+      - navigation [ref=f9e418]:
+        - generic [ref=f9e421]:
+          - heading "Connect" [level=2] [ref=f9e423]
+          - list [ref=f9e426]:
+            - listitem [ref=f9e427]:
+              - link "Applications" [ref=f9e428] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/connect
+            - listitem [ref=f9e431]:
+              - link "Configuration" [ref=f9e432] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/connect/configuration
+      - main [ref=f9e242]:
+        - generic [ref=f9e435]:
+          - generic [ref=f9e436]:
+            - generic [ref=f9e437]:
+              - heading "Applications" [level=2] [ref=f9e438]
+              - generic [ref=f9e439]:
+                - text: Let other apps and agents securely access your users and their data.
+                - link "Learn more" [ref=f9e440] [cursor=pointer]:
+                  - /url: https://workos.com/docs/authkit/connect
+            - button "Create application" [ref=f9e444] [cursor=pointer]
+          - generic [ref=f9e446]:
+            - generic [ref=f9e450]:
+              - textbox "Search" [ref=f9e453]
+              - combobox "Type" [ref=f9e458] [cursor=pointer]
+              - combobox "Registration" [ref=f9e463] [cursor=pointer]
+            - generic [ref=f9e468]:
+              - paragraph [ref=f9e474]: No applications have been created for this environment
+              - button "Create application" [ref=f9e475] [cursor=pointer]
+    - region "Notifications (F8)":
+      - list
+    - region "Notifications (F8)":
+      - list
+  - alert [ref=f9e415]: Applications | WorkOS

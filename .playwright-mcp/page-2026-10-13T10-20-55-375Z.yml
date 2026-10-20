@@ -1,0 +1,430 @@
+- generic [active] [ref=f45e1]:
+  - link "Saltar al contenido" [ref=f45e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f45e3]:
+    - complementary "Panel de navegación" [ref=f45e4]:
+      - generic [ref=f45e5]:
+        - link "Altaria OS, inicio" [ref=f45e6] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f45e7]
+          - generic [ref=f45e8]: OS
+        - paragraph [ref=f45e10]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f45e11]:
+        - paragraph [ref=f45e12]: PLATAFORMA
+        - link "Inicio" [ref=f45e13] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f45e18] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards" [ref=f45e23] [cursor=pointer]:
+          - /url: /admin/cards
+        - link "Informes En preparación" [ref=f45e28] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f45e32]: Informes
+          - generic "En preparación" [ref=f45e33]: ·
+        - link "Configuración" [ref=f45e34] [cursor=pointer]:
+          - /url: /admin/configuracion
+      - generic [ref=f45e39]:
+        - generic [ref=f45e44]:
+          - text: Área privada
+          - strong [ref=f45e45]: Acceso protegido
+        - link "Ver sitio público" [ref=f45e46] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f45e47]: ↗
+    - generic [ref=f45e48]:
+      - banner [ref=f45e49]:
+        - generic [ref=f45e50]:
+          - text: ALTARIA OS /
+          - strong [ref=f45e51]: CRM
+        - generic [ref=f45e52]:
+          - button "Buscar en Altaria OS" [ref=f45e53] [cursor=pointer]:
+            - generic [ref=f45e57]: ⌘ K
+          - generic "altarialights@gmail.com" [ref=f45e58]:
+            - generic [aria-hidden] [ref=f45e59]: A
+          - button "Cerrar y revocar esta sesión" [ref=f45e62] [cursor=pointer]: Salir
+      - main [ref=f45e63]:
+        - generic [ref=f45e64]:
+          - generic [ref=f45e65]:
+            - paragraph [ref=f45e66]: CRM / SALES OS
+            - heading "Guía comercial." [level=1] [ref=f45e67]
+            - paragraph [ref=f45e68]: Guiones y decisiones con contexto, versión y revisión humana.
+          - generic [ref=f45e69]: ENTORNO TEST
+        - navigation "Navegación del CRM" [ref=f45e71]:
+          - link "Resumen" [ref=f45e72] [cursor=pointer]:
+            - /url: /admin/crm
+          - link "Empresas" [ref=f45e73] [cursor=pointer]:
+            - /url: /admin/crm/empresas
+          - link "Oportunidades" [ref=f45e74] [cursor=pointer]:
+            - /url: /admin/crm/oportunidades
+          - link "Propuestas" [ref=f45e75] [cursor=pointer]:
+            - /url: /admin/crm/propuestas
+          - link "Tareas" [ref=f45e76] [cursor=pointer]:
+            - /url: /admin/crm/tareas
+          - link "Guía comercial" [ref=f45e77] [cursor=pointer]:
+            - /url: /admin/crm/guia-comercial
+        - region [ref=f45e78]:
+          - generic [ref=f45e79]:
+            - paragraph [ref=f45e80]: ALTARIA OS · TEST
+            - heading "Una conversación mejor preparada." [level=2] [ref=f45e81]
+            - paragraph [ref=f45e82]: Consulta el guion, escucha lo que falta y registra el siguiente paso en el CRM. Ningún contenido se envía automáticamente.
+          - link "Crear contenido" [ref=f45e83] [cursor=pointer]:
+            - /url: "#nuevo-contenido"
+            - text: Crear contenido
+            - generic [aria-hidden] [ref=f45e84]: ↗
+        - search "Buscar en la guía comercial" [ref=f45e85]:
+          - generic [ref=f45e86]:
+            - text: Buscar
+            - searchbox "Buscar" [ref=f45e87]
+          - generic [ref=f45e88]:
+            - text: Categoría
+            - combobox "Categoría" [ref=f45e89]:
+              - option "Todas" [selected]
+              - option "Prospección"
+              - option "Email"
+              - option "Llamada"
+              - option "Presencial"
+              - option "Diagnóstico"
+              - option "Demostración"
+              - option "Objeciones"
+              - option "Seguimiento"
+              - option "Cierre"
+              - option "Venta adicional"
+              - option "Posventa"
+          - generic [ref=f45e90]:
+            - text: Producto
+            - combobox "Producto" [ref=f45e91]:
+              - option "Todos" [selected]
+              - option "Desarrollo web"
+              - option "Marketing, SEO y automatizaciones"
+              - option "Proceso comercial"
+              - option "Soluciones para hoteles y casas rurales"
+              - option "Soluciones para restaurantes"
+              - option "Tarjetas de presentación NFC"
+              - option "Tarjetas de reseñas Google"
+              - option "Tarjetas para bodas y eventos"
+          - generic [ref=f45e92]:
+            - text: Sector
+            - combobox "Sector" [ref=f45e93]:
+              - option "Todos" [selected]
+              - option "alojamiento"
+              - option "eventos"
+              - option "general"
+              - option "restauración"
+          - generic [ref=f45e94]:
+            - text: Canal
+            - combobox "Canal" [ref=f45e95]:
+              - option "Todos" [selected]
+              - option "Teléfono"
+              - option "Email"
+              - option "Presencial"
+              - option "General"
+          - generic [ref=f45e96]:
+            - text: Etapa
+            - combobox "Etapa" [ref=f45e97]:
+              - option "Todas" [selected]
+              - option "Nuevo"
+              - option "Contactado"
+              - option "Interesado"
+              - option "Propuesta"
+              - option "Negociación"
+              - option "Ganado"
+              - option "Perdido"
+              - option "General"
+          - button "Filtrar" [ref=f45e98] [cursor=pointer]
+        - generic [ref=f45e99]:
+          - region [ref=f45e100]:
+            - generic [ref=f45e102]:
+              - heading "Biblioteca" [level=2] [ref=f45e103]
+              - paragraph [ref=f45e104]: 29 contenidos disponibles para tu perfil
+            - generic [ref=f45e105]:
+              - link "Posventa · Proceso comercial Revisión Revisión posventa Pregunta cómo está funcionando la solución entregada y si existe una incidencia. Da prioridad a resolver problemas antes de plantear ot…" [ref=f45e106] [cursor=pointer]:
+                - /url: /admin/crm/guia-comercial?ficha=9d5f8660-5c8c-44ed-b200-356a26fcb0ba
+                - generic [ref=f45e107]:
+                  - generic [ref=f45e108]: Posventa · Proceso comercial
+                  - generic [ref=f45e109]: Revisión
+                - strong [ref=f45e110]: Revisión posventa
+                - generic [ref=f45e111]: Pregunta cómo está funcionando la solución entregada y si existe una incidencia. Da prioridad a resolver problemas antes de plantear ot…
+              - link "Venta adicional · Proceso comercial Revisión Explorar una necesidad adicional Antes de sugerir otro servicio, comprueba si el trabajo actual cubre la necesidad inicial. Pregunta si hay alguna dificultad nueva. No …" [ref=f45e112] [cursor=pointer]:
+                - /url: /admin/crm/guia-comercial?ficha=e90f60fb-bf80-41c7-a7c8-0d14d8e106ba
+                - generic [ref=f45e113]:
+                  - generic [ref=f45e114]: Venta adicional · Proceso comercial
+                  - generic [ref=f45e115]: Revisión
+                - strong [ref=f45e116]: Explorar una necesidad adicional
+                - generic [ref=f45e117]: Antes de sugerir otro servicio, comprueba si el trabajo actual cubre la necesidad inicial. Pregunta si hay alguna dificultad nueva. No …
+              - link "Cierre · Proceso comercial Revisión Cierre claro de oportunidad Repasa el alcance, los plazos y las condiciones de la propuesta vigente. Comprueba que la otra parte entiende qué se entregará. Una ace…" [ref=f45e118] [cursor=pointer]:
+                - /url: /admin/crm/guia-comercial?ficha=1797ec8e-ea9b-43f4-b808-3264399ebfcd
+                - generic [ref=f45e119]:
+                  - generic [ref=f45e120]: Cierre · Proceso comercial
+                  - generic [ref=f45e121]: Revisión
+                - strong [ref=f45e122]: Cierre claro de oportunidad
+                - generic [ref=f45e123]: Repasa el alcance, los plazos y las condiciones de la propuesta vigente. Comprueba que la otra parte entiende qué se entregará. Una ace…
+              - link "Seguimiento · Proceso comercial Revisión Seguimiento acordado Revisa la última interacción y la fecha acordada. Haz referencia únicamente a información registrada. Pregunta si existe alguna duda o …" [ref=f45e124] [cursor=pointer]:
+                - /url: /admin/crm/guia-comercial?ficha=d42be4e5-bda3-4557-902e-33bbb9fee3d7
+                - generic [ref=f45e125]:
+                  - generic [ref=f45e126]: Seguimiento · Proceso comercial
+                  - generic [ref=f45e127]: Revisión
+                - strong [ref=f45e128]: Seguimiento acordado
+                - generic [ref=f45e129]: Revisa la última interacción y la fecha acordada. Haz referencia únicamente a información registrada. Pregunta si existe alguna duda o …
+              - link "Demostración · Proceso comercial Revisión Demostración centrada en la necesidad Confirma primero el objetivo del cliente. Enseña solo el recorrido relevante y distingue lo que ya funciona de lo que sería una propues…" [ref=f45e130] [cursor=pointer]:
+                - /url: /admin/crm/guia-comercial?ficha=2a88c21b-68bf-44d1-a997-3fb10e4ca2d4
+                - generic [ref=f45e131]:
+                  - generic [ref=f45e132]: Demostración · Proceso comercial
+                  - generic [ref=f45e133]: Revisión
+                - strong [ref=f45e134]: Demostración centrada en la necesidad
+                - generic [ref=f45e135]: Confirma primero el objetivo del cliente. Enseña solo el recorrido relevante y distingue lo que ya funciona de lo que sería una propues…
+              - link "Presencial · Proceso comercial Revisión Conversación presencial Pide permiso para una pregunta breve. Escucha el proceso actual y evita interrumpir el trabajo de la otra persona. Si no es buen moment…" [ref=f45e136] [cursor=pointer]:
+                - /url: /admin/crm/guia-comercial?ficha=b9dd32ee-a7be-4693-beac-0d3c38ee26c0
+                - generic [ref=f45e137]:
+                  - generic [ref=f45e138]: Presencial · Proceso comercial
+                  - generic [ref=f45e139]: Revisión
+                - strong [ref=f45e140]: Conversación presencial
+                - generic [ref=f45e141]: Pide permiso para una pregunta breve. Escucha el proceso actual y evita interrumpir el trabajo de la otra persona. Si no es buen moment…
+              - 'link "Email · Proceso comercial Revisión Email de presentación revisable Asunto sugerido: Conversación sobre [tema confirmado]. Hola [nombre confirmado]: me gustaría entender cómo gestionáis [proceso confirma…" [ref=f45e142] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=6c07b47d-9050-4da1-aba9-6f65deec3bea
+                - generic [ref=f45e143]:
+                  - generic [ref=f45e144]: Email · Proceso comercial
+                  - generic [ref=f45e145]: Revisión
+                - strong [ref=f45e146]: Email de presentación revisable
+                - generic [ref=f45e147]: "Asunto sugerido: Conversación sobre [tema confirmado]. Hola [nombre confirmado]: me gustaría entender cómo gestionáis [proceso confirma…"
+              - link "Prospección · Proceso comercial Revisión Prospección responsable Investiga solo información pertinente de la empresa. Revisa el canal de contacto y cualquier oposición registrada. Define una hipótesis…" [ref=f45e148] [cursor=pointer]:
+                - /url: /admin/crm/guia-comercial?ficha=d25bd3d3-3b23-440d-bf76-bc53bfc31132
+                - generic [ref=f45e149]:
+                  - generic [ref=f45e150]: Prospección · Proceso comercial
+                  - generic [ref=f45e151]: Revisión
+                - strong [ref=f45e152]: Prospección responsable
+                - generic [ref=f45e153]: Investiga solo información pertinente de la empresa. Revisa el canal de contacto y cualquier oposición registrada. Define una hipótesis…
+              - 'link "Objeciones · Marketing, SEO y automatizaciones Revisión Objeción habitual · Marketing, SEO y automatizaciones Cuando la persona no ve clara la utilidad, responde: «No sería responsable prometer posiciones ni ventas; primero revisamos punto de pa…" [ref=f45e154] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=f7d2881e-a65c-49cf-8d5a-08948518812a
+                - generic [ref=f45e155]:
+                  - generic [ref=f45e156]: Objeciones · Marketing, SEO y automatizaciones
+                  - generic [ref=f45e157]: Revisión
+                - strong [ref=f45e158]: Objeción habitual · Marketing, SEO y automatizaciones
+                - generic [ref=f45e159]: "Cuando la persona no ve clara la utilidad, responde: «No sería responsable prometer posiciones ni ventas; primero revisamos punto de pa…"
+              - 'link "Diagnóstico · Marketing, SEO y automatizaciones Revisión Diagnóstico · Marketing, SEO y automatizaciones Pregunta principal: «¿Qué datos medís realmente y quién decide qué se comunica?» Pide un ejemplo reciente, quién interviene y qué limit…" [ref=f45e160] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=bc3783c3-3a62-4052-8ece-19a2a7cba98c
+                - generic [ref=f45e161]:
+                  - generic [ref=f45e162]: Diagnóstico · Marketing, SEO y automatizaciones
+                  - generic [ref=f45e163]: Revisión
+                - strong [ref=f45e164]: Diagnóstico · Marketing, SEO y automatizaciones
+                - generic [ref=f45e165]: "Pregunta principal: «¿Qué datos medís realmente y quién decide qué se comunica?» Pide un ejemplo reciente, quién interviene y qué limit…"
+              - 'link "Llamada · Marketing, SEO y automatizaciones Revisión Primer contacto · Marketing, SEO y automatizaciones Inicio propuesto: «¿Qué proceso de captación o seguimiento consume más tiempo hoy?» Escucha la respuesta y pregunta: «¿Qué datos medís …" [ref=f45e166] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=ccf2ff6e-24d1-4c27-b8f9-d6bcc3552383
+                - generic [ref=f45e167]:
+                  - generic [ref=f45e168]: Llamada · Marketing, SEO y automatizaciones
+                  - generic [ref=f45e169]: Revisión
+                - strong [ref=f45e170]: Primer contacto · Marketing, SEO y automatizaciones
+                - generic [ref=f45e171]: "Inicio propuesto: «¿Qué proceso de captación o seguimiento consume más tiempo hoy?» Escucha la respuesta y pregunta: «¿Qué datos medís …"
+              - 'link "Objeciones · Desarrollo web Revisión Objeción habitual · Desarrollo web Cuando la persona no ve clara la utilidad, responde: «Antes de hablar de rehacerla, revisemos qué puede mejorarse con cambios concretos…" [ref=f45e172] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=36c6c980-e19c-48f1-9129-e5a42419b3e8
+                - generic [ref=f45e173]:
+                  - generic [ref=f45e174]: Objeciones · Desarrollo web
+                  - generic [ref=f45e175]: Revisión
+                - strong [ref=f45e176]: Objeción habitual · Desarrollo web
+                - generic [ref=f45e177]: "Cuando la persona no ve clara la utilidad, responde: «Antes de hablar de rehacerla, revisemos qué puede mejorarse con cambios concretos…"
+              - 'link "Diagnóstico · Desarrollo web Revisión Diagnóstico · Desarrollo web Pregunta principal: «¿Qué objetivo queréis que cumpla la web y qué información ya tenéis?» Pide un ejemplo reciente, quién interviene y…" [ref=f45e178] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=1f95e0eb-30b7-4377-8cbb-cdaea796ef1e
+                - generic [ref=f45e179]:
+                  - generic [ref=f45e180]: Diagnóstico · Desarrollo web
+                  - generic [ref=f45e181]: Revisión
+                - strong [ref=f45e182]: Diagnóstico · Desarrollo web
+                - generic [ref=f45e183]: "Pregunta principal: «¿Qué objetivo queréis que cumpla la web y qué información ya tenéis?» Pide un ejemplo reciente, quién interviene y…"
+              - 'link "Llamada · Desarrollo web Revisión Primer contacto · Desarrollo web Inicio propuesto: «¿Qué parte de vuestra web actual dificulta la tarea principal de un visitante?» Escucha la respuesta y pregunta: «¿Q…" [ref=f45e184] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=74a6cd4e-0a9b-44b5-a780-0653c8146195
+                - generic [ref=f45e185]:
+                  - generic [ref=f45e186]: Llamada · Desarrollo web
+                  - generic [ref=f45e187]: Revisión
+                - strong [ref=f45e188]: Primer contacto · Desarrollo web
+                - generic [ref=f45e189]: "Inicio propuesto: «¿Qué parte de vuestra web actual dificulta la tarea principal de un visitante?» Escucha la respuesta y pregunta: «¿Q…"
+              - 'link "Objeciones · Tarjetas para bodas y eventos Revisión Objeción habitual · Tarjetas para bodas y eventos Cuando la persona no ve clara la utilidad, responde: «Si el evento ya tiene una web o invitación, valoremos si la tarjeta añade un acce…" [ref=f45e190] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=7a68aa3f-a68c-4ce4-941c-f92d5296a7b3
+                - generic [ref=f45e191]:
+                  - generic [ref=f45e192]: Objeciones · Tarjetas para bodas y eventos
+                  - generic [ref=f45e193]: Revisión
+                - strong [ref=f45e194]: Objeción habitual · Tarjetas para bodas y eventos
+                - generic [ref=f45e195]: "Cuando la persona no ve clara la utilidad, responde: «Si el evento ya tiene una web o invitación, valoremos si la tarjeta añade un acce…"
+              - 'link "Diagnóstico · Tarjetas para bodas y eventos Revisión Diagnóstico · Tarjetas para bodas y eventos Pregunta principal: «¿Quién necesita poder actualizar la información y hasta cuándo?» Pide un ejemplo reciente, quién interviene y qué …" [ref=f45e196] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=62cd86c9-6d21-4622-813b-246a346fc160
+                - generic [ref=f45e197]:
+                  - generic [ref=f45e198]: Diagnóstico · Tarjetas para bodas y eventos
+                  - generic [ref=f45e199]: Revisión
+                - strong [ref=f45e200]: Diagnóstico · Tarjetas para bodas y eventos
+                - generic [ref=f45e201]: "Pregunta principal: «¿Quién necesita poder actualizar la información y hasta cuándo?» Pide un ejemplo reciente, quién interviene y qué …"
+              - 'link "Llamada · Tarjetas para bodas y eventos Revisión Primer contacto · Tarjetas para bodas y eventos Inicio propuesto: «¿Cómo queréis compartir con los invitados los detalles que pueden cambiar?» Escucha la respuesta y pregunta: «¿Quién…" [ref=f45e202] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=9f16759a-db58-4773-88b7-9b4a292f9a3d
+                - generic [ref=f45e203]:
+                  - generic [ref=f45e204]: Llamada · Tarjetas para bodas y eventos
+                  - generic [ref=f45e205]: Revisión
+                - strong [ref=f45e206]: Primer contacto · Tarjetas para bodas y eventos
+                - generic [ref=f45e207]: "Inicio propuesto: «¿Cómo queréis compartir con los invitados los detalles que pueden cambiar?» Escucha la respuesta y pregunta: «¿Quién…"
+              - 'link "Objeciones · Soluciones para hoteles y casas rurales Revisión Objeción habitual · Soluciones para hoteles y casas rurales Cuando la persona no ve clara la utilidad, responde: «Podemos limitar la prueba a una información útil para huéspedes antes de valorar …" [ref=f45e208] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=ec0ad1fe-17fc-4add-b41d-30cdfef27c1b
+                - generic [ref=f45e209]:
+                  - generic [ref=f45e210]: Objeciones · Soluciones para hoteles y casas rurales
+                  - generic [ref=f45e211]: Revisión
+                - strong [ref=f45e212]: Objeción habitual · Soluciones para hoteles y casas rurales
+                - generic [ref=f45e213]: "Cuando la persona no ve clara la utilidad, responde: «Podemos limitar la prueba a una información útil para huéspedes antes de valorar …"
+              - 'link "Diagnóstico · Soluciones para hoteles y casas rurales Revisión Diagnóstico · Soluciones para hoteles y casas rurales Pregunta principal: «¿Qué parte de esa información cambia con frecuencia?» Pide un ejemplo reciente, quién interviene y qué limitacione…" [ref=f45e214] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=3e96f95e-9b43-4d19-8cad-36405950ff2f
+                - generic [ref=f45e215]:
+                  - generic [ref=f45e216]: Diagnóstico · Soluciones para hoteles y casas rurales
+                  - generic [ref=f45e217]: Revisión
+                - strong [ref=f45e218]: Diagnóstico · Soluciones para hoteles y casas rurales
+                - generic [ref=f45e219]: "Pregunta principal: «¿Qué parte de esa información cambia con frecuencia?» Pide un ejemplo reciente, quién interviene y qué limitacione…"
+              - 'link "Llamada · Soluciones para hoteles y casas rurales Revisión Primer contacto · Soluciones para hoteles y casas rurales Inicio propuesto: «¿Qué información preguntan más los huéspedes antes o durante la estancia?» Escucha la respuesta y pregunta: «¿Qué pa…" [ref=f45e220] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=f7daa60d-ef9e-49a0-aa36-85523bdb3645
+                - generic [ref=f45e221]:
+                  - generic [ref=f45e222]: Llamada · Soluciones para hoteles y casas rurales
+                  - generic [ref=f45e223]: Revisión
+                - strong [ref=f45e224]: Primer contacto · Soluciones para hoteles y casas rurales
+                - generic [ref=f45e225]: "Inicio propuesto: «¿Qué información preguntan más los huéspedes antes o durante la estancia?» Escucha la respuesta y pregunta: «¿Qué pa…"
+              - 'link "Objeciones · Soluciones para restaurantes Revisión Objeción habitual · Soluciones para restaurantes Cuando la persona no ve clara la utilidad, responde: «Si el equipo tiene poco tiempo, conviene probar un flujo sencillo y medir si enca…" [ref=f45e226] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=459811ae-7e2b-426d-8bc1-140647524c92
+                - generic [ref=f45e227]:
+                  - generic [ref=f45e228]: Objeciones · Soluciones para restaurantes
+                  - generic [ref=f45e229]: Revisión
+                - strong [ref=f45e230]: Objeción habitual · Soluciones para restaurantes
+                - generic [ref=f45e231]: "Cuando la persona no ve clara la utilidad, responde: «Si el equipo tiene poco tiempo, conviene probar un flujo sencillo y medir si enca…"
+              - 'link "Diagnóstico · Soluciones para restaurantes Revisión Diagnóstico · Soluciones para restaurantes Pregunta principal: «¿Qué experiencia queréis facilitar al cliente sin interrumpir al equipo?» Pide un ejemplo reciente, quién intervie…" [ref=f45e232] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=3e9f895a-b0f8-4856-a8a9-ccbd3f00b101
+                - generic [ref=f45e233]:
+                  - generic [ref=f45e234]: Diagnóstico · Soluciones para restaurantes
+                  - generic [ref=f45e235]: Revisión
+                - strong [ref=f45e236]: Diagnóstico · Soluciones para restaurantes
+                - generic [ref=f45e237]: "Pregunta principal: «¿Qué experiencia queréis facilitar al cliente sin interrumpir al equipo?» Pide un ejemplo reciente, quién intervie…"
+              - 'link "Llamada · Soluciones para restaurantes Revisión Primer contacto · Soluciones para restaurantes Inicio propuesto: «¿En qué punto del servicio os cuesta más compartir información o recibir opiniones?» Escucha la respuesta y pregunta…" [ref=f45e238] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=bbc96dbe-0afd-49e6-a338-962cfe0d8ada
+                - generic [ref=f45e239]:
+                  - generic [ref=f45e240]: Llamada · Soluciones para restaurantes
+                  - generic [ref=f45e241]: Revisión
+                - strong [ref=f45e242]: Primer contacto · Soluciones para restaurantes
+                - generic [ref=f45e243]: "Inicio propuesto: «¿En qué punto del servicio os cuesta más compartir información o recibir opiniones?» Escucha la respuesta y pregunta…"
+              - 'link "Objeciones · Tarjetas de presentación NFC Revisión Objeción habitual · Tarjetas de presentación NFC Cuando la persona no ve clara la utilidad, responde: «No hace falta sustituir todas las tarjetas actuales; revisemos primero qué uso te…" [ref=f45e244] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=c96b6cc3-31c8-4da3-8b99-d9696ba40f5b
+                - generic [ref=f45e245]:
+                  - generic [ref=f45e246]: Objeciones · Tarjetas de presentación NFC
+                  - generic [ref=f45e247]: Revisión
+                - strong [ref=f45e248]: Objeción habitual · Tarjetas de presentación NFC
+                - generic [ref=f45e249]: "Cuando la persona no ve clara la utilidad, responde: «No hace falta sustituir todas las tarjetas actuales; revisemos primero qué uso te…"
+              - 'link "Diagnóstico · Tarjetas de presentación NFC Revisión Diagnóstico · Tarjetas de presentación NFC Pregunta principal: «¿Qué datos necesitáis mantener actualizados y quién los gestiona?» Pide un ejemplo reciente, quién interviene y qu…" [ref=f45e250] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=3fd4e3b7-e9fc-405e-9e6d-77814a84c9cc
+                - generic [ref=f45e251]:
+                  - generic [ref=f45e252]: Diagnóstico · Tarjetas de presentación NFC
+                  - generic [ref=f45e253]: Revisión
+                - strong [ref=f45e254]: Diagnóstico · Tarjetas de presentación NFC
+                - generic [ref=f45e255]: "Pregunta principal: «¿Qué datos necesitáis mantener actualizados y quién los gestiona?» Pide un ejemplo reciente, quién interviene y qu…"
+              - 'link "Llamada · Tarjetas de presentación NFC Revisión Primer contacto · Tarjetas de presentación NFC Inicio propuesto: «¿Cómo compartís ahora vuestros datos de contacto en reuniones y eventos?» Escucha la respuesta y pregunta: «¿Qué dat…" [ref=f45e256] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=5a5d5a78-5c70-498b-9d8f-0ff798ba861e
+                - generic [ref=f45e257]:
+                  - generic [ref=f45e258]: Llamada · Tarjetas de presentación NFC
+                  - generic [ref=f45e259]: Revisión
+                - strong [ref=f45e260]: Primer contacto · Tarjetas de presentación NFC
+                - generic [ref=f45e261]: "Inicio propuesto: «¿Cómo compartís ahora vuestros datos de contacto en reuniones y eventos?» Escucha la respuesta y pregunta: «¿Qué dat…"
+              - 'link "Objeciones · Tarjetas de reseñas Google Revisión Objeción habitual · Tarjetas de reseñas Google Cuando la persona no ve clara la utilidad, responde: «Si ya tenéis un método que funciona, podemos comparar los pasos antes de decidir …" [ref=f45e262] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=79b60cb9-9cbe-4702-b9f5-1531f50589df
+                - generic [ref=f45e263]:
+                  - generic [ref=f45e264]: Objeciones · Tarjetas de reseñas Google
+                  - generic [ref=f45e265]: Revisión
+                - strong [ref=f45e266]: Objeción habitual · Tarjetas de reseñas Google
+                - generic [ref=f45e267]: "Cuando la persona no ve clara la utilidad, responde: «Si ya tenéis un método que funciona, podemos comparar los pasos antes de decidir …"
+              - 'link "Diagnóstico · Tarjetas de reseñas Google Revisión Diagnóstico · Tarjetas de reseñas Google Pregunta principal: «¿Quién invita al cliente a dejarla y en qué momento?» Pide un ejemplo reciente, quién interviene y qué limitacione…" [ref=f45e268] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=24640a33-1304-40cb-a692-c9f283f2dc4f
+                - generic [ref=f45e269]:
+                  - generic [ref=f45e270]: Diagnóstico · Tarjetas de reseñas Google
+                  - generic [ref=f45e271]: Revisión
+                - strong [ref=f45e272]: Diagnóstico · Tarjetas de reseñas Google
+                - generic [ref=f45e273]: "Pregunta principal: «¿Quién invita al cliente a dejarla y en qué momento?» Pide un ejemplo reciente, quién interviene y qué limitacione…"
+              - 'link "Llamada · Tarjetas de reseñas Google Revisión Primer contacto · Tarjetas de reseñas Google Inicio propuesto: «¿Cómo pedís hoy una reseña después de una buena experiencia?» Escucha la respuesta y pregunta: «¿Quién invita al cli…" [ref=f45e274] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?ficha=fb635e73-0486-44bd-998b-896eca7955e0
+                - generic [ref=f45e275]:
+                  - generic [ref=f45e276]: Llamada · Tarjetas de reseñas Google
+                  - generic [ref=f45e277]: Revisión
+                - strong [ref=f45e278]: Primer contacto · Tarjetas de reseñas Google
+                - generic [ref=f45e279]: "Inicio propuesto: «¿Cómo pedís hoy una reseña después de una buena experiencia?» Escucha la respuesta y pregunta: «¿Quién invita al cli…"
+          - generic [ref=f45e280]:
+            - article [ref=f45e281]:
+              - generic [ref=f45e282]:
+                - generic [ref=f45e283]:
+                  - paragraph [ref=f45e284]: Posventa · Proceso comercial
+                  - heading "Revisión posventa" [level=2] [ref=f45e285]
+                  - paragraph [ref=f45e286]: general · general · v1
+                - generic [ref=f45e287]: Pendiente de revisión
+              - generic [ref=f45e288]:
+                - heading "Guion / contenido" [level=3] [ref=f45e289]
+                - paragraph [ref=f45e290]: Pregunta cómo está funcionando la solución entregada y si existe una incidencia. Da prioridad a resolver problemas antes de plantear otras opciones. Registra únicamente hechos confirmados.
+              - generic [ref=f45e291]:
+                - text: Próximo paso propuesto
+                - paragraph [ref=f45e292]: Crear una tarea de soporte o seguimiento acordado; no activar comunicaciones automáticas.
+              - generic [ref=f45e293]:
+                - generic [ref=f45e294]: Propuesta nueva · phase6.5b:initial:general-aftersales
+                - generic [ref=f45e295]: v1 · 13 oct 2026, 12:14
+              - generic [ref=f45e296]:
+                - button "Copiar fragmento" [ref=f45e297] [cursor=pointer]
+                - status
+              - paragraph [ref=f45e298]: "Contenido propuesto: pendiente de revisión del propietario. Revísalo antes de usarlo en una comunicación."
+              - button "Aprobar esta versión" [ref=f45e300] [cursor=pointer]
+              - button "Retirar contenido" [ref=f45e302] [cursor=pointer]
+            - group [ref=f45e303]:
+              - generic "Editar y crear nueva versión" [ref=f45e304] [cursor=pointer]
+              - option "Prospección"
+              - option "Email"
+              - option "Llamada"
+              - option "Presencial"
+              - option "Diagnóstico"
+              - option "Demostración"
+              - option "Objeciones"
+              - option "Seguimiento"
+              - option "Cierre"
+              - option "Venta adicional"
+              - option "Posventa" [selected]
+              - option "General" [selected]
+              - option "Email"
+              - option "Teléfono"
+              - option "Presencial"
+              - option "Nuevo"
+              - option "Contactado"
+              - option "Interesado"
+              - option "Propuesta"
+              - option "Negociación"
+              - option "Ganado" [selected]
+              - option "Perdido"
+              - option "General"
+            - region [ref=f45e305]:
+              - heading "Historial de versiones" [level=2] [ref=f45e307]
+              - list [ref=f45e308]:
+                - listitem [ref=f45e309]:
+                  - strong [ref=f45e310]: v1 · Propuesta nueva
+                  - generic [ref=f45e311]: created · 13 oct 2026, 12:14
+        - group [ref=f45e312]:
+          - generic "Nueva propuesta de contenido" [ref=f45e313] [cursor=pointer]
+          - option "Prospección" [selected]
+          - option "Email"
+          - option "Llamada"
+          - option "Presencial"
+          - option "Diagnóstico"
+          - option "Demostración"
+          - option "Objeciones"
+          - option "Seguimiento"
+          - option "Cierre"
+          - option "Venta adicional"
+          - option "Posventa"
+          - option "General" [selected]
+          - option "Email"
+          - option "Teléfono"
+          - option "Presencial"
+          - option "General" [selected]
+          - option "Nuevo"
+          - option "Contactado"
+          - option "Interesado"
+          - option "Propuesta"
+          - option "Negociación"
+          - option "Ganado"
+          - option "Perdido"
+          - option "General"
+        - generic [ref=f45e314]:
+          - generic [ref=f45e315]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f45e316]: Entorno privado
+  - generic [ref=f45e319]:
+    - button [ref=f45e320]
+    - button [ref=f45e326]
+    - button [ref=f45e330]
+    - button [ref=f45e338]

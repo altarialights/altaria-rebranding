@@ -1,0 +1,193 @@
+- generic [ref=f7e1]:
+  - generic [ref=f7e2]:
+    - main [ref=f7e4]:
+      - complementary [ref=f7e5]:
+        - generic [ref=f7e11]:
+          - generic [ref=f7e12]:
+            - link "Back to project" [ref=f7e14] [cursor=pointer]:
+              - /url: /settings/proj_3TCdYGPxbx97AkktujBHAn9D
+            - button "Collapse sidebar" [ref=f7e19] [cursor=pointer]
+          - generic [ref=f7e23]:
+            - link "General" [ref=f7e24] [cursor=pointer]:
+              - /url: /settings/organization/general
+            - link "API keys" [ref=f7e27] [cursor=pointer]:
+              - /url: /settings/organization/api-keys
+            - link "Admin keys" [ref=f7e30] [cursor=pointer]:
+              - /url: /settings/organization/admin-keys
+            - link "People" [ref=f7e33]:
+              - /url: /settings/organization/people
+            - link "Projects" [ref=f7e36] [cursor=pointer]:
+              - /url: /settings/organization/projects
+            - link "Billing" [ref=f7e39] [cursor=pointer]:
+              - /url: /settings/organization/billing
+            - link "Limits" [ref=f7e42] [cursor=pointer]:
+              - /url: /settings/organization/limits
+            - link "Tunnels" [ref=f7e45] [cursor=pointer]:
+              - /url: /settings/organization/tunnels
+            - link "Usage" [ref=f7e48] [cursor=pointer]:
+              - /url: /settings/organization/usage
+            - link "Service health" [ref=f7e51] [cursor=pointer]:
+              - /url: /settings/organization/service-health
+            - link "Data controls" [ref=f7e54] [cursor=pointer]:
+              - /url: /settings/organization/data-controls
+            - link "Security" [ref=f7e57] [cursor=pointer]:
+              - /url: /settings/organization/security
+            - link "Webhooks" [ref=f7e60] [cursor=pointer]:
+              - /url: /settings/organization/webhooks
+          - generic [ref=f7e63]:
+            - generic [ref=f7e64] [cursor=pointer]:
+              - link [ref=f7e65]:
+                - /url: /settings/organization/billing/overview
+                - strong [ref=f7e68]: Add credits
+                - text: Run your next API request by adding credits.
+              - link "Go to Billing" [ref=f7e73]:
+                - /url: /settings/organization/billing/overview
+              - button [ref=f7e76]
+            - button "P Personal Organization" [ref=f7e81] [cursor=pointer]:
+              - generic [ref=f7e82]: P
+              - generic [ref=f7e83]:
+                - generic [ref=f7e84]: Personal
+                - generic [ref=f7e85]: Organization
+      - generic [ref=f7e111]:
+        - generic [ref=f7e112]:
+          - generic [ref=f7e113]: People & Permissions
+          - group "Navigation tabs" [ref=f7e116]:
+            - radio "Members" [ref=f7e117] [cursor=pointer]
+            - radio "Invitations" [ref=f7e118] [cursor=pointer]
+            - radio "Groups" [ref=f7e119] [cursor=pointer]
+            - radio "Roles" [checked] [ref=f7e120] [cursor=pointer]
+        - generic [ref=f7e167]:
+          - generic [ref=f7e168]:
+            - textbox "Search roles..." [ref=f7e172]
+            - button "Create role" [ref=f7e173] [cursor=pointer]
+          - generic [ref=f7e179]:
+            - generic [ref=f7e181]:
+              - generic [ref=f7e182]:
+                - generic [ref=f7e183]: O
+                - generic [ref=f7e184]:
+                  - generic [ref=f7e185]:
+                    - generic [ref=f7e186]: owner
+                    - generic [ref=f7e187]: Preset
+                  - generic [ref=f7e188]: Can modify billing information and manage organization members
+              - generic [ref=f7e189]:
+                - button "Assignments" [ref=f7e190] [cursor=pointer]
+                - button "Permissions" [expanded] [ref=f7e192] [cursor=pointer]
+                - button [disabled] [ref=f7e195]
+            - generic [ref=f7e200]:
+              - generic [ref=f7e201]:
+                - generic [ref=f7e202]: R
+                - generic [ref=f7e203]:
+                  - generic [ref=f7e204]:
+                    - generic [ref=f7e205]: reader
+                    - generic [ref=f7e206]: Preset
+                  - generic [ref=f7e207]: Can make standard API requests and read basic organizational data
+              - generic [ref=f7e208]:
+                - button "Assignments" [ref=f7e209] [cursor=pointer]
+                - button "Permissions" [ref=f7e211] [cursor=pointer]
+                - button [disabled] [ref=f7e214]
+    - alert [ref=f7e100]:
+      - generic [ref=f7e102]:
+        - generic [ref=f7e103]:
+          - text: We use cookies and similar technologies to deliver, maintain, improve our services and for security purposes. Check our
+          - link "Cookie Policy" [ref=f7e104] [cursor=pointer]:
+            - /url: https://openai.com/policies/cookie-policy
+          - text: for details. Click 'Accept all' to let OpenAI and partners use cookies for these purposes. Click 'Reject all' to say no to cookies, except those that are strictly necessary. Choose
+          - button "'Manage Cookies'" [ref=f7e105] [cursor=pointer]
+          - text: to pick specific cookies you're okay with or to change your preferences.
+        - generic [ref=f7e106]:
+          - button "Reject all" [ref=f7e107] [cursor=pointer]
+          - button "Accept all" [ref=f7e109] [cursor=pointer]
+  - dialog [active] [ref=f7e223]:
+    - heading "View permissions" [level=2] [ref=f7e225]
+    - generic [ref=f7e228]:
+      - generic [ref=f7e229]:
+        - button "Agents" [disabled] [ref=f7e230]
+        - generic [ref=f7e237]: Write
+      - generic [ref=f7e238]:
+        - button "Vaults" [disabled] [ref=f7e239]
+        - generic [ref=f7e246]: Write
+      - generic [ref=f7e247]:
+        - button "Voices" [disabled] [ref=f7e248]
+        - generic [ref=f7e255]: Write
+      - generic [ref=f7e256]:
+        - button "List models Required by Batch Write." [disabled] [ref=f7e257]:
+          - generic [ref=f7e259]: List models
+          - generic "Required by Batch Write." [ref=f7e264]
+        - generic [ref=f7e267]: Read
+      - generic [ref=f7e268]:
+        - button "Model capabilities Required by Batch Write." [ref=f7e269] [cursor=pointer]:
+          - generic [ref=f7e272]: Model capabilities
+          - generic "Required by Batch Write." [ref=f7e277]
+        - generic [ref=f7e280]: Request
+      - generic [ref=f7e281]:
+        - button "Assistants" [disabled] [ref=f7e282]
+        - generic [ref=f7e289]: Write
+      - generic [ref=f7e290]:
+        - button "Threads" [disabled] [ref=f7e291]
+        - generic [ref=f7e298]: Write
+      - generic [ref=f7e299]:
+        - button "Evals" [disabled] [ref=f7e300]
+        - generic [ref=f7e307]: Write
+      - generic [ref=f7e308]:
+        - button "Fine-tuning" [disabled] [ref=f7e309]
+        - generic [ref=f7e316]: Read
+      - generic [ref=f7e317]:
+        - button "Files Required by Batch Write." [disabled] [ref=f7e318]:
+          - generic [ref=f7e320]: Files
+          - generic "Required by Batch Write." [ref=f7e325]
+        - generic [ref=f7e328]: Write
+      - generic [ref=f7e329]:
+        - button "Videos Required by Batch Write." [disabled] [ref=f7e330]:
+          - generic [ref=f7e332]: Videos
+          - generic "Required by Batch Write." [ref=f7e337]
+        - generic [ref=f7e340]: Write
+      - generic [ref=f7e341]:
+        - button "Vector Stores" [disabled] [ref=f7e342]
+        - generic [ref=f7e349]: Write
+      - generic [ref=f7e350]:
+        - button "Prompts" [disabled] [ref=f7e351]
+        - generic [ref=f7e358]: Write
+      - generic [ref=f7e359]:
+        - button "Agent Builder" [disabled] [ref=f7e360]
+        - generic [ref=f7e367]: Read, Write
+      - generic [ref=f7e368]:
+        - button "Webhooks" [disabled] [ref=f7e369]
+        - generic [ref=f7e376]: Write
+      - generic [ref=f7e377]:
+        - button "Promptfoo" [disabled] [ref=f7e378]
+        - generic [ref=f7e385]: None
+      - generic [ref=f7e386]:
+        - button "Batch" [disabled] [ref=f7e387]
+        - generic [ref=f7e394]: Write
+      - generic [ref=f7e395]:
+        - button "Usage Dashboard and Export" [disabled] [ref=f7e396]
+        - generic [ref=f7e403]: Read
+      - generic [ref=f7e404]:
+        - button "Organization spend limits" [disabled] [ref=f7e405]
+        - generic [ref=f7e412]: Write
+      - generic [ref=f7e413]:
+        - button "Project spend limits" [disabled] [ref=f7e414]
+        - generic [ref=f7e421]: Write
+      - generic [ref=f7e422]:
+        - button "Project API Keys" [disabled] [ref=f7e423]
+        - generic [ref=f7e430]: Write
+      - generic [ref=f7e431]:
+        - button "Apps Management" [disabled] [ref=f7e432]
+        - generic [ref=f7e439]: Write
+      - generic [ref=f7e440]:
+        - button "Sign in with ChatGPT" [disabled] [ref=f7e441]
+        - generic [ref=f7e448]: Manage
+      - generic [ref=f7e449]:
+        - button "Billing" [disabled] [ref=f7e450]
+        - generic [ref=f7e457]: Write
+      - generic [ref=f7e458]:
+        - button "Tunnels" [disabled] [ref=f7e459]
+        - generic [ref=f7e466]: Read, Manage, Use
+      - generic [ref=f7e467]:
+        - button "Project Administration" [ref=f7e468] [cursor=pointer]
+        - generic [ref=f7e476]: Write
+      - generic [ref=f7e477]:
+        - button "Datasets" [disabled] [ref=f7e478]
+        - generic [ref=f7e485]: Write
+      - generic [ref=f7e486]: 135 selected permissions
+    - button "Cancel" [ref=f7e491] [cursor=pointer]

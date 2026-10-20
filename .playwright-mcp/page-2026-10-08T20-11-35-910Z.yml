@@ -1,0 +1,75 @@
+- generic [active] [ref=f9e1]:
+  - region "console.cloud.google.com usa cookies de Google para brindar sus servicios, mejorar su calidad y analizar el tráfico." [ref=f9e2]:
+    - paragraph [ref=f9e3]:
+      - text: console.cloud.google.com usa cookies de Google para brindar sus servicios, mejorar su calidad y analizar el tráfico.
+      - link "Obtenga más información sobre cómo Google utiliza las cookies. Se abrirá en una nueva pestaña." [ref=f9e4] [cursor=pointer]:
+        - /url: https://policies.google.com/technologies/cookies
+        - text: Más información
+    - button "Entendido" [ref=f9e5] [cursor=pointer]
+  - generic [ref=f9e7]:
+    - alertdialog "Diálogo de prueba gratuita" [ref=f9e9]:
+      - generic [ref=f9e10]:
+        - generic [ref=f9e11]: "Estado de la prueba gratuita: quedan €257.47 de crédito y 56 días. Actualiza a una cuenta completa para obtener acceso ilimitado a todas las funciones de Google Cloud. Usa los créditos restantes y paga solo por lo que usas."
+        - generic [ref=f9e18]:
+          - button "Descartar banner de activación de cuenta completo" [ref=f9e19]:
+            - generic [ref=f9e20]: Descartar
+          - button "Actualizar" [ref=f9e21]
+    - generic [ref=f9e23]:
+      - complementary "Omitir vínculos" [ref=f9e24]:
+        - link "Ir al contenido principal" [ref=f9e25] [cursor=pointer]:
+          - /url: /billing?project=project-2170ef0c-fe34-4f35-af9
+        - button "Combinación de teclas para acceso directo" [ref=f9e27]
+        - link [ref=f9e29] [cursor=pointer]:
+          - /url: https://cloud.google.com/docs/accessibility?hl=es_419
+          - generic [ref=f9e30]:
+            - text: Ayuda sobre la accesibilidad
+            - generic "externo, se abre en una ventana nueva" [ref=f9e31]:
+              - img "externo, se abre en una ventana nueva" [ref=f9e32]
+        - link [ref=f9e35] [cursor=pointer]:
+          - /url: https://support.google.com/accessibility/contact/feedback?hl=es_419
+          - generic [ref=f9e36]:
+            - text: Comentarios sobre accesibilidad
+            - generic "externo, se abre en una ventana nueva" [ref=f9e37]:
+              - img "externo, se abre en una ventana nueva" [ref=f9e38]
+      - banner [ref=f9e42]:
+        - generic [ref=f9e43]:
+          - navigation [ref=f9e46]:
+            - button "Menú de navegación (.)" [ref=f9e47] [cursor=pointer]
+          - link "Google Cloud Platform - Página principal" [ref=f9e51] [cursor=pointer]:
+            - /url: /?project=project-2170ef0c-fe34-4f35-af9
+          - button "Actualmente, estás trabajando en My First Project. Presiona Intro para cambiar de proyecto, de carpeta o de organización." [ref=f9e59]:
+            - generic [ref=f9e60]: My First Project
+        - search "Google Cloud Platform" [ref=f9e71]:
+          - combobox [ref=f9e72]:
+            - searchbox "Ingresa una consulta para buscar recursos, documentos, productos y mucho más" [ref=f9e73]
+          - button "Ver todos los resultados de la búsqueda" [disabled]:
+            - generic: Buscar
+        - generic [ref=f9e74]:
+          - generic [ref=f9e75]:
+            - button "Abrir chat de Gemini AI (Alt G)" [ref=f9e79] [cursor=pointer]
+            - button "Activar Cloud Shell (G then S)" [ref=f9e86] [cursor=pointer]
+            - button "Abrir notificaciones" [ref=f9e93] [cursor=pointer]
+            - button "Configuración y utilidades" [ref=f9e101] [cursor=pointer]
+          - 'button "Cuenta: Altaria Lights (altarialights@gmail.com)" [ref=f9e109]'
+    - generic [ref=f9e119]:
+      - navigation "Ruta de navegación" [ref=f9e124]:
+        - link "Facturación" [ref=f9e127] [cursor=pointer]:
+          - /url: /billing?project=project-2170ef0c-fe34-4f35-af9
+        - list [ref=f9e130]:
+          - listitem [ref=f9e131]:
+            - generic [aria-hidden] [ref=f9e132]: /
+            - link "Cuenta vinculada" [ref=f9e135] [cursor=pointer]:
+              - /url: /billing/linkedaccount?project=project-2170ef0c-fe34-4f35-af9
+      - main [ref=f9e149]:
+        - generic [ref=f9e164]:
+          - generic [ref=f9e165]: Facturación
+          - generic [ref=f9e166]: Tienes varias cuentas de facturación
+          - generic [ref=f9e167]: La cuenta de facturación "Mi cuenta de facturación" está vinculada con este proyecto
+          - generic [ref=f9e168]:
+            - link "Ir a la cuenta de facturación vinculada" [ref=f9e169] [cursor=pointer]:
+              - /url: /billing/01094A-7D987C-3F4738?project=project-2170ef0c-fe34-4f35-af9
+            - link "Administrar cuentas de facturación" [ref=f9e171] [cursor=pointer]:
+              - /url: /billing?organizationId=415081262555
+  - iframe [aria-hidden] [ref=f9e174]
+  - paragraph [ref=f9e176]: Facturación – My First Project – Consola de Google Cloud
+  - iframe [aria-hidden] [ref=f9e177]

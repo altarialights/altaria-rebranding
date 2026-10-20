@@ -1,0 +1,191 @@
+- generic [active] [ref=f120e1]:
+  - link "Saltar al contenido" [ref=f120e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f120e3]:
+    - complementary "Panel de navegación" [ref=f120e4]:
+      - generic [ref=f120e5]:
+        - link "Altaria OS, inicio" [ref=f120e6] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f120e7]
+          - generic [ref=f120e8]: OS
+        - paragraph [ref=f120e10]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f120e11]:
+        - paragraph [ref=f120e12]: PLATAFORMA
+        - link "Inicio" [ref=f120e13] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f120e18] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards En preparación" [ref=f120e23] [cursor=pointer]:
+          - /url: /admin/cards
+          - generic [ref=f120e27]: Cards
+          - generic "En preparación" [ref=f120e28]: ·
+        - link "Informes En preparación" [ref=f120e29] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f120e33]: Informes
+          - generic "En preparación" [ref=f120e34]: ·
+        - link "Configuración En preparación" [ref=f120e35] [cursor=pointer]:
+          - /url: /admin/configuracion
+          - generic [ref=f120e39]: Configuración
+          - generic "En preparación" [ref=f120e40]: ·
+      - generic [ref=f120e41]:
+        - generic [ref=f120e46]:
+          - text: Área privada
+          - strong [ref=f120e47]: Acceso protegido
+        - link "Ver sitio público" [ref=f120e48] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f120e49]: ↗
+    - generic [ref=f120e50]:
+      - banner [ref=f120e51]:
+        - generic [ref=f120e52]:
+          - text: ALTARIA OS /
+          - strong [ref=f120e53]: CRM
+        - generic [ref=f120e54]:
+          - button "Buscar en Altaria OS" [ref=f120e55] [cursor=pointer]:
+            - generic [ref=f120e59]: ⌘ K
+          - generic "altarialights@gmail.com" [ref=f120e60]:
+            - generic [aria-hidden] [ref=f120e61]: A
+          - button "Cerrar y revocar esta sesión" [ref=f120e64] [cursor=pointer]: Salir
+      - main [ref=f120e65]:
+        - generic [ref=f120e66]:
+          - generic [ref=f120e67]:
+            - paragraph [ref=f120e68]: CRM / PROPUESTA
+            - heading "Editor de propuesta." [level=1] [ref=f120e69]
+            - paragraph [ref=f120e70]: Documento comercial versionado, calculado y protegido en el servidor.
+          - generic [ref=f120e71]: TEST · CRM EN DESARROLLO
+        - navigation "Navegación del CRM" [ref=f120e73]:
+          - link "Resumen" [ref=f120e74] [cursor=pointer]:
+            - /url: /admin/crm
+          - link "Empresas" [ref=f120e75] [cursor=pointer]:
+            - /url: /admin/crm/empresas
+          - link "Oportunidades" [ref=f120e76] [cursor=pointer]:
+            - /url: /admin/crm/oportunidades
+          - link "Propuestas" [ref=f120e77] [cursor=pointer]:
+            - /url: /admin/crm/propuestas
+          - link "Tareas" [ref=f120e78] [cursor=pointer]:
+            - /url: /admin/crm/tareas
+        - generic [ref=f120e79]:
+          - link "← Empresa sintética QA · TEST" [ref=f120e80] [cursor=pointer]:
+            - /url: /admin/crm/empresas/9ca6eb5c-8848-4aab-90e8-338f7538ab52#proposals
+          - generic [ref=f120e81]: TEST · Borrador
+        - generic [ref=f120e82]:
+          - generic [ref=f120e83]:
+            - paragraph [ref=f120e84]: Empresa sintética QA · TEST / Oportunidad sintética QA
+            - heading "Propuesta sintética QA" [level=2] [ref=f120e85]
+            - paragraph [ref=f120e86]: Versión actual 1 · 08 oct 2026, 21:18
+          - generic [ref=f120e87]:
+            - strong [ref=f120e88]: 217,80 €
+            - generic [ref=f120e89]: Importe comercial orientativo
+        - generic [ref=f120e90]:
+          - generic [ref=f120e91]:
+            - region [ref=f120e92]:
+              - generic [ref=f120e93]:
+                - generic [ref=f120e94]:
+                  - heading "Crear nueva versión" [level=2] [ref=f120e95]
+                  - paragraph [ref=f120e96]: El contenido anterior queda inmutable. Los cálculos definitivos se validan en el servidor.
+                - generic [ref=f120e97]: v2
+              - generic [ref=f120e98]:
+                - generic [ref=f120e99]:
+                  - generic [ref=f120e100]:
+                    - text: Usar plantilla
+                    - combobox "Usar plantilla" [ref=f120e101]:
+                      - option "Sin plantilla · empezar desde esta versión" [selected]
+                  - generic [ref=f120e102]:
+                    - text: Descripción
+                    - textbox "Descripción" [ref=f120e103]:
+                      - /placeholder: La oportunidad y el enfoque propuesto
+                      - text: Documento sintético para revisar el diseño del editor y PDF.
+                  - generic [ref=f120e104]:
+                    - text: Alcance
+                    - textbox "Alcance" [ref=f120e105]:
+                      - /placeholder: Qué incluye el trabajo
+                      - text: Diseño de una experiencia digital de demostración. Sin servicios contratados.
+                  - generic [ref=f120e106]:
+                    - text: Plazos
+                    - textbox "Plazos" [ref=f120e107]:
+                      - /placeholder: Fases y fechas estimadas
+                      - text: Tres semanas de ejemplo, sin compromiso comercial.
+                  - generic [ref=f120e108]:
+                    - text: Condiciones
+                    - textbox "Condiciones" [ref=f120e109]:
+                      - /placeholder: Validez, entregables y acuerdos
+                      - text: Datos ficticios de QA. No enviar ni considerar como oferta real.
+                  - generic [ref=f120e110]:
+                    - text: Válida hasta
+                    - textbox "Válida hasta" [ref=f120e111]
+                - generic [ref=f120e112]:
+                  - generic [ref=f120e113]:
+                    - heading "Partidas" [level=3] [ref=f120e114]
+                    - paragraph [ref=f120e115]: Productos, servicios o conceptos personalizados. Puedes ajustar el precio de cada propuesta.
+                  - button "+ Añadir partida" [ref=f120e116] [cursor=pointer]
+                - generic [ref=f120e118]:
+                  - generic [ref=f120e119]:
+                    - generic [ref=f120e120]: Partida 1
+                    - button "Quitar partida" [ref=f120e121] [cursor=pointer]: Quitar
+                  - generic [ref=f120e122]:
+                    - generic [ref=f120e123]:
+                      - text: Producto o servicio
+                      - combobox "Producto o servicio" [ref=f120e124]:
+                        - option "Partida personalizada" [selected]
+                    - generic [ref=f120e125]:
+                      - text: Tipo
+                      - combobox "Tipo" [ref=f120e126]:
+                        - option "Personalizada"
+                        - option "Servicio" [selected]
+                        - option "Producto"
+                    - generic [ref=f120e127]:
+                      - text: Concepto *
+                      - textbox "Concepto *" [ref=f120e128]: Servicio sintético de diseño
+                    - generic [ref=f120e129]:
+                      - text: Detalle
+                      - textbox "Detalle" [ref=f120e130]: Partida de ejemplo para la revisión visual.
+                    - generic [ref=f120e131]:
+                      - text: Cantidad *
+                      - textbox "Cantidad *" [ref=f120e132]: "2"
+                    - generic [ref=f120e133]:
+                      - text: Precio unitario € *
+                      - textbox "Precio unitario € *" [ref=f120e134]: "100.00"
+                    - generic [ref=f120e135]:
+                      - text: Descuento %
+                      - textbox "Descuento %" [ref=f120e136]: "10"
+                    - generic [ref=f120e137]:
+                      - text: Impuesto %
+                      - textbox "Impuesto %" [ref=f120e138]: "21"
+                - generic [ref=f120e139]:
+                  - generic [ref=f120e140]: Total provisional
+                  - strong [ref=f120e141]: 217,80 €
+                  - generic [ref=f120e142]: El servidor recalcula y valida al guardar.
+                - button "Guardar nueva versión" [ref=f120e144] [cursor=pointer]
+            - region [ref=f120e145]:
+              - generic [ref=f120e147]:
+                - heading "Versiones e historial" [level=2] [ref=f120e148]
+                - paragraph [ref=f120e149]: Cada versión conserva su contenido y un PDF independiente.
+              - generic [ref=f120e151]:
+                - generic [ref=f120e152]:
+                  - strong [ref=f120e153]: Versión 1
+                  - text: 08 oct 2026, 21:18 · 217,80 €
+                - link "Descargar PDF" [ref=f120e154] [cursor=pointer]:
+                  - /url: /api/admin/proposals/37dba03b-2890-4a4a-8759-f2827d456068/pdf?version=1
+              - list [ref=f120e155]:
+                - listitem [ref=f120e156]:
+                  - strong [ref=f120e157]: Nueva versión guardada
+                  - time [ref=f120e158]: 08 oct 2026, 21:18
+          - complementary "Acciones de propuesta" [ref=f120e159]:
+            - generic [ref=f120e160]:
+              - generic [ref=f120e162]:
+                - heading "Siguiente paso" [level=2] [ref=f120e163]
+                - paragraph [ref=f120e164]: Estado comercial con registro de quién lo decidió.
+              - generic [ref=f120e165]:
+                - generic [ref=f120e166]:
+                  - button "Marcar como enviada" [ref=f120e167] [cursor=pointer]
+                  - paragraph [ref=f120e168]: "Registro manual: no se envía correo. Programa una tarea de seguimiento."
+                - button "Duplicar propuesta" [ref=f120e170] [cursor=pointer]
+              - paragraph [ref=f120e171]: Aceptar esta propuesta no emite una factura ni registra un pago. La oportunidad sólo se cierra automáticamente si ya está en Negociación.
+        - generic [ref=f120e172]:
+          - generic [ref=f120e173]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f120e174]: Entorno privado
+  - generic [ref=f120e177]:
+    - button [ref=f120e178]
+    - button [ref=f120e184]
+    - button [ref=f120e188]
+    - button [ref=f120e193]

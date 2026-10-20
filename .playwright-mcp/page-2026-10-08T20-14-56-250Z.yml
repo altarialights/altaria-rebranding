@@ -1,0 +1,144 @@
+- generic [ref=f17e1]:
+  - region "console.cloud.google.com usa cookies de Google para brindar sus servicios, mejorar su calidad y analizar el tráfico." [ref=f17e2]:
+    - paragraph [ref=f17e3]:
+      - text: console.cloud.google.com usa cookies de Google para brindar sus servicios, mejorar su calidad y analizar el tráfico.
+      - link "Obtenga más información sobre cómo Google utiliza las cookies. Se abrirá en una nueva pestaña." [ref=f17e4] [cursor=pointer]:
+        - /url: https://policies.google.com/technologies/cookies
+        - text: Más información
+    - button "Entendido" [ref=f17e5] [cursor=pointer]
+  - generic [ref=f17e7]:
+    - alertdialog "Diálogo de prueba gratuita" [ref=f17e856]:
+      - generic [ref=f17e857]:
+        - generic [ref=f17e858]: "Estado de la prueba gratuita: quedan €257.47 de crédito y 56 días. Actualiza a una cuenta completa para obtener acceso ilimitado a todas las funciones de Google Cloud. Usa los créditos restantes y paga solo por lo que usas."
+        - generic [ref=f17e865]:
+          - button "Descartar banner de activación de cuenta completo" [ref=f17e866]:
+            - generic [ref=f17e867]: Descartar
+          - button "Actualizar" [ref=f17e868]
+    - generic [ref=f17e23]:
+      - complementary "Omitir vínculos" [ref=f17e781]:
+        - link "Ir al contenido principal" [ref=f17e782] [cursor=pointer]:
+          - /url: /welcome?pli=1&project=project-2170ef0c-fe34-4f35-af9
+        - button "Combinación de teclas para acceso directo" [ref=f17e783]
+        - link [ref=f17e784] [cursor=pointer]:
+          - /url: https://cloud.google.com/docs/accessibility?hl=es_419
+          - generic [ref=f17e30]:
+            - text: Ayuda sobre la accesibilidad
+            - generic "externo, se abre en una ventana nueva" [ref=f17e785]:
+              - img "externo, se abre en una ventana nueva" [ref=f17e786]
+        - link [ref=f17e787] [cursor=pointer]:
+          - /url: https://support.google.com/accessibility/contact/feedback?hl=es_419
+          - generic [ref=f17e36]:
+            - text: Comentarios sobre accesibilidad
+            - generic "externo, se abre en una ventana nueva" [ref=f17e788]:
+              - img "externo, se abre en una ventana nueva" [ref=f17e789]
+      - banner [ref=f17e42]:
+        - generic [ref=f17e43]:
+          - navigation [ref=f17e46]:
+            - button "Menú de navegación (.)" [ref=f17e790] [cursor=pointer]
+          - link "Google Cloud Platform - Página principal" [ref=f17e791] [cursor=pointer]:
+            - /url: /?organizationId=415081262555
+          - button "Actualmente, estás trabajando en Altaria OS Gmail TEST. Presiona Intro para cambiar de proyecto, de carpeta o de organización." [ref=f17e1227]:
+            - generic [ref=f17e878]: Altaria OS Gmail TEST
+        - search "Google Cloud Platform" [ref=f17e792]:
+          - combobox [ref=f17e72]:
+            - searchbox "Ingresa una consulta para buscar recursos, documentos, productos y mucho más" [ref=f17e793]
+          - button "Ver todos los resultados de la búsqueda" [disabled]:
+            - generic: Buscar
+        - generic [ref=f17e74]:
+          - generic [ref=f17e75]:
+            - button "Abrir chat de Gemini AI (Alt G)" [ref=f17e1229] [cursor=pointer]
+            - button "Activar Cloud Shell (G then S)" [ref=f17e795] [cursor=pointer]
+            - button "Abrir notificaciones" [ref=f17e1207] [cursor=pointer]
+            - button "Configuración y utilidades" [ref=f17e797] [cursor=pointer]
+          - 'button "Cuenta: Altaria Lights (altarialights@gmail.com)" [ref=f17e798]'
+    - main [ref=f17e131]:
+      - generic [ref=f17e899]:
+        - generic [ref=f17e901]:
+          - generic [ref=f17e902]:
+            - heading [level=1] [ref=f17e903]:
+              - img "Logotipo de Google Cloud" [ref=f17e904]
+              - text: Te damos la bienvenida
+            - generic [ref=f17e907]:
+              - generic [ref=f17e908]:
+                - text: Estás trabajando en
+                - button "Estás trabajando en Altaria OS Gmail TEST. Presiona Intro para cambiar de proyecto, de carpeta o de organización" [ref=f17e1233]:
+                  - list [ref=f17e915]:
+                    - listitem [ref=f17e1234]:
+                      - generic [ref=f17e1235]: Altaria OS Gmail TEST
+              - generic [ref=f17e929]:
+                - generic [ref=f17e930]:
+                  - text: "Número de proyecto:"
+                  - generic [ref=f17e932]:
+                    - generic [ref=f17e933]: "678633163197"
+                    - 'button "Copy Project number to clipboard: 678633163197" [ref=f17e1238] [cursor=pointer]'
+                - generic [ref=f17e938]:
+                  - text: "ID del proyecto:"
+                  - generic [ref=f17e940]:
+                    - generic [ref=f17e941]: altaria-os-gmail-test
+                    - 'button "Copy Project ID to clipboard: altaria-os-gmail-test" [ref=f17e1239] [cursor=pointer]'
+            - generic [ref=f17e948]:
+              - link "Panel" [ref=f17e949] [cursor=pointer]:
+                - /url: /home/dashboard?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+              - link "Cloud Hub" [ref=f17e950] [cursor=pointer]:
+                - /url: /cloud-hub/home?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+            - generic [ref=f17e953]:
+              - link "Crear clave de API de Gemini" [ref=f17e954] [cursor=pointer]:
+                - /url: /agent-platform/studio/settings/api-keys?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+              - link "Crear un agente" [ref=f17e959] [cursor=pointer]:
+                - /url: /agent-platform/studio/agent-designer?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+              - link "Crea una VM" [ref=f17e964] [cursor=pointer]:
+                - /url: /compute/instancesAdd?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+              - link "Ejecuta una consulta en BigQuery" [ref=f17e969] [cursor=pointer]:
+                - /url: /bigquery?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+              - link "Implementar una aplicación" [ref=f17e974] [cursor=pointer]:
+                - /url: /run/overview?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+              - link "Crea un bucket de almacenamiento" [ref=f17e979] [cursor=pointer]:
+                - /url: /storage/create-bucket?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+          - button "Prueba el chat de Gemini Cloud Assist Chatear ahora" [ref=f17e1240] [cursor=pointer]:
+            - generic [ref=f17e1241]:
+              - generic [ref=f17e1242]: Prueba el chat de Gemini Cloud Assist
+              - generic [ref=f17e1244]: Chatear ahora
+        - generic [ref=f17e995]:
+          - generic [ref=f17e1031]:
+            - heading "Acceso rápido" [level=2] [ref=f17e1033]
+            - generic [ref=f17e1037]:
+              - link "APIs y servicios" [ref=f17e1038] [cursor=pointer]:
+                - /url: /apis?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+              - link "IAM y administración" [ref=f17e1048] [cursor=pointer]:
+                - /url: /iam-admin?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+              - link "Facturación" [ref=f17e1058] [cursor=pointer]:
+                - /url: /billing?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+              - link "Compute Engine" [ref=f17e1075] [cursor=pointer]:
+                - /url: /compute?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+              - link "Cloud Storage" [ref=f17e1097] [cursor=pointer]:
+                - /url: /storage?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+              - link "BigQuery" [ref=f17e1107] [cursor=pointer]:
+                - /url: /bigquery?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+              - link "Red de VPC" [ref=f17e1119] [cursor=pointer]:
+                - /url: /networking?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+              - link "Kubernetes Engine" [ref=f17e1131] [cursor=pointer]:
+                - /url: /kubernetes?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+          - link "Ver todos los productos" [ref=f17e1146] [cursor=pointer]:
+            - /url: /products?organizationId=415081262555&project=project-2170ef0c-fe34-4f35-af9
+      - dialog "notificación" [ref=f17e1250]:
+        - generic [ref=f17e1255]:
+          - generic "Estás viendo el proyecto “Altaria OS Gmail TEST” en la organización “Sin organización”" [ref=f17e1257]
+          - button [ref=f17e1258] [cursor=pointer]
+  - iframe [aria-hidden] [ref=f17e405]
+  - iframe [aria-hidden] [ref=f17e407]
+  - iframe [aria-hidden] [ref=f17e408]
+  - iframe [aria-hidden] [ref=f17e409]
+  - dialog "Notificaciones" [ref=f17e1168]:
+    - generic [ref=f17e1170]:
+      - generic [ref=f17e1171]: Notificaciones
+      - group "Elemento de notificación 1 de 1" [ref=f17e1211]:
+        - generic [ref=f17e1215]:
+          - generic [ref=f17e1216]:
+            - img "Se completó esta tarea." [ref=f17e1217]
+            - 'button "Crear proyecto: Altaria OS Gmail TEST Hace unos instantes" [ref=f17e1222]':
+              - text: "Crear proyecto: Altaria OS Gmail TEST"
+              - generic [ref=f17e1223]: Hace unos instantes
+          - button "Navigate to altaria-os-gmail-test project" [active] [ref=f17e1225] [cursor=pointer]:
+            - generic [ref=f17e1226]: Seleccionar proyecto
+      - link "Ver todas las actividades" [ref=f17e1266] [cursor=pointer]:
+        - /url: /logs/query;query=%2528logName%20%3D%20%22projects%2Faltaria-os-gmail-test%2Flogs%2Fcloudaudit.googleapis.com%252Factivity%22%20OR%20logName%20%3D%20%22projects%2Faltaria-os-gmail-test%2Flogs%2Fcloudaudit.googleapis.com%252Fdata_access%22%20OR%20labels.activity_type_name:*%2529;timeRange=P7D?project=altaria-os-gmail-test

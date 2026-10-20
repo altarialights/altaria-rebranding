@@ -9,7 +9,14 @@ export const parseStripeMode = (value: string | undefined): StripeMode => {
 
 export const readStripeMode = async (): Promise<StripeMode> => {
   const { getSecret } = await import('astro:env/server');
-  return parseStripeMode(getSecret('STRIPE_MODE')?.trim());
+  const mode = parseStripeMode(getSecret('STRIPE_MODE')?.trim());
+  const vercelProduction = process.env.VERCEL === '1'
+    && process.env.VERCEL_ENV === 'production'
+    && process.env.NODE_ENV === 'production';
+  if (!vercelProduction && (process.env.ALTARIA_TEST_ISOLATED !== '1' || mode !== 'test')) {
+    throw new Error('Stripe bloqueado fuera del entorno TEST aislado.');
+  }
+  return mode;
 };
 
 export const stripeModeIsLive = (mode: StripeMode): boolean => mode === 'live';

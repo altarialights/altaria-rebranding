@@ -1,7 +1,9 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
+import { assertLocalQaUrl } from './lib/local-qa-url.mjs';
 
 const base = process.env.BASE_URL ?? 'http://127.0.0.1:4326/';
+assertLocalQaUrl(base);
 const out = process.env.OUT_DIR ?? 'review/responsive-menu/qa';
 const viewports = [
   [360, 800],

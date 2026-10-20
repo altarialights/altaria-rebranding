@@ -1,0 +1,70 @@
+---
+import AdminShell from '../../../layouts/AdminShell.astro';
+import { createAdminCsrfToken, hasAdminPermission } from '../../../lib/admin/access';
+import { listCardOrders, getCardOrder, assertCardsTest } from '../../../lib/admin/cards/service';
+import { listLinkMetrics, listOrderLinks, unclassifiedDestination } from '../../../lib/admin/cards/links';
+import { CardsError } from '../../../lib/admin/cards/service';
+import { getDatabase } from '../../../lib/db/client';
+import '../../../styles/admin-cards.css';
+import '../../../styles/admin-cards-links.css';
+export const prerender=false;
+const principal=Astro.locals.admin;
+if (!principal) return new Response('Acceso denegado.',{status:403});
+const today=new Date().toISOString().slice(0,10);
+const defaultFrom=new Date(Date.now()-29*86400000).toISOString().slice(0,10);
+const filters={from:Astro.url.searchParams.get('from')||defaultFrom,
+  to:Astro.url.searchParams.get('to')||today,orderId:Astro.url.searchParams.get('orderId')||'',
+  organizationId:Astro.url.searchParams.get('organizationId')||'',
+  channel:Astro.url.searchParams.get('channel')||'',campaign:Astro.url.searchParams.get('campaign')||'',
+  batchId:Astro.url.searchParams.get('batchId')||'',unitId:Astro.url.searchParams.get('unitId')||'',
+  destination:Astro.url.searchParams.get('destination')||'',
+  trafficClass:Astro.url.searchParams.get('trafficClass')||''};
+let rows:Awaited<ReturnType<typeof listLinkMetrics>>=[];
+let limited=false;
+try { rows=await listLinkMetrics(principal,filters); }
+catch(error) { if(error instanceof CardsError&&error.code==='metrics_limit')limited=true; else throw error; }
+const [orders,selectedOrder,selectedLinks,policy]=await Promise.all([listCardOrders(principal,{limit:200}),
+  filters.orderId?getCardOrder(principal,filters.orderId):Promise.resolve(null),
+  filters.orderId?listOrderLinks(principal,filters.orderId):Promise.resolve(null),
+  (async()=>{const db=getDatabase();await assertCardsTest(db);return db.get('SELECT raw_days,aggregate_days FROM cards_link_retention WHERE id=?',['test']);})()]);
+const total=rows.reduce((sum,row)=>sum+Number(row.openings),0);
+const fromMs=Date.parse(`${filters.from}T00:00:00Z`),toMs=Date.parse(`${filters.to}T00:00:00Z`);
+const span=Number.isFinite(fromMs)&&Number.isFinite(toMs)&&toMs>=fromMs&&toMs-fromMs<=730*86400000
+  ?Math.round((toMs-fromMs)/86400000)+1:0;
+let previous:Awaited<ReturnType<typeof listLinkMetrics>>=[];
+let previousLimited=false;
+if(span&&!limited)try { previous=await listLinkMetrics(principal,{...filters,
+  from:new Date(fromMs-span*86400000).toISOString().slice(0,10),
+  to:new Date(fromMs-86400000).toISOString().slice(0,10)}); }
+catch(error) { if(error instanceof CardsError&&error.code==='metrics_limit')previousLimited=true; else throw error; }
+const previousTotal=previous.reduce((sum,row)=>sum+Number(row.openings),0);
+const bots=rows.filter(row=>row.traffic_class==='suspected_bot').reduce((sum,row)=>sum+Number(row.openings),0);
+const qr=rows.filter(row=>row.channel==='qr').reduce((sum,row)=>sum+Number(row.openings),0);
+const byDay=[...new Map(rows.map(row=>[String(row.day_utc),0]))].sort((a,b)=>a[0].localeCompare(b[0]));
+for(const row of rows){const point=byDay.find(item=>item[0]===String(row.day_utc));if(point)point[1]+=Number(row.openings);}
+const peak=Math.max(1,...byDay.map(point=>point[1]));
+const orgs=[...new Map(orders.filter(row=>row.organization_id).map(row=>[String(row.organization_id),String(row.organization_name)])).entries()];
+const csrf=createAdminCsrfToken(principal.sessionHash,process.env.WORKOS_COOKIE_PASSWORD||'','cards');
+const isOwner=principal.roles.includes('owner')&&hasAdminPermission(principal,'cards:write');
+const exportParams=new URLSearchParams(Object.entries(filters).filter(([,value])=>value));
+const batches=selectedOrder?.batches??[];
+const units=selectedOrder?.units??[];
+const destinations=[...new Set([
+  ...(selectedLinks?.history??[]).map(item=>String(item.next_url)),
+  ...(selectedLinks?.links??[]).map(link=>String(link.url)),
+  ...(selectedLinks? [unclassifiedDestination]:[]),
+])];
+---
+<AdminShell title="Analítica Cards" eyebrow="CARDS / ANALÍTICA TEST" description="Aperturas agregadas por fecha, canal y contexto. Sin identificación de personas." active="/admin/cards" principal={principal}>
+  <nav class="cards-local-nav" aria-label="Navegación Cards"><a href="/admin/cards">Pedidos</a><a aria-current="page" href="/admin/cards/analitica">Analítica</a></nav>
+  {Astro.url.searchParams.has('saved')&&<p class="cards-notice" role="status">Configuración guardada en TEST.</p>}
+  <div class="cards-detail-heading"><div><p class="admin-eyebrow">LECTURA AGREGADA</p><h2>Aperturas de enlaces</h2><p>El contador representa solicitudes al enlace. No mide personas únicas, ventas ni reseñas.</p></div><a class="cards-button secondary" href={`/api/admin/cards/links/metrics?${exportParams.toString()}`}>Exportar CSV autorizado</a></div>
+  <section class="cards-panel" aria-labelledby="filters-title"><div class="cards-section-heading"><div><p class="admin-eyebrow">EXPLORAR</p><h2 id="filters-title">Filtros</h2></div></div><form class="cards-analytics-filters" method="get"><label>Desde<input type="date" name="from" value={filters.from}/></label><label>Hasta<input type="date" name="to" value={filters.to}/></label><label>Empresa<select name="organizationId"><option value="">Todas</option>{orgs.map(([id,name])=><option value={id} selected={filters.organizationId===id}>{name}</option>)}</select></label><label>Pedido<select name="orderId"><option value="">Todos</option>{orders.map(order=><option value={String(order.id)} selected={filters.orderId===order.id}>{String(order.numero_pedido)}</option>)}</select></label><label>Canal<select name="channel"><option value="">Ambos</option><option value="qr" selected={filters.channel==='qr'}>QR</option><option value="nfc" selected={filters.channel==='nfc'}>NFC</option></select></label><label>Campaña<input name="campaign" maxlength="80" value={filters.campaign} placeholder="Todas"/></label><label>Lote<select name="batchId"><option value="">Todos</option>{batches.map(batch=><option value={String(batch.id)} selected={filters.batchId===batch.id}>{String(batch.mode)} · {String(batch.id).slice(0,8)}</option>)}</select></label><label>Unidad<select name="unitId"><option value="">Todas</option>{units.map(unit=><option value={String(unit.id)} selected={filters.unitId===unit.id}>Unidad {Number(unit.sequence)} · {String(unit.id).slice(0,8)}</option>)}</select></label><label>Destino<select name="destination"><option value="">Todos</option>{destinations.map(destination=><option value={destination} selected={filters.destination===destination}>{destination}</option>)}</select></label><label>Tráfico<select name="trafficClass"><option value="">Todo</option><option value="unclassified" selected={filters.trafficClass==='unclassified'}>Sin clasificar</option><option value="suspected_bot" selected={filters.trafficClass==='suspected_bot'}>Bot sospechoso</option></select></label><button class="cards-button" type="submit">Aplicar filtros</button></form></section>
+  {limited&&<p class="cards-notice" role="alert">El periodo supera 2000 filas agregadas. Acota fechas, pedido o campaña para obtener cifras completas.</p>}
+  <div class="cards-analytics-stats"><div><span>Aperturas</span><strong>{limited?'—':total}</strong></div><div><span>Periodo anterior</span><strong>{limited||previousLimited?'—':previousTotal}</strong><small>{span&&!limited&&!previousLimited?`${total-previousTotal>=0?'+':''}${total-previousTotal} aperturas`:'Comparación no disponible'}</small></div><div><span>Sin clasificar</span><strong>{limited?'—':total-bots}</strong></div><div><span>Tráfico sospechoso de bots</span><strong>{limited?'—':bots}</strong></div><div><span>QR / NFC</span><strong>{limited?'—':`${qr} / ${total-qr}`}</strong></div></div>
+  <section class="cards-panel" aria-labelledby="trend-title"><div class="cards-section-heading"><div><p class="admin-eyebrow">TENDENCIA</p><h2 id="trend-title">Aperturas por día</h2><p>Los bots se estiman por agente de usuario; el resto queda sin clasificar.</p></div></div>{byDay.length?<div class="cards-trend" role="img" tabindex="0" aria-label={`Tendencia de ${total} aperturas entre ${filters.from} y ${filters.to}`}>
+    {byDay.map(([day,count])=><div class="cards-trend-bar" title={`${day}: ${count} aperturas`}><span style={`height:${Math.max(3,Math.round(count/peak*100))}%`}></span><small>{day.slice(5)}</small></div>)}
+  </div>:<div class="cards-empty compact"><h3>{limited?'Acota los filtros':'Sin aperturas en este periodo'}</h3><p>{limited?'El desglose requiere menos de 2001 filas para evitar cifras parciales.':'Los códigos TEST aparecerán aquí después de probarlos.'}</p></div>}</section>
+  <section class="cards-panel" aria-labelledby="breakdown-title"><div class="cards-section-heading"><div><p class="admin-eyebrow">DETALLE</p><h2 id="breakdown-title">Desglose</h2></div></div>{rows.length?<div class="cards-link-table-wrap" tabindex="0" role="region" aria-label="Tabla desplazable de resultados"><table class="cards-link-table"><thead><tr><th>Fecha</th><th>Empresa / pedido</th><th>Lote / unidad</th><th>Canal</th><th>Destino</th><th>Clase</th><th>Aperturas</th></tr></thead><tbody>{rows.slice(0,12).map(row=><tr><td>{String(row.day_utc)}</td><td>{String(row.organization_name??'Sin empresa')}<small>{String(row.order_id).slice(0,8)}</small></td><td>{String(row.batch_id).slice(0,8)}<small>{row.unit_id?String(row.unit_id).slice(0,8):'Lote compartido'}</small></td><td>{String(row.channel).toUpperCase()}</td><td>{String(row.destination)}</td><td>{row.traffic_class==='suspected_bot'?'Bot sospechoso':'Sin clasificar'}</td><td><strong>{Number(row.openings)}</strong></td></tr>)}</tbody></table></div>:<p class="cards-muted">Sin resultados.</p>}{rows.length>12&&<p class="cards-muted">Se muestran 12 filas; exporta el CSV para ver el resto del periodo. Desliza la tabla para ver sus columnas.</p>}</section>
+  {isOwner&&<section class="cards-panel" aria-labelledby="retention-title"><div class="cards-section-heading"><div><p class="admin-eyebrow">PRIVACIDAD</p><h2 id="retention-title">Retención TEST</h2><p>Eventos mínimos {Number(policy?.raw_days??30)} días · agregados {Number(policy?.aggregate_days??400)} días. Sin IP, cookies ni agentes de usuario almacenados.</p></div></div><form class="cards-analytics-filters" action="/api/admin/cards/links" method="post"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="action" value="retention"/><label>Eventos, días<input type="number" name="rawDays" min="1" max="90" value={String(policy?.raw_days??30)} required/></label><label>Agregados, días<input type="number" name="aggregateDays" min="31" max="730" value={String(policy?.aggregate_days??400)} required/></label><button class="cards-button secondary" type="submit">Guardar retención</button></form><form action="/api/admin/cards/links" method="post"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="action" value="prune"/><button class="cards-button secondary" type="submit">Aplicar purga vencida</button></form></section>}
+</AdminShell>

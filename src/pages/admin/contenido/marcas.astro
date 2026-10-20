@@ -1,0 +1,143 @@
+---
+import AdminShell from '../../../layouts/AdminShell.astro';
+import ContentNav from '../../../components/admin/ContentNav.astro';
+import {createAdminCsrfToken} from '../../../lib/admin/access';
+import {listBrands,listBrandDetails} from '../../../lib/admin/content/service';
+import {grantFor,channelLabels} from '../../../lib/admin/content/model';
+import '../../../styles/admin-content.css';
+export const prerender=false;
+const principal=Astro.locals.admin;
+if(!principal)return new Response('Acceso denegado.',{status:403});
+const rows=await listBrands(principal);
+const brands=rows.filter((b,i,a)=>a.findIndex(x=>x.id===b.id)===i);
+const brandId=Astro.url.searchParams.get('marca')??String(brands[0]?.id??'');
+if(!brands.some(b=>b.id===brandId))return new Response('Marca no disponible.',{status:403});
+const details=await listBrandDetails(principal,brandId);
+const canManage=Boolean(grantFor(principal,brandId)?.manageBrand);
+const isOwner=principal.roles.includes('owner');
+const currentGuide=details.guides[0];
+const currentPolicy=details.policies.find(x=>x.project_id===null&&x.active);
+const csrf=createAdminCsrfToken(principal.sessionHash,process.env.WORKOS_COOKIE_PASSWORD||'','content');
+const guideFields=[
+  ['identity','Identidad','identity_text'],['objectives','Objetivos','objectives_text'],
+  ['audience','Público','audience_text'],['tone','Tono','tone_text'],
+  ['colors','Colores','colors_text'],['typography','Tipografías','typography_text'],
+  ['visualRules','Reglas visuales','visual_rules_text'],['formats','Formatos','formats_text'],
+  ['approvedExamples','Ejemplos aprobados','approved_examples_text'],
+  ['restrictions','Restricciones','restrictions_text'],
+] as const;
+---
+<AdminShell title="Marcas" eyebrow="CONTENIDO / IDENTIDAD"
+  description="Canales editoriales, guías versionadas y permisos explícitos por marca."
+  active="/admin/contenido" principal={principal}>
+  <ContentNav active="brands"/>
+  <section class="content-hero"><div><p class="admin-eyebrow">TRES MARCAS · CUATRO CANALES</p>
+    <h2>Cada voz tiene su espacio.</h2><p>Altaria Lights administra el sistema; las cuentas sociales siguen desconectadas.</p></div></section>
+  {Astro.url.searchParams.has('guardado')&&<p class="content-notice" role="status">Configuración editorial guardada en TEST.</p>}
+  <nav class="content-brand-list" aria-label="Seleccionar marca">{brands.map(b=>
+    <a href={`/admin/contenido/marcas?marca=${b.id}`} aria-current={brandId===b.id?'page':undefined}>
+      <strong>{String(b.name)}</strong><small>{b.status==='planned'?'Pendiente de derechos':'Espacio editorial activo'}
+      · {rows.filter(x=>x.id===b.id).map(x=>channelLabels[String(x.channel) as keyof typeof channelLabels]).join(' / ')}</small></a>)}</nav>
+  <div class="content-grid" style="margin-top:18px">
+    <section class="content-card"><div class="content-card-heading"><div><p class="content-kicker">MARCA SELECCIONADA</p>
+      <h2>{String(details.brand.name)}</h2></div><span class="content-pill">{String(details.brand.status)}</span></div>
+      <p>Canales: {details.channels.map(c=>channelLabels[String(c.channel) as keyof typeof channelLabels]).join(' · ')}</p>
+      <p>Revisión por defecto: <strong>{currentPolicy?.mode==='staged'?'Guion, visuales y final':'Aprobación final sencilla'}</strong></p>
+      {details.brand.status==='planned'&&<p class="content-notice">Esta marca está preparada, pero no permite crear piezas hasta validar los derechos de uso.</p>}
+      {isOwner&&details.brand.status==='planned'&&<details><summary>Activar tras comprobar derechos</summary>
+        <form action="/api/admin/content/activate-brand" method="post" class="content-form-grid">
+          <input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="brandId" value={brandId}/>
+          <label class="content-field wide">Referencia de evidencia verificada
+            <input name="evidence" required minlength="10" maxlength="500"
+              placeholder="Referencia interna, sin datos sensibles"/></label>
+          <button class="content-button" type="submit">Activar marca y canales</button>
+        </form></details>}
+      {canManage&&<><details><summary>Cambiar política por defecto</summary><form action="/api/admin/content/policy"
+        method="post" class="content-form-grid"><input type="hidden" name="csrf" value={csrf}/>
+        <input type="hidden" name="brandId" value={brandId}/><label class="content-field">Modalidad
+        <select name="mode"><option value="simple">Final sencilla</option><option value="staged">Por etapas</option></select>
+        </label><button class="content-button" type="submit">Guardar política nueva</button></form></details>
+        <details><summary>Crear proyecto</summary><form action="/api/admin/content/project" method="post"
+          class="content-form-grid"><input type="hidden" name="csrf" value={csrf}/>
+          <input type="hidden" name="brandId" value={brandId}/>
+          <label class="content-field">Nombre<input name="name" required minlength="2" maxlength="160"/></label>
+          <label class="content-field">Revisión<select name="reviewMode"><option value="">Heredar marca</option>
+            <option value="simple">Sencilla</option><option value="staged">Por etapas</option></select></label>
+          <button class="content-button" type="submit">Crear proyecto</button></form></details>
+      </>}
+    </section>
+    <section class="content-card"><div class="content-card-heading"><h2>Frecuencia objetivo</h2></div>
+      {details.channels.map(c=><div class="content-list-row"><div><strong>
+        {channelLabels[String(c.channel) as keyof typeof channelLabels]}</strong><small>
+        {details.targets.find(t=>t.channel===c.channel)
+          ?`${details.targets.find(t=>t.channel===c.channel)?.target_count} por ${details.targets.find(t=>t.channel===c.channel)?.period}`
+          :'Sin objetivo configurado'}</small></div></div>)}
+      {canManage&&<details><summary>Editar objetivo</summary><form action="/api/admin/content/frequency"
+        method="post" class="content-form-grid"><input type="hidden" name="csrf" value={csrf}/>
+        <input type="hidden" name="brandId" value={brandId}/>
+        <label class="content-field">Canal<select name="channel">{details.channels.map(c=>
+          <option value={String(c.channel)}>{channelLabels[String(c.channel) as keyof typeof channelLabels]}</option>)}</select></label>
+        <label class="content-field">Periodo<select name="period"><option value="week">Semana</option>
+          <option value="month">Mes</option></select></label>
+        <label class="content-field">Número objetivo<input type="number" name="targetCount" min="0" max="100"
+          required/></label><button class="content-button" type="submit">Guardar objetivo</button>
+      </form></details>}
+      <p>La frecuencia solo orienta la planificación; no crea publicaciones ficticias.</p>
+    </section>
+  </div>
+  <div class="content-grid" style="margin-top:15px">
+    <section class="content-card"><div class="content-card-heading"><h2>Proyectos</h2></div>
+      {details.projects.length?<div class="content-list">{details.projects.map(project=>
+        <div class="content-list-row"><div><strong>{String(project.name)}</strong><small>
+          {project.review_mode?project.review_mode==='staged'?'Revisión por etapas':'Revisión sencilla':'Hereda la marca'}</small>
+          </div></div>)}</div>:<div class="content-empty"><strong>Sin proyectos.</strong><p>Una pieza puede pertenecer directamente a la marca.</p></div>}
+      {canManage&&details.projects.map(project=><details><summary>Política de {String(project.name)}</summary>
+        <form action="/api/admin/content/policy" method="post" class="content-form-grid">
+          <input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="brandId" value={brandId}/>
+          <input type="hidden" name="projectId" value={String(project.id)}/>
+          <label class="content-field">Modalidad<select name="mode"><option value="simple">Sencilla</option>
+            <option value="staged">Por etapas</option></select></label>
+          <button class="content-button" type="submit">Guardar nueva política</button></form></details>)}
+    </section>
+    <section class="content-card"><div class="content-card-heading"><h2>Equipo autorizado</h2></div>
+      {isOwner?<>{details.members.length?<ul class="content-history">{details.members.map(m=>
+        <li><strong>{String(m.display_name||m.email)}</strong> · {m.revoked_at?'Revocado':
+          [m.can_edit?'Edición':null,m.can_review?'Revisión':null,
+            m.can_record_publication?'Registro':null,m.can_manage_brand?'Gestión':null]
+            .filter(Boolean).join(', ')||'Lectura'}</li>)}</ul>
+        :<p>Sin concesiones explícitas. El propietario conserva la gestión global.</p>}
+        <details><summary>Conceder o revocar permisos</summary><form action="/api/admin/content/member"
+          method="post" class="content-form-grid"><input type="hidden" name="csrf" value={csrf}/>
+          <input type="hidden" name="brandId" value={brandId}/>
+          <label class="content-field wide">Usuario WorkOS verificado<select name="userId" required>
+            {details.users.map(u=><option value={String(u.id)}>{String(u.display_name||u.email)}</option>)}</select></label>
+          {([['read','Lectura'],['edit','Edición'],['review','Revisión'],
+            ['recordPublication','Registrar publicación'],['manageBrand','Gestionar marca'],
+            ['revoke','Revocar todos']] as const).map(([key,label])=>
+              <label class="content-field">{label}<input type="checkbox" name={key} value="1"
+                checked={key==='read'}/></label>)}
+          <button class="content-button" type="submit">Guardar concesión</button>
+        </form></details></>:<p>Solo el propietario puede consultar y cambiar concesiones. Tu acceso depende de la marca.</p>}
+    </section>
+  </div>
+  <section class="content-card" style="margin-top:15px"><div class="content-card-heading"><div>
+    <p class="content-kicker">GUÍA DE MARCA VERSIONADA</p><h2>Identidad editorial</h2></div>
+    <span class="content-pill">{currentGuide?currentGuide.status==='approved'?'Aprobada':'Borrador':'Incompleta'}</span></div>
+    {currentGuide?<div class="content-guide-grid">{guideFields.map(([,label,key])=><div>
+      <strong>{label}</strong><p>{String(currentGuide[key]||'Pendiente de documentar')}</p></div>)}</div>
+      :<div class="content-empty"><strong>Aún no hay guía validada.</strong><p>No se han inventado manuales ni atribuido colores o tipografías a esta marca.</p></div>}
+    {details.guides.length>0&&<details><summary>Historial de guías</summary><ol class="content-history">
+      {details.guides.map(g=><li>v{String(g.version)} · {String(g.status)} · {String(g.source_ref)}
+        · {new Date(String(g.created_at)).toLocaleDateString('es-ES',{timeZone:'Europe/Madrid'})}</li>)}
+      </ol></details>}
+    {canManage&&<details><summary>Crear nueva versión de la guía</summary>
+      <form action="/api/admin/content/guide" method="post" class="content-form-grid">
+        <input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="brandId" value={brandId}/>
+        {guideFields.map(([key,label,column])=><label class="content-field">{label}
+          <textarea name={key} maxlength="4000">{String(currentGuide?.[column]??'')}</textarea></label>)}
+        {isOwner&&<label class="content-field wide">Aprobación expresa del propietario
+          <input type="checkbox" name="approve" value="1"/></label>}
+        <button class="content-button" type="submit">Guardar versión</button>
+      </form></details>}
+  </section>
+</AdminShell>

@@ -1,0 +1,260 @@
+- generic:
+  - alert: altarialights | Turso App
+  - generic [aria-hidden]:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - list:
+              - listitem:
+                - button:
+                  - generic:
+                    - generic: altarialights
+                    - generic: Free
+          - generic:
+            - generic:
+              - button: Create Database
+              - button: Create Group
+            - generic:
+              - generic: Turso Cloud
+              - list:
+                - listitem:
+                  - button [expanded]:
+                    - generic: Databases
+                  - generic:
+                    - list:
+                      - listitem:
+                        - link:
+                          - /url: /altarialights?group=default
+                          - generic: default
+                        - button
+                      - listitem:
+                        - link:
+                          - /url: /altarialights?group=peluqueria
+                          - generic: peluqueria
+                        - button
+                      - listitem:
+                        - link:
+                          - /url: /altarialights?group=propias
+                          - generic: propias
+                        - button
+                - listitem:
+                  - link:
+                    - /url: /altarialights/analytics
+                    - generic: Analytics
+                - listitem:
+                  - link:
+                    - /url: /altarialights/audit-logs
+                    - generic: Audit Logs
+                - listitem:
+                  - link:
+                    - /url: /altarialights/billing
+                    - generic: Billing
+                - listitem:
+                  - button:
+                    - generic: Settings
+                - listitem:
+                  - link:
+                    - /url: /altarialights/support
+                    - generic: Support
+          - generic:
+            - link:
+              - /url: /altarialights/billing/change-plan
+              - text: Upgrade
+            - generic: Usage
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button
+              - button:
+                - generic: Toggle theme
+          - button
+    - main:
+      - generic:
+        - generic:
+          - button:
+            - generic: Toggle Sidebar
+          - generic:
+            - navigation:
+              - list:
+                - listitem:
+                  - link:
+                    - /url: /altarialights
+                    - text: Databases
+                - listitem [aria-hidden]
+                - listitem:
+                  - link:
+                    - /url: /altarialights/databases/altaria-os-test
+                    - text: altaria-os-test
+                - listitem [aria-hidden]
+                - listitem:
+                  - generic:
+                    - link:
+                      - /url: /altarialights/databases/altaria-os-test
+                      - text: Overview
+                    - link:
+                      - /url: /altarialights/databases/altaria-os-test/branches
+                      - text: Branches
+                    - link:
+                      - /url: /altarialights/databases/altaria-os-test/analytics
+                      - text: Analytics
+                    - link:
+                      - /url: /altarialights/databases/altaria-os-test/top-queries
+                      - text: Top Queries
+                    - link:
+                      - /url: /altarialights/databases/altaria-os-test/data
+                      - text: Edit Data
+      - generic:
+        - generic:
+          - generic:
+            - generic: Activity
+            - generic:
+              - generic:
+                - generic:
+                  - paragraph:
+                    - generic: Rows Read
+                  - paragraph:
+                    - paragraph: 136,171
+                - generic:
+                  - paragraph:
+                    - generic: Rows Written
+                  - paragraph:
+                    - paragraph: 23,896
+                - generic:
+                  - paragraph:
+                    - generic: Storage
+                  - paragraph:
+                    - paragraph: 1.67 MB
+                - generic:
+                  - paragraph:
+                    - generic: Embedded Syncs
+                  - paragraph:
+                    - paragraph: "0"
+          - generic:
+            - generic: Connect
+            - generic:
+              - generic:
+                - generic: Database URL
+                - generic:
+                  - textbox: libsql://altaria-os-test-altarialights.aws-eu-west-1.turso.io
+                  - button
+              - generic:
+                - button: Create Token
+          - generic:
+            - generic:
+              - generic: Export Database
+              - generic: Download a copy of altaria-os-test as a SQLite file.
+            - generic:
+              - button: Download SQLite File
+          - generic:
+            - generic:
+              - generic: Configuration
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading [level=3]: Block Reads
+                      - paragraph: Block all read operations on your database.
+                    - generic:
+                      - generic:
+                        - generic:
+                          - switch
+                          - checkbox [aria-hidden]
+                  - generic:
+                    - generic:
+                      - heading [level=3]: Block Writes
+                      - paragraph: Block all write operations on your database.
+                    - generic:
+                      - generic:
+                        - generic:
+                          - switch
+                          - checkbox [aria-hidden]
+                  - generic:
+                    - generic:
+                      - heading [level=3]: Allow ATTACH
+                      - paragraph: Allow attaching to your database to other databases.
+                    - generic:
+                      - generic:
+                        - generic:
+                          - switch
+                          - checkbox [aria-hidden]
+                  - generic:
+                    - generic:
+                      - heading [level=3]: Delete Protection
+                      - paragraph: Prevent your database from being deleted.
+                    - generic:
+                      - generic:
+                        - generic:
+                          - switch
+                          - checkbox [aria-hidden]
+            - generic:
+              - generic:
+                - generic:
+                  - generic: Restrict Access
+                  - generic: Paid plans only
+                - generic: Limit which clients can connect to this database by source IP address (CIDR) or AWS VPC endpoint. Leave empty to allow all traffic.
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - text: Allowed IPs (CIDR)
+                      - textbox [disabled]:
+                        - /placeholder: "10.0.0.0/8\n192.168.1.0/24"
+                      - paragraph: One CIDR block per line.
+                    - generic:
+                      - text: Allowed AWS VPC endpoint IDs
+                      - textbox [disabled]:
+                        - /placeholder: vpce-0ef5c83e127b86e9b
+                      - paragraph: One VPC endpoint ID per line.
+                  - generic:
+                    - link:
+                      - /url: /altarialights/billing/change-plan
+                      - text: Upgrade now
+          - generic:
+            - generic:
+              - generic: Invalidate Database Tokens
+              - generic: Invalidate all existing database tokens for altaria-os-test. This will require generating new tokens for any applications currently using this database.
+            - generic:
+              - button: Invalidate All Tokens
+          - generic:
+            - generic:
+              - generic: Delete Database
+              - generic: Permanently delete altaria-os-test and all of its data. This action cannot be undone.
+            - generic:
+              - button: Delete Database
+  - dialog [aria-hidden] [ref=f1e1346]:
+    - generic [ref=f1e1321]:
+      - heading [level=2] [ref=f1e1347]: Create Database Token
+      - paragraph [ref=f1e1323]: Create a token for this database with the desired permissions.
+    - generic [ref=f1e1324]:
+      - generic [ref=f1e1325]:
+        - generic [ref=f1e1326]:
+          - generic [ref=f1e1327]: Expires
+          - generic [ref=f1e1328]:
+            - combobox [expanded] [ref=f1e1329]:
+              - generic: Never
+            - combobox [aria-hidden] [ref=f1e1330]
+        - generic [ref=f1e1331]:
+          - generic [ref=f1e1332]: Authorization Level
+          - radiogroup [ref=f1e1333]:
+            - generic [ref=f1e1334]:
+              - radio [checked] [ref=f1e1348]
+              - radio [checked] [aria-hidden]
+              - generic [ref=f1e1338]: Read & Write
+            - generic [ref=f1e1339]:
+              - radio [ref=f1e1349]
+              - radio [aria-hidden]
+              - generic [ref=f1e1341]: Read Only
+      - button [ref=f1e1350]: Create Token
+    - button [ref=f1e1351]:
+      - generic [ref=f1e1345]: Close
+  - listbox [ref=f1e1352]:
+    - option "Never" [active] [selected] [ref=f1e1353]
+    - option "1 Day" [ref=f1e1357]
+    - option "7 Days" [ref=f1e1360]
+    - option "30 Days" [ref=f1e1363]
+    - option "60 Days" [ref=f1e1366]
+    - option "90 Days" [ref=f1e1369]
+    - option "1 Year" [ref=f1e1372]
+    - option "Custom" [ref=f1e1375]

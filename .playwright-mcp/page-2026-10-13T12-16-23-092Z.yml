@@ -1,0 +1,155 @@
+- generic [active] [ref=f106e1]:
+  - link "Saltar al contenido" [ref=f106e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f106e3]:
+    - complementary "Panel de navegación" [ref=f106e4]:
+      - generic [ref=f106e5]:
+        - link "Altaria OS, inicio" [ref=f106e6] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f106e7]
+          - generic [ref=f106e8]: OS
+        - paragraph [ref=f106e10]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f106e11]:
+        - paragraph [ref=f106e12]: PLATAFORMA
+        - link "Inicio" [ref=f106e13] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f106e18] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards" [ref=f106e23] [cursor=pointer]:
+          - /url: /admin/cards
+        - link "Contenido" [ref=f106e28] [cursor=pointer]:
+          - /url: /admin/contenido
+        - link "Informes En preparación" [ref=f106e33] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f106e37]: Informes
+          - generic "En preparación" [ref=f106e38]: ·
+        - link "Configuración" [ref=f106e39] [cursor=pointer]:
+          - /url: /admin/configuracion
+      - generic [ref=f106e44]:
+        - generic [ref=f106e49]:
+          - text: Área privada
+          - strong [ref=f106e50]: Acceso protegido
+        - link "Ver sitio público" [ref=f106e51] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f106e52]: ↗
+    - generic [ref=f106e53]:
+      - banner [ref=f106e54]:
+        - generic [ref=f106e55]:
+          - text: ALTARIA OS /
+          - strong [ref=f106e56]: Contenido
+        - generic [ref=f106e57]:
+          - button "Buscar en Altaria OS" [ref=f106e58] [cursor=pointer]:
+            - generic [ref=f106e62]: ⌘ K
+          - generic "altarialights@gmail.com" [ref=f106e63]:
+            - generic [aria-hidden] [ref=f106e64]: A
+          - button "Cerrar y revocar esta sesión" [ref=f106e67] [cursor=pointer]: Salir
+      - main [ref=f106e68]:
+        - generic [ref=f106e69]:
+          - generic [ref=f106e70]:
+            - paragraph [ref=f106e71]: CONTENIDO / FLUJO EDITORIAL
+            - heading "Producción" [level=1] [ref=f106e72]
+            - paragraph [ref=f106e73]: Una pieza, una versión vigente y el siguiente paso claro. Toda aprobación deja rastro.
+          - generic [ref=f106e74]: ENTORNO TEST
+        - navigation "Contenido" [ref=f106e76]:
+          - link "Calendario" [ref=f106e77] [cursor=pointer]:
+            - /url: /admin/contenido
+          - link "Producción" [ref=f106e78] [cursor=pointer]:
+            - /url: /admin/contenido/produccion
+          - link "Biblioteca" [ref=f106e79] [cursor=pointer]:
+            - /url: /admin/contenido/biblioteca
+          - link "Marcas" [ref=f106e80] [cursor=pointer]:
+            - /url: /admin/contenido/marcas
+        - generic [ref=f106e81]:
+          - generic [ref=f106e82]:
+            - paragraph [ref=f106e83]: ESTUDIO EDITORIAL · TEST
+            - heading "De idea a pieza lista." [level=2] [ref=f106e84]
+            - paragraph [ref=f106e85]: Guion, visuales, edición y revisión avanzan con acciones humanas. Programar una pieza no la publica.
+          - link "Nueva idea ↗" [ref=f106e86] [cursor=pointer]:
+            - /url: "#crear-pieza"
+        - search "Filtrar producción" [ref=f106e87]:
+          - generic [ref=f106e88]:
+            - text: Marca
+            - combobox "Marca" [ref=f106e89]:
+              - option "Todas las autorizadas" [selected]
+              - option "Altaria Cards"
+              - option "Martín Altaria"
+              - option "Restaurante De Zamorano"
+          - generic [ref=f106e90]:
+            - text: Canal
+            - combobox "Canal" [ref=f106e91]:
+              - option "Todos" [selected]
+              - option "Instagram"
+              - option "LinkedIn"
+          - generic [ref=f106e92]:
+            - text: Buscar
+            - searchbox "Buscar" [ref=f106e93]
+          - button "Filtrar" [ref=f106e94] [cursor=pointer]
+        - region "Tablero editorial, desplazar horizontalmente" [ref=f106e95]:
+          - region [ref=f106e96]:
+            - heading "Idea 0" [level=2] [ref=f106e97]:
+              - text: Idea
+              - generic [ref=f106e98]: "0"
+            - paragraph [ref=f106e99]: Sin piezas en esta etapa.
+          - region [ref=f106e100]:
+            - heading "Guion 0" [level=2] [ref=f106e101]:
+              - text: Guion
+              - generic [ref=f106e102]: "0"
+            - paragraph [ref=f106e103]: Sin piezas en esta etapa.
+          - region [ref=f106e104]:
+            - heading "Visuales 0" [level=2] [ref=f106e105]:
+              - text: Visuales
+              - generic [ref=f106e106]: "0"
+            - paragraph [ref=f106e107]: Sin piezas en esta etapa.
+          - region [ref=f106e108]:
+            - heading "Edición 0" [level=2] [ref=f106e109]:
+              - text: Edición
+              - generic [ref=f106e110]: "0"
+            - paragraph [ref=f106e111]: Sin piezas en esta etapa.
+          - region [ref=f106e112]:
+            - heading "Revisión 0" [level=2] [ref=f106e113]:
+              - text: Revisión
+              - generic [ref=f106e114]: "0"
+            - paragraph [ref=f106e115]: Sin piezas en esta etapa.
+          - region [ref=f106e116]:
+            - heading "Lista 0" [level=2] [ref=f106e117]:
+              - text: Lista
+              - generic [ref=f106e118]: "0"
+            - paragraph [ref=f106e119]: Sin piezas en esta etapa.
+        - region [ref=f106e120]:
+          - generic [ref=f106e122]:
+            - paragraph [ref=f106e123]: Altaria Cards · nuevo borrador
+            - heading "Crear una idea" [level=2] [ref=f106e124]
+          - generic [ref=f106e125]:
+            - generic [ref=f106e126]:
+              - text: Canal
+              - combobox "Canal" [ref=f106e127]:
+                - option "Instagram" [selected]
+            - generic [ref=f106e128]:
+              - text: Formato
+              - textbox "Formato" [ref=f106e129]:
+                - /placeholder: "Ej.: reel, carrusel, artículo"
+            - generic [ref=f106e130]:
+              - text: Título de trabajo
+              - textbox "Título de trabajo" [ref=f106e131]:
+                - /placeholder: Una idea clara para el equipo
+            - generic [ref=f106e132]:
+              - text: Objetivo, si está definido
+              - textbox "Objetivo, si está definido" [ref=f106e133]:
+                - /placeholder: No inventes resultados ni datos
+            - generic [ref=f106e134]:
+              - text: Brief inicial
+              - textbox "Brief inicial" [ref=f106e135]:
+                - /placeholder: Qué sabemos, qué falta y cuál es el enfoque
+            - generic [ref=f106e136]:
+              - text: Fecha prevista
+              - textbox "Fecha prevista" [ref=f106e137]
+            - button "Guardar idea" [ref=f106e138] [cursor=pointer]
+        - generic [ref=f106e139]:
+          - generic [ref=f106e140]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f106e141]: Entorno privado
+  - generic [ref=f106e144]:
+    - button [ref=f106e145]
+    - button [ref=f106e151]
+    - button [ref=f106e155]
+    - button [ref=f106e160]

@@ -1,0 +1,121 @@
+- generic [ref=f13e3]:
+  - generic [ref=f13e4]:
+    - link "Skip to main content" [ref=f13e5] [cursor=pointer]:
+      - /url: "#main-_R_35tamcnmlb_"
+    - banner [ref=f13e6]:
+      - generic [ref=f13e7]:
+        - 'button "Change project, current project: Altarialights''s Project" [ref=f13e9] [cursor=pointer]':
+          - generic [ref=f13e11]: Altarialights's Project
+        - button "Show suggestions" [ref=f13e18] [cursor=pointer]:
+          - generic [ref=f13e19]: Staging
+          - generic [ref=f13e23]: Staging
+      - generic [ref=f13e26]:
+        - generic [ref=f13e27]:
+          - button "Search" [ref=f13e29] [cursor=pointer]
+          - generic [ref=f13e32]:
+            - link "Docs" [ref=f13e34] [cursor=pointer]:
+              - /url: https://workos.com/docs
+            - link [ref=f13e37] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/notifications
+              - img "Notifications" [ref=f13e38]
+        - button "Your profile" [ref=f13e40] [cursor=pointer]
+    - navigation "app" [ref=f13e42]:
+      - generic [ref=f13e43]:
+        - link "Overview" [ref=f13e47] [cursor=pointer]:
+          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/get-started
+        - button [ref=f13e56] [cursor=pointer]
+      - generic [ref=f13e61]:
+        - generic [ref=f13e66]:
+          - generic [ref=f13e67]:
+            - link "Overview" [ref=f13e68] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/get-started
+            - link "Organizations" [ref=f13e74] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/organizations
+            - link "Users" [ref=f13e81] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/users
+            - link "Agents" [ref=f13e88] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/agents/agent-auth
+            - link "Applications" [ref=f13e95] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/applications
+          - generic [ref=f13e103]:
+            - generic [ref=f13e105]: Products
+            - link "Authentication" [ref=f13e107] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication
+            - link "Authorization" [ref=f13e113] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authorization
+            - link "Radar" [ref=f13e120] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/radar
+            - link "Audit Logs" [ref=f13e127] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/audit-logs
+            - link "Feature Flags" [ref=f13e135] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/flags
+            - link "Pipes" [ref=f13e142] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/pipes
+            - link "Connect" [ref=f13e148] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/connect
+            - link "Vault" [ref=f13e155] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/vault
+          - generic [ref=f13e163]:
+            - generic [ref=f13e165]: Developer
+            - link "Admin Portal" [ref=f13e167] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/admin-portal
+            - link "Domains" [ref=f13e173] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/domains
+            - link "API Keys" [ref=f13e179] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/api-keys
+            - link "IdP Attributes" [ref=f13e186] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/identity-provider-attributes
+            - link "Branding" [ref=f13e192] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/branding
+            - link "Emails" [ref=f13e199] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/emails/events
+            - link "Events" [ref=f13e205] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/events
+            - link "Actions" [ref=f13e211] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/actions/logs
+            - link "Webhooks" [ref=f13e217] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/webhooks
+            - link "Test SSO" [ref=f13e223] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/test-sso
+        - button "Altarialights's Team" [ref=f13e231] [cursor=pointer]:
+          - generic [aria-hidden] [ref=f13e233]: A
+    - navigation [ref=f13e238]:
+      - generic [ref=f13e241]:
+        - heading "Authentication" [level=2] [ref=f13e243]
+        - generic [ref=f13e244]:
+          - list [ref=f13e246]:
+            - listitem [ref=f13e247]:
+              - link "Analytics" [ref=f13e248] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/analytics
+            - listitem [ref=f13e251]:
+              - link "Methods" [ref=f13e252] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/methods
+            - listitem [ref=f13e255]:
+              - link "Providers" [ref=f13e256] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/oauth-providers
+            - listitem [ref=f13e259]:
+              - link "Features" [ref=f13e260] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/features
+            - listitem [ref=f13e263]:
+              - link "Add-ons" [ref=f13e264] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/integrations
+          - generic [ref=f13e267]:
+            - heading "Related" [level=3] [ref=f13e269]
+            - list [ref=f13e270]:
+              - listitem [ref=f13e271]:
+                - link "Authorization" [ref=f13e272] [cursor=pointer]:
+                  - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authorization
+              - listitem [ref=f13e277]:
+                - link "Branding" [ref=f13e278] [cursor=pointer]:
+                  - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/branding
+              - listitem [ref=f13e283]:
+                - link "Domains" [ref=f13e284] [cursor=pointer]:
+                  - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/domains
+              - listitem [ref=f13e289]:
+                - link "Admin Portal" [ref=f13e290] [cursor=pointer]:
+                  - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/admin-portal
+    - main [ref=f13e297]
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list

@@ -25,11 +25,13 @@
  *         node scripts/preview-video.mjs slow normal   (a subset)
  */
 import { chromium } from 'playwright';
+import { assertLocalQaUrl } from './lib/local-qa-url.mjs';
 import { mkdirSync, rmSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 
 const BASE = process.env.BASE_URL ?? 'http://localhost:4321';
+assertLocalQaUrl(BASE);
 const OUT = 'review';
 const FPS = 30;
 

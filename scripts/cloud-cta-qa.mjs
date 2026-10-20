@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
 import { chromium } from 'playwright';
+import { assertLocalQaUrl } from './lib/local-qa-url.mjs';
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 
 const BASE = process.env.BASE_URL ?? 'http://127.0.0.1:4334';
+assertLocalQaUrl(BASE);
 const OUT = path.resolve(process.env.OUT ?? 'review/cloud-cta-qa');
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -52,7 +54,7 @@ async function ensurePreview() {
   const url = new URL(BASE);
   const child = spawn(
     process.execPath,
-    [path.resolve('node_modules/astro/astro.js'), 'preview', '--host', url.hostname, '--port', url.port],
+    [path.resolve('node_modules/astro/bin/astro.mjs'), 'preview', '--host', url.hostname, '--port', url.port],
     { cwd: process.cwd(), stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true }
   );
   let stderr = '';

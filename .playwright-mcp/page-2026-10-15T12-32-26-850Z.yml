@@ -1,0 +1,96 @@
+- generic [ref=f13e1]:
+  - generic [ref=f13e2]:
+    - main [ref=f13e3]:
+      - complementary [ref=f13e4]:
+        - generic [ref=f13e10]:
+          - generic [ref=f13e11]:
+            - link "Back to project" [ref=f13e13] [cursor=pointer]:
+              - /url: /settings/proj_3TCdYGPxbx97AkktujBHAn9D
+            - button "Collapse sidebar" [ref=f13e18] [cursor=pointer]
+          - generic [ref=f13e22]:
+            - link "General" [ref=f13e23] [cursor=pointer]:
+              - /url: /settings/organization/general
+            - link "API keys" [ref=f13e26] [cursor=pointer]:
+              - /url: /settings/organization/api-keys
+            - link "Admin keys" [ref=f13e29] [cursor=pointer]:
+              - /url: /settings/organization/admin-keys
+            - link "People" [ref=f13e32] [cursor=pointer]:
+              - /url: /settings/organization/people
+            - link "Projects" [ref=f13e35] [cursor=pointer]:
+              - /url: /settings/organization/projects
+            - link "Billing" [ref=f13e38] [cursor=pointer]:
+              - /url: /settings/organization/billing
+            - link "Limits" [ref=f13e41] [cursor=pointer]:
+              - /url: /settings/organization/limits
+            - link "Tunnels" [ref=f13e44]:
+              - /url: /settings/organization/tunnels
+            - link "Usage" [ref=f13e47] [cursor=pointer]:
+              - /url: /settings/organization/usage
+            - link "Service health" [ref=f13e50] [cursor=pointer]:
+              - /url: /settings/organization/service-health
+            - link "Data controls" [ref=f13e53] [cursor=pointer]:
+              - /url: /settings/organization/data-controls
+            - link "Security" [ref=f13e56] [cursor=pointer]:
+              - /url: /settings/organization/security
+            - link "Webhooks" [ref=f13e59] [cursor=pointer]:
+              - /url: /settings/organization/webhooks
+          - generic [ref=f13e62]:
+            - generic [ref=f13e63] [cursor=pointer]:
+              - link [ref=f13e64]:
+                - /url: /settings/organization/billing/overview
+                - strong [ref=f13e67]: Add credits
+                - text: Run your next API request by adding credits.
+              - link "Go to Billing" [ref=f13e72]:
+                - /url: /settings/organization/billing/overview
+              - button [ref=f13e75]
+            - button "P Personal Organization" [ref=f13e80] [cursor=pointer]:
+              - generic [ref=f13e81]: P
+              - generic [ref=f13e82]:
+                - generic [ref=f13e83]: Personal
+                - generic [ref=f13e84]: Organization
+      - generic [ref=f13e93]:
+        - generic [ref=f13e95]:
+          - generic [ref=f13e96]: Tunnels
+          - generic [ref=f13e98]:
+            - link "Read docs" [ref=f13e99] [cursor=pointer]:
+              - /url: https://developers.openai.com/api/docs/guides/secure-mcp-tunnels
+            - link "Download tunnel-client" [ref=f13e101] [cursor=pointer]:
+              - /url: https://github.com/openai/tunnel-client/releases/latest
+            - button "Create tunnel" [ref=f13e104] [cursor=pointer]
+        - generic [ref=f13e107]:
+          - generic [ref=f13e108]: No tunnels yet
+          - generic [ref=f13e109]: Create your first tunnel to connect MCP servers behind a firewall.
+    - alert [ref=f13e112]:
+      - generic [ref=f13e114]:
+        - generic [ref=f13e115]:
+          - text: We use cookies and similar technologies to deliver, maintain, improve our services and for security purposes. Check our
+          - link "Cookie Policy" [ref=f13e116] [cursor=pointer]:
+            - /url: https://openai.com/policies/cookie-policy
+          - text: for details. Click 'Accept all' to let OpenAI and partners use cookies for these purposes. Click 'Reject all' to say no to cookies, except those that are strictly necessary. Choose
+          - button "'Manage Cookies'" [ref=f13e117] [cursor=pointer]
+          - text: to pick specific cookies you're okay with or to change your preferences.
+        - generic [ref=f13e118]:
+          - button "Reject all" [ref=f13e119] [cursor=pointer]
+          - button "Accept all" [ref=f13e121] [cursor=pointer]
+  - dialog [active] [ref=f13e128]:
+    - generic [ref=f13e129]:
+      - heading "Create tunnel" [level=2] [ref=f13e130]
+      - generic [ref=f13e131]:
+        - generic [ref=f13e132]:
+          - generic [ref=f13e133]: Name *
+          - textbox "e.g. West Coast MCP tunnel" [ref=f13e137]
+        - generic [ref=f13e138]:
+          - generic [ref=f13e139]: Description *
+          - textbox "Add a short description to help your team." [ref=f13e143]
+          - paragraph [ref=f13e144]: Required. Add a short description to help your team.
+        - generic [ref=f13e145]:
+          - generic [ref=f13e146]: Organizations
+          - button "org-D8UlP8p7mfGdqPR0F2rL7ElQ" [ref=f13e149] [cursor=pointer]
+          - paragraph [ref=f13e157]: Select one or more organizations, or search for an exact organization ID.
+        - generic [ref=f13e158]:
+          - generic [ref=f13e159]: ChatGPT workspaces
+          - button "Search workspaces by name or ID" [ref=f13e162] [cursor=pointer]
+          - paragraph [ref=f13e167]: Select ChatGPT workspaces, or search for an exact workspace ID.
+    - generic [ref=f13e168]:
+      - button "Cancel" [ref=f13e169] [cursor=pointer]
+      - button "Create" [disabled] [ref=f13e171]

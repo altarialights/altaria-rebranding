@@ -1,0 +1,116 @@
+---
+import '../styles/admin.css';
+import AdminIcon from '../components/admin/AdminIcon.astro';
+import type { AdminPrincipal } from '../lib/admin/access';
+import { createAdminCsrfToken, hasAdminPermission } from '../lib/admin/access';
+
+interface Props {
+  title: string;
+  eyebrow: string;
+  description: string;
+  active: string;
+  principal: AdminPrincipal;
+}
+const { title, eyebrow, description, active, principal } = Astro.props;
+const navigation = [
+  { label: 'Inicio', href: '/admin', icon: 'home', permission: 'admin:read' },
+  { label: 'CRM', href: '/admin/crm', icon: 'crm', permission: 'crm:read' },
+  { label: 'Cards', href: '/admin/cards', icon: 'cards', permission: 'cards:read' },
+  { label: 'Contenido', href: '/admin/contenido', icon: 'content', permission: 'content:read' },
+  { label: 'Informes', href: '/admin/informes', icon: 'reports', permission: 'reports:read' },
+  { label: 'Configuración', href: '/admin/configuracion', icon: 'settings', permission: 'settings:read' },
+] as const;
+const visibleNavigation = navigation.filter((item) => hasAdminPermission(principal, item.permission));
+const crmAvailable = hasAdminPermission(principal, 'crm:read');
+const initials = principal.displayName.trim().split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase()).join('');
+const csrf = createAdminCsrfToken(principal.sessionHash, process.env.WORKOS_COOKIE_PASSWORD || '');
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#0f2c56" />
+    <title>{title} · Altaria OS</title>
+    <link rel="icon" type="image/png" href="/brand/optimized/altaria-v2-favicon-32.png" />
+  </head>
+  <body class="admin-body">
+    <a class="admin-skip" href="#admin-content">Saltar al contenido</a>
+    <div class="admin-app">
+      <aside class="admin-sidebar" id="admin-sidebar" aria-label="Panel de navegación">
+        <button class="admin-sidebar-close" id="admin-sidebar-close" type="button" aria-label="Cerrar navegación"><AdminIcon name="close" /></button>
+        <div class="admin-sidebar-top">
+          <a class="admin-brand" href="/admin" aria-label="Altaria OS, inicio">
+            <img src="/brand/optimized/altaria-v2-logo-header-384.webp" alt="Altaria Lights" width="192" height="60" />
+            <span class="admin-brand-os">OS<span class="admin-brand-dot"></span></span>
+          </a>
+          <p class="admin-workspace-label">ESPACIO PRIVADO <span>·</span> ALTARIA LIGHTS</p>
+        </div>
+        <nav class="admin-navigation" aria-label="Principal">
+          <p class="admin-nav-caption">PLATAFORMA</p>
+          {visibleNavigation.map((item) => (
+            <a href={item.href} class:list={['admin-nav-link', { 'is-active': active === item.href }]} aria-current={active === item.href ? 'page' : undefined}>
+              <span class="admin-nav-icon"><AdminIcon name={item.icon} /></span>
+              <span>{item.label}</span>
+              {item.href === '/admin/informes' && <span class="admin-nav-pending" aria-label="En preparación">·</span>}
+            </a>
+          ))}
+        </nav>
+        <div class="admin-sidebar-bottom">
+          <div class="admin-security-note"><span class="admin-security-icon"><AdminIcon name="lock" /></span><span>Área privada<br /><strong>Acceso protegido</strong></span></div>
+          <a class="admin-site-link" href="/" target="_blank" rel="noopener noreferrer">Ver sitio público <span aria-hidden="true">↗</span></a>
+        </div>
+      </aside>
+
+      <div class="admin-main-shell">
+        <header class="admin-topbar">
+          <button class="admin-mobile-menu" id="admin-menu-toggle" type="button" aria-label="Abrir navegación" aria-expanded="false" aria-controls="admin-sidebar"><AdminIcon name="menu" /></button>
+          <div class="admin-topbar-crumb">ALTARIA OS <span>/</span> <strong>{active === '/admin' ? 'Inicio' : visibleNavigation.find((item) => item.href === active)?.label}</strong></div>
+          <div class="admin-topbar-actions">
+            <button class="admin-search-button" type="button" id="admin-search-trigger" aria-label="Buscar en Altaria OS" aria-haspopup="dialog" aria-controls="admin-search-dialog"><AdminIcon name="search" /><span>Buscar en Altaria OS</span><kbd>⌘ K</kbd></button>
+            <div class="admin-profile" title={principal.email}><span class="admin-avatar" aria-hidden="true">{initials || 'A'}</span><span class="admin-profile-name">{principal.displayName}</span></div>
+            <form action="/api/admin/session/revoke" method="post"><input type="hidden" name="csrf" value={csrf} /><button class="admin-signout" type="submit" aria-label="Cerrar y revocar esta sesión">Salir</button></form>
+          </div>
+        </header>
+
+        <main id="admin-content" class="admin-content">
+          <div class="admin-page-intro"><div><p class="admin-eyebrow">{eyebrow}</p><h1>{title}</h1><p class="admin-description">{description}</p></div><span class="admin-phase-pill"><span></span> ENTORNO TEST</span></div>
+          <slot />
+          <footer class="admin-footer"><span>ALTARIA OS <span aria-hidden="true">/</span> Diseñado para trabajar con claridad.</span><span>Entorno privado</span></footer>
+        </main>
+      </div>
+    </div>
+    <dialog id="admin-search-dialog" class="admin-search-dialog" aria-labelledby="admin-search-title">
+      <div class="admin-dialog-head"><div><p class="admin-eyebrow">BÚSQUEDA GLOBAL</p><h2 id="admin-search-title">Encuentra lo importante.</h2></div><button type="button" id="admin-search-close" aria-label="Cerrar búsqueda"><AdminIcon name="close" /></button></div>
+      <label for="admin-search-input">Buscar</label>
+      {crmAvailable ? <form action="/admin/crm/empresas" method="get" class="admin-dialog-input"><AdminIcon name="search" /><input id="admin-search-input" name="q" type="search" placeholder="Buscar empresa" autocomplete="off" /><button type="submit">Buscar</button></form> : <div class="admin-dialog-input"><AdminIcon name="search" /><input id="admin-search-input" type="search" placeholder="Buscar empresa" autocomplete="off" disabled /></div>}
+      <p>{crmAvailable ? 'Busca empresas por nombre. Los demás módulos incorporarán su búsqueda cuando estén disponibles.' : 'La búsqueda estará disponible al activar un módulo compatible.'}</p>
+      <div class="admin-dialog-links">{hasAdminPermission(principal, 'crm:read') && <a href="/admin/crm">Ir a CRM <span aria-hidden="true">↗</span></a>}{hasAdminPermission(principal, 'cards:read') && <a href="/admin/cards">Ir a Cards <span aria-hidden="true">↗</span></a>}</div>
+    </dialog>
+    <script>
+      const dialog = document.querySelector<HTMLDialogElement>('#admin-search-dialog');
+      document.querySelector('#admin-search-trigger')?.addEventListener('click', () => dialog?.showModal());
+      document.querySelector('#admin-search-close')?.addEventListener('click', () => dialog?.close());
+      document.addEventListener('keydown', (event) => {
+        if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); dialog?.showModal(); }
+      });
+      const toggle = document.querySelector<HTMLButtonElement>('#admin-menu-toggle');
+      const sidebar = document.querySelector<HTMLElement>('#admin-sidebar');
+      const closeSidebar = () => {
+        sidebar?.classList.remove('is-open');
+        toggle?.setAttribute('aria-expanded', 'false');
+        toggle?.setAttribute('aria-label', 'Abrir navegación');
+      };
+      toggle?.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') !== 'true';
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Cerrar navegación' : 'Abrir navegación');
+        sidebar?.classList.toggle('is-open', open);
+      });
+      document.querySelector('#admin-sidebar-close')?.addEventListener('click', closeSidebar);
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && sidebar?.classList.contains('is-open')) closeSidebar(); });
+      sidebar?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeSidebar));
+    </script>
+  </body>
+</html>

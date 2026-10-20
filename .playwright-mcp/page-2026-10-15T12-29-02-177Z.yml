@@ -1,0 +1,97 @@
+- generic [ref=f29e3]:
+  - generic [ref=f29e4]:
+    - link "Skip to main content" [ref=f29e5] [cursor=pointer]:
+      - /url: "#main-_R_iv5tamcnmlb_"
+    - navigation "Settings" [ref=f29e7]:
+      - link "Back to WorkOS" [ref=f29e9] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f29e17]:
+        - generic [ref=f29e18]:
+          - heading "Account" [level=3] [ref=f29e20]
+          - list [ref=f29e21]:
+            - listitem [ref=f29e22]:
+              - link "Profile" [ref=f29e23] [cursor=pointer]:
+                - /url: /settings/account/profile
+        - generic [ref=f29e29]:
+          - heading "Team" [level=3] [ref=f29e31]
+          - list [ref=f29e32]:
+            - listitem [ref=f29e33]:
+              - link "Settings" [ref=f29e34] [cursor=pointer]:
+                - /url: /settings/team
+            - listitem [ref=f29e40]:
+              - link "Members" [ref=f29e41] [cursor=pointer]:
+                - /url: /settings/team/members
+            - listitem [ref=f29e47]:
+              - link "Exports" [ref=f29e48] [cursor=pointer]:
+                - /url: /settings/team/exports
+            - listitem [ref=f29e54]:
+              - link "Authentication" [ref=f29e55] [cursor=pointer]:
+                - /url: /settings/team/authentication
+            - listitem [ref=f29e61]:
+              - link "Billing" [ref=f29e62] [cursor=pointer]:
+                - /url: /settings/team/billing
+    - main [ref=f29e70]:
+      - generic [ref=f29e71]:
+        - generic [ref=f29e73]:
+          - heading "Billing" [level=2] [ref=f29e74]
+          - generic [ref=f29e75]:
+            - text: Manage your payment method, invoices, and usage in one place.
+            - link "Learn more" [ref=f29e76] [cursor=pointer]:
+              - /url: https://workos.com/docs/dashboard/billing
+        - generic [ref=f29e80]:
+          - generic [ref=f29e81]:
+            - generic [ref=f29e84]:
+              - paragraph [ref=f29e85]: Last bill
+              - paragraph [ref=f29e86]: $0.00
+            - generic [ref=f29e88]:
+              - generic [ref=f29e89]:
+                - paragraph [ref=f29e90]: Next payment due
+                - paragraph [ref=f29e91]: —
+              - link "View payment history" [ref=f29e93] [cursor=pointer]:
+                - /url: /settings/team/billing/history
+            - generic [ref=f29e99]:
+              - paragraph [ref=f29e100]: Payment information
+              - paragraph [ref=f29e101]: Card number
+          - generic [ref=f29e103]:
+            - heading "Current usage" [level=1] [ref=f29e104]
+            - generic [ref=f29e105]:
+              - generic [ref=f29e114]:
+                - generic [ref=f29e115]: Loading
+                - generic [ref=f29e116]: Loading
+              - table [ref=f29e122]:
+                - rowgroup [ref=f29e123]:
+                  - row [ref=f29e124]:
+                    - columnheader "Item" [ref=f29e125]
+                    - columnheader "Used" [ref=f29e126]
+                    - columnheader [ref=f29e127]
+                    - columnheader "Price" [ref=f29e128]
+                - rowgroup [ref=f29e129]:
+                  - row [ref=f29e130]:
+                    - cell [ref=f29e131]: Placeholder content
+                    - cell [ref=f29e132]: $$$$$
+                    - cell [ref=f29e133]: $$$$$ / month
+                    - cell [ref=f29e134]: $1,000.00
+                  - row [ref=f29e135]:
+                    - cell [ref=f29e136]: Placeholder content
+                    - cell [ref=f29e137]: $$$$$
+                    - cell [ref=f29e138]: $$$$$ / month
+                    - cell [ref=f29e139]: $1,000.00
+                  - row [ref=f29e140]:
+                    - cell [ref=f29e141]: Placeholder content
+                    - cell [ref=f29e142]: $$$$$
+                    - cell [ref=f29e143]: $$$$$ / month
+                    - cell [ref=f29e144]: $1,000.00
+                  - row [ref=f29e145]:
+                    - cell [ref=f29e146]: Placeholder content
+                    - cell [ref=f29e147]: $$$$$
+                    - cell [ref=f29e148]: $$$$$ / month
+                    - cell [ref=f29e149]: $1,000.00
+                  - row [ref=f29e150]:
+                    - cell [ref=f29e151]: Placeholder content
+                    - cell [ref=f29e152]: $$$$$
+                    - cell [ref=f29e153]: $$$$$ / month
+                    - cell [ref=f29e154]: $1,000.00
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list

@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
 import { chromium } from 'playwright';
+import { assertLocalQaUrl } from './lib/local-qa-url.mjs';
 import { writeFileSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
 
 const BASE = process.env.BASE_URL ?? 'http://127.0.0.1:4335/';
+assertLocalQaUrl(BASE);
 const OUT = path.resolve('review/rhythm/scroll-qa.json');
 const TIERS = ['balanced', 'lite'];
 const HOLDS = {

@@ -1,0 +1,62 @@
+// Applies only the append-only Phase 5 migration to the marked, approved Turso TEST database.
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import { connect } from '@tursodatabase/serverless';
+import { assertRemoteTestMarker, assertTestDatabase, assertTestStripe,
+  assertStagingWorkOS, readProjectEnv } from './lib/test-isolation.mjs';
+
+if (!process.argv.includes('--apply-test') || process.env.CI || process.env.VERCEL || process.env.VERCEL_ENV) {
+  throw new Error('Se requiere --apply-test en entorno local.');
+}
+const test = readProjectEnv('.env.test'), production = readProjectEnv('.env');
+if (!test) throw new Error('Falta .env.test.');
+assertTestDatabase({ targetUrl:test.TURSO_DATABASE_URL,token:test.TURSO_AUTH_TOKEN,
+  approvedUrl:test.ALTARIA_TEST_TURSO_URL,productionEnv:production });
+assertTestStripe({ mode:test.STRIPE_MODE,secretKey:test.STRIPE_SECRET_KEY,
+  webhookSecret:test.STRIPE_WEBHOOK_SECRET,productionEnv:production });
+assertStagingWorkOS({ clientId:test.WORKOS_CLIENT_ID,apiKey:test.WORKOS_API_KEY,
+  redirectUri:test.WORKOS_REDIRECT_URI,cookiePassword:test.WORKOS_COOKIE_PASSWORD,productionEnv:production });
+const payload=JSON.parse(Buffer.from(test.TURSO_AUTH_TOKEN.split('.')[1]??'','base64url').toString());
+if (!Number.isFinite(payload.exp) || payload.exp*1000<=Date.now()) throw new Error('Token Turso TEST caducado.');
+const db=connect({url:test.TURSO_DATABASE_URL,authToken:test.TURSO_AUTH_TOKEN});
+await assertRemoteTestMarker(db,test.ALTARIA_TEST_DB_MARKER);
+const names=['001_create_digital_assessment.sql','002_create_card_orders.sql',
+  '003_add_card_order_stripe_environment.sql','004_altaria_cards_catalog_and_inquiries.sql',
+  '005_card_artwork.sql','006_card_artwork_3mb.sql','007_altaria_os_identity.sql',
+  '008_altaria_os_crm.sql','009_altaria_os_proposals_gmail.sql',
+  '010_altaria_os_proposal_immutability.sql','011_altaria_os_cards_production.sql',
+  '012_altaria_os_cards_payment_guards.sql','013_altaria_os_cards_dynamic_links.sql',
+  '014_altaria_os_cards_link_replacements.sql','015_altaria_os_cards_link_verification.sql',
+  '016_altaria_os_cards_destination_analytics.sql'];
+const hashes=names.map(name=>({name,sha256:createHash('sha256').update(
+  readFileSync(new URL(`../migrations/${name}`,import.meta.url))).digest('hex')}));
+const applied=await db.all('SELECT name,sha256 FROM altaria_schema_migrations ORDER BY name');
+if (![12,13,14,15,16].includes(applied.length)) throw new Error('Historial TEST inesperado.');
+for (let i=0;i<applied.length;i++) {
+  if (applied[i].name!==hashes[i].name || applied[i].sha256!==hashes[i].sha256) {
+    throw new Error(`Migración TEST ausente o alterada: ${hashes[i].name}`);
+  }
+}
+if (applied.length>=13) {
+  console.log(`Migraciones 001–${String(applied.length).padStart(3,'0')} verificadas únicamente en Turso TEST.`);
+  process.exit(0);
+}
+const unexpected=await db.all(`SELECT name FROM sqlite_master WHERE name IN
+  ('cards_dynamic_links','cards_destination_targets','cards_redirect_domains','cards_open_events','cards_ready_links_guard')`);
+if (unexpected.length) throw new Error('Estructuras Phase 5 inesperadas; no se aplica 013.');
+const name=names[12],sql=readFileSync(new URL(`../migrations/${name}`,import.meta.url),'utf8');
+const start=sql.indexOf('CREATE TRIGGER');
+if (start<0) throw new Error('Migración 013 incompleta.');
+const definitions=sql.slice(0,start).replace(/^\s*--[^\r\n]*/gm,'').split(';')
+  .map(s=>s.trim()).filter(Boolean).map(s=>({sql:s,args:[]}));
+const triggers=sql.slice(start).split(/(?=CREATE TRIGGER)/g).map(s=>s.trim())
+  .filter(Boolean).map(s=>({sql:s,args:[]}));
+if (definitions.length!==14 || triggers.length!==12 || triggers.some(s=>!s.sql.endsWith('END;'))) {
+  throw new Error('Manifiesto 013 inesperado.');
+}
+await assertRemoteTestMarker(db,test.ALTARIA_TEST_DB_MARKER);
+await db.batch([...definitions,...triggers,{sql:`INSERT INTO altaria_schema_migrations
+  (name,sha256,applied_at) VALUES (?,?,?)`,args:[name,hashes[12].sha256,new Date().toISOString()]}],'immediate');
+await assertRemoteTestMarker(db,test.ALTARIA_TEST_DB_MARKER);
+if ((await db.all('PRAGMA foreign_key_check')).length) throw new Error('Integridad referencial TEST incorrecta.');
+console.log('Migración 013 aplicada únicamente en Turso TEST; marcador, hash y referencias verificados.');

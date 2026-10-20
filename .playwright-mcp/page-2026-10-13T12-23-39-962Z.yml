@@ -1,0 +1,220 @@
+- generic [active] [ref=f122e1]:
+  - link "Saltar al contenido" [ref=f122e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f122e3]:
+    - complementary "Panel de navegación" [ref=f122e4]:
+      - generic [ref=f122e5]:
+        - link "Altaria OS, inicio" [ref=f122e6] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f122e7]
+          - generic [ref=f122e8]: OS
+        - paragraph [ref=f122e10]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f122e11]:
+        - paragraph [ref=f122e12]: PLATAFORMA
+        - link "Inicio" [ref=f122e13] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f122e18] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards" [ref=f122e23] [cursor=pointer]:
+          - /url: /admin/cards
+        - link "Contenido" [ref=f122e28] [cursor=pointer]:
+          - /url: /admin/contenido
+        - link "Informes En preparación" [ref=f122e33] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f122e37]: Informes
+          - generic "En preparación" [ref=f122e38]: ·
+        - link "Configuración" [ref=f122e39] [cursor=pointer]:
+          - /url: /admin/configuracion
+      - generic [ref=f122e44]:
+        - generic [ref=f122e49]:
+          - text: Área privada
+          - strong [ref=f122e50]: Acceso protegido
+        - link "Ver sitio público" [ref=f122e51] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f122e52]: ↗
+    - generic [ref=f122e53]:
+      - banner [ref=f122e54]:
+        - generic [ref=f122e55]:
+          - text: ALTARIA OS /
+          - strong [ref=f122e56]: Contenido
+        - generic [ref=f122e57]:
+          - button "Buscar en Altaria OS" [ref=f122e58] [cursor=pointer]:
+            - generic [ref=f122e62]: ⌘ K
+          - generic "altarialights@gmail.com" [ref=f122e63]:
+            - generic [aria-hidden] [ref=f122e64]: A
+          - button "Cerrar y revocar esta sesión" [ref=f122e67] [cursor=pointer]: Salir
+      - main [ref=f122e68]:
+        - generic [ref=f122e69]:
+          - generic [ref=f122e70]:
+            - paragraph [ref=f122e71]: CONTENIDO / PLANIFICACIÓN
+            - heading "Calendario editorial" [level=1] [ref=f122e72]
+            - paragraph [ref=f122e73]: Fechas y estados reales de cada marca. La programación no publica en redes.
+          - generic [ref=f122e74]: ENTORNO TEST
+        - navigation "Contenido" [ref=f122e76]:
+          - link "Calendario" [ref=f122e77] [cursor=pointer]:
+            - /url: /admin/contenido
+          - link "Producción" [ref=f122e78] [cursor=pointer]:
+            - /url: /admin/contenido/produccion
+          - link "Biblioteca" [ref=f122e79] [cursor=pointer]:
+            - /url: /admin/contenido/biblioteca
+          - link "Marcas" [ref=f122e80] [cursor=pointer]:
+            - /url: /admin/contenido/marcas
+        - generic [ref=f122e81]:
+          - generic [ref=f122e82]:
+            - paragraph [ref=f122e83]: ALTARIA CONTENT OS · TEST
+            - heading "Planifica con contexto." [level=2] [ref=f122e84]
+            - paragraph [ref=f122e85]: La agenda muestra piezas registradas, revisiones y fechas previstas. Los huecos permanecen vacíos hasta crear una idea.
+          - link "Crear una idea ↗" [ref=f122e86] [cursor=pointer]:
+            - /url: /admin/contenido/produccion#crear-pieza
+        - form "Filtrar calendario" [ref=f122e87]:
+          - generic [ref=f122e88]:
+            - text: Marca
+            - combobox "Marca" [ref=f122e89]:
+              - option "Todas las autorizadas" [selected]
+              - option "Altaria Cards"
+              - option "Martín Altaria"
+              - option "Restaurante De Zamorano"
+          - generic [ref=f122e90]:
+            - text: Canal
+            - combobox "Canal" [ref=f122e91]:
+              - option "Todos" [selected]
+              - option "Instagram"
+              - option "LinkedIn"
+          - generic [ref=f122e92]:
+            - text: Responsable
+            - combobox "Responsable" [ref=f122e93]:
+              - option "Todos" [selected]
+              - option "altarialights@gmail.com"
+          - button "Filtrar" [ref=f122e94] [cursor=pointer]
+        - generic [ref=f122e95]:
+          - heading "octubre de 2026" [level=2] [ref=f122e96]
+          - generic "Vista del calendario" [ref=f122e97]:
+            - link "Mes" [ref=f122e98] [cursor=pointer]:
+              - /url: /admin/contenido?vista=mes&mes=2026-10&dia=2026-10-13
+            - link "Semana" [ref=f122e99] [cursor=pointer]:
+              - /url: /admin/contenido?vista=semana&mes=2026-10&dia=2026-10-13
+            - link "Lista" [ref=f122e100] [cursor=pointer]:
+              - /url: /admin/contenido?vista=lista&mes=2026-10&dia=2026-10-13
+          - generic [ref=f122e101]:
+            - link "Mes anterior" [ref=f122e102] [cursor=pointer]:
+              - /url: /admin/contenido?vista=mes&mes=2026-09&dia=2026-10-13
+              - text: ←
+            - link "Mes siguiente" [ref=f122e103] [cursor=pointer]:
+              - /url: /admin/contenido?vista=mes&mes=2026-11&dia=2026-10-13
+              - text: →
+        - region "Calendario desplazable" [ref=f122e104]:
+          - group "octubre de 2026" [ref=f122e105]:
+            - generic [ref=f122e106]: Lun
+            - generic [ref=f122e107]: Mar
+            - generic [ref=f122e108]: Mié
+            - generic [ref=f122e109]: Jue
+            - generic [ref=f122e110]: Vie
+            - generic [ref=f122e111]: Sáb
+            - generic [ref=f122e112]: Dom
+            - group "2026-09-28" [ref=f122e113]:
+              - strong [ref=f122e114]: "28"
+            - group "2026-09-29" [ref=f122e115]:
+              - strong [ref=f122e116]: "29"
+            - group "2026-09-30" [ref=f122e117]:
+              - strong [ref=f122e118]: "30"
+            - group "2026-10-01" [ref=f122e119]:
+              - strong [ref=f122e120]: "1"
+            - group "2026-10-02" [ref=f122e121]:
+              - strong [ref=f122e122]: "2"
+            - group "2026-10-03" [ref=f122e123]:
+              - strong [ref=f122e124]: "3"
+            - group "2026-10-04" [ref=f122e125]:
+              - strong [ref=f122e126]: "4"
+            - group "2026-10-05" [ref=f122e127]:
+              - strong [ref=f122e128]: "5"
+            - group "2026-10-06" [ref=f122e129]:
+              - strong [ref=f122e130]: "6"
+            - group "2026-10-07" [ref=f122e131]:
+              - strong [ref=f122e132]: "7"
+            - group "2026-10-08" [ref=f122e133]:
+              - strong [ref=f122e134]: "8"
+            - group "2026-10-09" [ref=f122e135]:
+              - strong [ref=f122e136]: "9"
+            - group "2026-10-10" [ref=f122e137]:
+              - strong [ref=f122e138]: "10"
+            - group "2026-10-11" [ref=f122e139]:
+              - strong [ref=f122e140]: "11"
+            - group "2026-10-12" [ref=f122e141]:
+              - strong [ref=f122e142]: "12"
+            - group "2026-10-13" [ref=f122e143]:
+              - strong [ref=f122e144]: "13"
+            - group "2026-10-14" [ref=f122e145]:
+              - strong [ref=f122e146]: "14"
+            - group "2026-10-15" [ref=f122e147]:
+              - strong [ref=f122e148]: "15"
+            - group "2026-10-16" [ref=f122e149]:
+              - strong [ref=f122e150]: "16"
+            - group "2026-10-17" [ref=f122e151]:
+              - strong [ref=f122e152]: "17"
+            - group "2026-10-18" [ref=f122e153]:
+              - strong [ref=f122e154]: "18"
+            - group "2026-10-19" [ref=f122e155]:
+              - strong [ref=f122e156]: "19"
+            - group "2026-10-20" [ref=f122e157]:
+              - strong [ref=f122e158]: "20"
+            - group "2026-10-21" [ref=f122e159]:
+              - strong [ref=f122e160]: "21"
+              - link "TEST · Recorrido editorial sintético 6.5E Altaria Cards · Lista" [ref=f122e161] [cursor=pointer]:
+                - /url: /admin/contenido/piezas/4ddf66bc-d932-4703-9d71-40a76d52146d
+                - text: TEST · Recorrido editorial sintético 6.5EAltaria Cards · Lista
+            - group "2026-10-22" [ref=f122e162]:
+              - strong [ref=f122e163]: "22"
+            - group "2026-10-23" [ref=f122e164]:
+              - strong [ref=f122e165]: "23"
+            - group "2026-10-24" [ref=f122e166]:
+              - strong [ref=f122e167]: "24"
+            - group "2026-10-25" [ref=f122e168]:
+              - strong [ref=f122e169]: "25"
+            - group "2026-10-26" [ref=f122e170]:
+              - strong [ref=f122e171]: "26"
+            - group "2026-10-27" [ref=f122e172]:
+              - strong [ref=f122e173]: "27"
+            - group "2026-10-28" [ref=f122e174]:
+              - strong [ref=f122e175]: "28"
+            - group "2026-10-29" [ref=f122e176]:
+              - strong [ref=f122e177]: "29"
+            - group "2026-10-30" [ref=f122e178]:
+              - strong [ref=f122e179]: "30"
+            - group "2026-10-31" [ref=f122e180]:
+              - strong [ref=f122e181]: "31"
+            - group "2026-11-01" [ref=f122e182]:
+              - strong [ref=f122e183]: "1"
+            - group "2026-11-02" [ref=f122e184]:
+              - strong [ref=f122e185]: "2"
+            - group "2026-11-03" [ref=f122e186]:
+              - strong [ref=f122e187]: "3"
+            - group "2026-11-04" [ref=f122e188]:
+              - strong [ref=f122e189]: "4"
+            - group "2026-11-05" [ref=f122e190]:
+              - strong [ref=f122e191]: "5"
+            - group "2026-11-06" [ref=f122e192]:
+              - strong [ref=f122e193]: "6"
+            - group "2026-11-07" [ref=f122e194]:
+              - strong [ref=f122e195]: "7"
+            - group "2026-11-08" [ref=f122e196]:
+              - strong [ref=f122e197]: "8"
+        - region [ref=f122e198]:
+          - generic [ref=f122e200]:
+            - paragraph [ref=f122e201]: MI TRABAJO
+            - heading "Tareas editoriales pendientes" [level=2] [ref=f122e202]
+          - generic [ref=f122e204]:
+            - generic [ref=f122e205]:
+              - strong [ref=f122e206]: Revisar pieza editorial
+              - generic [ref=f122e207]: Altaria Cards
+            - link "Abrir pieza ↗" [ref=f122e208] [cursor=pointer]:
+              - /url: /admin/contenido/piezas/4ddf66bc-d932-4703-9d71-40a76d52146d
+        - paragraph [ref=f122e209]: PUBLICADA solo aparecerá tras evidencia registrada. En TEST cualquier confirmación es sintética y se identifica como simulación.
+        - generic [ref=f122e210]:
+          - generic [ref=f122e211]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f122e212]: Entorno privado
+  - generic [ref=f122e215]:
+    - button [ref=f122e216]
+    - button [ref=f122e222]
+    - button [ref=f122e226]
+    - button [ref=f122e231]

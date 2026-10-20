@@ -1,0 +1,92 @@
+- generic [ref=f17e1]:
+  - generic [ref=f17e7]:
+    - generic [ref=f17e23]:
+      - complementary [ref=f17e730]:
+        - link [ref=f17e731] [cursor=pointer]:
+          - /url: /welcome?pli=1&project=project-2170ef0c-fe34-4f35-af9
+          - generic [ref=f17e26]: Ir al contenido principal
+        - button [ref=f17e732]:
+          - generic [ref=f17e28]: Combinación de teclas para acceso directo
+        - link [ref=f17e733] [cursor=pointer]:
+          - /url: https://cloud.google.com/docs/accessibility?hl=es_419
+          - generic [ref=f17e30]: Ayuda sobre la accesibilidad
+        - link [ref=f17e736] [cursor=pointer]:
+          - /url: https://support.google.com/accessibility/contact/feedback?hl=es_419
+          - generic [ref=f17e36]: Comentarios sobre accesibilidad
+      - banner [ref=f17e42]:
+        - generic [ref=f17e43]:
+          - navigation [ref=f17e46]:
+            - button [ref=f17e739] [cursor=pointer]
+          - link [ref=f17e740] [cursor=pointer]:
+            - /url: /?organizationId=415081262555
+        - search [ref=f17e741]:
+          - combobox [ref=f17e72]:
+            - searchbox [ref=f17e742]
+          - button [disabled]:
+            - generic: Buscar
+        - generic [ref=f17e74]:
+          - generic [ref=f17e75]:
+            - button [ref=f17e743] [cursor=pointer]
+            - button [ref=f17e744] [cursor=pointer]
+            - button [ref=f17e745] [cursor=pointer]
+            - button [ref=f17e746] [cursor=pointer]
+          - button [ref=f17e747]
+    - main [ref=f17e131]:
+      - generic [ref=f17e621]:
+        - heading [level=1] [ref=f17e748]:
+          - generic [ref=f17e628]: Proyecto nuevo
+        - generic [ref=f17e632]:
+          - generic [ref=f17e634]:
+            - generic [ref=f17e636] [cursor=pointer]:
+              - generic [ref=f17e637]:
+                - text: Nombre del proyecto
+                - generic [aria-hidden] [ref=f17e638]: "*"
+              - textbox [ref=f17e749]: My Project 82535
+              - button [ref=f17e750]
+            - generic [ref=f17e649]:
+              - text: "ID del proyecto:"
+              - strong [ref=f17e650]: resonant-idea-511020-h9.
+              - strong [ref=f17e651]: No se puede cambiar más adelante.
+              - button [ref=f17e751]:
+                - generic [ref=f17e653]: Editar
+          - generic [ref=f17e660] [cursor=pointer]:
+            - generic [ref=f17e661]:
+              - text: Cuenta de facturación
+              - generic [aria-hidden] [ref=f17e662]: "*"
+            - combobox [expanded] [ref=f17e752]
+          - generic [ref=f17e676]:
+            - generic [ref=f17e678]:
+              - generic [ref=f17e680] [cursor=pointer]:
+                - generic [ref=f17e681]:
+                  - text: Organización
+                  - generic [aria-hidden] [ref=f17e682]: "*"
+                - combobox [ref=f17e753]:
+                  - generic [ref=f17e685]: altarialights-org
+                - button [ref=f17e754]
+              - generic [ref=f17e698]: Selecciona una organización para vincularla a un proyecto. No podrás cambiar esta selección más adelante.
+            - generic [ref=f17e703]:
+              - generic [ref=f17e705] [cursor=pointer]:
+                - generic [ref=f17e706]:
+                  - text: Recurso superior
+                  - generic [aria-hidden] [ref=f17e707]: "*"
+                - textbox [ref=f17e755]: altarialights-org
+                - button [ref=f17e756]:
+                  - generic [ref=f17e719]: Explorar
+              - generic [ref=f17e720]: Selecciona la organización o carpeta en la que se creará este recurso
+          - button [ref=f17e757]:
+            - generic [ref=f17e725]: Crear
+          - button [ref=f17e758]:
+            - generic [ref=f17e727]: Cancelar
+  - iframe [aria-hidden] [ref=f17e405]
+  - iframe [aria-hidden] [ref=f17e407]
+  - iframe [aria-hidden] [ref=f17e408]
+  - iframe [aria-hidden] [ref=f17e409]
+  - dialog "Cuenta de facturación *" [ref=f17e761]:
+    - generic [ref=f17e763]:
+      - generic [ref=f17e765]:
+        - generic [ref=f17e769]: Filtrar
+        - textbox "Filtrar" [active] [ref=f17e770]:
+          - /placeholder: Escribe para filtrar
+      - listbox "Opciones" [ref=f17e771]:
+        - group "Cuentas de facturación que administras" [ref=f17e772]:
+          - option "Mi cuenta de facturación" [ref=f17e774] [cursor=pointer]

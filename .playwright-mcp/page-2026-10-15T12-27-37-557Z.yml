@@ -1,0 +1,144 @@
+- generic [ref=f5e1]:
+  - generic [ref=f5e8]:
+    - link "Saltar al contenido" [ref=f5e10] [cursor=pointer]:
+      - /url: "#_r_7f_"
+    - generic [ref=f5e11]:
+      - complementary [ref=f5e12]:
+        - generic [ref=f5e16]:
+          - navigation "Navegación de la aplicación" [ref=f5e17]:
+            - generic [ref=f5e18]:
+              - button "Inicio" [ref=f5e20] [cursor=pointer]
+              - button "Espacio" [ref=f5e25] [cursor=pointer]
+              - button "Tareas programadas" [ref=f5e30] [cursor=pointer]
+              - button "Complementos" [ref=f5e35] [cursor=pointer]
+              - button "Explorar" [ref=f5e40] [cursor=pointer]
+              - button "Sitios" [ref=f5e51] [cursor=pointer]
+            - button "Abrir menú de perfil" [ref=f5e61] [cursor=pointer]
+          - navigation "Configuración" [ref=f5e68]:
+            - generic [ref=f5e69]:
+              - generic [ref=f5e70]:
+                - heading "Ajustes" [level=1] [ref=f5e72]
+                - generic [ref=f5e74]:
+                  - generic [ref=f5e78]: Buscar ajustes
+                  - searchbox "Buscar ajustes" [ref=f5e79]
+              - generic [ref=f5e80]:
+                - generic [ref=f5e81]:
+                  - generic [ref=f5e82]: Personal
+                  - generic [ref=f5e84]:
+                    - button "General" [ref=f5e85] [cursor=pointer]
+                    - button "Apariencia" [ref=f5e93] [cursor=pointer]
+                    - button "Notificaciones" [ref=f5e108] [cursor=pointer]
+                    - button "Perfil" [ref=f5e115] [cursor=pointer]
+                    - button "Seguridad e inicio de sesión" [active] [ref=f5e125] [cursor=pointer]
+                    - button "Cuenta" [ref=f5e134] [cursor=pointer]
+                    - button "Chats archivados" [ref=f5e142] [cursor=pointer]
+                    - button "Controles parentales" [ref=f5e150] [cursor=pointer]
+                    - button "Contacto de confianza" [ref=f5e157] [cursor=pointer]
+                    - button "Voz" [ref=f5e164] [cursor=pointer]
+                    - button "Almacenamiento" [ref=f5e172] [cursor=pointer]
+                    - button "Personalización" [ref=f5e178] [cursor=pointer]
+                    - button "Mascotas" [ref=f5e187] [cursor=pointer]
+                    - button "Teclado" [ref=f5e196] [cursor=pointer]
+                    - button "Uso" [ref=f5e203] [cursor=pointer]
+                    - button "Facturación" [ref=f5e212] [cursor=pointer]
+                    - button "Controles de datos" [ref=f5e218] [cursor=pointer]
+                - generic [ref=f5e225]:
+                  - generic [ref=f5e226]: Integraciones
+                  - generic [ref=f5e228]:
+                    - button "Complementos" [ref=f5e229] [cursor=pointer]
+                    - button "Contraseñas" [ref=f5e235] [cursor=pointer]
+                    - button "Ordenador en la nube" [ref=f5e243] [cursor=pointer]
+                - generic [ref=f5e253]:
+                  - generic [ref=f5e254]: Programación
+                  - generic [ref=f5e256]:
+                    - button "Codex Cloud" [ref=f5e257] [cursor=pointer]
+                    - button "Codex Cloud (versión anterior)" [ref=f5e264] [cursor=pointer]
+                    - button "Revisión de código" [ref=f5e270] [cursor=pointer]
+        - generic:
+          - separator
+      - generic [ref=f5e279]:
+        - main [ref=f5e281]:
+          - generic [ref=f5e468]:
+            - heading "Seguridad e inicio de sesión" [level=1] [ref=f5e474]
+            - generic [ref=f5e476]:
+              - generic [ref=f5e477]:
+                - generic [ref=f5e478]: Cómo inicias sesión
+                - generic [ref=f5e482]:
+                  - button "Llaves de acceso y llaves de seguridad Usa una alternativa a las contraseñas resistente al phishing 1" [ref=f5e484] [cursor=pointer]:
+                    - generic [ref=f5e486]:
+                      - generic [ref=f5e487]: Llaves de acceso y llaves de seguridad
+                      - generic [ref=f5e488]: Usa una alternativa a las contraseñas resistente al phishing
+                    - generic [ref=f5e489]: "1"
+                  - button "Contraseña Gestiona la contraseña que usas para iniciar sesión Añadir" [ref=f5e493] [cursor=pointer]:
+                    - generic [ref=f5e495]:
+                      - generic [ref=f5e496]: Contraseña
+                      - generic [ref=f5e497]: Gestiona la contraseña que usas para iniciar sesión
+                    - generic [ref=f5e498]: Añadir
+              - generic [ref=f5e501]:
+                - generic [ref=f5e502]: Autenticación multifactor (MFA)
+                - generic [ref=f5e505]:
+                  - generic [ref=f5e506]: Añade otro método para evitar bloqueos
+                  - generic [ref=f5e515]:
+                    - generic [ref=f5e516]:
+                      - generic [ref=f5e518]:
+                        - generic [ref=f5e519]: Aplicación de autenticación
+                        - generic [ref=f5e520]: Usa códigos de un solo uso de una aplicación de autenticación.
+                      - switch "Aplicación de autenticación" [ref=f5e522] [cursor=pointer]
+                    - generic [ref=f5e525]:
+                      - generic [ref=f5e527]:
+                        - generic [ref=f5e528]: Mensaje de texto
+                        - generic [ref=f5e529]: Recibe códigos de verificación de 6 dígitos por SMS o WhatsApp según el prefijo de tu país.
+                      - switch "Mensaje de texto" [ref=f5e531] [cursor=pointer]
+              - generic [ref=f5e534]:
+                - generic [ref=f5e535]: Sesiones
+                - generic [ref=f5e539]:
+                  - button "Sesiones activas Consulta todos los dispositivos que han accedido a tu cuenta. Puedes revisar las sesiones activas, quitar dispositivos de confianza o usar Cerrar todas las sesiones para finalizarlas todas. 34" [ref=f5e541] [cursor=pointer]:
+                    - generic [ref=f5e543]:
+                      - generic [ref=f5e544]: Sesiones activas
+                      - generic [ref=f5e545]: Consulta todos los dispositivos que han accedido a tu cuenta. Puedes revisar las sesiones activas, quitar dispositivos de confianza o usar Cerrar todas las sesiones para finalizarlas todas.
+                    - generic [ref=f5e546]: "34"
+                  - button "Historial de seguridad Revisa la actividad de inicio de sesión y los cambios en tus ajustes de seguridad." [ref=f5e550] [cursor=pointer]:
+                    - generic [ref=f5e552]:
+                      - generic [ref=f5e553]: Historial de seguridad
+                      - generic [ref=f5e554]: Revisa la actividad de inicio de sesión y los cambios en tus ajustes de seguridad.
+              - generic [ref=f5e558]:
+                - generic [ref=f5e559]: Conexiones de inicio de sesión
+                - button "Iniciar sesión con ChatGPT Revisa otras aplicaciones y sitios web en los que has iniciado sesión con ChatGPT y gestiona a qué pueden acceder 1" [ref=f5e565] [cursor=pointer]:
+                  - generic [ref=f5e567]:
+                    - generic [ref=f5e568]: Iniciar sesión con ChatGPT
+                    - generic [ref=f5e569]: Revisa otras aplicaciones y sitios web en los que has iniciado sesión con ChatGPT y gestiona a qué pueden acceder
+                  - generic [ref=f5e570]: "1"
+              - generic [ref=f5e573]:
+                - generic [ref=f5e574]: Seguridad avanzada
+                - generic [ref=f5e578]:
+                  - generic [ref=f5e579]:
+                    - generic [ref=f5e581]:
+                      - generic [ref=f5e582]: Seguridad avanzada de la cuenta
+                      - generic [ref=f5e583]: Usa una protección de inicio de sesión reforzada y medidas adicionales para ayudar a evitar el acceso no autorizado a tu cuenta.
+                    - link "Inscribirse" [ref=f5e585] [cursor=pointer]:
+                      - /url: /advanced-account-security
+                  - generic [ref=f5e589]:
+                    - generic [ref=f5e591]:
+                      - generic [ref=f5e592]: Modo restringido
+                      - generic [ref=f5e593]:
+                        - text: Ayuda a proteger los datos sensibles frente a ataques de inyección de prompts al limitar las funciones que pueden conectarse a la web o a servicios externos.
+                        - link "Más información" [ref=f5e594] [cursor=pointer]:
+                          - /url: https://help.openai.com/en/articles/20001061-lockdown-mode
+                    - switch "Modo restringido" [ref=f5e596] [cursor=pointer]
+              - generic [ref=f5e599]:
+                - generic [ref=f5e600]: Seguridad de las aplicaciones
+                - generic [ref=f5e605]:
+                  - generic [ref=f5e607]:
+                    - generic [ref=f5e608]: Aplicar CSP a las aplicaciones personalizadas
+                    - generic [ref=f5e609]:
+                      - text: Cuando esta opción está activada, las aplicaciones personalizadas que no tienen una CSP declarada reciben la misma CSP predeterminada y restrictiva que recibirían en producción, en lugar de tener acceso sin restricciones a la red.
+                      - link "Más información" [ref=f5e610] [cursor=pointer]:
+                        - /url: https://developers.openai.com/apps-sdk/build/mcp-server#content-security-policy-csp
+                  - switch "Aplicar CSP a las aplicaciones personalizadas" [ref=f5e612] [cursor=pointer]
+              - generic [ref=f5e616]:
+                - generic [ref=f5e618]:
+                  - generic [ref=f5e619]: Habilitar el inicio de sesión con código de dispositivo para Codex, Excel, PowerPoint y Word
+                  - generic [ref=f5e620]: Usa códigos de dispositivo para iniciar sesión en Codex en entornos remotos o sin interfaz gráfica, o en ChatGPT en Excel, PowerPoint y Word a través de tu navegador. Ten cuidado, ya que los códigos de dispositivo pueden robarse mediante phishing. Nunca compartas un código de dispositivo.
+                - switch "Habilitar el inicio de sesión con código de dispositivo para Codex, Excel, PowerPoint y Word" [ref=f5e622] [cursor=pointer]
+        - status [ref=f5e465]
+  - status [ref=f5e466]

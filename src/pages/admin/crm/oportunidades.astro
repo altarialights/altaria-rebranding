@@ -1,0 +1,27 @@
+---
+import AdminShell from '../../../layouts/AdminShell.astro';
+import CrmNav from '../../../components/admin/CrmNav.astro';
+import { listPipeline } from '../../../lib/admin/crm/queries';
+import { crmStages, stageLabels, type CrmStage } from '../../../lib/admin/crm/model';
+import { formatCrmMoney, formatCrmDate } from '../../../lib/admin/crm/presentation';
+export const prerender = false;
+const principal = Astro.locals.admin;
+if (!principal) return new Response('Acceso denegado.', { status: 403 });
+const opportunities = await listPipeline(principal);
+const stages = crmStages.map((key) => ({ key, label: stageLabels[key], items: opportunities.filter((item) => item.stage === key) }));
+const open = opportunities.filter((item) => item.stage !== 'won' && item.stage !== 'lost').length;
+---
+<AdminShell title="Oportunidades." eyebrow="CRM / PIPELINE" description="Cada posibilidad comercial, con su etapa y empresa." active="/admin/crm" principal={principal}>
+  <CrmNav active="pipeline" />
+  <div class="crm-toolbar"><div><h2>Pipeline comercial</h2><p>{open} en curso · {opportunities.length} en total. Abre la ficha para avanzar una etapa y registrar el cambio.</p></div><a class="crm-button secondary" href="/admin/crm/empresas">Ver empresas</a></div>
+  {opportunities.length ? <>
+    <div class="crm-pipeline" aria-label="Oportunidades agrupadas por etapa">
+      {stages.map((stage) => <section class="crm-stage-column" aria-labelledby={`stage-${stage.key}`}><h2 id={`stage-${stage.key}`}>{stage.label} <span>{stage.items.length}</span></h2>
+        {stage.items.length ? stage.items.map((item) => <a class="crm-opportunity-card" href={`/admin/crm/empresas/${String(item.organization_id)}#opportunities`}><strong>{String(item.title)}</strong><span>{String(item.organization_name)}</span><span>{formatCrmMoney(item.amount_cents)} · {formatCrmDate(item.updated_at)}</span></a>) : <p class="crm-help">Sin oportunidades.</p>}
+      </section>)}
+    </div>
+    <div class="crm-pipeline-mobile" aria-label="Lista de oportunidades">
+      {stages.map((stage) => stage.items.length > 0 && <section class="crm-card" aria-labelledby={`mobile-${stage.key}`}><div class="crm-card-heading"><h2 id={`mobile-${stage.key}`}>{stage.label}</h2><span class="crm-badge">{stage.items.length}</span></div><ul class="crm-inline-list">{stage.items.map((item) => <li><div><strong>{String(item.title)}</strong><small>{String(item.organization_name)} · {formatCrmMoney(item.amount_cents)}</small></div><a href={`/admin/crm/empresas/${String(item.organization_id)}#opportunities`}>Abrir ficha</a></li>)}</ul></section>)}
+    </div>
+  </> : <div class="crm-empty"><strong>El pipeline está listo.</strong><p>Las oportunidades aparecerán aquí cuando se creen desde una ficha de empresa.</p><a class="crm-button" href="/admin/crm/empresas">Ir a empresas</a></div>}
+</AdminShell>

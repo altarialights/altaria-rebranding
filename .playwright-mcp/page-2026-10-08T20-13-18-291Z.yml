@@ -1,0 +1,142 @@
+- generic [active] [ref=f17e1]:
+  - region "console.cloud.google.com usa cookies de Google para brindar sus servicios, mejorar su calidad y analizar el tráfico." [ref=f17e2]:
+    - paragraph [ref=f17e3]:
+      - text: console.cloud.google.com usa cookies de Google para brindar sus servicios, mejorar su calidad y analizar el tráfico.
+      - link "Obtenga más información sobre cómo Google utiliza las cookies. Se abrirá en una nueva pestaña." [ref=f17e4] [cursor=pointer]:
+        - /url: https://policies.google.com/technologies/cookies
+        - text: Más información
+    - button "Entendido" [ref=f17e5] [cursor=pointer]
+  - generic [ref=f17e7]:
+    - alertdialog "Diálogo de prueba gratuita" [ref=f17e9]:
+      - generic [ref=f17e10]:
+        - generic [ref=f17e11]: "Estado de la prueba gratuita: quedan €257.47 de crédito y 56 días. Actualiza a una cuenta completa para obtener acceso ilimitado a todas las funciones de Google Cloud. Usa los créditos restantes y paga solo por lo que usas."
+        - generic [ref=f17e18]:
+          - button "Descartar banner de activación de cuenta completo" [ref=f17e19]:
+            - generic [ref=f17e20]: Descartar
+          - button "Actualizar" [ref=f17e21]
+    - generic [ref=f17e23]:
+      - complementary "Omitir vínculos" [ref=f17e24]:
+        - link "Ir al contenido principal" [ref=f17e25] [cursor=pointer]:
+          - /url: /welcome?pli=1&project=project-2170ef0c-fe34-4f35-af9
+        - button "Combinación de teclas para acceso directo" [ref=f17e27]
+        - link [ref=f17e29] [cursor=pointer]:
+          - /url: https://cloud.google.com/docs/accessibility?hl=es_419
+          - generic [ref=f17e30]:
+            - text: Ayuda sobre la accesibilidad
+            - generic "externo, se abre en una ventana nueva" [ref=f17e31]:
+              - img "externo, se abre en una ventana nueva" [ref=f17e32]
+        - link [ref=f17e35] [cursor=pointer]:
+          - /url: https://support.google.com/accessibility/contact/feedback?hl=es_419
+          - generic [ref=f17e36]:
+            - text: Comentarios sobre accesibilidad
+            - generic "externo, se abre en una ventana nueva" [ref=f17e37]:
+              - img "externo, se abre en una ventana nueva" [ref=f17e38]
+      - banner [ref=f17e42]:
+        - generic [ref=f17e43]:
+          - navigation [ref=f17e46]:
+            - button "Menú de navegación (.)" [ref=f17e47] [cursor=pointer]
+          - link "Google Cloud Platform - Página principal" [ref=f17e51] [cursor=pointer]:
+            - /url: /?project=project-2170ef0c-fe34-4f35-af9
+          - button "Actualmente, estás trabajando en My First Project. Presiona Intro para cambiar de proyecto, de carpeta o de organización." [ref=f17e59]:
+            - generic [ref=f17e60]: My First Project
+        - search "Google Cloud Platform" [ref=f17e71]:
+          - combobox [ref=f17e72]:
+            - searchbox "Ingresa una consulta para buscar recursos, documentos, productos y mucho más" [ref=f17e73]
+          - button "Ver todos los resultados de la búsqueda" [disabled]:
+            - generic: Buscar
+        - generic [ref=f17e74]:
+          - generic [ref=f17e75]:
+            - button "Abrir chat de Gemini AI (Alt G)" [ref=f17e79] [cursor=pointer]
+            - button "Activar Cloud Shell (G then S)" [ref=f17e86] [cursor=pointer]
+            - button "Abrir notificaciones" [ref=f17e93] [cursor=pointer]
+            - button "Configuración y utilidades" [ref=f17e101] [cursor=pointer]
+          - 'button "Cuenta: Altaria Lights (altarialights@gmail.com)" [ref=f17e109]'
+    - main [ref=f17e131]:
+      - generic [ref=f17e151]:
+        - generic [ref=f17e153]:
+          - generic [ref=f17e154]:
+            - heading [level=1] [ref=f17e155]:
+              - img "Logotipo de Google Cloud" [ref=f17e156]
+              - text: Te damos la bienvenida
+            - generic [ref=f17e159]:
+              - generic [ref=f17e160]:
+                - text: Estás trabajando en
+                - button "Estás trabajando en My First Project. Presiona Intro para cambiar de proyecto, de carpeta o de organización" [ref=f17e162]:
+                  - list [ref=f17e167]:
+                    - listitem [ref=f17e168]:
+                      - generic [ref=f17e169]: altarialights-org
+                    - listitem [ref=f17e177]:
+                      - generic [ref=f17e178]: My First Project
+              - generic [ref=f17e181]:
+                - generic [ref=f17e182]:
+                  - text: "Número de proyecto:"
+                  - generic [ref=f17e184]:
+                    - generic [ref=f17e185]: "500766664784"
+                    - 'button "Copy Project number to clipboard: 500766664784" [ref=f17e186] [cursor=pointer]'
+                - generic [ref=f17e190]:
+                  - text: "ID del proyecto:"
+                  - generic [ref=f17e192]:
+                    - generic [ref=f17e193]: project-2170ef0c-fe34-4f35-af9
+                    - 'button "Copy Project ID to clipboard: project-2170ef0c-fe34-4f35-af9" [ref=f17e194] [cursor=pointer]'
+            - generic [ref=f17e200]:
+              - link "Panel" [ref=f17e201] [cursor=pointer]:
+                - /url: /home/dashboard?project=project-2170ef0c-fe34-4f35-af9
+              - link "Cloud Hub" [ref=f17e202] [cursor=pointer]:
+                - /url: /cloud-hub/home?project=project-2170ef0c-fe34-4f35-af9
+            - generic [ref=f17e205]:
+              - link "Crear clave de API de Gemini" [ref=f17e206] [cursor=pointer]:
+                - /url: /agent-platform/studio/settings/api-keys?project=project-2170ef0c-fe34-4f35-af9
+              - link "Crear un agente" [ref=f17e211] [cursor=pointer]:
+                - /url: /agent-platform/studio/agent-designer?project=project-2170ef0c-fe34-4f35-af9
+              - link "Crea una VM" [ref=f17e216] [cursor=pointer]:
+                - /url: /compute/instancesAdd?project=project-2170ef0c-fe34-4f35-af9
+              - link "Ejecuta una consulta en BigQuery" [ref=f17e221] [cursor=pointer]:
+                - /url: /bigquery?project=project-2170ef0c-fe34-4f35-af9
+              - link "Implementar una aplicación" [ref=f17e226] [cursor=pointer]:
+                - /url: /run/overview?project=project-2170ef0c-fe34-4f35-af9
+              - link "Crea un bucket de almacenamiento" [ref=f17e231] [cursor=pointer]:
+                - /url: /storage/create-bucket?project=project-2170ef0c-fe34-4f35-af9
+          - link "Únete al Google Developer Program para aprender nuevas habilidades y herramientas para desarrolladores sin costo. Unirse hoy" [ref=f17e237] [cursor=pointer]:
+            - /url: http://developers.google.com/program/?utm_source=gcp&utm_medium=welcome-card&utm_campaign=FY25-global-gcp-onboarding-console-gdp-standard-premium&utm_content=gdp&utm_term=gdp
+            - generic [ref=f17e238]:
+              - generic [ref=f17e239]: Únete al Google Developer Program para aprender nuevas habilidades y herramientas para desarrolladores sin costo.
+              - generic [ref=f17e241]: Unirse hoy
+        - generic [ref=f17e247]:
+          - generic [ref=f17e248]:
+            - heading "Recomendaciones en función de tus actividades" [level=2] [ref=f17e250]
+            - generic [ref=f17e255]:
+              - img "Illustration for the suggestion card" [ref=f17e257]
+              - generic [ref=f17e260]:
+                - heading "Run your app on a fully managed platform with Cloud Run" [level=3] [ref=f17e262]
+                - generic [ref=f17e265]: Deploy your code, function, or containers on top of Google's highly scalable infrastructure
+                - generic [ref=f17e269]:
+                  - link "Deploy your app" [ref=f17e271] [cursor=pointer]:
+                    - /url: /run/create?pli=1&project=project-2170ef0c-fe34-4f35-af9
+                  - link "Learn about pricing externo, se abre en una ventana nueva" [ref=f17e275] [cursor=pointer]:
+                    - /url: https://cloud.google.com/run/pricing
+                    - generic [ref=f17e276]: Learn about pricing
+                    - img "externo, se abre en una ventana nueva" [ref=f17e279]
+          - generic [ref=f17e283]:
+            - heading "Acceso rápido" [level=2] [ref=f17e285]
+            - generic [ref=f17e289]:
+              - link "APIs y servicios" [ref=f17e290] [cursor=pointer]:
+                - /url: /apis?project=project-2170ef0c-fe34-4f35-af9
+              - link "IAM y administración" [ref=f17e300] [cursor=pointer]:
+                - /url: /iam-admin?project=project-2170ef0c-fe34-4f35-af9
+              - link "Facturación" [ref=f17e310] [cursor=pointer]:
+                - /url: /billing?project=project-2170ef0c-fe34-4f35-af9
+              - link "Compute Engine" [ref=f17e327] [cursor=pointer]:
+                - /url: /compute?project=project-2170ef0c-fe34-4f35-af9
+              - link "Cloud Storage" [ref=f17e349] [cursor=pointer]:
+                - /url: /storage?project=project-2170ef0c-fe34-4f35-af9
+              - link "BigQuery" [ref=f17e359] [cursor=pointer]:
+                - /url: /bigquery?project=project-2170ef0c-fe34-4f35-af9
+              - link "Red de VPC" [ref=f17e371] [cursor=pointer]:
+                - /url: /networking?project=project-2170ef0c-fe34-4f35-af9
+              - link "Kubernetes Engine" [ref=f17e383] [cursor=pointer]:
+                - /url: /kubernetes?project=project-2170ef0c-fe34-4f35-af9
+          - link "Ver todos los productos" [ref=f17e398] [cursor=pointer]:
+            - /url: /products?project=project-2170ef0c-fe34-4f35-af9
+  - iframe [aria-hidden] [ref=f17e405]
+  - iframe [aria-hidden] [ref=f17e407]
+  - iframe [aria-hidden] [ref=f17e408]

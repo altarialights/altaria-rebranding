@@ -1,0 +1,83 @@
+---
+import AdminShell from '../../../layouts/AdminShell.astro';
+import ContentNav from '../../../components/admin/ContentNav.astro';
+import {createAdminCsrfToken} from '../../../lib/admin/access';
+import {listBrands,listPieces} from '../../../lib/admin/content/service';
+import {grantFor,contentStages,stageLabels,channelLabels,publicationLabels,
+  type ContentStage} from '../../../lib/admin/content/model';
+import '../../../styles/admin-content.css';
+export const prerender=false;
+const principal=Astro.locals.admin;
+if(!principal)return new Response('Acceso denegado.',{status:403});
+const brands=await listBrands(principal);
+const unique=brands.filter((b,i,a)=>a.findIndex(x=>x.id===b.id)===i);
+const params=Astro.url.searchParams;
+const brandId=params.get('marca')??'',channel=params.get('canal')??'',q=params.get('q')??'';
+const pieces=await listPieces(principal,{brandId,channel,q});
+const chosen=unique.find(b=>b.id===brandId)||unique.find(b=>b.status==='active'
+  &&grantFor(principal,String(b.id))?.edit);
+const canCreate=Boolean(chosen&&chosen.status==='active'
+  &&grantFor(principal,String(chosen.id))?.edit);
+const availableChannels=brands.filter(b=>b.id===chosen?.id&&b.channel_status==='active');
+const csrf=createAdminCsrfToken(principal.sessionHash,process.env.WORKOS_COOKIE_PASSWORD||'','content');
+const hold=pieces.filter(p=>p.on_hold);
+---
+<AdminShell title="Producción" eyebrow="CONTENIDO / FLUJO EDITORIAL"
+  description="Una pieza, una versión vigente y el siguiente paso claro. Toda aprobación deja rastro."
+  active="/admin/contenido" principal={principal}>
+  <ContentNav active="production"/>
+  <section class="content-hero"><div><p class="admin-eyebrow">ESTUDIO EDITORIAL · TEST</p>
+    <h2>De idea a pieza lista.</h2><p>Guion, visuales, edición y revisión avanzan con acciones humanas. Programar una pieza no la publica.</p></div>
+    {canCreate&&<a href="#crear-pieza">Nueva idea ↗</a>}</section>
+  {params.has('guardado')&&<p class="content-notice" role="status">Acción registrada en Content OS TEST.</p>}
+  <form class="content-toolbar" method="get" role="search" aria-label="Filtrar producción">
+    <label class="content-field">Marca<select name="marca"><option value="">Todas las autorizadas</option>
+      {unique.map(b=><option value={String(b.id)} selected={brandId===b.id}>{String(b.name)}</option>)}</select></label>
+    <label class="content-field">Canal<select name="canal"><option value="">Todos</option>
+      <option value="instagram" selected={channel==='instagram'}>Instagram</option>
+      <option value="linkedin" selected={channel==='linkedin'}>LinkedIn</option></select></label>
+    <label class="content-field">Buscar<input type="search" name="q" value={q} maxlength="80"
+      placeholder="Título de la pieza"/></label><button class="content-button" type="submit">Filtrar</button>
+  </form>
+  {hold.length>0&&<section class="content-card" aria-labelledby="hold-title"><div class="content-card-heading">
+    <h2 id="hold-title">En espera · {hold.length}</h2><span class="content-pill is-hold">Requieren seguimiento</span></div>
+    <div class="content-list">{hold.map(piece=><div class="content-list-row"><div>
+      <strong>{String(piece.title)}</strong><small>{String(piece.brand_name)} · Motivo: {String(piece.hold_reason)}</small>
+      </div><a href={`/admin/contenido/piezas/${piece.id}`}>Resolver ↗</a></div>)}</div></section>}
+  <div class="content-board" role="region" aria-label="Tablero editorial, desplazar horizontalmente" tabindex="0">
+    {contentStages.map(stage=><section class="content-lane" aria-labelledby={`lane-${stage}`}>
+      <h2 id={`lane-${stage}`}>{stageLabels[stage]} <span>{pieces.filter(p=>p.stage===stage&&!p.on_hold).length}</span></h2>
+      {pieces.filter(p=>p.stage===stage&&!p.on_hold).map(piece=>
+        <a href={`/admin/contenido/piezas/${piece.id}`}><strong>{String(piece.title)}</strong>
+          <small>{String(piece.brand_name)} · {channelLabels[String(piece.channel) as keyof typeof channelLabels]}</small>
+          <small>{publicationLabels[String(piece.publication_state) as keyof typeof publicationLabels]}
+            {piece.pending_reviews? ` · ${piece.pending_reviews} revisión`:''}</small></a>)}
+      {!pieces.some(p=>p.stage===stage&&!p.on_hold)&&<p>Sin piezas en esta etapa.</p>}
+    </section>)}
+  </div>
+  <section class="content-card content-mobile-list" aria-labelledby="mobile-production-title">
+    <h2 id="mobile-production-title">Piezas</h2>
+    {pieces.length?<div class="content-list">{pieces.map(piece=><div class="content-list-row"><div>
+      <strong>{String(piece.title)}</strong><small>{String(piece.brand_name)} · {stageLabels[String(piece.stage) as ContentStage]}
+      {piece.on_hold?' · En espera':''}</small></div><a href={`/admin/contenido/piezas/${piece.id}`}>Abrir ↗</a>
+      </div>)}</div>:<div class="content-empty"><strong>Aún no hay piezas.</strong><p>Crea una idea para comenzar el flujo editorial.</p></div>}
+  </section>
+  {canCreate&&<section class="content-card" id="crear-pieza" aria-labelledby="create-title"><div class="content-card-heading">
+    <div><p class="content-kicker">{String(chosen?.name)} · nuevo borrador</p><h2 id="create-title">Crear una idea</h2></div></div>
+    <form action="/api/admin/content/create" method="post" class="content-form-grid">
+      <input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="brandId" value={String(chosen?.id)}/>
+      <label class="content-field">Canal<select name="channel" required>
+        {availableChannels.map(c=><option value={String(c.channel)}>{channelLabels[String(c.channel) as keyof typeof channelLabels]}</option>)}</select></label>
+      <label class="content-field">Formato<input name="format" required maxlength="80" placeholder="Ej.: reel, carrusel, artículo"/></label>
+      <label class="content-field wide">Título de trabajo<input name="title" required minlength="3" maxlength="180"
+        placeholder="Una idea clara para el equipo"/></label>
+      <label class="content-field wide">Objetivo, si está definido<input name="objective" maxlength="500"
+        placeholder="No inventes resultados ni datos"/></label>
+      <label class="content-field wide">Brief inicial<textarea name="brief" maxlength="5000"
+        placeholder="Qué sabemos, qué falta y cuál es el enfoque"></textarea></label>
+      <label class="content-field">Fecha prevista<input name="dueAt" type="datetime-local"/></label>
+      <button class="content-button" type="submit">Guardar idea</button>
+    </form>
+  </section>}
+  {!canCreate&&<div class="content-empty"><strong>Lectura editorial.</strong><p>Para crear piezas necesitas una concesión de edición en una marca activa.</p></div>}
+</AdminShell>

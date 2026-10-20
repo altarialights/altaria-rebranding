@@ -1,0 +1,143 @@
+- generic [active] [ref=e1]:
+  - region "console.cloud.google.com usa cookies de Google para brindar sus servicios, mejorar su calidad y analizar el tráfico." [ref=e2]:
+    - paragraph [ref=e3]:
+      - text: console.cloud.google.com usa cookies de Google para brindar sus servicios, mejorar su calidad y analizar el tráfico.
+      - link "Obtenga más información sobre cómo Google utiliza las cookies. Se abrirá en una nueva pestaña." [ref=e4] [cursor=pointer]:
+        - /url: https://policies.google.com/technologies/cookies
+        - text: Más información
+    - button "Entendido" [ref=e5] [cursor=pointer]
+  - generic [ref=e7]:
+    - alertdialog "Diálogo de prueba gratuita" [ref=e9]:
+      - generic [ref=e10]:
+        - generic [ref=e11]: "Estado de la prueba gratuita: quedan €257.47 de crédito y 56 días. Actualiza a una cuenta completa para obtener acceso ilimitado a todas las funciones de Google Cloud. Usa los créditos restantes y paga solo por lo que usas."
+        - generic [ref=e18]:
+          - button "Descartar banner de activación de cuenta completo" [ref=e19]:
+            - generic [ref=e20]: Descartar
+          - button "Actualizar" [ref=e21]
+    - generic [ref=e23]:
+      - complementary "Omitir vínculos" [ref=e24]:
+        - link "Ir al contenido principal" [ref=e25] [cursor=pointer]:
+          - /url: /welcome?pli=1&project=project-2170ef0c-fe34-4f35-af9
+        - button "Combinación de teclas para acceso directo" [ref=e27]
+        - link [ref=e29] [cursor=pointer]:
+          - /url: https://cloud.google.com/docs/accessibility?hl=es_419
+          - generic [ref=e30]:
+            - text: Ayuda sobre la accesibilidad
+            - generic "externo, se abre en una ventana nueva" [ref=e31]:
+              - img "externo, se abre en una ventana nueva" [ref=e32]
+        - link [ref=e35] [cursor=pointer]:
+          - /url: https://support.google.com/accessibility/contact/feedback?hl=es_419
+          - generic [ref=e36]:
+            - text: Comentarios sobre accesibilidad
+            - generic "externo, se abre en una ventana nueva" [ref=e37]:
+              - img "externo, se abre en una ventana nueva" [ref=e38]
+      - banner [ref=e42]:
+        - generic [ref=e43]:
+          - navigation [ref=e46]:
+            - button "Menú de navegación (.)" [ref=e47] [cursor=pointer]
+          - link "Google Cloud Platform - Página principal" [ref=e51] [cursor=pointer]:
+            - /url: /?project=project-2170ef0c-fe34-4f35-af9
+          - button "Actualmente, estás trabajando en My First Project. Presiona Intro para cambiar de proyecto, de carpeta o de organización." [ref=e59]:
+            - generic [ref=e60]: My First Project
+        - search "Google Cloud Platform" [ref=e71]:
+          - combobox [ref=e72]:
+            - searchbox "Ingresa una consulta para buscar recursos, documentos, productos y mucho más" [ref=e73]
+          - button "Ver todos los resultados de la búsqueda" [disabled]:
+            - generic: Buscar
+        - generic [ref=e74]:
+          - generic [ref=e75]:
+            - button "Abrir chat de Gemini AI (Alt G)" [ref=e79] [cursor=pointer]
+            - button "Activar Cloud Shell (G then S)" [ref=e86] [cursor=pointer]
+            - button "Abrir notificaciones" [ref=e93] [cursor=pointer]
+            - button "Configuración y utilidades" [ref=e101] [cursor=pointer]
+          - 'button "Cuenta: Altaria Lights (altarialights@gmail.com)" [ref=e109]'
+    - main [ref=e131]:
+      - generic [ref=e151]:
+        - generic [ref=e153]:
+          - generic [ref=e154]:
+            - heading [level=1] [ref=e155]:
+              - img "Logotipo de Google Cloud" [ref=e156]
+              - text: Te damos la bienvenida
+            - generic [ref=e159]:
+              - generic [ref=e160]:
+                - text: Estás trabajando en
+                - button "Estás trabajando en My First Project. Presiona Intro para cambiar de proyecto, de carpeta o de organización" [ref=e162]:
+                  - list [ref=e167]:
+                    - listitem [ref=e168]:
+                      - generic [ref=e169]: altarialights-org
+                    - listitem [ref=e177]:
+                      - generic [ref=e178]: My First Project
+              - generic [ref=e181]:
+                - generic [ref=e182]:
+                  - text: "Número de proyecto:"
+                  - generic [ref=e184]:
+                    - generic [ref=e185]: "500766664784"
+                    - 'button "Copy Project number to clipboard: 500766664784" [ref=e186] [cursor=pointer]'
+                - generic [ref=e190]:
+                  - text: "ID del proyecto:"
+                  - generic [ref=e192]:
+                    - generic [ref=e193]: project-2170ef0c-fe34-4f35-af9
+                    - 'button "Copy Project ID to clipboard: project-2170ef0c-fe34-4f35-af9" [ref=e194] [cursor=pointer]'
+            - generic [ref=e200]:
+              - link "Panel" [ref=e201] [cursor=pointer]:
+                - /url: /home/dashboard?project=project-2170ef0c-fe34-4f35-af9
+              - link "Cloud Hub" [ref=e202] [cursor=pointer]:
+                - /url: /cloud-hub/home?project=project-2170ef0c-fe34-4f35-af9
+            - generic [ref=e205]:
+              - link "Crear clave de API de Gemini" [ref=e206] [cursor=pointer]:
+                - /url: /agent-platform/studio/settings/api-keys?project=project-2170ef0c-fe34-4f35-af9
+              - link "Crear un agente" [ref=e211] [cursor=pointer]:
+                - /url: /agent-platform/studio/agent-designer?project=project-2170ef0c-fe34-4f35-af9
+              - link "Crea una VM" [ref=e216] [cursor=pointer]:
+                - /url: /compute/instancesAdd?project=project-2170ef0c-fe34-4f35-af9
+              - link "Ejecuta una consulta en BigQuery" [ref=e221] [cursor=pointer]:
+                - /url: /bigquery?project=project-2170ef0c-fe34-4f35-af9
+              - link "Implementar una aplicación" [ref=e226] [cursor=pointer]:
+                - /url: /run/overview?project=project-2170ef0c-fe34-4f35-af9
+              - link "Crea un bucket de almacenamiento" [ref=e231] [cursor=pointer]:
+                - /url: /storage/create-bucket?project=project-2170ef0c-fe34-4f35-af9
+          - link "Únete al Google Developer Program para aprender nuevas habilidades y herramientas para desarrolladores sin costo. Unirse hoy" [ref=e237] [cursor=pointer]:
+            - /url: http://developers.google.com/program/?utm_source=gcp&utm_medium=welcome-card&utm_campaign=FY25-global-gcp-onboarding-console-gdp-standard-premium&utm_content=gdp&utm_term=gdp
+            - generic [ref=e238]:
+              - generic [ref=e239]: Únete al Google Developer Program para aprender nuevas habilidades y herramientas para desarrolladores sin costo.
+              - generic [ref=e241]: Unirse hoy
+        - generic [ref=e247]:
+          - generic [ref=e248]:
+            - heading "Recomendaciones en función de tus actividades" [level=2] [ref=e250]
+            - generic [ref=e255]:
+              - img "Illustration for the suggestion card" [ref=e257]
+              - generic [ref=e260]:
+                - heading "Ejecuta tu app en una plataforma completamente administrada con Cloud Run" [level=3] [ref=e262]
+                - generic [ref=e265]: Implementa tu código, función o contenedores sobre la infraestructura altamente escalable de Google
+                - generic [ref=e269]:
+                  - link "Implementar tu app" [ref=e271] [cursor=pointer]:
+                    - /url: /run/create?pli=1&project=project-2170ef0c-fe34-4f35-af9
+                  - link "Más información sobre los precios externo, se abre en una ventana nueva" [ref=e275] [cursor=pointer]:
+                    - /url: https://cloud.google.com/run/pricing
+                    - generic [ref=e276]: Más información sobre los precios
+                    - img "externo, se abre en una ventana nueva" [ref=e279]
+          - generic [ref=e283]:
+            - heading "Acceso rápido" [level=2] [ref=e285]
+            - generic [ref=e289]:
+              - link "APIs y servicios" [ref=e290] [cursor=pointer]:
+                - /url: /apis?project=project-2170ef0c-fe34-4f35-af9
+              - link "IAM y administración" [ref=e300] [cursor=pointer]:
+                - /url: /iam-admin?project=project-2170ef0c-fe34-4f35-af9
+              - link "Facturación" [ref=e310] [cursor=pointer]:
+                - /url: /billing?project=project-2170ef0c-fe34-4f35-af9
+              - link "Compute Engine" [ref=e327] [cursor=pointer]:
+                - /url: /compute?project=project-2170ef0c-fe34-4f35-af9
+              - link "Cloud Storage" [ref=e349] [cursor=pointer]:
+                - /url: /storage?project=project-2170ef0c-fe34-4f35-af9
+              - link "BigQuery" [ref=e359] [cursor=pointer]:
+                - /url: /bigquery?project=project-2170ef0c-fe34-4f35-af9
+              - link "Red de VPC" [ref=e371] [cursor=pointer]:
+                - /url: /networking?project=project-2170ef0c-fe34-4f35-af9
+              - link "Kubernetes Engine" [ref=e383] [cursor=pointer]:
+                - /url: /kubernetes?project=project-2170ef0c-fe34-4f35-af9
+          - link "Ver todos los productos" [ref=e398] [cursor=pointer]:
+            - /url: /products?project=project-2170ef0c-fe34-4f35-af9
+  - iframe [aria-hidden] [ref=e405]
+  - iframe [aria-hidden] [ref=e407]
+  - iframe [aria-hidden] [ref=e408]
+  - iframe [aria-hidden] [ref=e409]

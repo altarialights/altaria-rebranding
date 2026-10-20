@@ -1,0 +1,143 @@
+- generic [active] [ref=f48e1]:
+  - link "Saltar al contenido" [ref=f48e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f48e3]:
+    - complementary "Panel de navegación" [ref=f48e4]:
+      - button "Cerrar navegación" [ref=f48e5] [cursor=pointer]
+      - generic [ref=f48e8]:
+        - link "Altaria OS, inicio" [ref=f48e9] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f48e10]
+          - generic [ref=f48e11]: OS
+        - paragraph [ref=f48e13]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f48e14]:
+        - paragraph [ref=f48e15]: PLATAFORMA
+        - link "Inicio" [ref=f48e16] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f48e21] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards" [ref=f48e26] [cursor=pointer]:
+          - /url: /admin/cards
+        - link "Informes En preparación" [ref=f48e31] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f48e35]: Informes
+          - generic "En preparación" [ref=f48e36]: ·
+        - link "Configuración" [ref=f48e37] [cursor=pointer]:
+          - /url: /admin/configuracion
+      - generic [ref=f48e42]:
+        - generic [ref=f48e47]:
+          - text: Área privada
+          - strong [ref=f48e48]: Acceso protegido
+        - link "Ver sitio público" [ref=f48e49] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f48e50]: ↗
+    - generic [ref=f48e51]:
+      - banner [ref=f48e52]:
+        - button "Abrir navegación" [ref=f48e53] [cursor=pointer]
+        - generic [ref=f48e56]:
+          - text: ALTARIA OS /
+          - strong [ref=f48e57]: CRM
+        - generic [ref=f48e58]:
+          - button "Buscar en Altaria OS" [ref=f48e59] [cursor=pointer]
+          - button "Cerrar y revocar esta sesión" [ref=f48e63] [cursor=pointer]: Salir
+      - main [ref=f48e64]:
+        - generic [ref=f48e65]:
+          - generic [ref=f48e66]:
+            - paragraph [ref=f48e67]: CRM / NUEVA FICHA
+            - heading "Nueva empresa." [level=1] [ref=f48e68]
+            - paragraph [ref=f48e69]: Empieza por lo esencial. Podrás añadir contactos, oportunidades y actividad desde su ficha.
+          - generic [ref=f48e70]: ENTORNO TEST
+        - navigation "Navegación del CRM" [ref=f48e72]:
+          - link "Resumen" [ref=f48e73] [cursor=pointer]:
+            - /url: /admin/crm
+          - link "Empresas" [ref=f48e74] [cursor=pointer]:
+            - /url: /admin/crm/empresas
+          - link "Oportunidades" [ref=f48e75] [cursor=pointer]:
+            - /url: /admin/crm/oportunidades
+          - link "Propuestas" [ref=f48e76] [cursor=pointer]:
+            - /url: /admin/crm/propuestas
+          - link "Tareas" [ref=f48e77] [cursor=pointer]:
+            - /url: /admin/crm/tareas
+          - link "Guía comercial" [ref=f48e78] [cursor=pointer]:
+            - /url: /admin/crm/guia-comercial
+        - link "← Volver a empresas" [ref=f48e80] [cursor=pointer]:
+          - /url: /admin/crm/empresas
+        - region [ref=f48e81]:
+          - generic [ref=f48e82]:
+            - generic [ref=f48e83]:
+              - heading "Información principal" [level=2] [ref=f48e84]
+              - paragraph [ref=f48e85]: Los datos de origen se vinculan más tarde, tras verificar el registro histórico.
+            - generic [ref=f48e86]: ENTORNO TEST
+          - generic [ref=f48e87]:
+            - generic [ref=f48e88]:
+              - generic [ref=f48e89]:
+                - text: Nombre de la empresa *
+                - textbox "Nombre de la empresa *" [ref=f48e90]:
+                  - /placeholder: Nombre comercial
+                  - text: Empresa DEMO TEST Sales OS
+              - generic [ref=f48e91]:
+                - text: Sector
+                - textbox "Sector" [ref=f48e92]:
+                  - /placeholder: Ej. hostelería
+                  - text: Restauración
+              - generic [ref=f48e93]:
+                - text: Sitio web
+                - textbox "Sitio web" [ref=f48e94]:
+                  - /placeholder: https://…
+              - generic [ref=f48e95]:
+                - text: Ciudad
+                - textbox "Ciudad" [ref=f48e96]: Ciudad sintética
+              - generic [ref=f48e97]:
+                - text: Provincia o región
+                - textbox "Provincia o región" [ref=f48e98]
+              - generic [ref=f48e99]:
+                - text: País
+                - textbox "País" [ref=f48e100]: ES
+              - generic [ref=f48e101]:
+                - text: Origen declarado
+                - combobox "Origen declarado" [ref=f48e102]:
+                  - option "Alta manual" [selected]
+                  - option "Diagnóstico digital"
+                  - option "Consulta Cards"
+                  - option "Pedido Cards"
+                  - option "Otro"
+              - generic [ref=f48e103]:
+                - text: Responsable comercial
+                - combobox "Responsable comercial" [ref=f48e104]:
+                  - option "Yo" [selected]
+                  - option "altarialights@gmail.com"
+            - generic [ref=f48e105]:
+              - generic [ref=f48e107]:
+                - heading "Identificador para detectar duplicados" [level=3] [ref=f48e108]
+                - paragraph [ref=f48e109]: Opcional. Un valor introducido manualmente queda sin verificar hasta contrastarlo con una fuente fiable.
+              - generic [ref=f48e110]:
+                - generic [ref=f48e111]:
+                  - text: Tipo
+                  - combobox "Tipo" [ref=f48e112]:
+                    - option "Sin identificador" [selected]
+                    - option "Identificador fiscal"
+                    - option "Dominio"
+                    - option "Google Place ID"
+                    - option "ID externo"
+                - generic [ref=f48e113]:
+                  - text: Valor
+                  - textbox "Valor" [ref=f48e114]:
+                    - /placeholder: Valor exacto
+              - button "Comprobar coincidencias" [ref=f48e116] [cursor=pointer]
+              - generic [ref=f48e117]: No se encontraron coincidencias en el CRM.
+            - generic [ref=f48e119]:
+              - checkbox "He revisado las posibles coincidencias y confirmo que es una empresa distinta." [ref=f48e120]
+              - text: He revisado las posibles coincidencias y confirmo que es una empresa distinta.
+            - generic [ref=f48e121]:
+              - button "Crear empresa" [ref=f48e122] [cursor=pointer]
+              - link "Cancelar" [ref=f48e123] [cursor=pointer]:
+                - /url: /admin/crm/empresas
+        - generic [ref=f48e124]:
+          - generic [ref=f48e125]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f48e126]: Entorno privado
+  - generic [ref=f48e129]:
+    - button [ref=f48e130]
+    - button [ref=f48e136]
+    - button [ref=f48e140]
+    - button [ref=f48e145]

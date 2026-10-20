@@ -1,0 +1,245 @@
+- generic [active] [ref=f121e1]:
+  - link "Saltar al contenido" [ref=f121e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f121e3]:
+    - complementary "Panel de navegación" [ref=f121e4]:
+      - generic [ref=f121e5]:
+        - link "Altaria OS, inicio" [ref=f121e6] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f121e7]
+          - generic [ref=f121e8]: OS
+        - paragraph [ref=f121e10]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f121e11]:
+        - paragraph [ref=f121e12]: PLATAFORMA
+        - link "Inicio" [ref=f121e13] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f121e18] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards En preparación" [ref=f121e23] [cursor=pointer]:
+          - /url: /admin/cards
+          - generic [ref=f121e27]: Cards
+          - generic "En preparación" [ref=f121e28]: ·
+        - link "Informes En preparación" [ref=f121e29] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f121e33]: Informes
+          - generic "En preparación" [ref=f121e34]: ·
+        - link "Configuración En preparación" [ref=f121e35] [cursor=pointer]:
+          - /url: /admin/configuracion
+          - generic [ref=f121e39]: Configuración
+          - generic "En preparación" [ref=f121e40]: ·
+      - generic [ref=f121e41]:
+        - generic [ref=f121e46]:
+          - text: Área privada
+          - strong [ref=f121e47]: Acceso protegido
+        - link "Ver sitio público" [ref=f121e48] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f121e49]: ↗
+    - generic [ref=f121e50]:
+      - banner [ref=f121e51]:
+        - generic [ref=f121e52]:
+          - text: ALTARIA OS /
+          - strong [ref=f121e53]: CRM
+        - generic [ref=f121e54]:
+          - button "Buscar en Altaria OS" [ref=f121e55] [cursor=pointer]:
+            - generic [ref=f121e59]: ⌘ K
+          - generic "altarialights@gmail.com" [ref=f121e60]:
+            - generic [aria-hidden] [ref=f121e61]: A
+          - button "Cerrar y revocar esta sesión" [ref=f121e64] [cursor=pointer]: Salir
+      - main [ref=f121e65]:
+        - generic [ref=f121e66]:
+          - generic [ref=f121e67]:
+            - paragraph [ref=f121e68]: CRM / FICHA DE EMPRESA
+            - heading "Ficha de empresa." [level=1] [ref=f121e69]
+            - paragraph [ref=f121e70]: Un lugar para cuidar la relación comercial y mantener el siguiente paso claro.
+          - generic [ref=f121e71]: TEST · CRM EN DESARROLLO
+        - navigation "Navegación del CRM" [ref=f121e73]:
+          - link "Resumen" [ref=f121e74] [cursor=pointer]:
+            - /url: /admin/crm
+          - link "Empresas" [ref=f121e75] [cursor=pointer]:
+            - /url: /admin/crm/empresas
+          - link "Oportunidades" [ref=f121e76] [cursor=pointer]:
+            - /url: /admin/crm/oportunidades
+          - link "Propuestas" [ref=f121e77] [cursor=pointer]:
+            - /url: /admin/crm/propuestas
+          - link "Tareas" [ref=f121e78] [cursor=pointer]:
+            - /url: /admin/crm/tareas
+        - generic [ref=f121e79]:
+          - link "← Todas las empresas" [ref=f121e80] [cursor=pointer]:
+            - /url: /admin/crm/empresas
+          - generic [ref=f121e81]: TEST · FICHA COMERCIAL
+        - generic [ref=f121e82]:
+          - generic [ref=f121e83]:
+            - heading "Empresa sintética QA · TEST" [level=2] [ref=f121e84]
+            - paragraph [ref=f121e85]: Sector y ubicación por completar
+          - link "Añadir actividad" [ref=f121e86] [cursor=pointer]:
+            - /url: "#quick-actions"
+            - text: Añadir actividad
+            - generic [aria-hidden] [ref=f121e87]: ↓
+        - generic [ref=f121e88]:
+          - generic [ref=f121e89]:
+            - region [ref=f121e90]:
+              - generic [ref=f121e91]:
+                - generic [ref=f121e92]:
+                  - heading "Información general" [level=2] [ref=f121e93]
+                  - paragraph [ref=f121e94]: Contexto esencial y responsable de la relación.
+                - generic [ref=f121e95]: Alta manual
+              - generic [ref=f121e96]:
+                - generic [ref=f121e97]:
+                  - term [ref=f121e98]: Sector
+                  - definition [ref=f121e99]: Sin definir
+                - generic [ref=f121e100]:
+                  - term [ref=f121e101]: Ubicación
+                  - definition [ref=f121e102]: ES
+                - generic [ref=f121e103]:
+                  - term [ref=f121e104]: Responsable
+                  - definition [ref=f121e105]: altarialights@gmail.com
+                - generic [ref=f121e106]:
+                  - term [ref=f121e107]: Sitio web
+                  - definition [ref=f121e108]: Sin añadir
+              - group [ref=f121e109]:
+                - generic "Editar datos de empresa" [ref=f121e110] [cursor=pointer]
+                - option "Alta manual" [selected]
+                - option "Diagnóstico digital"
+                - option "Consulta Cards"
+                - option "Pedido Cards"
+                - option "Otro origen"
+                - option "altarialights@gmail.com" [selected]
+            - region [ref=f121e111]:
+              - generic [ref=f121e112]:
+                - generic [ref=f121e113]:
+                  - heading "Personas de contacto" [level=2] [ref=f121e114]
+                  - paragraph [ref=f121e115]: Personas vinculadas a esta empresa.
+                - generic [ref=f121e116]: "1"
+              - list [ref=f121e117]:
+                - listitem [ref=f121e118]:
+                  - generic [ref=f121e119]:
+                    - strong [ref=f121e120]: Contacto sintético QA
+                    - generic [ref=f121e121]: contacto.qa@example.test
+              - group [ref=f121e122]:
+                - generic "+ Añadir contacto" [ref=f121e123] [cursor=pointer]
+            - region [ref=f121e124]:
+              - generic [ref=f121e125]:
+                - generic [ref=f121e126]:
+                  - heading "Oportunidades" [level=2] [ref=f121e127]
+                  - paragraph [ref=f121e128]: Varias conversaciones pueden avanzar en paralelo.
+                - link "Ver pipeline" [ref=f121e129] [cursor=pointer]:
+                  - /url: /admin/crm/oportunidades
+              - list [ref=f121e130]:
+                - listitem [ref=f121e131]:
+                  - generic [ref=f121e132]:
+                    - strong [ref=f121e133]: Oportunidad sintética QA
+                    - generic [ref=f121e134]: Sin importe · Actualizada 08 oct 2026, 21:18
+                  - generic [ref=f121e135]:
+                    - generic [ref=f121e136]: Nuevo
+                    - group [ref=f121e137]:
+                      - generic "Cambiar etapa" [ref=f121e138] [cursor=pointer]
+                      - option "Contactado" [selected]
+                      - option "Perdido"
+              - group [ref=f121e139]:
+                - generic "+ Crear oportunidad" [ref=f121e140] [cursor=pointer]
+                - option "Yo" [selected]
+                - option "altarialights@gmail.com"
+            - region [ref=f121e141]:
+              - generic [ref=f121e142]:
+                - generic [ref=f121e143]:
+                  - heading "Propuestas" [level=2] [ref=f121e144]
+                  - paragraph [ref=f121e145]: Documentos comerciales y decisiones vinculados a esta empresa.
+                - link "Ver todas" [ref=f121e146] [cursor=pointer]:
+                  - /url: /admin/crm/propuestas
+              - list [ref=f121e147]:
+                - listitem [ref=f121e148]:
+                  - generic [ref=f121e149]:
+                    - strong [ref=f121e150]: Propuesta sintética QA
+                    - generic [ref=f121e151]: Oportunidad sintética QA · draft · 217,80 €
+                  - link "Abrir" [ref=f121e152] [cursor=pointer]:
+                    - /url: /admin/crm/propuestas/37dba03b-2890-4a4a-8759-f2827d456068
+              - group [ref=f121e153]:
+                - generic "+ Crear propuesta" [ref=f121e154] [cursor=pointer]
+                - option "Oportunidad sintética QA" [selected]
+            - region [ref=f121e155]:
+              - generic [ref=f121e156]:
+                - generic [ref=f121e157]:
+                  - heading "Conversaciones y respuestas" [level=2] [ref=f121e158]
+                  - paragraph [ref=f121e159]: Sólo hilos etiquetados ALTARIA/CRM y borradores locales pendientes de revisión.
+                - generic [ref=f121e160]: 0 hilos
+              - generic [ref=f121e161]:
+                - strong [ref=f121e162]: Sin conversaciones sincronizadas.
+                - paragraph [ref=f121e163]: Gmail permanece pendiente de configuración externa. Los borradores se pueden preparar aquí sin enviar.
+              - group [ref=f121e164]:
+                - generic "+ Preparar respuesta" [ref=f121e165] [cursor=pointer]
+                - option "Contacto sintético QA · contacto.qa@example.test" [selected]
+                - option "General" [selected]
+                - option "Propuesta sintética QA"
+            - region [ref=f121e166]:
+              - generic [ref=f121e167]:
+                - generic [ref=f121e168]:
+                  - heading "Actividad" [level=2] [ref=f121e169]
+                  - paragraph [ref=f121e170]: Llamadas, visitas, reuniones y notas en contexto.
+                - generic [ref=f121e171]: "0"
+              - generic [ref=f121e172]:
+                - strong [ref=f121e173]: Aún no hay actividades.
+                - paragraph [ref=f121e174]: Una nota breve basta para que el equipo conozca el último contacto.
+              - group [ref=f121e175]:
+                - generic "+ Registrar actividad" [ref=f121e176] [cursor=pointer]
+                - option "Llamada" [selected]
+                - option "Visita"
+                - option "Reunión"
+                - option "Nota"
+                - option "General de la empresa" [selected]
+                - option "Oportunidad sintética QA"
+                - option "Sin contacto concreto" [selected]
+                - option "Contacto sintético QA"
+            - region [ref=f121e177]:
+              - generic [ref=f121e178]:
+                - generic [ref=f121e179]:
+                  - heading "Tareas y seguimientos" [level=2] [ref=f121e180]
+                  - paragraph [ref=f121e181]: La próxima acción queda siempre visible.
+                - link "Ver tareas" [ref=f121e182] [cursor=pointer]:
+                  - /url: /admin/crm/tareas
+              - generic [ref=f121e183]:
+                - strong [ref=f121e184]: Sin tareas para esta empresa.
+                - paragraph [ref=f121e185]: Crea una tarea o genera un seguimiento desde una actividad.
+              - group [ref=f121e186]:
+                - generic "+ Crear tarea" [ref=f121e187] [cursor=pointer]
+                - option "General" [selected]
+                - option "Oportunidad sintética QA"
+                - option "Sin contacto" [selected]
+                - option "Contacto sintético QA"
+                - option "Yo" [selected]
+                - option "altarialights@gmail.com"
+            - region [ref=f121e188]:
+              - generic [ref=f121e190]:
+                - heading "Pedidos y fuentes" [level=2] [ref=f121e191]
+                - paragraph [ref=f121e192]: Vínculos verificados con registros históricos de TEST, sin alterar su contenido.
+              - generic [ref=f121e193]:
+                - strong [ref=f121e194]: Sin fuentes vinculadas.
+                - paragraph [ref=f121e195]: Los registros existentes se asociarán tras revisar su identidad y procedencia.
+              - group [ref=f121e196]:
+                - generic "Vincular registro TEST" [ref=f121e197] [cursor=pointer]
+                - option "Diagnóstico digital" [selected]
+                - option "Consulta Cards"
+                - option "Pedido Cards"
+          - complementary "Seguimiento de empresa" [ref=f121e198]:
+            - generic [ref=f121e199]:
+              - generic [ref=f121e201]:
+                - heading "Próxima acción" [level=2] [ref=f121e202]
+                - paragraph [ref=f121e203]: El siguiente paso del equipo.
+              - generic [ref=f121e204]:
+                - strong [ref=f121e205]: Sin próxima acción.
+                - paragraph [ref=f121e206]: Añade una tarea para dar continuidad a la relación.
+            - generic [ref=f121e207]:
+              - generic [ref=f121e209]:
+                - heading "Historia de la relación" [level=2] [ref=f121e210]
+                - paragraph [ref=f121e211]: Cambios y decisiones con autor y fecha.
+              - generic [ref=f121e212]:
+                - strong [ref=f121e213]: La historia empieza aquí.
+                - paragraph [ref=f121e214]: Cada operación nueva aparecerá en orden cronológico.
+        - generic [ref=f121e215]:
+          - generic [ref=f121e216]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f121e217]: Entorno privado
+  - generic [ref=f121e220]:
+    - button [ref=f121e221]
+    - button [ref=f121e227]
+    - button [ref=f121e231]
+    - button [ref=f121e236]

@@ -1,0 +1,272 @@
+- generic [active] [ref=f53e1]:
+  - link "Saltar al contenido" [ref=f53e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f53e3]:
+    - complementary "Panel de navegación" [ref=f53e4]:
+      - button "Cerrar navegación" [ref=f53e5] [cursor=pointer]
+      - generic [ref=f53e8]:
+        - link "Altaria OS, inicio" [ref=f53e9] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f53e10]
+          - generic [ref=f53e11]: OS
+        - paragraph [ref=f53e13]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f53e14]:
+        - paragraph [ref=f53e15]: PLATAFORMA
+        - link "Inicio" [ref=f53e16] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f53e21] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards" [ref=f53e26] [cursor=pointer]:
+          - /url: /admin/cards
+        - link "Informes En preparación" [ref=f53e31] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f53e35]: Informes
+          - generic "En preparación" [ref=f53e36]: ·
+        - link "Configuración" [ref=f53e37] [cursor=pointer]:
+          - /url: /admin/configuracion
+      - generic [ref=f53e42]:
+        - generic [ref=f53e47]:
+          - text: Área privada
+          - strong [ref=f53e48]: Acceso protegido
+        - link "Ver sitio público" [ref=f53e49] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f53e50]: ↗
+    - generic [ref=f53e51]:
+      - banner [ref=f53e52]:
+        - button "Abrir navegación" [ref=f53e53] [cursor=pointer]
+        - generic [ref=f53e56]:
+          - text: ALTARIA OS /
+          - strong [ref=f53e57]: CRM
+        - generic [ref=f53e58]:
+          - button "Buscar en Altaria OS" [ref=f53e59] [cursor=pointer]
+          - button "Cerrar y revocar esta sesión" [ref=f53e63] [cursor=pointer]: Salir
+      - main [ref=f53e64]:
+        - generic [ref=f53e65]:
+          - generic [ref=f53e66]:
+            - paragraph [ref=f53e67]: CRM / SALES OS
+            - heading "Guía comercial." [level=1] [ref=f53e68]
+            - paragraph [ref=f53e69]: Guiones y decisiones con contexto, versión y revisión humana.
+          - generic [ref=f53e70]: ENTORNO TEST
+        - navigation "Navegación del CRM" [ref=f53e72]:
+          - link "Resumen" [ref=f53e73] [cursor=pointer]:
+            - /url: /admin/crm
+          - link "Empresas" [ref=f53e74] [cursor=pointer]:
+            - /url: /admin/crm/empresas
+          - link "Oportunidades" [ref=f53e75] [cursor=pointer]:
+            - /url: /admin/crm/oportunidades
+          - link "Propuestas" [ref=f53e76] [cursor=pointer]:
+            - /url: /admin/crm/propuestas
+          - link "Tareas" [ref=f53e77] [cursor=pointer]:
+            - /url: /admin/crm/tareas
+          - link "Guía comercial" [ref=f53e78] [cursor=pointer]:
+            - /url: /admin/crm/guia-comercial
+        - region [ref=f53e79]:
+          - generic [ref=f53e80]:
+            - paragraph [ref=f53e81]: ALTARIA OS · TEST
+            - heading "Una conversación mejor preparada." [level=2] [ref=f53e82]
+            - paragraph [ref=f53e83]: Consulta el guion, escucha lo que falta y registra el siguiente paso en el CRM. Ningún contenido se envía automáticamente.
+          - link "Crear contenido" [ref=f53e84] [cursor=pointer]:
+            - /url: "#nuevo-contenido"
+            - text: Crear contenido
+            - generic [aria-hidden] [ref=f53e85]: ↗
+        - region [ref=f53e86]:
+          - generic [ref=f53e87]:
+            - paragraph [ref=f53e88]: CONTEXTO VERIFICADO EN CRM
+            - heading "Empresa DEMO TEST Sales OS" [level=2] [ref=f53e89]
+            - paragraph [ref=f53e90]:
+              - text: "Restauración · Ciudad sintética · Oportunidad:"
+              - strong [ref=f53e91]: Explorar experiencia de clientes · DEMO TEST
+              - text: (Nuevo)
+          - link "Abrir ficha de empresa" [ref=f53e92] [cursor=pointer]:
+            - /url: /admin/crm/empresas/19c72710-e8f6-4d49-9c93-00b2e1d65e3d
+        - search "Buscar en la guía comercial" [ref=f53e93]:
+          - generic [ref=f53e94]:
+            - text: Buscar
+            - searchbox "Buscar" [ref=f53e95]: restaurantes
+          - generic [ref=f53e96]:
+            - text: Categoría
+            - combobox "Categoría" [ref=f53e97]:
+              - option "Todas" [selected]
+              - option "Prospección"
+              - option "Email"
+              - option "Llamada"
+              - option "Presencial"
+              - option "Diagnóstico"
+              - option "Demostración"
+              - option "Objeciones"
+              - option "Seguimiento"
+              - option "Cierre"
+              - option "Venta adicional"
+              - option "Posventa"
+          - generic [ref=f53e98]:
+            - text: Producto
+            - combobox "Producto" [ref=f53e99]:
+              - option "Todos" [selected]
+              - option "Soluciones para restaurantes"
+          - generic [ref=f53e100]:
+            - text: Sector
+            - combobox "Sector" [ref=f53e101]:
+              - option "Todos" [selected]
+              - option "restauración"
+          - generic [ref=f53e102]:
+            - text: Canal
+            - combobox "Canal" [ref=f53e103]:
+              - option "Todos" [selected]
+              - option "Teléfono"
+              - option "Email"
+              - option "Presencial"
+              - option "General"
+          - generic [ref=f53e104]:
+            - text: Etapa
+            - combobox "Etapa" [ref=f53e105]:
+              - option "Todas" [selected]
+              - option "Nuevo"
+              - option "Contactado"
+              - option "Interesado"
+              - option "Propuesta"
+              - option "Negociación"
+              - option "Ganado"
+              - option "Perdido"
+              - option "General"
+          - button "Filtrar" [ref=f53e106] [cursor=pointer]
+        - generic [ref=f53e107]:
+          - region [ref=f53e108]:
+            - generic [ref=f53e110]:
+              - heading "Biblioteca" [level=2] [ref=f53e111]
+              - paragraph [ref=f53e112]: 3 contenidos disponibles para tu perfil
+            - generic [ref=f53e113]:
+              - 'link "Objeciones · Soluciones para restaurantes Revisión Objeción habitual · Soluciones para restaurantes Cuando la persona no ve clara la utilidad, responde: «Si el equipo tiene poco tiempo, conviene probar un flujo sencillo y medir si enca…" [ref=f53e114] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?q=restaurantes&empresa=19c72710-e8f6-4d49-9c93-00b2e1d65e3d&oportunidad=62ecc906-ac32-4183-86b3-5456411023e7&ficha=459811ae-7e2b-426d-8bc1-140647524c92
+                - generic [ref=f53e115]:
+                  - generic [ref=f53e116]: Objeciones · Soluciones para restaurantes
+                  - generic [ref=f53e117]: Revisión
+                - strong [ref=f53e118]: Objeción habitual · Soluciones para restaurantes
+                - generic [ref=f53e119]: "Cuando la persona no ve clara la utilidad, responde: «Si el equipo tiene poco tiempo, conviene probar un flujo sencillo y medir si enca…"
+              - 'link "Diagnóstico · Soluciones para restaurantes Revisión Diagnóstico · Soluciones para restaurantes Pregunta principal: «¿Qué experiencia queréis facilitar al cliente sin interrumpir al equipo?» Pide un ejemplo reciente, quién intervie…" [ref=f53e120] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?q=restaurantes&empresa=19c72710-e8f6-4d49-9c93-00b2e1d65e3d&oportunidad=62ecc906-ac32-4183-86b3-5456411023e7&ficha=3e9f895a-b0f8-4856-a8a9-ccbd3f00b101
+                - generic [ref=f53e121]:
+                  - generic [ref=f53e122]: Diagnóstico · Soluciones para restaurantes
+                  - generic [ref=f53e123]: Revisión
+                - strong [ref=f53e124]: Diagnóstico · Soluciones para restaurantes
+                - generic [ref=f53e125]: "Pregunta principal: «¿Qué experiencia queréis facilitar al cliente sin interrumpir al equipo?» Pide un ejemplo reciente, quién intervie…"
+              - 'link "Llamada · Soluciones para restaurantes Revisión Primer contacto · Soluciones para restaurantes Inicio propuesto: «¿En qué punto del servicio os cuesta más compartir información o recibir opiniones?» Escucha la respuesta y pregunta…" [ref=f53e126] [cursor=pointer]':
+                - /url: /admin/crm/guia-comercial?q=restaurantes&empresa=19c72710-e8f6-4d49-9c93-00b2e1d65e3d&oportunidad=62ecc906-ac32-4183-86b3-5456411023e7&ficha=bbc96dbe-0afd-49e6-a338-962cfe0d8ada
+                - generic [ref=f53e127]:
+                  - generic [ref=f53e128]: Llamada · Soluciones para restaurantes
+                  - generic [ref=f53e129]: Revisión
+                - strong [ref=f53e130]: Primer contacto · Soluciones para restaurantes
+                - generic [ref=f53e131]: "Inicio propuesto: «¿En qué punto del servicio os cuesta más compartir información o recibir opiniones?» Escucha la respuesta y pregunta…"
+          - generic [ref=f53e132]:
+            - article [ref=f53e133]:
+              - generic [ref=f53e134]:
+                - generic [ref=f53e135]:
+                  - paragraph [ref=f53e136]: Llamada · Soluciones para restaurantes
+                  - heading "Primer contacto · Soluciones para restaurantes" [level=2] [ref=f53e137]
+                  - paragraph [ref=f53e138]: restauración · phone · v1
+                - generic [ref=f53e139]: Pendiente de revisión
+              - generic [ref=f53e140]:
+                - heading "Guion / contenido" [level=3] [ref=f53e141]
+                - paragraph [ref=f53e142]: "Inicio propuesto: «¿En qué punto del servicio os cuesta más compartir información o recibir opiniones?» Escucha la respuesta y pregunta: «¿Qué experiencia queréis facilitar al cliente sin interrumpir al equipo?» No atribuyas necesidades que la empresa no haya confirmado."
+              - generic [ref=f53e143]:
+                - text: Próximo paso propuesto
+                - paragraph [ref=f53e144]: Revisar un caso de uso concreto con el responsable del local.
+              - generic [ref=f53e145]:
+                - generic [ref=f53e146]: Propuesta nueva · phase6.5b:initial:restaurants-call
+                - generic [ref=f53e147]: v1 · 13 oct 2026, 12:14
+              - generic [ref=f53e148]:
+                - button "Copiar fragmento" [ref=f53e149] [cursor=pointer]
+                - status
+              - paragraph [ref=f53e150]: "Contenido propuesto: pendiente de revisión del propietario. Revísalo antes de usarlo en una comunicación."
+              - button "Aprobar esta versión" [ref=f53e152] [cursor=pointer]
+              - button "Retirar contenido" [ref=f53e154] [cursor=pointer]
+            - group [ref=f53e155]:
+              - generic "Editar y crear nueva versión" [ref=f53e156] [cursor=pointer]
+              - option "Prospección"
+              - option "Email"
+              - option "Llamada" [selected]
+              - option "Presencial"
+              - option "Diagnóstico"
+              - option "Demostración"
+              - option "Objeciones"
+              - option "Seguimiento"
+              - option "Cierre"
+              - option "Venta adicional"
+              - option "Posventa"
+              - option "General"
+              - option "Email"
+              - option "Teléfono" [selected]
+              - option "Presencial"
+              - option "Nuevo" [selected]
+              - option "Contactado"
+              - option "Interesado"
+              - option "Propuesta"
+              - option "Negociación"
+              - option "Ganado"
+              - option "Perdido"
+              - option "General"
+            - region [ref=f53e157]:
+              - heading "Historial de versiones" [level=2] [ref=f53e159]
+              - list [ref=f53e160]:
+                - listitem [ref=f53e161]:
+                  - strong [ref=f53e162]: v1 · Propuesta nueva
+                  - generic [ref=f53e163]: created · 13 oct 2026, 12:14
+            - region [ref=f53e164]:
+              - generic [ref=f53e166]:
+                - heading "Acciones en esta empresa" [level=2] [ref=f53e167]
+                - paragraph [ref=f53e168]: Solo datos presentes en el CRM; tú decides cada paso.
+              - generic [ref=f53e169]:
+                - link "Historial de interacciones" [ref=f53e170] [cursor=pointer]:
+                  - /url: /admin/crm/empresas/19c72710-e8f6-4d49-9c93-00b2e1d65e3d#activity
+                - link "Seguimientos" [ref=f53e171] [cursor=pointer]:
+                  - /url: /admin/crm/empresas/19c72710-e8f6-4d49-9c93-00b2e1d65e3d#tasks
+                - link "Preparar propuesta" [ref=f53e172] [cursor=pointer]:
+                  - /url: /admin/crm/empresas/19c72710-e8f6-4d49-9c93-00b2e1d65e3d#opportunities
+              - group [ref=f53e173]:
+                - generic "Registrar llamada realizada" [ref=f53e174] [cursor=pointer]
+              - group [ref=f53e175]:
+                - generic "Crear seguimiento" [ref=f53e176] [cursor=pointer]
+              - group [ref=f53e177]:
+                - generic "Registrar revisión del canal u oposición" [ref=f53e178] [cursor=pointer]
+                - option "Toda la empresa" [selected]
+                - option "Email" [selected]
+                - option "Teléfono"
+                - option "Presencial"
+                - option "Pendiente de comprobar" [selected]
+                - option "Revisado manualmente"
+                - option "Bloqueado"
+                - option "Oposición registrada"
+        - group [ref=f53e179]:
+          - generic "Nueva propuesta de contenido" [ref=f53e180] [cursor=pointer]
+          - option "Prospección" [selected]
+          - option "Email"
+          - option "Llamada"
+          - option "Presencial"
+          - option "Diagnóstico"
+          - option "Demostración"
+          - option "Objeciones"
+          - option "Seguimiento"
+          - option "Cierre"
+          - option "Venta adicional"
+          - option "Posventa"
+          - option "General" [selected]
+          - option "Email"
+          - option "Teléfono"
+          - option "Presencial"
+          - option "General" [selected]
+          - option "Nuevo"
+          - option "Contactado"
+          - option "Interesado"
+          - option "Propuesta"
+          - option "Negociación"
+          - option "Ganado"
+          - option "Perdido"
+          - option "General"
+        - generic [ref=f53e181]:
+          - generic [ref=f53e182]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f53e183]: Entorno privado
+  - generic [ref=f53e186]:
+    - button [ref=f53e187]
+    - button [ref=f53e193]
+    - button [ref=f53e197]
+    - button [ref=f53e205]

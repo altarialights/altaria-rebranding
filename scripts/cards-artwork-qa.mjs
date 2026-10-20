@@ -1,8 +1,10 @@
 import { chromium } from 'playwright';
+import { assertLocalQaUrl } from './lib/local-qa-url.mjs';
 import sharp from 'sharp';
 import assert from 'node:assert/strict';
 import {mkdirSync,writeFileSync} from 'node:fs';
 const base=process.env.CARDS_QA_URL??'http://127.0.0.1:4322';
+assertLocalQaUrl(base);
 if(!['localhost','127.0.0.1'].includes(new URL(base).hostname))throw new Error('QA solo local.');
 const out='review/altaria-cards/cr80';mkdirSync(out,{recursive:true});
 const browser=await chromium.launch({headless:true,executablePath:process.env.PW_CHROME||'C:/Program Files/Google/Chrome/Application/chrome.exe'});

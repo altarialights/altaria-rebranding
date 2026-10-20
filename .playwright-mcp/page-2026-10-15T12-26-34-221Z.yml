@@ -1,0 +1,157 @@
+- generic [ref=f17e182]:
+  - generic [ref=f17e184]:
+    - generic [ref=f17e185]:
+      - link "Skip to main content" [ref=f17e186] [cursor=pointer]:
+        - /url: "#main-_R_35tamcnmlb_"
+      - banner [ref=f17e187]:
+        - generic [ref=f17e188]:
+          - 'button "Change project, current project: Altarialights''s Project" [ref=f17e190] [cursor=pointer]':
+            - generic [ref=f17e192]: Altarialights's Project
+          - button "Show suggestions" [ref=f17e199] [cursor=pointer]:
+            - generic [ref=f17e200]: Staging
+            - generic [ref=f17e204]: Staging
+        - generic [ref=f17e207]:
+          - generic [ref=f17e208]:
+            - button "Search ^K" [ref=f17e210] [cursor=pointer]:
+              - text: Search
+              - generic [ref=f17e213]: ^K
+            - generic [ref=f17e214]:
+              - link "Docs" [ref=f17e216] [cursor=pointer]:
+                - /url: https://workos.com/docs
+              - link [ref=f17e219] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/notifications
+                - img "Notifications" [ref=f17e220]
+          - button "Your profile" [ref=f17e222] [cursor=pointer]
+      - navigation "app" [ref=f17e224]:
+        - generic [ref=f17e225]:
+          - link "Overview" [ref=f17e229] [cursor=pointer]:
+            - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/get-started
+          - button [ref=f17e238] [cursor=pointer]
+        - generic [ref=f17e243]:
+          - generic [ref=f17e248]:
+            - generic [ref=f17e249]:
+              - link "Overview" [ref=f17e250] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/get-started
+              - link "Organizations" [ref=f17e256] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/organizations
+              - link "Users" [ref=f17e263] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/users
+              - link "Agents" [ref=f17e270] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/agents/agent-auth
+              - link "Applications" [ref=f17e277] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/applications
+            - generic [ref=f17e285]:
+              - generic [ref=f17e287]: Products
+              - link "Authentication" [ref=f17e289] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication
+              - link "Authorization" [ref=f17e295] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authorization
+              - link "Radar" [ref=f17e302] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/radar
+              - link "Audit Logs" [ref=f17e309] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/audit-logs
+              - link "Feature Flags" [ref=f17e317] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/flags
+              - link "Pipes" [ref=f17e324] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/pipes
+              - link "Connect" [ref=f17e330] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/connect
+              - link "Vault" [ref=f17e337] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/vault
+            - generic [ref=f17e345]:
+              - generic [ref=f17e347]: Developer
+              - link "Admin Portal" [ref=f17e349] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/admin-portal
+              - link "Domains" [ref=f17e355] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/domains
+              - link "API Keys" [ref=f17e361] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/api-keys
+              - link "IdP Attributes" [ref=f17e368] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/identity-provider-attributes
+              - link "Branding" [ref=f17e374] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/branding
+              - link "Emails" [ref=f17e381] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/emails/events
+              - link "Events" [ref=f17e387] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/events
+              - link "Actions" [ref=f17e393] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/actions/logs
+              - link "Webhooks" [ref=f17e399] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/webhooks
+              - link "Test SSO" [ref=f17e405] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/test-sso
+          - button "Altarialights's Team" [ref=f17e414] [cursor=pointer]:
+            - generic [aria-hidden] [ref=f17e416]: A
+      - navigation [ref=f17e125]:
+        - generic [ref=f17e128]:
+          - heading "Authentication" [level=2] [ref=f17e130]
+          - generic [ref=f17e131]:
+            - list [ref=f17e133]:
+              - listitem [ref=f17e134]:
+                - link "Analytics" [ref=f17e135] [cursor=pointer]:
+                  - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/analytics
+              - listitem [ref=f17e138]:
+                - link "Methods" [ref=f17e139] [cursor=pointer]:
+                  - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/methods
+              - listitem [ref=f17e142]:
+                - link "Providers" [ref=f17e143] [cursor=pointer]:
+                  - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/oauth-providers
+              - listitem [ref=f17e146]:
+                - link "Features" [ref=f17e147] [cursor=pointer]:
+                  - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/features
+              - listitem [ref=f17e150]:
+                - link "Add-ons" [ref=f17e151] [cursor=pointer]:
+                  - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/integrations
+            - generic [ref=f17e154]:
+              - heading "Related" [level=3] [ref=f17e156]
+              - list [ref=f17e157]:
+                - listitem [ref=f17e158]:
+                  - link "Authorization" [ref=f17e159] [cursor=pointer]:
+                    - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authorization
+                - listitem [ref=f17e164]:
+                  - link "Branding" [ref=f17e165] [cursor=pointer]:
+                    - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/branding
+                - listitem [ref=f17e170]:
+                  - link "Domains" [ref=f17e171] [cursor=pointer]:
+                    - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/domains
+                - listitem [ref=f17e176]:
+                  - link "Admin Portal" [ref=f17e177] [cursor=pointer]:
+                    - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/admin-portal
+      - main [ref=f17e1]:
+        - generic [ref=f17e423]:
+          - heading "Methods" [level=2] [ref=f17e426]
+          - generic [ref=f17e427]:
+            - article [ref=f17e428]:
+              - generic [ref=f17e429]:
+                - generic [ref=f17e431]:
+                  - heading "Single Sign-On" [level=3] [ref=f17e432]
+                  - paragraph [ref=f17e433]: Allow users to sign in with SAML and OIDC identity providers like Entra ID, Okta, and Google Workspace.
+                - generic [ref=f17e436]:
+                  - button "Manage" [ref=f17e437] [cursor=pointer]
+                  - generic [ref=f17e438]: Redirect URI is missing
+            - article [ref=f17e443]:
+              - generic [ref=f17e444]:
+                - generic [ref=f17e446]:
+                  - heading "Email + Password" [level=3] [ref=f17e447]
+                  - paragraph [ref=f17e448]: Allow users to sign in with email and password.
+                - generic [ref=f17e449]: Disabled
+                - button "Enable" [ref=f17e456] [cursor=pointer]
+            - article [ref=f17e457]:
+              - generic [ref=f17e458]:
+                - generic [ref=f17e460]:
+                  - heading "Passkeys" [level=3] [ref=f17e461]
+                  - paragraph [ref=f17e462]: Allow users to sign in with a passkey. Passkeys are faster, easier, and more secure than passwords.
+                - generic [ref=f17e463]: Disabled
+                - button "Enable" [ref=f17e470] [cursor=pointer]
+            - article [ref=f17e471]:
+              - generic [ref=f17e472]:
+                - generic [ref=f17e474]:
+                  - heading "Magic Auth" [level=3] [ref=f17e475]
+                  - paragraph [ref=f17e476]: Allow users to sign in with a unique six-digit code sent to their email address.
+                - generic [ref=f17e477]: Disabled
+                - button "Enable" [ref=f17e484] [cursor=pointer]
+    - region "Notifications (F8)":
+      - list
+    - region "Notifications (F8)":
+      - list
+  - alert [ref=f17e485]: Methods | WorkOS

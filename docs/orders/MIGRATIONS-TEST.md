@@ -10,6 +10,12 @@
 
 # Altaria Cards: preparación de TEST (2026-10-02)
 
+> Procedimiento actualizado de aislamiento (2026-10-08):
+> [ALTARIA OS — TEST-ISOLATION](../altaria-os/TEST-ISOLATION.md).
+> Las variables `CARDS_TEST_*` y el procedimiento de esta sección son históricos.
+> `prepare-cards-test.mjs` ahora lee `.env.test` y exige el marcador remoto TEST;
+> no utilizar las instrucciones antiguas como autorización de ejecución.
+
 No se ha publicado ni aplicado SQL a producción ni a una base TEST remota.
 No se ha identificado todavía una URL/credencial TEST independiente autorizada.
 

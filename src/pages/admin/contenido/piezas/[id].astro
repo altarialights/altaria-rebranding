@@ -1,0 +1,252 @@
+---
+import AdminShell from '../../../../layouts/AdminShell.astro';
+import ContentNav from '../../../../components/admin/ContentNav.astro';
+import {createAdminCsrfToken,hasAdminPermission} from '../../../../lib/admin/access';
+import {getDatabase} from '../../../../lib/db/client';
+import {getPiece,listBrandDetails} from '../../../../lib/admin/content/service';
+import {listAssets} from '../../../../lib/admin/content/storage';
+import {grantFor,contentStages,stageLabels,publicationLabels,channelLabels,
+  type ContentStage} from '../../../../lib/admin/content/model';
+import {randomUUID} from 'node:crypto';
+import '../../../../styles/admin-content.css';
+export const prerender=false;
+const principal=Astro.locals.admin;
+if(!principal)return new Response('Acceso denegado.',{status:403});
+const id=Astro.params.id??'',vParam=Astro.url.searchParams.get('version');
+let details;
+try{details=await getPiece(principal,id,undefined,vParam?Number(vParam):undefined);}
+catch{return new Response('Pieza no disponible.',{status:404});}
+const piece=details.piece,v=details.current;
+const isOnHold=Number(piece.on_hold)===1;
+const brandId=String(piece.brand_id),grant=grantFor(principal,brandId);
+const canEdit=Boolean(grant?.edit&&piece.publication_state==='none');
+const canReview=Boolean(grant?.review),canRecord=Boolean(grant?.recordPublication);
+const isHistorical=Number(v.version)!==Number(piece.current_version);
+const visibleAssets=details.assets.filter(a=>Number(a.version)===Number(v.version));
+const brand=await listBrandDetails(principal,brandId);
+const assets=await listAssets(principal,brandId);
+const availableAssets=assets.filter(a=>a.status==='verified'
+  &&!details.assets.some(link=>link.id===a.id&&Number(link.version)===Number(piece.current_version)));
+const hasReview=details.reviews.some(r=>Number(r.version)===Number(piece.current_version));
+const policy=brand.policies.find(x=>x.active&&(piece.project_id?x.project_id===piece.project_id:false))
+  ??brand.policies.find(x=>x.active&&x.project_id===null);
+const stageIndex=contentStages.indexOf(String(piece.stage) as ContentStage);
+const reviewStage=piece.stage==='script'?'script':piece.stage==='visuals'?'visuals':
+  piece.stage==='review'?'final':null;
+const csrf=createAdminCsrfToken(principal.sessionHash,process.env.WORKOS_COOKIE_PASSWORD||'','content');
+const dateValue=(value:unknown)=>value?new Date(String(value))
+  .toLocaleString('sv-SE',{timeZone:'Europe/Madrid'}).replace(' ','T').slice(0,16):'';
+const crmOrgs=hasAdminPermission(principal,'crm:read')&&canEdit
+  ?await getDatabase().all(`SELECT id,name FROM crm_organizations WHERE status='active'
+    AND (?=1 OR responsible_user_id=?) ORDER BY name LIMIT 100`,
+    [principal.roles.includes('owner')?1:0,principal.id]):[];
+const assigneeName=piece.assigned_user_id===principal.id?'Tú':piece.assigned_user_id
+  ?String((await getDatabase().get('SELECT display_name FROM altaria_admin_users WHERE id=?',
+      [String(piece.assigned_user_id)]))?.display_name??'Miembro del equipo'):'Sin asignar';
+---
+<AdminShell title={String(piece.title)} eyebrow="CONTENIDO / FICHA DE PRODUCCIÓN"
+  description={`${String(brand.brand.name)} · ${channelLabels[String(piece.channel) as keyof typeof channelLabels]} · ${String(v.format_snapshot)}`}
+  active="/admin/contenido" principal={principal}>
+  <ContentNav active="production"/>
+  {Astro.url.searchParams.has('guardado')&&<p class="content-notice" role="status">Cambio registrado en TEST con auditoría.</p>}
+  <div class="content-toolbar"><a class="content-button secondary" href="/admin/contenido/produccion">← Producción</a>
+    <span class="content-pill">{stageLabels[String(piece.stage) as ContentStage]}</span>
+    {isOnHold&&<span class="content-pill is-hold">EN ESPERA · {String(piece.hold_reason)}</span>}
+    <span class:list={['content-pill',{'is-ready':piece.stage==='ready'}]}>
+      {publicationLabels[String(piece.publication_state) as keyof typeof publicationLabels]}</span>
+    <small>Versión actual v{String(piece.current_version)} · consulta v{String(v.version)}</small>
+  </div>
+  <div class="content-detail-grid"><div class="content-stack">
+    <article class="content-card"><div class="content-card-heading"><div><p class="content-kicker">
+      {String(brand.brand.name)} / {String(v.format_snapshot)}</p><h2>{String(v.title)}</h2></div>
+      <span class="content-pill">v{String(v.version)}</span></div>
+      {([['Objetivo','objective'],['Brief','brief'],['Hook','hook'],['Guion','script'],
+        ['Copy','copy'],['CTA','cta'],['Referencias','references_text']] as const).map(([label,key])=>
+          <section style="margin:16px 0"><h3>{label}</h3><p class="content-version-body">
+            {String(v[key]||'Pendiente de definir')}</p></section>)}
+      <small>Versión inmutable · SHA-256 {String(v.sha256).slice(0,16)}… · origen {String(v.source)}</small>
+      {isHistorical&&<p><a href={`/admin/contenido/piezas/${id}`}>Volver a la versión actual ↗</a></p>}
+      {canEdit&&!isHistorical&&<details><summary>Editar y crear nueva versión</summary>
+        <form action="/api/admin/content/revise" method="post" class="content-form-grid">
+          <input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={id}/>
+          <input type="hidden" name="brandId" value={brandId}/><input type="hidden" name="channel" value={String(piece.channel)}/>
+          <input type="hidden" name="projectId" value={String(piece.project_id??'')}/>
+          <input type="hidden" name="expectedVersion" value={String(piece.current_version)}/>
+          <label class="content-field">Título<input name="title" required minlength="3" maxlength="180" value={String(v.title)}/></label>
+          <label class="content-field">Formato<input name="format" required minlength="2" maxlength="80" value={String(piece.format)}/></label>
+          {([['objective','Objetivo',500],['brief','Brief',5000],['hook','Hook',1000],
+            ['script','Guion',12000],['copy','Copy',8000],['cta','CTA',1000],
+            ['referencesText','Referencias',4000]] as const).map(([key,label,max])=>
+              <label class="content-field wide">{label}<textarea name={key} maxlength={max}>{
+                String(v[key==='referencesText'?'references_text':key]??'')}</textarea></label>)}
+          <label class="content-field">Fecha prevista<input name="dueAt" type="datetime-local"
+            value={dateValue(piece.due_at)}/></label>
+          <button class="content-button" type="submit">Guardar versión nueva</button>
+        </form><p>El texto anterior permanece intacto; las aprobaciones de esta versión se invalidarán.</p>
+      </details>}
+    </article>
+    <section class="content-card"><div class="content-card-heading"><div>
+      <p class="content-kicker">FLUJO HUMANO</p><h2>Próximo paso</h2></div>
+      <span class="content-pill">{policy?.mode==='staged'?'Revisión por etapas':'Revisión sencilla'}</span></div>
+      <p>Etapa actual: <strong>{stageLabels[String(piece.stage) as ContentStage]}</strong>.
+        Responsable: {assigneeName}.</p>
+      {isOnHold?<>{canEdit&&<form action="/api/admin/content/resume" method="post">
+        <input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={id}/>
+        <button class="content-button" type="submit">Reanudar desde esta etapa</button></form>}</>
+        :canEdit&&!isHistorical&&<div class="content-actions">
+          {stageIndex>0&&<form action="/api/admin/content/stage" method="post">
+            <input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={id}/>
+            <input type="hidden" name="expectedRevision" value={String(piece.revision)}/>
+            <input type="hidden" name="to" value={contentStages[stageIndex-1]}/>
+            <button class="content-button secondary" type="submit">← {stageLabels[contentStages[stageIndex-1]]}</button></form>}
+          {stageIndex<5&&<form action="/api/admin/content/stage" method="post">
+            <input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={id}/>
+            <input type="hidden" name="expectedRevision" value={String(piece.revision)}/>
+            <input type="hidden" name="to" value={contentStages[stageIndex+1]}/>
+            <button class="content-button" type="submit">Avanzar a {stageLabels[contentStages[stageIndex+1]]} →</button></form>}
+        </div>}
+      {canEdit&&!isOnHold&&<details><summary>Registrar EN ESPERA</summary>
+        <form action="/api/admin/content/hold" method="post" class="content-form-grid">
+          <input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={id}/>
+          <label class="content-field wide">Motivo concreto<textarea name="reason" required minlength="3" maxlength="500"></textarea></label>
+          <button class="content-button secondary" type="submit">Pausar pieza</button></form></details>}
+      {canEdit&&reviewStage&&!isOnHold&&!isHistorical&&(policy?.mode==='staged'||reviewStage==='final')
+        &&!details.reviews.some(r=>r.review_stage===reviewStage&&Number(r.version)===Number(piece.current_version))
+        &&<form action="/api/admin/content/request-review" method="post" class="content-actions">
+          <input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={id}/>
+          <input type="hidden" name="stage" value={reviewStage}/>
+          <button class="content-button secondary" type="submit">Solicitar revisión de {reviewStage}</button>
+        </form>}
+      {details.reviews.length?<div class="content-list" style="margin-top:16px">
+        {details.reviews.map(r=><div class="content-list-row"><div><strong>
+          {String(r.review_stage)} · v{String(r.version)}</strong><small>{String(r.status)}
+          · {String(r.policy_mode)} · {String(r.requested_at).slice(0,16)}</small></div>
+          {canReview&&r.status==='pending'&&Number(r.version)===Number(piece.current_version)
+            &&<details><summary>Resolver</summary><form action="/api/admin/content/decide-review"
+              method="post" class="content-form-grid"><input type="hidden" name="csrf" value={csrf}/>
+              <input type="hidden" name="id" value={id}/><input type="hidden" name="requestId" value={String(r.id)}/>
+              <label class="content-field">Decisión<select name="decision"><option value="approved">Aprobar</option>
+                <option value="rejected">Solicitar cambios</option></select></label>
+              <label class="content-field wide">Motivo (obligatorio si eres el autor)
+                <textarea name="reason" maxlength="1000" placeholder="Explica la decisión"></textarea></label>
+              <button class="content-button" type="submit">Registrar decisión</button>
+            </form></details>}</div>)}</div>:<p>Sin solicitudes todavía. La versión final exige aprobación antes de quedar LISTA.</p>}
+    </section>
+    <section class="content-card"><div class="content-card-heading"><h2>Recursos de la pieza</h2>
+      <a href={`/admin/contenido/biblioteca?marca=${brandId}`}>Abrir biblioteca ↗</a></div>
+      {visibleAssets.length?<div class="content-list">{visibleAssets.map(a=>
+        <div class="content-list-row content-resource-row"><div class="content-resource-main">
+          <strong>{String(a.file_name)}</strong>
+          <small>v{String(a.version)} · {String(a.purpose)} · {String(a.status)}</small>
+          {String(a.mime_type).startsWith('image/')&&<img class="content-inline-preview"
+            src={`/api/admin/content/assets/${a.id}?preview=1`}
+            alt={`Vista previa privada de ${String(a.file_name)}`} loading="lazy"/>}
+          {a.mime_type==='video/mp4'&&<video class="content-inline-preview" controls preload="metadata"
+            aria-label={`Vista previa privada de ${String(a.file_name)}`}
+            src={`/api/admin/content/assets/${a.id}?preview=1`}></video>}
+          {a.mime_type==='application/pdf'&&<iframe class="content-pdf-preview"
+            src={`/api/admin/content/assets/${a.id}?preview=1`}
+            title={`Vista previa privada de ${String(a.file_name)}`} loading="lazy"></iframe>}
+        </div><a href={`/api/admin/content/assets/${a.id}`}>Descargar ↗</a></div>)}</div>
+        :<div class="content-empty"><strong>Sin recursos asociados.</strong><p>El material se guarda privado y se vincula a una versión.</p></div>}
+      {canEdit&&!isHistorical&&!hasReview&&<details id="adjuntar-recurso"><summary>Adjuntar archivo a esta versión</summary>
+        <form action="/api/admin/content/upload" method="post" enctype="multipart/form-data"
+          class="content-form-grid" data-content-upload>
+          <input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="brandId" value={brandId}/>
+          <input type="hidden" name="pieceId" value={id}/><input type="hidden" name="requestKey" value={randomUUID()}/>
+          <label class="content-field">Uso<select name="assetClass"><option value="original">Original</option>
+            <option value="work">Trabajo</option><option value="final">Exportación final</option>
+            <option value="reference">Referencia</option></select></label>
+          <label class="content-field">Archivo TEST (máximo 20 MiB)<input type="file" name="file" required
+            accept="image/png,image/jpeg,image/webp,video/mp4,application/pdf"/></label>
+          <label class="content-field wide">Procedencia<input name="sourceRef" required minlength="3"
+            maxlength="500" placeholder="Ej.: recurso sintético creado para esta pieza"/></label>
+          <label class="content-field wide">Derechos y uso<input name="rightsNote" required minlength="3"
+            maxlength="500" placeholder="Ej.: material sintético TEST autorizado"/></label>
+          <button class="content-button" type="submit">Adjuntar a v{String(piece.current_version)}</button>
+          <button class="content-button secondary" type="button" data-upload-cancel hidden>Cancelar carga</button>
+          <progress class="content-upload-progress" max="100" value="0" hidden aria-label="Progreso de carga"></progress>
+        </form><p>Quedará en la Biblioteca y en el historial de esta versión. Si falla, puedes reintentar sin duplicarlo.</p>
+      </details>}
+      {canEdit&&!isHistorical&&!hasReview&&availableAssets.length>0&&<details>
+        <summary>Vincular recurso a esta versión</summary><form action="/api/admin/content/link-asset"
+          method="post" class="content-form-grid"><input type="hidden" name="csrf" value={csrf}/>
+          <input type="hidden" name="id" value={id}/>
+          <label class="content-field">Recurso<select name="assetId">{availableAssets.map(a=>
+            <option value={String(a.id)}>{String(a.file_name)}</option>)}</select></label>
+          <label class="content-field">Uso<select name="purpose"><option value="original">Original</option>
+            <option value="work">Trabajo</option><option value="final">Final</option>
+            <option value="reference">Referencia</option></select></label>
+          <button class="content-button" type="submit">Vincular a v{String(piece.current_version)}</button>
+        </form></details>}
+      {hasReview&&canEdit&&<p>Para modificar recursos tras pedir revisión, crea antes una nueva versión.</p>}
+    </section>
+    <section class="content-card"><div class="content-card-heading"><h2>Conversación y cambios</h2></div>
+      {details.comments.length?<ol class="content-history">{details.comments.map(c=>
+        <li><strong>v{String(c.version)} · {String(c.created_at).slice(0,16)}</strong>
+          <p class="content-version-body">{String(c.body)}</p></li>)}</ol>
+        :<p>Sin comentarios todavía.</p>}
+      <form action="/api/admin/content/comment" method="post" class="content-form-grid">
+        <input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={id}/>
+        <label class="content-field wide">Añadir comentario<textarea name="body" required minlength="2" maxlength="4000"></textarea></label>
+        <button class="content-button secondary" type="submit">Registrar comentario</button></form>
+    </section>
+  </div><aside class="content-stack">
+    <section class="content-card"><div class="content-card-heading"><h2>Publicación</h2></div>
+      <p>Programar registra un plan editorial. Ninguna acción envía contenido a redes.</p>
+      {canRecord&&piece.stage==='ready'&&piece.publication_state==='none'&&<form
+        action="/api/admin/content/schedule" method="post" class="content-form-grid">
+        <input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={id}/>
+        <label class="content-field wide">Fecha de programación<input type="datetime-local" name="scheduledAt" required/></label>
+        <button class="content-button" type="submit">Registrar programación</button></form>}
+      {canRecord&&piece.publication_state==='scheduled'&&<details><summary>Simular confirmación TEST</summary>
+        <form action="/api/admin/content/publish-test" method="post" class="content-form-grid">
+          <input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={id}/>
+          <label class="content-field wide">Evidencia sintética, comenzar por TEST:
+            <textarea name="evidence" required minlength="10" maxlength="500"
+              placeholder="TEST: publicación ficticia, sin red social"></textarea></label>
+          <button class="content-button secondary" type="submit">Registrar simulación, no publicación real</button>
+        </form></details>}
+      {canRecord&&['published','analyzed'].includes(String(piece.publication_state))&&<details>
+        <summary>Registrar métrica TEST</summary><form action="/api/admin/content/metric" method="post"
+          class="content-form-grid"><input type="hidden" name="csrf" value={csrf}/>
+          <input type="hidden" name="id" value={id}/>
+          <label class="content-field">Métrica<input name="metricKey" required minlength="2" maxlength="80"
+            placeholder="Ej.: interacciones"/></label>
+          <label class="content-field">Valor (vacío si no disponible)<input type="number" name="value" min="0"/></label>
+          <label class="content-field">Unidad<input name="unit" required minlength="2" maxlength="40"
+            placeholder="cuentas"/></label>
+          <label class="content-field wide">Fuente / motivo<input name="sourceNote" required minlength="3"
+            maxlength="500"/></label><button class="content-button" type="submit">Guardar métrica</button>
+        </form></details>}
+      {canRecord&&piece.publication_state==='analyzed'&&<form action="/api/admin/content/archive"
+        method="post"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={id}/>
+        <button class="content-button subtle" type="submit">Archivar pieza</button></form>}
+      {details.publication.map(r=><p><strong>{String(r.status)}</strong> · {String(r.scheduled_at).slice(0,16)}
+        {r.evidence_method?' · evidencia TEST sintética':''}</p>)}
+      {details.metrics.map(m=><p>{String(m.metric_key)}: {m.metric_value===null?'Sin dato':String(m.metric_value)}
+        · {String(m.source)}</p>)}
+    </section>
+    <section class="content-card"><div class="content-card-heading"><h2>Versiones</h2></div>
+      <ol class="content-history">{details.versions.map(version=><li><a
+        href={`/admin/contenido/piezas/${id}?version=${version.version}`}>
+        v{String(version.version)} · {String(version.created_at).slice(0,16)}</a></li>)}</ol>
+    </section>
+    <section class="content-card"><div class="content-card-heading"><h2>Contexto CRM</h2></div>
+      {details.crmLinks.length?<ul class="content-history">{details.crmLinks.map(l=>
+        <li>{l.organization_id?<a href={`/admin/crm/empresas/${l.organization_id}`}>Empresa CRM ↗</a>
+          :'Relación editorial restringida'}</li>)}</ul>:<p>Sin empresa asociada. No se deduce una relación por nombre.</p>}
+      {canEdit&&crmOrgs.length>0&&<details><summary>Vincular empresa autorizada</summary>
+        <form action="/api/admin/content/link-crm" method="post" class="content-form-grid">
+          <input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={id}/>
+          <label class="content-field wide">Empresa<select name="organizationId">
+            {crmOrgs.map(o=><option value={String(o.id)}>{String(o.name)}</option>)}</select></label>
+          <button class="content-button" type="submit">Vincular manualmente</button></form></details>}
+    </section>
+    <section class="content-card"><div class="content-card-heading"><h2>Historial</h2></div>
+      <ol class="content-history">{details.events.map(e=><li><strong>{String(e.event_type)}</strong>
+        <small> · v{String(e.version)} · {String(e.occurred_at).slice(0,16)}</small>
+        {e.reason&&<p>{String(e.reason)}</p>}</li>)}</ol>
+    </section>
+  </aside></div>
+</AdminShell>

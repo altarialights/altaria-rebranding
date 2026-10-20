@@ -1,0 +1,26 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - region [ref=e3]:
+      - img "Altaria Lights" [ref=e4]
+      - generic [ref=e5]:
+        - paragraph [ref=e6]: ESPACIO PRIVADO / ALTARIA OS
+        - heading "Todo en su lugar." [level=1] [ref=e7]
+        - paragraph [ref=e8]: Un espacio claro para coordinar lo que mueve Altaria. Acceso reservado al equipo autorizado.
+      - generic [ref=e9]: ALTARIA LIGHTS · SISTEMA INTERNO
+    - region [ref=e10]:
+      - generic [ref=e11]:
+        - paragraph [ref=e15]: ACCESO SEGURO
+        - heading "Bienvenido de nuevo." [level=2] [ref=e16]
+        - paragraph [ref=e17]: Entra con tu cuenta Google autorizada. Se te solicitará el segundo factor de seguridad.
+        - link "Continuar con Google" [ref=e18] [cursor=pointer]:
+          - /url: /auth/altaria/login?returnTo=%2Fadmin
+        - generic [ref=e21]:
+          - text: Este panel requiere una cuenta autorizada. Si necesitas acceso, contacta con la persona responsable.
+          - link "Volver a Altaria Lights" [ref=e22] [cursor=pointer]:
+            - /url: /
+          - text: .
+  - generic [ref=e25]:
+    - button [ref=e26]
+    - button [ref=e32]
+    - button [ref=e36]
+    - button [ref=e41]

@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict';
 import { chromium, firefox, webkit } from 'playwright';
+import { assertLocalQaUrl } from './lib/local-qa-url.mjs';
 
 const BASE = process.env.BASE_URL ?? 'http://127.0.0.1:4321/';
+assertLocalQaUrl(BASE);
 const browser = await chromium.launch({ headless: true });
 const results = [];
 

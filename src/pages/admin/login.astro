@@ -1,0 +1,25 @@
+---
+import '../../styles/admin.css';
+import AdminIcon from '../../components/admin/AdminIcon.astro';
+export const prerender = false;
+const ready = Boolean(process.env.WORKOS_CLIENT_ID && process.env.WORKOS_API_KEY && process.env.WORKOS_COOKIE_PASSWORD);
+---
+<!doctype html>
+<html lang="es">
+  <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex,nofollow" /><meta name="theme-color" content="#0f2c56" /><title>Acceso privado · Altaria OS</title><link rel="icon" href="/brand/optimized/altaria-v2-favicon-32.png" /></head>
+  <body class="admin-login-body">
+    <main class="admin-login">
+      <section class="admin-login-story" aria-labelledby="login-title">
+        <img src="/brand/optimized/altaria-v2-logo-header-384.webp" alt="Altaria Lights" width="215" height="67" />
+        <div class="admin-login-story-main"><p class="admin-eyebrow">ESPACIO PRIVADO / ALTARIA OS</p><h1 id="login-title">Todo en su lugar.</h1><p>Un espacio claro para coordinar lo que mueve Altaria. Acceso reservado al equipo autorizado.</p></div>
+        <span class="admin-login-story-footer">ALTARIA LIGHTS · SISTEMA INTERNO</span>
+      </section>
+      <section class="admin-login-panel" aria-labelledby="access-title">
+        <div class="admin-login-card"><div class="admin-login-card-icon"><AdminIcon name="lock" /></div><p class="admin-eyebrow">ACCESO SEGURO</p><h2 id="access-title">Bienvenido de nuevo.</h2><p>Entra con tu cuenta Google autorizada. Se te solicitará el segundo factor de seguridad.</p>
+          {ready ? <a class="admin-login-cta" href="/auth/altaria/login?returnTo=%2Fadmin">Continuar con Google <AdminIcon name="arrow" /></a> : <div class="admin-login-cta" role="status" aria-live="polite">Acceso de prueba en configuración</div>}
+          <div class="admin-login-notice">Este panel requiere una cuenta autorizada. Si necesitas acceso, contacta con la persona responsable. <a href="/">Volver a Altaria Lights</a>.</div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

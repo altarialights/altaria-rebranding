@@ -1,8 +1,10 @@
 import { spawn } from 'node:child_process';
 import { mkdirSync } from 'node:fs';
 import { chromium } from 'playwright';
+import { assertLocalQaUrl } from './lib/local-qa-url.mjs';
 
 const BASE = process.env.BASE_URL ?? 'http://127.0.0.1:4321';
+assertLocalQaUrl(BASE);
 const OUT = 'review/full-exit-qa';
 const viewports = [
   { width: 1905, height: 669 },

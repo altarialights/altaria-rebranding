@@ -1,0 +1,488 @@
+- generic [active] [ref=f35e1]:
+  - generic [ref=f35e6]:
+    - generic [ref=f35e7]:
+      - alertdialog "Diálogo de prueba gratuita" [ref=f35e927]:
+        - generic [ref=f35e928]:
+          - generic [ref=f35e929]: "Estado de la prueba gratuita: quedan €257.47 de crédito y 56 días. Actualiza a una cuenta completa para obtener acceso ilimitado a todas las funciones de Google Cloud. Usa los créditos restantes y paga solo por lo que usas."
+          - generic [ref=f35e936]:
+            - button "Descartar banner de activación de cuenta completo" [ref=f35e937]:
+              - generic [ref=f35e938]: Descartar
+            - button "Actualizar" [ref=f35e939]
+      - generic [ref=f35e8]:
+        - complementary "Omitir vínculos" [ref=f35e9]:
+          - link "Ir al contenido principal" [ref=f35e10] [cursor=pointer]:
+            - /url: /billing/linkedaccount?project=altaria-os-gmail-test
+          - button "Combinación de teclas para acceso directo" [ref=f35e12]
+          - link [ref=f35e14] [cursor=pointer]:
+            - /url: https://cloud.google.com/docs/accessibility?hl=es_419
+            - generic [ref=f35e15]:
+              - text: Ayuda sobre la accesibilidad
+              - generic "externo, se abre en una ventana nueva" [ref=f35e16]:
+                - img "externo, se abre en una ventana nueva" [ref=f35e17]
+          - link [ref=f35e20] [cursor=pointer]:
+            - /url: https://support.google.com/accessibility/contact/feedback?hl=es_419
+            - generic [ref=f35e21]:
+              - text: Comentarios sobre accesibilidad
+              - generic "externo, se abre en una ventana nueva" [ref=f35e22]:
+                - img "externo, se abre en una ventana nueva" [ref=f35e23]
+        - banner [ref=f35e27]:
+          - generic [ref=f35e28]:
+            - navigation [ref=f35e31]:
+              - button "Menú de navegación (.)" [ref=f35e32] [cursor=pointer]
+            - link "Google Cloud Platform - Página principal" [ref=f35e36] [cursor=pointer]:
+              - /url: /?project=altaria-os-gmail-test
+          - search "Google Cloud Platform" [ref=f35e41]:
+            - combobox [ref=f35e42]:
+              - searchbox "Ingresa una consulta para buscar recursos, documentos, productos y mucho más" [ref=f35e43]
+            - button "Ver todos los resultados de la búsqueda" [disabled]:
+              - generic: Buscar
+          - generic [ref=f35e44]:
+            - generic [ref=f35e45]:
+              - button "Abrir chat de Gemini AI (Alt G)" [ref=f35e49] [cursor=pointer]
+              - button "Activar Cloud Shell (G then S)" [ref=f35e56] [cursor=pointer]
+              - button "1 notificaciones no leídas Abrir notificaciones" [ref=f35e63] [cursor=pointer]:
+                - generic [ref=f35e64]: "1"
+              - button "Configuración y utilidades" [ref=f35e71] [cursor=pointer]
+            - 'button "Cuenta: Altaria Lights (altarialights@gmail.com)" [ref=f35e126]'
+      - generic [ref=f35e87]:
+        - navigation "Ruta de navegación" [ref=f35e132]:
+          - link "Facturación" [ref=f35e135] [cursor=pointer]:
+            - /url: /billing?project=altaria-os-gmail-test
+          - list [ref=f35e138]:
+            - listitem [ref=f35e139]:
+              - generic [aria-hidden] [ref=f35e140]: /
+              - link "Descripción general" [ref=f35e143] [cursor=pointer]:
+                - /url: /billing/01094A-7D987C-3F4738?project=altaria-os-gmail-test
+        - generic [ref=f35e98]:
+          - navigation "Facturación" [ref=f35e152]:
+            - generic [ref=f35e153]:
+              - generic [ref=f35e154]:
+                - heading [level=2] [ref=f35e155]:
+                  - link "Facturación" [ref=f35e156] [cursor=pointer]:
+                    - /url: /billing?project=altaria-os-gmail-test
+                - button "Activar o desactivar el menú de navegación de Facturación" [expanded] [ref=f35e170] [cursor=pointer]
+              - generic [ref=f35e175]:
+                - generic [ref=f35e181]:
+                  - generic [ref=f35e182]: Cuenta de facturación
+                  - combobox "Cuenta de facturación Mi cuenta de facturación" [ref=f35e183]:
+                    - generic [ref=f35e184]: Mi cuenta de facturación
+                - generic [ref=f35e190]:
+                  - group [ref=f35e191]:
+                    - list "Descripción general, 1 de 1 Más opciones" [ref=f35e192]:
+                      - listitem [ref=f35e193]:
+                        - generic [ref=f35e196]:
+                          - link "Descripción general, 1 de 1" [ref=f35e197] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738?project=altaria-os-gmail-test
+                            - generic [ref=f35e198]: Descripción general
+                          - button "Más opciones" [ref=f35e205] [cursor=pointer]
+                  - group "Administración de costos" [ref=f35e209]:
+                    - heading [level=3] [ref=f35e214]:
+                      - button "Administración de costos" [disabled] [expanded] [ref=f35e215]
+                    - list "Administración de costos" [ref=f35e219]:
+                      - listitem [ref=f35e220]:
+                        - generic [ref=f35e223]:
+                          - link "Informes, 1 de 5" [ref=f35e224] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/reports?project=altaria-os-gmail-test
+                            - generic [ref=f35e225]: Informes
+                          - button "Más opciones" [ref=f35e232] [cursor=pointer]
+                      - listitem [ref=f35e236]:
+                        - generic [ref=f35e239]:
+                          - link "Tabla de costos, 2 de 5" [ref=f35e240] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/reports/tabular?project=altaria-os-gmail-test
+                            - generic [ref=f35e241]: Tabla de costos
+                          - button "Más opciones" [ref=f35e248] [cursor=pointer]
+                      - listitem [ref=f35e252]:
+                        - generic [ref=f35e255]:
+                          - link "Desglose del costo, 3 de 5" [ref=f35e256] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/reports/cost-breakdown?project=altaria-os-gmail-test
+                            - generic [ref=f35e257]: Desglose del costo
+                          - button "Más opciones" [ref=f35e264] [cursor=pointer]
+                      - listitem [ref=f35e268]:
+                        - generic [ref=f35e271]:
+                          - link "Incentivos, 4 de 5" [ref=f35e272] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/incentives?project=altaria-os-gmail-test
+                            - generic [ref=f35e273]: Incentivos
+                          - button "Más opciones" [ref=f35e280] [cursor=pointer]
+                      - listitem [ref=f35e284]:
+                        - generic [ref=f35e287]:
+                          - link "Exportación de la facturación, 5 de 5" [ref=f35e288] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/export?project=altaria-os-gmail-test
+                            - generic [ref=f35e289]: Exportación de la facturación
+                          - button "Más opciones" [ref=f35e296] [cursor=pointer]
+                  - group "Cost control" [ref=f35e300]:
+                    - heading [level=3] [ref=f35e305]:
+                      - button "Cost control" [disabled] [expanded] [ref=f35e306]
+                    - list "Cost control" [ref=f35e310]:
+                      - listitem [ref=f35e311]:
+                        - generic [ref=f35e314]:
+                          - link "Budgets & caps, 1 de 2" [ref=f35e315] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/budgets?project=altaria-os-gmail-test
+                            - generic [ref=f35e316]: Budgets & caps
+                          - button "Más opciones" [ref=f35e323] [cursor=pointer]
+                      - listitem [ref=f35e327]:
+                        - generic [ref=f35e330]:
+                          - link "Anomalías, 2 de 2" [ref=f35e331] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/anomalies?project=altaria-os-gmail-test
+                            - generic [ref=f35e332]: Anomalías
+                          - button "Más opciones" [ref=f35e339] [cursor=pointer]
+                  - group "Optimización de costos" [ref=f35e343]:
+                    - heading [level=3] [ref=f35e348]:
+                      - button "Optimización de costos" [disabled] [expanded] [ref=f35e349]
+                    - list "Optimización de costos" [ref=f35e353]:
+                      - listitem [ref=f35e354]:
+                        - generic [ref=f35e357]:
+                          - link "Centro de FinOps, 1 de 6" [ref=f35e358] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/optimize?project=altaria-os-gmail-test
+                            - generic [ref=f35e359]: Centro de FinOps
+                          - button "Más opciones" [ref=f35e366] [cursor=pointer]
+                      - listitem [ref=f35e370]:
+                        - generic [ref=f35e373]:
+                          - link "Descuentos por compromiso de uso (CUD), 2 de 6" [ref=f35e374] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/reports/commitments?project=altaria-os-gmail-test
+                            - generic [ref=f35e375]: Descuentos por compromiso de uso (CUD)
+                          - button "Más opciones" [ref=f35e382] [cursor=pointer]
+                      - listitem [ref=f35e386]:
+                        - generic [ref=f35e389]:
+                          - link "Análisis del CUD, 3 de 6" [ref=f35e390] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/commitments/analysis?project=altaria-os-gmail-test
+                            - generic [ref=f35e391]: Análisis del CUD
+                          - button "Más opciones" [ref=f35e398] [cursor=pointer]
+                      - listitem [ref=f35e402]:
+                        - generic [ref=f35e405]:
+                          - link "Precios, 4 de 6" [ref=f35e406] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/pricing?project=altaria-os-gmail-test
+                            - generic [ref=f35e407]: Precios
+                          - button "Más opciones" [ref=f35e414] [cursor=pointer]
+                      - listitem [ref=f35e418]:
+                        - generic [ref=f35e421]:
+                          - link "Estimación de costos, 5 de 6" [ref=f35e422] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/estimate?project=altaria-os-gmail-test
+                            - generic [ref=f35e423]: Estimación de costos
+                          - button "Más opciones" [ref=f35e431] [cursor=pointer]
+                      - listitem [ref=f35e435]:
+                        - generic [ref=f35e438]:
+                          - link "Créditos, 6 de 6" [ref=f35e439] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/credits?project=altaria-os-gmail-test
+                            - generic [ref=f35e440]: Créditos
+                          - button "Más opciones" [ref=f35e447] [cursor=pointer]
+                  - group "Pagos" [ref=f35e451]:
+                    - heading [level=3] [ref=f35e456]:
+                      - button "Pagos" [disabled] [expanded] [ref=f35e457]
+                    - list "Pagos" [ref=f35e461]:
+                      - listitem [ref=f35e462]:
+                        - generic [ref=f35e465]:
+                          - link "Facturas, 1 de 4" [ref=f35e466] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/invoices?project=altaria-os-gmail-test
+                            - generic [ref=f35e467]: Facturas
+                          - button "Más opciones" [ref=f35e474] [cursor=pointer]
+                      - listitem [ref=f35e478]:
+                        - generic [ref=f35e481]:
+                          - link "Transacciones, 2 de 4" [ref=f35e482] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/history?project=altaria-os-gmail-test
+                            - generic [ref=f35e483]: Transacciones
+                          - button "Más opciones" [ref=f35e490] [cursor=pointer]
+                      - listitem [ref=f35e494]:
+                        - generic [ref=f35e497]:
+                          - link "Configuración de pagos, 3 de 4" [ref=f35e498] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/profile?project=altaria-os-gmail-test
+                            - generic [ref=f35e499]: Configuración de pagos
+                          - button "Más opciones" [ref=f35e506] [cursor=pointer]
+                      - listitem [ref=f35e510]:
+                        - generic [ref=f35e513]:
+                          - link "Forma de pago, 4 de 4" [ref=f35e514] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/settings?project=altaria-os-gmail-test
+                            - generic [ref=f35e515]: Forma de pago
+                          - button "Más opciones" [ref=f35e522] [cursor=pointer]
+                  - group "Administración de facturación" [ref=f35e526]:
+                    - heading [level=3] [ref=f35e531]:
+                      - button "Administración de facturación" [disabled] [expanded] [ref=f35e532]
+                    - list "Administración de facturación" [ref=f35e536]:
+                      - listitem [ref=f35e537]:
+                        - generic [ref=f35e540]:
+                          - link "Administración de cuentas, 1 de 1" [ref=f35e541] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/manage?project=altaria-os-gmail-test
+                            - generic [ref=f35e542]: Administración de cuentas
+                          - button "Más opciones" [ref=f35e549] [cursor=pointer]
+              - button "Explorar Notas de versión de Billing" [ref=f35e558]:
+                - generic [ref=f35e563]: Notas de versión
+          - main [ref=f35e99]:
+            - generic [ref=f35e575]:
+              - generic [ref=f35e578]:
+                - heading "Descripción general" [level=1] [ref=f35e581]
+                - toolbar "Descripción general" [ref=f35e941]:
+                  - generic [ref=f35e586]:
+                    - button "Ver detalles sobre Cuenta de prueba gratuita" [ref=f35e587]:
+                      - generic [ref=f35e592]: Cuenta de prueba gratuita
+                    - link "Administrar la cuenta de facturación" [ref=f35e597] [cursor=pointer]:
+                      - /url: /billing/01094A-7D987C-3F4738/manage?project=altaria-os-gmail-test
+                  - button "Más información" [expanded] [ref=f35e606]
+              - tablist "Barra de navegación de las pestañas de la página Resumen de facturación" [ref=f35e612]:
+                - generic [ref=f35e615]:
+                  - tab "Resumen de costos" [selected] [ref=f35e616] [cursor=pointer]
+                  - tab "Tu forma de pago" [ref=f35e619] [cursor=pointer]
+              - tabpanel "Resumen de costos" [ref=f35e622]:
+                - generic [ref=f35e627]:
+                  - generic [ref=f35e630]:
+                    - img "Ilustración de la función de varios proyectos" [ref=f35e631]
+                    - generic [ref=f35e632]:
+                      - generic "Presentamos una nueva experiencia de varios proyectos para los propietarios de proyectos" [ref=f35e633]:
+                        - heading "Presentamos una nueva experiencia de varios proyectos para los propietarios de proyectos" [level=2] [ref=f35e634]
+                      - button "Descartar promoción" [ref=f35e637] [cursor=pointer]
+                      - generic [ref=f35e642]: Permite que los propietarios de tus proyectos vean los datos de costos de todos sus proyectos vinculados a la vez en la consola de facturación.
+                      - link "Más información para ver los datos de facturación de varios proyectos externo, se abre en una ventana nueva" [ref=f35e646] [cursor=pointer]:
+                        - /url: https://cloud.google.com/billing/docs/how-to/project-owners/overview?hl=es_419
+                        - generic [ref=f35e647]:
+                          - text: Más información
+                          - img "externo, se abre en una ventana nueva" [ref=f35e648]:
+                            - img "externo, se abre en una ventana nueva" [ref=f35e649]
+                  - generic [ref=f35e652]:
+                    - generic [ref=f35e653]:
+                      - region [ref=f35e655]:
+                        - generic [ref=f35e656]:
+                          - generic [ref=f35e657]:
+                            - generic [ref=f35e659]:
+                              - generic [ref=f35e660]: Tu costo total (1–8 de octubre de 2026)
+                              - button "Latency and rounding disclaimer tooltip" [ref=f35e662] [cursor=pointer]
+                            - radiogroup [ref=f35e667]:
+                              - radio "Últimos 7 días" [ref=f35e668] [cursor=pointer]
+                              - radio "Mes actual" [checked] [ref=f35e670] [cursor=pointer]
+                          - generic [ref=f35e672]:
+                            - generic [ref=f35e674]:
+                              - link "Costo €0.00" [ref=f35e676] [cursor=pointer]:
+                                - /url: /billing/01094A-7D987C-3F4738/reports;grouping=GROUP_BY_LOGICAL_PRODUCT;credits=NONE?project=altaria-os-gmail-test
+                                - generic [ref=f35e677]:
+                                  - generic [ref=f35e678]: Costo
+                                  - generic [ref=f35e679]: €0.00
+                              - generic [ref=f35e682]: —
+                              - link "Ahorros €0.00 Ver detalles" [ref=f35e685] [cursor=pointer]:
+                                - /url: /billing/01094A-7D987C-3F4738/reports/cost-breakdown;timeRange=CURRENT_MONTH;dateType=USAGE_DATE?project=altaria-os-gmail-test
+                                - generic [ref=f35e686]:
+                                  - generic [ref=f35e687]: Ahorros
+                                  - generic [ref=f35e688]: €0.00
+                                  - generic [ref=f35e691]: Ver detalles
+                              - generic [ref=f35e693]: =
+                              - link "Costo total €0.00" [ref=f35e696] [cursor=pointer]:
+                                - /url: /billing/01094A-7D987C-3F4738/reports;grouping=GROUP_BY_LOGICAL_PRODUCT?project=altaria-os-gmail-test
+                                - generic [ref=f35e697]:
+                                  - generic [ref=f35e698]: Costo total
+                                  - generic [ref=f35e699]: €0.00
+                              - generic [ref=f35e706]:
+                                - generic [ref=f35e707]: Costo total previsto
+                                - generic [ref=f35e708]: Disponible una vez que haya suficiente uso
+                            - paragraph [ref=f35e724]:
+                              - text: Los costos demoran unas horas en aparecer y podrían tardar más de 24 horas.
+                              - link "Vínculo para obtener más información sobre la Facturación de Cloud externo, se abre en una ventana nueva" [ref=f35e725] [cursor=pointer]:
+                                - /url: https://cloud.google.com/billing/docs/how-to/reports?hl=es_419#late-reported-usage
+                                - text: Learn more
+                                - img "externo, se abre en una ventana nueva" [ref=f35e726]
+                          - link "Ver detalles en Informes" [ref=f35e731] [cursor=pointer]:
+                            - /url: /billing/01094A-7D987C-3F4738/reports;grouping=GROUP_BY_LOGICAL_PRODUCT?project=altaria-os-gmail-test
+                      - generic [ref=f35e736]:
+                        - region [ref=f35e738]:
+                          - generic [ref=f35e739]:
+                            - generic [ref=f35e741]:
+                              - generic [ref=f35e742]: Proyectos principales
+                              - generic [ref=f35e744]: 1 de octubre de 2025 – 31 de octubre de 2026
+                            - generic [ref=f35e748]:
+                              - figure "Sin título":
+                                - paragraph [ref=f35e750]: Sin título
+                                - paragraph [ref=f35e752]: Este gráfico se describe en una o más cuadrículas. Una fila de cuadrículas representa una serie temporal. Una columna de cuadrículas corresponde a una marca de tiempo. De forma predeterminada, los gráficos ocultan la mayoría de las columnas. Para mostrar las columnas ocultas junto a la columna activada, usa la tecla Leer elemento anterior (flecha hacia arriba) hasta acceder al encabezado de la columna y, luego, la tecla Activar (Intro).
+                                - paragraph [ref=f35e756]: Los valores de los datos en este gráfico varían de un mínimo de 0 a un máximo de 0.
+                                - generic:
+                                  - generic:
+                                    - button "Propaga los datos de la tabla “Barra de categoría” en el gráfico “Sin título”" [ref=f35e762]
+                                    - grid "No hay datos disponibles para la tabla Barra de categoría en el gráfico Sin título":
+                                      - rowgroup:
+                                        - row "Cuadrícula de datos “Barra de categoría” en el gráfico “Sin título”. Usa las teclas de flecha para navegar por esta cuadrícula. Los movimientos con las teclas RePág y AvPág se desplazan por 10 filas. Los movimientos con las teclas Inicio y Fin se enfocan en la primera y la última celda de la fila actual. Las teclas Ctrl+Inicio y Ctrl+Fin desplazan la ubicación del foco a la primera y la última celda de la cuadrícula. Audio":
+                                          - columnheader "Cuadrícula de datos “Barra de categoría” en el gráfico “Sin título”. Usa las teclas de flecha para navegar por esta cuadrícula. Los movimientos con las teclas RePág y AvPág se desplazan por 10 filas. Los movimientos con las teclas Inicio y Fin se enfocan en la primera y la última celda de la fila actual. Las teclas Ctrl+Inicio y Ctrl+Fin desplazan la ubicación del foco a la primera y la última celda de la cuadrícula."
+                                          - columnheader "Audio"
+                                      - rowgroup:
+                                        - row "Para ahorrar memoria, esta tabla se encuentra inactiva de forma predeterminada. Para completar la tabla, haz clic en el botón \"Propaga los datos de la tabla “Barra de categoría” en el gráfico “Sin título”\" que aparece justo antes de ella.":
+                                          - gridcell "Para ahorrar memoria, esta tabla se encuentra inactiva de forma predeterminada. Para completar la tabla, haz clic en el botón \"Propaga los datos de la tabla “Barra de categoría” en el gráfico “Sin título”\" que aparece justo antes de ella."
+                                    - paragraph [ref=f35e766]: Si se omiten las columnas posteriores, la activación de un encabezado de columna mostrará todas las columnas posteriores hasta la siguiente.
+                                    - paragraph [ref=f35e767]: Si se omiten filas posteriores, la activación de un encabezado de fila mostrará todas las filas posteriores hasta la siguiente.
+                                    - paragraph [ref=f35e768]: Si activas una celda de cuadrícula, se abrirá la información en este dato.
+                                    - status [aria-hidden] [ref=f35e769]
+                            - link "Ver el informe" [ref=f35e773] [cursor=pointer]:
+                              - /url: /billing/01094A-7D987C-3F4738/reports;chartType=STACKED_BAR;from=2025-10-01;to=2026-10-31;dateType=USAGE_DATE;grouping=GROUP_BY_PROJECT?project=altaria-os-gmail-test
+                        - region [ref=f35e779]:
+                          - generic [ref=f35e780]:
+                            - generic [ref=f35e782]:
+                              - generic [ref=f35e783]: Servicios principales
+                              - generic [ref=f35e785]: 1 de octubre de 2025 – 31 de octubre de 2026
+                            - generic [ref=f35e789]:
+                              - figure "Sin título":
+                                - paragraph [ref=f35e791]: Sin título
+                                - paragraph [ref=f35e793]: Este gráfico se describe en una o más cuadrículas. Una fila de cuadrículas representa una serie temporal. Una columna de cuadrículas corresponde a una marca de tiempo. De forma predeterminada, los gráficos ocultan la mayoría de las columnas. Para mostrar las columnas ocultas junto a la columna activada, usa la tecla Leer elemento anterior (flecha hacia arriba) hasta acceder al encabezado de la columna y, luego, la tecla Activar (Intro).
+                                - paragraph [ref=f35e797]: Los valores de los datos en este gráfico varían de un mínimo de 0 a un máximo de 0.
+                                - generic:
+                                  - generic:
+                                    - button "Propaga los datos de la tabla “Barra de categoría” en el gráfico “Sin título”" [ref=f35e803]
+                                    - grid "No hay datos disponibles para la tabla Barra de categoría en el gráfico Sin título":
+                                      - rowgroup:
+                                        - row "Cuadrícula de datos “Barra de categoría” en el gráfico “Sin título”. Usa las teclas de flecha para navegar por esta cuadrícula. Los movimientos con las teclas RePág y AvPág se desplazan por 10 filas. Los movimientos con las teclas Inicio y Fin se enfocan en la primera y la última celda de la fila actual. Las teclas Ctrl+Inicio y Ctrl+Fin desplazan la ubicación del foco a la primera y la última celda de la cuadrícula. Audio":
+                                          - columnheader "Cuadrícula de datos “Barra de categoría” en el gráfico “Sin título”. Usa las teclas de flecha para navegar por esta cuadrícula. Los movimientos con las teclas RePág y AvPág se desplazan por 10 filas. Los movimientos con las teclas Inicio y Fin se enfocan en la primera y la última celda de la fila actual. Las teclas Ctrl+Inicio y Ctrl+Fin desplazan la ubicación del foco a la primera y la última celda de la cuadrícula."
+                                          - columnheader "Audio"
+                                      - rowgroup:
+                                        - row "Para ahorrar memoria, esta tabla se encuentra inactiva de forma predeterminada. Para completar la tabla, haz clic en el botón \"Propaga los datos de la tabla “Barra de categoría” en el gráfico “Sin título”\" que aparece justo antes de ella.":
+                                          - gridcell "Para ahorrar memoria, esta tabla se encuentra inactiva de forma predeterminada. Para completar la tabla, haz clic en el botón \"Propaga los datos de la tabla “Barra de categoría” en el gráfico “Sin título”\" que aparece justo antes de ella."
+                                    - paragraph [ref=f35e807]: Si se omiten las columnas posteriores, la activación de un encabezado de columna mostrará todas las columnas posteriores hasta la siguiente.
+                                    - paragraph [ref=f35e808]: Si se omiten filas posteriores, la activación de un encabezado de fila mostrará todas las filas posteriores hasta la siguiente.
+                                    - paragraph [ref=f35e809]: Si activas una celda de cuadrícula, se abrirá la información en este dato.
+                                    - status [aria-hidden] [ref=f35e810]
+                            - link "Ver el informe" [ref=f35e814] [cursor=pointer]:
+                              - /url: /billing/01094A-7D987C-3F4738/reports;chartType=STACKED_BAR;from=2025-10-01;to=2026-10-31;dateType=USAGE_DATE;grouping=GROUP_BY_SERVICE?project=altaria-os-gmail-test
+                    - generic [ref=f35e819]:
+                      - generic [ref=f35e823]:
+                        - generic [ref=f35e826]:
+                          - generic [ref=f35e827]: Crea una alerta de presupuesto
+                          - button "Help with budgets." [ref=f35e829] [cursor=pointer]
+                        - generic [ref=f35e834]:
+                          - paragraph [ref=f35e835]: Establece un presupuesto mensual para tu cuenta de facturación. Recibirás notificaciones por correo electrónico cuando los costos se acerquen al importe del presupuesto y lo superen.
+                          - radiogroup "importe del presupuesto" [ref=f35e836]:
+                            - generic [ref=f35e840] [cursor=pointer]:
+                              - generic: €
+                              - textbox "importe personalizado" [ref=f35e842]
+                          - button "Crear" [ref=f35e845]
+                        - link "Ver los presupuestos y las alertas" [ref=f35e849] [cursor=pointer]:
+                          - /url: /billing/01094A-7D987C-3F4738/budgets?project=altaria-os-gmail-test
+                      - generic [ref=f35e856]:
+                        - generic [ref=f35e857]: Crédito de prueba gratuita
+                        - generic [ref=f35e865]:
+                          - generic [ref=f35e867]:
+                            - img [aria-hidden] [ref=f35e882]: card_giftcard
+                            - generic [ref=f35e883]:
+                              - generic [ref=f35e884]: EUR257
+                              - generic [ref=f35e885]: Crédito de prueba gratuita
+                              - generic [ref=f35e887]: De EUR257
+                          - generic [ref=f35e889]:
+                            - img [aria-hidden] [ref=f35e904]: today
+                            - generic [ref=f35e905]:
+                              - generic [ref=f35e906]: "56"
+                              - generic [ref=f35e907]: Días restantes
+                              - generic [ref=f35e908]: Finaliza el 4 de diciembre de 2026
+                          - paragraph [ref=f35e909]: No se te facturará durante la prueba gratuita. Cuando finalice, se detendrán todos los recursos que creaste durante la prueba y no se te cobrará, a menos que actualices a una cuenta pagada de Facturación de Cloud. Ten en cuenta que el período de prueba gratuita no se puede pausar ni extender. La prueba finalizará cuando se consuman todos los créditos disponibles o al final del período de prueba gratuita, lo que ocurra primero.
+                        - generic [ref=f35e910]:
+                          - button "Actualizar" [ref=f35e911]
+                          - link "Obtén más información para actualizar tu cuenta. externo, se abre en una ventana nueva" [ref=f35e913] [cursor=pointer]:
+                            - /url: https://cloud.google.com/free/docs?hl=es_419
+                            - generic [ref=f35e914]:
+                              - text: Más información
+                              - img "externo, se abre en una ventana nueva" [ref=f35e915]:
+                                - img "externo, se abre en una ventana nueva" [ref=f35e916]
+    - iframe [ref=f35e924]:
+      - generic [ref=f43e3]:
+        - generic [ref=f43e6]:
+          - text: Aprender Instructivo
+          - button "Más opciones" [ref=f43e11] [cursor=pointer]
+          - button "Cerrar panel" [ref=f43e17] [cursor=pointer]
+        - region [ref=f43e26]:
+          - generic [ref=f43e27]:
+            - heading "Recomendaciones para ti" [level=1] [ref=f43e29]
+            - paragraph [ref=f43e30]:
+              - generic [ref=f43e32]:
+                - img [aria-hidden] [ref=f43e34]: article
+                - link "Descripción general de la Facturación de Cloud Documento de ayuda Comprende cómo los recursos, las cuentas de facturación y los proyectos funcionan en conjunto. se abre en una nueva ventana" [ref=f43e35] [cursor=pointer]:
+                  - /url: https://docs.cloud.google.com/billing/docs/concepts?hl=es-419
+                  - generic [ref=f43e36]:
+                    - heading "Descripción general de la Facturación de Cloud" [level=2] [ref=f43e37]
+                    - generic [ref=f43e39]: Documento de ayuda
+                    - paragraph [ref=f43e41]: Comprende cómo los recursos, las cuentas de facturación y los proyectos funcionan en conjunto.
+                  - generic [ref=f43e42]: se abre en una nueva ventana
+            - paragraph [ref=f43e43]:
+              - generic [ref=f43e45]:
+                - img [aria-hidden] [ref=f43e47]: school
+                - button "Recorrido por la facturación deGoogle Cloud Instructivo 10 min Presenta la sección de facturación de la consola y algunos de los informes disponibles para ti." [ref=f43e48] [cursor=pointer]:
+                  - generic [ref=f43e49]:
+                    - heading "Recorrido por la facturación deGoogle Cloud" [level=2] [ref=f43e50]
+                    - generic [ref=f43e51]:
+                      - generic [ref=f43e52]: Instructivo
+                      - generic [ref=f43e53]: 10 min
+                    - paragraph [ref=f43e61]: Presenta la sección de facturación de la consola y algunos de los informes disponibles para ti.
+            - paragraph [ref=f43e62]:
+              - generic [ref=f43e64]:
+                - img [aria-hidden] [ref=f43e66]: school
+                - button "Instructivo de informes de facturación Instructivo 30 min Familiarízate con los informes de facturación y aprende a responder preguntas sobre la administración de costos." [ref=f43e67] [cursor=pointer]:
+                  - generic [ref=f43e68]:
+                    - heading "Instructivo de informes de facturación" [level=2] [ref=f43e69]
+                    - generic [ref=f43e70]:
+                      - generic [ref=f43e71]: Instructivo
+                      - generic [ref=f43e72]: 30 min
+                    - paragraph [ref=f43e80]: Familiarízate con los informes de facturación y aprende a responder preguntas sobre la administración de costos.
+            - paragraph [ref=f43e81]:
+              - generic [ref=f43e83]:
+                - img [aria-hidden] [ref=f43e85]: school
+                - button "Analiza los datos de Facturación de Cloud con BigQuery Instructivo 20 min Aprende a exportar y consultar datos de Facturación de Cloud a BigQuery." [ref=f43e86] [cursor=pointer]:
+                  - generic [ref=f43e87]:
+                    - heading "Analiza los datos de Facturación de Cloud con BigQuery" [level=2] [ref=f43e88]
+                    - generic [ref=f43e89]:
+                      - generic [ref=f43e90]: Instructivo
+                      - generic [ref=f43e91]: 20 min
+                    - paragraph [ref=f43e99]: Aprende a exportar y consultar datos de Facturación de Cloud a BigQuery.
+            - paragraph [ref=f43e100]:
+              - generic [ref=f43e102]:
+                - img [aria-hidden] [ref=f43e104]: article
+                - link "Consulta los informes de facturación y las tendencias de costos Documento de ayuda Aprende a usar los informes de facturación para obtener una mejor visibilidad de tus costos. se abre en una nueva ventana" [ref=f43e105] [cursor=pointer]:
+                  - /url: https://docs.cloud.google.com/billing/docs/how-to/reports?hl=es-419
+                  - generic [ref=f43e106]:
+                    - heading "Consulta los informes de facturación y las tendencias de costos" [level=2] [ref=f43e107]
+                    - generic [ref=f43e109]: Documento de ayuda
+                    - paragraph [ref=f43e111]: Aprende a usar los informes de facturación para obtener una mejor visibilidad de tus costos.
+                  - generic [ref=f43e112]: se abre en una nueva ventana
+            - paragraph [ref=f43e113]:
+              - generic [ref=f43e115]:
+                - img [aria-hidden] [ref=f43e117]: article
+                - link "Descripción general del control de acceso de Facturación de Cloud Documento de ayuda Obtén información sobre los permisos y la administración de acceso para los recursos de Facturación de Cloud. se abre en una nueva ventana" [ref=f43e118] [cursor=pointer]:
+                  - /url: https://docs.cloud.google.com/billing/docs/how-to/billing-access?hl=es-419
+                  - generic [ref=f43e119]:
+                    - heading "Descripción general del control de acceso de Facturación de Cloud" [level=2] [ref=f43e120]
+                    - generic [ref=f43e122]: Documento de ayuda
+                    - paragraph [ref=f43e124]: Obtén información sobre los permisos y la administración de acceso para los recursos de Facturación de Cloud.
+                  - generic [ref=f43e125]: se abre en una nueva ventana
+            - paragraph [ref=f43e126]:
+              - generic [ref=f43e128]:
+                - img [aria-hidden] [ref=f43e130]: article
+                - link "Realiza cambios a tu cuenta de Facturación de Cloud Documento de ayuda Crea o cambia tu cuenta de Facturación de Cloud. se abre en una nueva ventana" [ref=f43e131] [cursor=pointer]:
+                  - /url: https://docs.cloud.google.com/billing/docs/how-to/manage-billing-account?hl=es-419
+                  - generic [ref=f43e132]:
+                    - heading "Realiza cambios a tu cuenta de Facturación de Cloud" [level=2] [ref=f43e133]
+                    - generic [ref=f43e135]: Documento de ayuda
+                    - paragraph [ref=f43e137]: Crea o cambia tu cuenta de Facturación de Cloud.
+                  - generic [ref=f43e138]: se abre en una nueva ventana
+            - paragraph [ref=f43e139]:
+              - generic [ref=f43e141]:
+                - img [aria-hidden] [ref=f43e143]: article
+                - link "Habilita, inhabilita o cambia la facturación de un proyecto Documento de ayuda Cambia la cuenta de Facturación de Cloud de un proyecto o habilita y, luego, inhabilita la facturación para un proyecto. se abre en una nueva ventana" [ref=f43e144] [cursor=pointer]:
+                  - /url: https://docs.cloud.google.com/billing/docs/how-to/modify-project?hl=es-419
+                  - generic [ref=f43e145]:
+                    - heading "Habilita, inhabilita o cambia la facturación de un proyecto" [level=2] [ref=f43e146]
+                    - generic [ref=f43e148]: Documento de ayuda
+                    - paragraph [ref=f43e150]: Cambia la cuenta de Facturación de Cloud de un proyecto o habilita y, luego, inhabilita la facturación para un proyecto.
+                  - generic [ref=f43e151]: se abre en una nueva ventana
+            - paragraph [ref=f43e152]:
+              - generic [ref=f43e154]:
+                - img [aria-hidden] [ref=f43e156]: science
+                - link "Comprende los costos de Google Cloud Capacitación Comprende tu factura de Google Cloud con labs y videos interactivos. se abre en una nueva ventana" [ref=f43e157] [cursor=pointer]:
+                  - /url: https://www.cloudskillsboost.google/course_templates/775?hl=es-419
+                  - generic [ref=f43e158]:
+                    - heading "Comprende los costos de Google Cloud" [level=2] [ref=f43e159]
+                    - generic [ref=f43e161]: Capacitación
+                    - paragraph [ref=f43e163]: Comprende tu factura de Google Cloud con labs y videos interactivos.
+                  - generic [ref=f43e164]: se abre en una nueva ventana
+            - paragraph [ref=f43e165]:
+              - generic [ref=f43e167]:
+                - img [aria-hidden] [ref=f43e169]: videocam
+                - link "Videos sobre facturación y administración de costos Video Mira videos sobre la facturación de Google Cloud , la administración de costos y temas avanzados. se abre en una nueva ventana" [ref=f43e170] [cursor=pointer]:
+                  - /url: https://www.youtube.com/watch?v=rplhJdUI-Lo&list=PLIivdWyY5sqKeXavu1XuBNBDLBO31kzM0&hl=es-419
+                  - generic [ref=f43e171]:
+                    - heading "Videos sobre facturación y administración de costos" [level=2] [ref=f43e172]
+                    - generic [ref=f43e174]: Video
+                    - paragraph [ref=f43e176]: Mira videos sobre la facturación de Google Cloud , la administración de costos y temas avanzados.
+                  - generic [ref=f43e177]: se abre en una nueva ventana
+            - paragraph [ref=f43e179]:
+              - link [ref=f43e181] [cursor=pointer]:
+                - /url: //docs.cloud.google.com/billing/docs?hl=es-419
+                - text: Toda la documentación de Facturación de Cloud
+                - img "se abre en una nueva ventana." [ref=f43e182]
+  - iframe [aria-hidden] [ref=f35e123]
+  - iframe [aria-hidden] [ref=f35e925]

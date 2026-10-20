@@ -1,0 +1,58 @@
+---
+import AdminShell from '../../../layouts/AdminShell.astro';
+import {createAdminCsrfToken} from '../../../lib/admin/access';
+import {listMcpActions,listMcpGrants} from '../../../lib/admin/mcp/actions';
+import '../../../styles/admin-automation.css';
+export const prerender=false;
+const owner=Astro.locals.admin;
+if(!owner?.roles.includes('owner'))return new Response('Acceso denegado.',{status:403});
+const [grants,actions]=await Promise.all([listMcpGrants(owner),listMcpActions(owner)]);
+const csrf=createAdminCsrfToken(owner.sessionHash,process.env.WORKOS_COOKIE_PASSWORD||'',
+  'automations');
+const enabled=process.env.ALTARIA_MCP_ENABLED==='1';
+const labels:Record<string,string>={pending:'Pendiente',approved:'Aprobada',rejected:'Rechazada',
+  expired:'Caducada',executing:'En ejecución',executed:'Ejecutada',failed:'Requiere revisión'};
+const readable=(raw:unknown)=>{
+  try{const parsed=JSON.parse(String(raw));return {
+    tool:String(parsed.tool??''),parameters:JSON.stringify(parsed.parameters,null,2),
+    resource:`${parsed.resource?.type??''} · ${parsed.resource?.id??''}`};}
+  catch{return {tool:'Solicitud inválida',parameters:'',resource:''};}
+};
+---
+<AdminShell title="ChatGPT privado" eyebrow="CONFIGURACIÓN / TEST"
+  description="Acceso MCP individual y aprobación humana de acciones preparadas."
+  active="/admin/configuracion" principal={owner}>
+  {Astro.url.searchParams.has('saved')&&<p class="os-notice" role="status">Cambio registrado y auditado en TEST.</p>}
+  <section class="os-hero compact"><div><p class="admin-eyebrow">MCP PRIVADO · TEST</p>
+    <h2>ChatGPT trabaja con permisos limitados.</h2>
+    <p>{enabled?'El servidor local está habilitado para la configuración OAuth TEST.':'La conexión externa sigue desactivada. Las solicitudes solo aparecerán cuando se complete OAuth staging con autorización específica.'}</p>
+    <p>Las consultas respetan los permisos del usuario. Preparar una acción no la ejecuta: el propietario revisa su contenido, versión y vencimiento aquí.</p>
+  </div></section>
+  <section class="os-panel" aria-labelledby="mcp-grants" style="margin-top:18px">
+    <div class="os-panel-head"><div><p class="admin-eyebrow">ACCESO INDIVIDUAL</p><h2 id="mcp-grants">Permisos MCP</h2></div></div>
+    <p class="os-muted">Sin concesión explícita no se puede usar el servidor MCP. Revocar el acceso impide nuevas llamadas y ejecución de solicitudes pendientes.</p>
+    {grants.length?<ul class="os-rule-list">{grants.map(user=><li><div>
+      <strong>{String(user.display_name)}</strong>
+      <small>{String(user.email)} · {Number(user.can_read)===1&&user.revoked_at===null?'Lectura':'Sin acceso'} · {Number(user.can_prepare)===1&&user.revoked_at===null?'Puede preparar':'Sin preparación'}</small>
+    </div><div class="os-approval-actions">
+      <form method="post" action="/api/admin/mcp/grant"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="userId" value={String(user.id)}/><input type="hidden" name="read" value="1"/><button class="os-secondary" type="submit">Solo lectura</button></form>
+      <form method="post" action="/api/admin/mcp/grant"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="userId" value={String(user.id)}/><input type="hidden" name="read" value="1"/><input type="hidden" name="prepare" value="1"/><button class="os-secondary" type="submit">Leer y preparar</button></form>
+      <form method="post" action="/api/admin/mcp/grant"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="userId" value={String(user.id)}/><button type="submit">Revocar</button></form>
+    </div></li>)}</ul>:<div class="os-empty compact"><h3>Sin identidades autorizables</h3><p>Solo aparecerán usuarios activos verificados en WorkOS staging.</p></div>}
+  </section>
+  <section class="os-panel" aria-labelledby="mcp-actions" style="margin-top:18px">
+    <div class="os-panel-head"><div><p class="admin-eyebrow">CONTROL HUMANO</p><h2 id="mcp-actions">Acciones propuestas</h2></div></div>
+    <p class="os-muted">Revisa el texto completo antes de aprobar. La ejecución se solicita por separado y comprueba otra vez permisos, identidad, versión y caducidad.</p>
+    {actions.length?<ul class="os-approval-list">{actions.map(item=>{
+      const detail=readable(item.request_json);
+      return <li><div><strong>{detail.tool} · {labels[String(item.status)]??String(item.status)}</strong>
+        <small>{String(item.requester_name)} · {detail.resource} · versión {String(item.resource_version)} · vence {new Date(String(item.expires_at)).toLocaleString('es-ES',{timeZone:'Europe/Madrid'})}</small>
+        <details><summary>Ver contenido y huella</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:280px;overflow:auto">{detail.parameters}</pre><small>SHA-256: {String(item.request_sha256)}</small></details>
+      </div><div class="os-approval-actions">
+        {item.status==='pending'&&<><form method="post" action="/api/admin/mcp/review"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={String(item.id)}/><input type="hidden" name="decision" value="approved"/><button type="submit">Aprobar</button></form>
+          <form method="post" action="/api/admin/mcp/review"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={String(item.id)}/><input type="hidden" name="decision" value="rejected"/><button class="os-secondary" type="submit">Rechazar</button></form></>}
+        {item.status==='approved'&&<form method="post" action="/api/admin/mcp/execute"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={String(item.id)}/><button type="submit">Ejecutar acción aprobada</button></form>}
+      </div></li>;
+    })}</ul>:<div class="os-empty compact"><h3>Sin solicitudes</h3><p>Cuando ChatGPT prepare una acción, aparecerá aquí antes de cualquier cambio.</p></div>}
+  </section>
+</AdminShell>

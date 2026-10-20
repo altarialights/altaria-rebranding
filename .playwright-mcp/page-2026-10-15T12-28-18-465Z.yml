@@ -1,0 +1,80 @@
+- generic [active] [ref=f25e1]:
+  - generic [ref=f25e3]:
+    - generic [ref=f25e444]:
+      - link "Skip to main content" [ref=f25e445] [cursor=pointer]:
+        - /url: "#main-_r_14_"
+      - navigation "Settings" [ref=f25e447]:
+        - link "Back to WorkOS" [ref=f25e449] [cursor=pointer]:
+          - /url: /
+        - generic [ref=f25e457]:
+          - generic [ref=f25e458]:
+            - heading "Account" [level=3] [ref=f25e460]
+            - list [ref=f25e461]:
+              - listitem [ref=f25e462]:
+                - link "Profile" [ref=f25e463] [cursor=pointer]:
+                  - /url: /settings/account/profile
+          - generic [ref=f25e469]:
+            - heading "Team" [level=3] [ref=f25e471]
+            - list [ref=f25e472]:
+              - listitem [ref=f25e473]:
+                - link "Settings" [ref=f25e474] [cursor=pointer]:
+                  - /url: /settings/team
+              - listitem [ref=f25e480]:
+                - link "Members" [ref=f25e481] [cursor=pointer]:
+                  - /url: /settings/team/members
+              - listitem [ref=f25e487]:
+                - link "Exports" [ref=f25e488] [cursor=pointer]:
+                  - /url: /settings/team/exports
+              - listitem [ref=f25e494]:
+                - link "Authentication" [ref=f25e495] [cursor=pointer]:
+                  - /url: /settings/team/authentication
+              - listitem [ref=f25e501]:
+                - link "Billing" [ref=f25e502] [cursor=pointer]:
+                  - /url: /settings/team/billing
+      - main [ref=f25e510]:
+        - generic [ref=f25e511]:
+          - generic [ref=f25e513]:
+            - heading "Team settings" [level=2] [ref=f25e514]
+            - generic [ref=f25e515]:
+              - text: Manage your team's details and preferences.
+              - link "Learn more" [ref=f25e516] [cursor=pointer]:
+                - /url: https://workos.com/docs/dashboard/settings
+          - generic [ref=f25e519]:
+            - generic [ref=f25e520]:
+              - generic [ref=f25e521]:
+                - heading "Team details" [level=2] [ref=f25e522]
+                - paragraph [ref=f25e523]: Change your team's basic information.
+              - generic [ref=f25e528]:
+                - generic [ref=f25e529]:
+                  - generic [ref=f25e530]:
+                    - generic [ref=f25e531]: Team name
+                    - generic [ref=f25e533]: Altarialights's Team
+                  - button "Edit team name" [ref=f25e534] [cursor=pointer]
+                - generic [ref=f25e537]:
+                  - generic [ref=f25e538]:
+                    - generic [ref=f25e539]:
+                      - generic [ref=f25e540]: Admin Portal support email
+                      - button "Admin Portal support email information" [ref=f25e541]
+                    - generic [ref=f25e544]: Not configured
+                  - button "Edit Admin Portal support email" [ref=f25e545] [cursor=pointer]
+            - generic [ref=f25e548]:
+              - generic [ref=f25e549]:
+                - heading "Preferences" [level=2] [ref=f25e550]
+                - paragraph [ref=f25e551]: Manage your preferences to customize your experience.
+              - generic [ref=f25e558]:
+                - button "Create channel" [ref=f25e560] [cursor=pointer]
+                - generic [ref=f25e561]:
+                  - generic [ref=f25e562]: WorkOS Slack channel
+                  - generic [ref=f25e564]: Collaborate with the WorkOS team in a shared Slack channel.
+            - generic [ref=f25e565]:
+              - heading "Danger zone" [level=2] [ref=f25e567]
+              - generic [ref=f25e574]:
+                - button "Delete team" [ref=f25e576] [cursor=pointer]
+                - generic [ref=f25e577]:
+                  - generic [ref=f25e578]: Delete team
+                  - generic [ref=f25e580]: Deleting your team from WorkOS is permanent and cannot be undone.
+    - region "Notifications (F8)":
+      - list
+    - region "Notifications (F8)":
+      - list
+  - alert [ref=f25e581]: Team settings | WorkOS

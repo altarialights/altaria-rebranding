@@ -1,0 +1,180 @@
+- generic [active] [ref=f1e1]:
+  - alert [ref=f1e2]: altarialights | Turso App
+  - generic [ref=f1e3]:
+    - generic [ref=f1e6]:
+      - list [ref=f1e8]:
+        - listitem [ref=f1e9]:
+          - button "altarialights Free" [ref=f1e10]:
+            - generic [ref=f1e12]:
+              - generic [ref=f1e13]: altarialights
+              - generic [ref=f1e14]: Free
+      - generic [ref=f1e15]:
+        - generic [ref=f1e16]:
+          - button "Create Database" [ref=f1e17]
+          - button "Create Group" [ref=f1e18]
+        - generic [ref=f1e19]:
+          - generic [ref=f1e20]: Turso Cloud
+          - list [ref=f1e21]:
+            - listitem [ref=f1e22]:
+              - button "Databases" [expanded] [ref=f1e23]
+              - list [ref=f1e32]:
+                - listitem [ref=f1e33]:
+                  - link "default" [ref=f1e34] [cursor=pointer]:
+                    - /url: /altarialights?group=default
+                  - button [ref=f1e37]
+                - listitem [ref=f1e38]:
+                  - link "peluqueria" [ref=f1e39] [cursor=pointer]:
+                    - /url: /altarialights?group=peluqueria
+                  - button [ref=f1e42]
+                - listitem [ref=f1e43]:
+                  - link "propias" [ref=f1e44] [cursor=pointer]:
+                    - /url: /altarialights?group=propias
+                  - button [ref=f1e47]
+            - listitem [ref=f1e48]:
+              - link "Analytics" [ref=f1e49] [cursor=pointer]:
+                - /url: /altarialights/analytics
+            - listitem [ref=f1e53]:
+              - link "Audit Logs" [ref=f1e54] [cursor=pointer]:
+                - /url: /altarialights/audit-logs
+            - listitem [ref=f1e57]:
+              - link "Billing" [ref=f1e58] [cursor=pointer]:
+                - /url: /altarialights/billing
+            - listitem [ref=f1e62]:
+              - button "Settings" [ref=f1e63]
+            - listitem [ref=f1e70]:
+              - link "Support" [ref=f1e71] [cursor=pointer]:
+                - /url: /altarialights/support
+      - generic [ref=f1e76]:
+        - link "Upgrade" [ref=f1e77] [cursor=pointer]:
+          - /url: /altarialights/billing/change-plan
+        - generic [ref=f1e78]: Usage
+        - generic [ref=f1e85]:
+          - button "Open user menu" [ref=f1e89] [cursor=pointer]:
+            - img "Altaria Lights's logo" [ref=f1e92]
+          - button "Toggle theme" [ref=f1e94]
+      - button "Toggle Sidebar" [ref=f1e96]
+    - main [ref=f1e97]:
+      - generic [ref=f1e99]:
+        - button "Toggle Sidebar" [ref=f1e100]
+        - navigation "breadcrumb" [ref=f1e103]:
+          - list [ref=f1e104]:
+            - listitem [ref=f1e1190]:
+              - link "Databases" [ref=f1e1191] [cursor=pointer]:
+                - /url: /altarialights
+            - listitem [aria-hidden] [ref=f1e1192]
+            - listitem [ref=f1e1195]:
+              - link "altaria-os-test" [ref=f1e1196] [cursor=pointer]:
+                - /url: /altarialights/databases/altaria-os-test
+            - listitem [aria-hidden] [ref=f1e1197]
+            - listitem [ref=f1e1200]:
+              - generic [ref=f1e1201]:
+                - link "Overview" [ref=f1e1202] [cursor=pointer]:
+                  - /url: /altarialights/databases/altaria-os-test
+                - link "Branches" [ref=f1e1203] [cursor=pointer]:
+                  - /url: /altarialights/databases/altaria-os-test/branches
+                - link "Analytics" [ref=f1e1204] [cursor=pointer]:
+                  - /url: /altarialights/databases/altaria-os-test/analytics
+                - link "Top Queries" [ref=f1e1205] [cursor=pointer]:
+                  - /url: /altarialights/databases/altaria-os-test/top-queries
+                - link "Edit Data" [ref=f1e1206] [cursor=pointer]:
+                  - /url: /altarialights/databases/altaria-os-test/data
+      - generic [ref=f1e1207]:
+        - generic [ref=f1e1208]:
+          - generic [ref=f1e1209]: Activity
+          - generic [ref=f1e1212]:
+            - generic [ref=f1e1213]:
+              - paragraph [ref=f1e1214]:
+                - generic [ref=f1e1215]: Rows Read
+              - paragraph [ref=f1e1216]:
+                - paragraph [ref=f1e1217]: 136,171
+            - generic [ref=f1e1218]:
+              - paragraph [ref=f1e1219]:
+                - generic [ref=f1e1220]: Rows Written
+              - paragraph [ref=f1e1221]:
+                - paragraph [ref=f1e1222]: 23,896
+            - generic [ref=f1e1223]:
+              - paragraph [ref=f1e1224]:
+                - generic [ref=f1e1225]: Storage
+              - paragraph [ref=f1e1226]:
+                - paragraph [ref=f1e1227]: 1.67 MB
+            - generic [ref=f1e1228]:
+              - paragraph [ref=f1e1229]:
+                - generic [ref=f1e1230]: Embedded Syncs
+              - paragraph [ref=f1e1231]:
+                - paragraph [ref=f1e1232]: "0"
+        - generic [ref=f1e1233]:
+          - generic [ref=f1e1234]: Connect
+          - generic [ref=f1e1236]:
+            - generic [ref=f1e1237]:
+              - generic [ref=f1e1238]: Database URL
+              - generic [ref=f1e1239]:
+                - textbox "Database URL" [ref=f1e1240]: libsql://altaria-os-test-altarialights.aws-eu-west-1.turso.io
+                - button [ref=f1e1241]
+            - button "Create Token" [ref=f1e1243]
+        - generic [ref=f1e1244]:
+          - generic [ref=f1e1245]:
+            - generic [ref=f1e1246]: Export Database
+            - generic [ref=f1e1247]: Download a copy of altaria-os-test as a SQLite file.
+          - button "Download SQLite File" [ref=f1e1249]
+        - generic [ref=f1e1250]:
+          - generic [ref=f1e1251]:
+            - generic [ref=f1e1252]: Configuration
+            - generic [ref=f1e1254]:
+              - generic [ref=f1e1255]:
+                - generic [ref=f1e1256]:
+                  - heading "Block Reads" [level=3] [ref=f1e1257]
+                  - paragraph [ref=f1e1258]: Block all read operations on your database.
+                - generic [ref=f1e1261]:
+                  - switch [ref=f1e1262]
+                  - checkbox [aria-hidden]
+              - generic [ref=f1e1263]:
+                - generic [ref=f1e1264]:
+                  - heading "Block Writes" [level=3] [ref=f1e1265]
+                  - paragraph [ref=f1e1266]: Block all write operations on your database.
+                - generic [ref=f1e1269]:
+                  - switch [ref=f1e1270]
+                  - checkbox [aria-hidden]
+              - generic [ref=f1e1271]:
+                - generic [ref=f1e1272]:
+                  - heading "Allow ATTACH" [level=3] [ref=f1e1273]
+                  - paragraph [ref=f1e1274]: Allow attaching to your database to other databases.
+                - generic [ref=f1e1277]:
+                  - switch [ref=f1e1278]
+                  - checkbox [aria-hidden]
+              - generic [ref=f1e1279]:
+                - generic [ref=f1e1280]:
+                  - heading "Delete Protection" [level=3] [ref=f1e1281]
+                  - paragraph [ref=f1e1282]: Prevent your database from being deleted.
+                - generic [ref=f1e1285]:
+                  - switch [ref=f1e1286]
+                  - checkbox [aria-hidden]
+          - generic [ref=f1e1287]:
+            - generic [ref=f1e1288]:
+              - generic [ref=f1e1289]:
+                - generic [ref=f1e1290]: Restrict Access
+                - generic [ref=f1e1291]: Paid plans only
+              - generic [ref=f1e1295]: Limit which clients can connect to this database by source IP address (CIDR) or AWS VPC endpoint. Leave empty to allow all traffic.
+            - generic [ref=f1e1297]:
+              - generic [ref=f1e1298]:
+                - generic [ref=f1e1299]:
+                  - text: Allowed IPs (CIDR)
+                  - textbox "Allowed IPs (CIDR)" [disabled] [ref=f1e1300]:
+                    - /placeholder: "10.0.0.0/8\n192.168.1.0/24"
+                  - paragraph [ref=f1e1301]: One CIDR block per line.
+                - generic [ref=f1e1302]:
+                  - text: Allowed AWS VPC endpoint IDs
+                  - textbox "Allowed AWS VPC endpoint IDs" [disabled] [ref=f1e1303]:
+                    - /placeholder: vpce-0ef5c83e127b86e9b
+                  - paragraph [ref=f1e1304]: One VPC endpoint ID per line.
+              - link "Upgrade now" [ref=f1e1306] [cursor=pointer]:
+                - /url: /altarialights/billing/change-plan
+        - generic [ref=f1e1307]:
+          - generic [ref=f1e1308]:
+            - generic [ref=f1e1309]: Invalidate Database Tokens
+            - generic [ref=f1e1310]: Invalidate all existing database tokens for altaria-os-test. This will require generating new tokens for any applications currently using this database.
+          - button "Invalidate All Tokens" [ref=f1e1312]
+        - generic [ref=f1e1313]:
+          - generic [ref=f1e1314]:
+            - generic [ref=f1e1315]: Delete Database
+            - generic [ref=f1e1316]: Permanently delete altaria-os-test and all of its data. This action cannot be undone.
+          - button "Delete Database" [ref=f1e1318]

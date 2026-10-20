@@ -1,0 +1,65 @@
+---
+import AdminShell from '../../layouts/AdminShell.astro';
+import AdminIcon from '../../components/admin/AdminIcon.astro';
+import { createAdminCsrfToken,hasAdminPermission } from '../../lib/admin/access';
+import { listMyWork,briefFromWork,type WorkEntry } from '../../lib/admin/automation/work';
+import { madridDay } from '../../lib/admin/automation/common';
+import { listApprovals } from '../../lib/admin/automation/approvals';
+import {listPendingContentReviews} from '../../lib/admin/content/workflow';
+import { getDatabase } from '../../lib/db/client';
+import '../../styles/admin-automation.css';
+export const prerender=false;
+const principal=Astro.locals.admin;
+if(!principal) return new Response('Acceso denegado.',{status:403});
+const db=getDatabase();
+const entries=await listMyWork(principal,db);
+const filter=Astro.url.searchParams.get('tipo')??'todo';
+const allowed=['todo','crm','proposal','cards','content','incident','approval','alert'];
+const chosen=allowed.includes(filter)?filter:'todo';
+const visible=chosen==='todo'?entries:entries.filter(entry=>entry.category===chosen);
+const order=Astro.url.searchParams.get('orden')==='fecha'?'fecha':'prioridad';
+if(order==='fecha') visible.sort((a,b)=>(a.dueAt??'9999').localeCompare(b.dueAt??'9999'));
+const csrf=createAdminCsrfToken(principal.sessionHash,process.env.WORKOS_COOKIE_PASSWORD||'','automations');
+const approvals=await listApprovals(principal,db);
+const mcpPending=principal.roles.includes('owner')?await db.get(`SELECT count(*) AS n
+  FROM os_mcp_action_requests WHERE status IN ('pending','approved')
+    AND expires_at>?`,[new Date().toISOString()]):null;
+const editorialReviews=hasAdminPermission(principal,'content:read')
+  ?await listPendingContentReviews(principal,db):[];
+const briefRow=await db.get('SELECT snapshot_json,generated_at FROM os_daily_briefs ORDER BY day_madrid DESC LIMIT 1');
+const brief=briefRow?JSON.parse(String(briefRow.snapshot_json)) as ReturnType<typeof briefFromWork>:null;
+const briefReady=brief?.day===madridDay(new Date());
+const count=(category:WorkEntry['category'])=>entries.filter(entry=>entry.category===category).length;
+const modules=[
+  {title:'Contenido',description:'Calendario, producción y biblioteca privada.',href:'/admin/contenido',icon:'content',permission:'content:read'},
+  {title:'CRM',description:'Empresas, oportunidades y conversaciones.',href:'/admin/crm',icon:'crm',permission:'crm:read'},
+  {title:'Altaria Cards',description:'Pedidos, producción y enlaces.',href:'/admin/cards',icon:'cards',permission:'cards:read'},
+  {title:'Informes',description:'Análisis de fuentes verificadas.',href:'/admin/informes',icon:'reports',permission:'reports:read'},
+] as const;
+const categories=[['todo','Todo',entries.length],['crm','Comercial',count('crm')],
+  ['content','Contenido',count('content')],
+  ['proposal','Propuestas',count('proposal')],['cards','Cards',count('cards')],
+  ['incident','Incidencias',count('incident')],['approval','Aprobaciones',count('approval')],
+  ['alert','Alertas',count('alert')]] as const;
+const priorityLabel={urgent:'Urgente',high:'Importante',normal:'Normal'};
+const approvalExpiresAt=new Date(Date.now()+24*60*60_000).toISOString();
+---
+<AdminShell title="Mi trabajo" eyebrow="INICIO / ALTARIA OS" description="Acciones con contexto, ordenadas para decidir qué hacer ahora." active="/admin" principal={principal}>
+  {principal.roles.includes('owner')&&Number(mcpPending?.n??0)>0&&<p class="os-notice" role="status"><a href="/admin/configuracion/mcp">Hay {Number(mcpPending?.n)} acciones MCP pendientes de revisión o ejecución →</a></p>}
+  {Astro.url.searchParams.has('saved')&&<p class="os-notice" role="status">Acción registrada y auditada en TEST.</p>}
+  <section class="os-hero" aria-labelledby="os-hero-title"><div><p class="admin-eyebrow">CENTRO DE TRABAJO · ENTORNO TEST</p><h2 id="os-hero-title">Lo importante, en un solo lugar.</h2><p>{entries.length?`Tienes ${entries.length} ${entries.length===1?'acción pendiente':'acciones pendientes'} entre los módulos autorizados.`:'No hay acciones pendientes en tus áreas autorizadas.'}</p><div class="os-hero-actions"><a href="#os-inbox">Ver mis acciones <span aria-hidden="true">↗</span></a>{hasAdminPermission(principal,'crm:read')&&<a href="/admin/crm">Abrir CRM</a>}</div></div><span class="os-hero-orb" aria-hidden="true"><img src="/brand/optimized/altaria-v2-icon-192.png" alt="" width="128" height="128"/></span></section>
+  <div class="os-summary-strip" aria-label="Prioridades actuales"><div><strong>{entries.filter(x=>x.priority==='urgent').length}</strong><span>Urgentes</span></div><div><strong>{count('crm')+count('proposal')}</strong><span>Comerciales</span></div><div><strong>{count('cards')+count('incident')+count('alert')}</strong><span>Cards y producción</span></div><div><strong>{count('approval')}</strong><span>Aprobaciones</span></div></div>
+  <div class="os-main-grid"><section class="os-panel" id="os-inbox" aria-labelledby="os-inbox-title"><div class="os-panel-head"><div><p class="admin-eyebrow">BANDEJA UNIFICADA</p><h2 id="os-inbox-title">Acciones pendientes</h2></div><form method="get" class="os-sort"><input type="hidden" name="tipo" value={chosen}/><label for="os-sort">Ordenar</label><select id="os-sort" name="orden" onchange="this.form.requestSubmit()"><option value="prioridad" selected={order==='prioridad'}>Prioridad</option><option value="fecha" selected={order==='fecha'}>Vencimiento</option></select></form></div><nav class="os-filters" aria-label="Filtrar acciones">{categories.map(([key,label,n])=><a href={`?tipo=${key}&orden=${order}#os-inbox`} aria-current={chosen===key?'page':undefined}>{label}<span>{n}</span></a>)}</nav>
+    {visible.length?<ol class="os-work-list">{visible.map(item=><li class:list={['os-work-card',`is-${item.priority}`]}><div class="os-work-signal"><span class="os-priority">{priorityLabel[item.priority]}</span><span class="os-work-category">{item.category==='content'?'Contenido':item.category==='proposal'?'Propuesta':item.category==='cards'?'Cards':item.category==='incident'?'Incidencia':item.category==='approval'?'Aprobación':item.category==='alert'?'Alerta':'CRM'}</span></div><div class="os-work-body"><h3>{item.title}</h3><p>{item.context}{item.dueAt?` · ${new Date(item.dueAt).toLocaleDateString('es-ES',{timeZone:'Europe/Madrid'})}`:''}</p></div><div class="os-work-actions"><a href={item.href}>Abrir ficha <span aria-hidden="true">↗</span></a>{item.completion&&<form method="post" action={`/api/admin/automations/${item.completion==='crm_task'?'complete-crm':'complete-work'}`}><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={item.id}/><button type="submit">Completar</button></form>}{item.completion==='work_item'&&<form method="post" action="/api/admin/automations/approval-request"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={item.id}/><input type="hidden" name="expiresAt" value={approvalExpiresAt}/><button class="os-link-button" type="submit" title="Solicitar revisión para completar esta acción; caduca en 24 horas">Pedir aprobación</button></form>}</div></li>)}</ol>:<div class="os-empty"><span><AdminIcon name="spark" /></span><h3>{chosen==='todo'?'Todo al día en TEST.':'Sin acciones en este filtro.'}</h3><p>Las nuevas tareas aparecerán aquí cuando los módulos registren eventos verificables.</p></div>}
+  </section><aside class="os-side-stack"><section class="os-panel" aria-labelledby="brief-title"><div class="os-panel-head"><div><p class="admin-eyebrow">EUROPE / MADRID</p><h2 id="brief-title">Resumen diario</h2></div></div>{brief?<><p class="os-brief-date">{brief.day} · fuente compartida con el mensaje Telegram simulado</p><div class="os-brief-grid"><span><strong>{brief.counts.priorities}</strong> prioritarias</span><span><strong>{brief.counts.followups}</strong> comerciales</span><span><strong>{brief.counts.proposals}</strong> propuestas</span><span><strong>{brief.counts.cards}</strong> Cards</span><span><strong>{brief.counts.incidents}</strong> incidencias</span></div>{brief.actions.length?<ul class="os-brief-actions">{brief.actions.map(item=><li><a href={item.href}>{item.title} ↗</a></li>)}</ul>:<p class="os-muted">Sin acciones para este resumen.</p>}</>:<div class="os-empty compact"><h3>Resumen pendiente</h3><p>Configura la hora en Configuración o genéralo manualmente en TEST.</p></div>}{principal.roles.includes('owner')&&(briefReady?<p class="os-muted" role="status">Resumen de hoy preparado.</p>:<form method="post" action="/api/admin/automations/brief-now"><input type="hidden" name="csrf" value={csrf}/><button class="os-secondary" type="submit">Preparar resumen de hoy</button></form>)}</section>
+  <section class="os-panel" id="aprobaciones" aria-labelledby="approvals-title"><div class="os-panel-head"><div><p class="admin-eyebrow">CONTROL HUMANO</p><h2 id="approvals-title">Aprobaciones</h2></div></div>{approvals.length?<ul class="os-approval-list">{approvals.slice(0,8).map(item=><li><div><strong>Completar: {String(item.resource_title)}</strong><small>Recurso {String(item.resource_id).slice(0,8)} · versión {String(item.resource_version).slice(0,12)} · {String(item.status)}</small><small>Contenido {String(item.request_sha256).slice(0,12)} · expira {new Date(String(item.expires_at)).toLocaleString('es-ES',{timeZone:'Europe/Madrid'})}</small></div>{principal.roles.includes('owner')&&item.status==='pending'&&<div class="os-approval-actions"><form method="post" action="/api/admin/automations/approval-review"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={String(item.id)}/><input type="hidden" name="decision" value="approved"/><button type="submit">Aprobar</button></form><form method="post" action="/api/admin/automations/approval-review"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={String(item.id)}/><input type="hidden" name="decision" value="rejected"/><button class="os-secondary" type="submit">Rechazar</button></form></div>}{principal.roles.includes('owner')&&item.status==='approved'&&<form method="post" action="/api/admin/automations/approval-execute"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={String(item.id)}/><button type="submit">Ejecutar acción aprobada</button></form>}</li>)}</ul>:<div class="os-empty compact"><h3>Sin solicitudes pendientes</h3><p>Las acciones que requieran revisión aparecerán aquí.</p></div>}</section></aside></div>
+  <section class="os-modules" aria-labelledby="modules-title"><div class="os-panel-head"><div><p class="admin-eyebrow">ESPACIOS CONECTADOS</p><h2 id="modules-title">Ir al contexto</h2></div></div><div class="os-module-grid">{modules.filter(module=>hasAdminPermission(principal,module.permission)).map(module=><a href={module.href}><span class="os-module-icon"><AdminIcon name={module.icon}/></span><strong>{module.title}</strong><small>{module.description}</small><span class="os-module-arrow" aria-hidden="true">↗</span></a>)}</div></section>
+  {editorialReviews.length>0&&<section class="os-panel" aria-labelledby="editorial-approvals-title"
+    style="margin-top:18px"><div class="os-panel-head"><div><p class="admin-eyebrow">CONTROL EDITORIAL</p>
+    <h2 id="editorial-approvals-title">Revisiones de contenido</h2></div></div>
+    <ul class="os-approval-list">{editorialReviews.map(review=><li><div>
+      <strong>{String(review.title)}</strong><small>{String(review.brand_name)} ·
+        {String(review.review_stage)} · versión {String(review.version)}</small></div>
+      <a href={`/admin/contenido/piezas/${review.piece_id}`}>Abrir revisión ↗</a>
+    </li>)}</ul></section>}
+</AdminShell>

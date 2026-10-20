@@ -1,7 +1,9 @@
 import { mkdir } from 'node:fs/promises';
 import { chromium } from 'playwright';
+import { assertLocalQaUrl } from './lib/local-qa-url.mjs';
 
 const baseUrl = process.env.ASSESSMENT_QA_URL ?? 'http://127.0.0.1:4321';
+assertLocalQaUrl(baseUrl);
 await mkdir('review', { recursive: true });
 const browser = await chromium.launch({ headless: true });
 

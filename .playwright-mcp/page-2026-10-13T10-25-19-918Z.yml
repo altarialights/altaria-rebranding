@@ -1,0 +1,93 @@
+- generic [active] [ref=f47e1]:
+  - link "Saltar al contenido" [ref=f47e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f47e3]:
+    - complementary "Panel de navegación" [ref=f47e4]:
+      - button "Cerrar navegación" [ref=f47e5] [cursor=pointer]
+      - generic [ref=f47e8]:
+        - link "Altaria OS, inicio" [ref=f47e9] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f47e10]
+          - generic [ref=f47e11]: OS
+        - paragraph [ref=f47e13]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f47e14]:
+        - paragraph [ref=f47e15]: PLATAFORMA
+        - link "Inicio" [ref=f47e16] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f47e21] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards" [ref=f47e26] [cursor=pointer]:
+          - /url: /admin/cards
+        - link "Informes En preparación" [ref=f47e31] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f47e35]: Informes
+          - generic "En preparación" [ref=f47e36]: ·
+        - link "Configuración" [ref=f47e37] [cursor=pointer]:
+          - /url: /admin/configuracion
+      - generic [ref=f47e42]:
+        - generic [ref=f47e47]:
+          - text: Área privada
+          - strong [ref=f47e48]: Acceso protegido
+        - link "Ver sitio público" [ref=f47e49] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f47e50]: ↗
+    - generic [ref=f47e51]:
+      - banner [ref=f47e52]:
+        - button "Abrir navegación" [ref=f47e53] [cursor=pointer]
+        - generic [ref=f47e56]:
+          - text: ALTARIA OS /
+          - strong [ref=f47e57]: CRM
+        - generic [ref=f47e58]:
+          - button "Buscar en Altaria OS" [ref=f47e59] [cursor=pointer]
+          - button "Cerrar y revocar esta sesión" [ref=f47e63] [cursor=pointer]: Salir
+      - main [ref=f47e64]:
+        - generic [ref=f47e65]:
+          - generic [ref=f47e66]:
+            - paragraph [ref=f47e67]: CRM / CARTERA
+            - heading "Empresas." [level=1] [ref=f47e68]
+            - paragraph [ref=f47e69]: Encuentra cada relación y abre su ficha completa.
+          - generic [ref=f47e70]: ENTORNO TEST
+        - navigation "Navegación del CRM" [ref=f47e72]:
+          - link "Resumen" [ref=f47e73] [cursor=pointer]:
+            - /url: /admin/crm
+          - link "Empresas" [ref=f47e74] [cursor=pointer]:
+            - /url: /admin/crm/empresas
+          - link "Oportunidades" [ref=f47e75] [cursor=pointer]:
+            - /url: /admin/crm/oportunidades
+          - link "Propuestas" [ref=f47e76] [cursor=pointer]:
+            - /url: /admin/crm/propuestas
+          - link "Tareas" [ref=f47e77] [cursor=pointer]:
+            - /url: /admin/crm/tareas
+          - link "Guía comercial" [ref=f47e78] [cursor=pointer]:
+            - /url: /admin/crm/guia-comercial
+        - generic [ref=f47e79]:
+          - generic [ref=f47e80]:
+            - heading "Tu cartera" [level=2] [ref=f47e81]
+            - paragraph [ref=f47e82]: Empresas activas en el entorno TEST.
+          - link "+ Nueva empresa" [ref=f47e83] [cursor=pointer]:
+            - /url: /admin/crm/empresas/nueva
+        - search "Buscar y filtrar empresas" [ref=f47e84]:
+          - generic [ref=f47e85]:
+            - text: Buscar empresa
+            - searchbox "Buscar empresa" [ref=f47e86]
+          - generic [ref=f47e87]:
+            - text: Sector
+            - searchbox "Sector" [ref=f47e88]
+          - generic [ref=f47e89]:
+            - text: Ciudad
+            - searchbox "Ciudad" [ref=f47e90]
+          - button "Aplicar filtros" [ref=f47e91] [cursor=pointer]
+        - generic [ref=f47e92]:
+          - strong [ref=f47e93]: Aún no hay empresas.
+          - paragraph [ref=f47e94]: La primera ficha reunirá contactos, oportunidades, actividades y próximas acciones.
+          - link "Crear empresa" [ref=f47e95] [cursor=pointer]:
+            - /url: /admin/crm/empresas/nueva
+        - generic [ref=f47e96]:
+          - generic [ref=f47e97]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f47e98]: Entorno privado
+  - generic [ref=f47e101]:
+    - button [ref=f47e102]
+    - button [ref=f47e108]
+    - button [ref=f47e112]
+    - button [ref=f47e117]

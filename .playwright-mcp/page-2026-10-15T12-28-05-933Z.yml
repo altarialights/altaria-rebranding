@@ -1,0 +1,279 @@
+- generic:
+  - generic:
+    - generic [aria-hidden]:
+      - generic:
+        - link:
+          - /url: "#main-_R_35tamcnmlb_"
+          - text: Skip to main content
+        - banner:
+          - generic:
+            - generic:
+              - button:
+                - generic [aria-hidden]:
+                  - generic: Altarialights's Project
+            - generic:
+              - generic:
+                - button:
+                  - generic: Staging
+                  - generic [aria-hidden]:
+                    - generic: Staging
+          - generic:
+            - generic:
+              - generic:
+                - button:
+                  - text: Search
+                  - generic: ^K
+              - generic:
+                - generic:
+                  - link:
+                    - /url: https://workos.com/docs
+                - link:
+                  - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/notifications
+            - button
+        - navigation:
+          - generic:
+            - link [ref=f25e419] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/get-started
+            - button
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/get-started
+                          - generic: Overview
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/organizations
+                          - generic: Organizations
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/users
+                          - generic: Users
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/agents/agent-auth
+                          - generic: Agents
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/applications
+                          - generic: Applications
+                      - generic:
+                        - generic [aria-hidden]:
+                          - generic: Products
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication
+                          - generic: Authentication
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authorization
+                          - generic: Authorization
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/radar
+                          - generic: Radar
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/audit-logs
+                          - generic: Audit Logs
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/flags
+                          - generic: Feature Flags
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/pipes
+                          - generic: Pipes
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/connect
+                          - generic: Connect
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/vault
+                          - generic: Vault
+                      - generic:
+                        - generic [aria-hidden]:
+                          - generic: Developer
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/admin-portal
+                          - generic: Admin Portal
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/domains
+                          - generic: Domains
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/api-keys
+                          - generic: API Keys
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/identity-provider-attributes
+                          - generic: IdP Attributes
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/branding
+                          - generic: Branding
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/emails/events
+                          - generic: Emails
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/events
+                          - generic: Events
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/actions/logs
+                          - generic: Actions
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/webhooks
+                          - generic: Webhooks
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/test-sso
+                          - generic: Test SSO
+            - generic:
+              - button [expanded]:
+                - generic:
+                  - generic [aria-hidden]: A
+                - generic: Altarialights's Team
+        - navigation:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - heading [level=2]: Authentication
+                - generic:
+                  - generic:
+                    - list:
+                      - listitem:
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/analytics
+                          - generic: Analytics
+                      - listitem:
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/methods
+                          - generic: Methods
+                      - listitem:
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/oauth-providers
+                          - generic: Providers
+                      - listitem:
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/features
+                          - generic: Features
+                      - listitem:
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/integrations
+                          - generic: Add-ons
+                  - generic:
+                    - generic:
+                      - heading [level=3]: Related
+                    - list:
+                      - listitem:
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authorization
+                          - generic: Authorization
+                      - listitem:
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/branding
+                          - generic: Branding
+                      - listitem:
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/domains
+                          - generic: Domains
+                      - listitem:
+                        - link:
+                          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/admin-portal
+                          - generic: Admin Portal
+        - generic:
+          - generic:
+            - main:
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=2]: Features
+                - generic:
+                  - article:
+                    - generic:
+                      - generic:
+                        - heading [level=3]: Hosted UI
+                        - paragraph: Users sign in to your app using a customizable hosted authentication UI.
+                      - generic: Enabled
+                      - generic:
+                        - generic:
+                          - button: Manage
+                          - generic:
+                            - link:
+                              - /url: https://zippy-luminance-62-staging.authkit.app
+                              - text: zippy-luminance-62-staging.authkit.app
+                            - generic: Staging
+                  - article:
+                    - generic:
+                      - generic:
+                        - heading [level=3]: Sign-up
+                        - paragraph: Allow users to sign up for your app and create their own user accounts.
+                      - generic: Disabled
+                      - generic:
+                        - generic:
+                          - button: Enable
+                  - article:
+                    - generic:
+                      - generic:
+                        - heading [level=3]: Invitations
+                        - paragraph: Configure the expiration period for user invitations to join an organization.
+                      - generic:
+                        - generic:
+                          - generic:
+                            - term: ‍ Default invitation expiry
+                            - definition: ‍ 7 days
+                        - generic:
+                          - button: Manage
+                  - article:
+                    - generic:
+                      - generic:
+                        - heading [level=3]: Waitlist
+                        - paragraph: Manage access by allowing users to join a waitlist before they can sign up.
+                      - generic: Disabled
+                      - generic:
+                        - generic:
+                          - button: Enable
+                  - article:
+                    - generic:
+                      - generic:
+                        - heading [level=3]: Multi-factor auth
+                        - paragraph: Require non-SSO users to set up multi-factor authentication to sign in.
+                      - generic: Required
+                      - generic:
+                        - generic:
+                          - button: Manage
+                  - article:
+                    - generic:
+                      - generic:
+                        - heading [level=3]: Localization
+                        - paragraph: Automatically display AuthKit’s hosted UI and authentication emails sent by WorkOS in the user’s browser language.
+                      - generic: Enabled
+                      - generic:
+                        - generic:
+                          - generic:
+                            - term: ‍ Fallback language
+                            - definition: ‍ English (US)
+                        - generic:
+                          - button: Manage
+                  - article:
+                    - generic:
+                      - generic:
+                        - heading [level=3]: User impersonation
+                        - paragraph: Allow team members in the dashboard to sign in as any user of your app.
+                      - generic: Disabled
+                      - generic:
+                        - generic:
+                          - button: Enable
+                  - article:
+                    - generic:
+                      - generic:
+                        - heading [level=3]: JWT template
+                        - paragraph: Augment your session tokens by adding custom metadata.
+                      - generic:
+                        - generic:
+                          - link:
+                            - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/edit-jwt-template
+                            - text: Manage
+  - alert
+  - menu "A Altarialights's Team" [active] [ref=f25e420]:
+    - generic [ref=f25e424]:
+      - generic [ref=f25e425]:
+        - generic [aria-hidden] [ref=f25e426]: A
+        - generic [ref=f25e427]:
+          - generic [ref=f25e428]: Altarialights's Team
+          - generic [ref=f25e429]: 1 member
+      - separator [ref=f25e430]
+      - menuitem "Invite team members" [ref=f25e431] [cursor=pointer]
+      - menuitem "Team settings" [ref=f25e435] [cursor=pointer]
+      - separator [ref=f25e439]
+      - menuitem "Sign out" [ref=f25e440] [cursor=pointer]

@@ -2,16 +2,16 @@
 // No usa TURSO_DATABASE_URL ni carga .env automáticamente.
 import { connect } from '@tursodatabase/serverless';
 import { readFile } from 'node:fs/promises';
-const target=process.env.CARDS_TEST_DATABASE_URL, token=process.env.CARDS_TEST_AUTH_TOKEN;
-if(process.env.CARDS_DATABASE_ENV!=='test'||!target||!token)throw new Error('Configura CARDS_DATABASE_ENV=test, CARDS_TEST_DATABASE_URL y CARDS_TEST_AUTH_TOKEN.');
+import { assertRemoteTestMarker, assertTestDatabase, assertTestMarkerFormat, readProjectEnv } from './lib/test-isolation.mjs';
+const test=readProjectEnv('.env.test'), production=readProjectEnv('.env');
+if(!test)throw new Error('Falta .env.test. No se conecta a Turso.');
+const target=test.TURSO_DATABASE_URL, token=test.TURSO_AUTH_TOKEN;
+assertTestDatabase({targetUrl:target,token,approvedUrl:test.ALTARIA_TEST_TURSO_URL,productionEnv:production});
 const expected=process.argv.find(arg=>arg.startsWith('--expected-url='))?.slice(15);
 if(expected!==target)throw new Error('Indica --expected-url con la URL exacta de la base TEST aprobada.');
-// Rechaza la base que usa el proyecto actualmente, aunque se etiquete por error como TEST.
-const env=await readFile('.env','utf8').catch(()=>'');
-const active=env.match(/^TURSO_DATABASE_URL\s*=\s*["']?([^\r\n"']+)/m)?.[1]?.trim();
-const databaseIdentity=value=>new URL(value).hostname.toLowerCase();
-if(active&&databaseIdentity(target)===databaseIdentity(active))throw new Error('La base TEST coincide con la base activa del proyecto. No se permite aplicar.');
+assertTestMarkerFormat(test.ALTARIA_TEST_DB_MARKER);
 const db=connect({url:target,authToken:token});
+await assertRemoteTestMarker(db,test.ALTARIA_TEST_DB_MARKER);
 const cols=await db.all('PRAGMA table_info(pedidos_tarjetas)');
 if(!cols.some(c=>c.name==='stripe_entorno'))throw new Error('Se requieren migraciones 002 y 003 previamente aplicadas.');
 const tables=await db.all("SELECT name FROM sqlite_master WHERE type='table' AND name IN ('consultas_tarjetas','card_artwork')");

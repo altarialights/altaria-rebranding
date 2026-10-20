@@ -1,0 +1,119 @@
+- generic [active] [ref=f130e1]:
+  - link "Saltar al contenido" [ref=f130e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f130e3]:
+    - complementary "Panel de navegación" [ref=f130e4]:
+      - generic [ref=f130e5]:
+        - link "Altaria OS, inicio" [ref=f130e6] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f130e7]
+          - generic [ref=f130e8]: OS
+        - paragraph [ref=f130e10]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f130e11]:
+        - paragraph [ref=f130e12]: PLATAFORMA
+        - link "Inicio" [ref=f130e13] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f130e18] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards" [ref=f130e23] [cursor=pointer]:
+          - /url: /admin/cards
+        - link "Contenido" [ref=f130e28] [cursor=pointer]:
+          - /url: /admin/contenido
+        - link "Informes En preparación" [ref=f130e33] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f130e37]: Informes
+          - generic "En preparación" [ref=f130e38]: ·
+        - link "Configuración" [ref=f130e39] [cursor=pointer]:
+          - /url: /admin/configuracion
+      - generic [ref=f130e44]:
+        - generic [ref=f130e49]:
+          - text: Área privada
+          - strong [ref=f130e50]: Acceso protegido
+        - link "Ver sitio público" [ref=f130e51] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f130e52]: ↗
+    - generic [ref=f130e53]:
+      - banner [ref=f130e54]:
+        - generic [ref=f130e55]:
+          - text: ALTARIA OS /
+          - strong [ref=f130e56]: Contenido
+        - generic [ref=f130e57]:
+          - button "Buscar en Altaria OS" [ref=f130e58] [cursor=pointer]:
+            - generic [ref=f130e62]: ⌘ K
+          - generic "altarialights@gmail.com" [ref=f130e63]:
+            - generic [aria-hidden] [ref=f130e64]: A
+          - button "Cerrar y revocar esta sesión" [ref=f130e67] [cursor=pointer]: Salir
+      - main [ref=f130e68]:
+        - generic [ref=f130e69]:
+          - generic [ref=f130e70]:
+            - paragraph [ref=f130e71]: CONTENIDO / RECURSOS
+            - heading "Biblioteca" [level=1] [ref=f130e72]
+            - paragraph [ref=f130e73]: Originales y exportaciones con procedencia, derechos e integridad comprobada.
+          - generic [ref=f130e74]: ENTORNO TEST
+        - navigation "Contenido" [ref=f130e76]:
+          - link "Calendario" [ref=f130e77] [cursor=pointer]:
+            - /url: /admin/contenido
+          - link "Producción" [ref=f130e78] [cursor=pointer]:
+            - /url: /admin/contenido/produccion
+          - link "Biblioteca" [ref=f130e79] [cursor=pointer]:
+            - /url: /admin/contenido/biblioteca
+          - link "Marcas" [ref=f130e80] [cursor=pointer]:
+            - /url: /admin/contenido/marcas
+        - generic [ref=f130e82]:
+          - paragraph [ref=f130e83]: ARCHIVO PRIVADO · TEST
+          - heading "Recursos con historia." [level=2] [ref=f130e84]
+          - paragraph [ref=f130e85]: Los archivos de esta fase permanecen en un adaptador local privado. No hay bucket cloud ni URL pública.
+        - generic [ref=f130e86]:
+          - generic [ref=f130e87]:
+            - text: Marca
+            - combobox "Marca" [ref=f130e88]:
+              - option "Altaria Cards" [selected]
+              - option "Martín Altaria"
+              - option "Restaurante De Zamorano"
+          - button "Ver biblioteca" [ref=f130e89] [cursor=pointer]
+        - generic [ref=f130e91]:
+          - paragraph [ref=f130e92]: Altaria Cards
+          - heading "1 recursos registrados" [level=2] [ref=f130e93]
+        - article [ref=f130e95]:
+          - img "Vista previa privada de synthetic.png" [ref=f130e97]
+          - strong [ref=f130e98]: synthetic.png
+          - generic [ref=f130e99]: original · 0.00 MiB
+          - generic [ref=f130e100]: SHA-256 b0e8a8eb92c3… · verified
+          - paragraph [ref=f130e101]: "Procedencia: Archivo sintético TEST creado localmenteDerechos: Material sintético TEST, sin derechos de terceros"
+          - link "Descarga privada ↗" [ref=f130e102] [cursor=pointer]:
+            - /url: /api/admin/content/assets/9c6e881e-e2b2-4405-87fb-819ea9fb6786
+        - generic [ref=f130e103]:
+          - generic [ref=f130e105]:
+            - paragraph [ref=f130e106]: CARGA PRIVADA SIMULADA
+            - heading "Registrar recurso TEST" [level=2] [ref=f130e107]
+          - generic [ref=f130e108]:
+            - generic [ref=f130e109]:
+              - text: Clase
+              - combobox "Clase" [ref=f130e110]:
+                - option "Original" [selected]
+                - option "Trabajo"
+                - option "Exportación final"
+                - option "Referencia"
+            - generic [ref=f130e111]:
+              - text: Archivo (máximo 20 MiB)
+              - button "Archivo (máximo 20 MiB)" [ref=f130e112]
+            - generic [ref=f130e113]:
+              - text: Procedencia
+              - textbox "Procedencia" [ref=f130e114]:
+                - /placeholder: "Ej.: archivo sintético TEST creado para esta pieza"
+            - generic [ref=f130e115]:
+              - text: Derechos y uso
+              - textbox "Derechos y uso" [ref=f130e116]:
+                - /placeholder: Indica quién autoriza su uso o marca TEST sintético
+            - button "Comprobar y guardar en TEST" [ref=f130e117] [cursor=pointer]
+            - button "Cancelar carga" [ref=f130e118] [cursor=pointer]
+          - paragraph [ref=f130e119]: Para vídeos grandes se habilitará carga multipart directa solo después de autorizar un proveedor privado.
+        - generic [ref=f130e120]:
+          - generic [ref=f130e121]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f130e122]: Entorno privado
+  - generic [ref=f130e125]:
+    - button [ref=f130e126]
+    - button [ref=f130e132]
+    - button [ref=f130e136]
+    - button [ref=f130e141]

@@ -1,0 +1,124 @@
+- generic [active] [ref=f320e1]:
+  - link "Saltar al contenido" [ref=f320e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f320e3]:
+    - complementary "Panel de navegación" [ref=f320e4]:
+      - generic [ref=f320e5]:
+        - link "Altaria OS, inicio" [ref=f320e6] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f320e7]
+          - generic [ref=f320e8]: OS
+        - paragraph [ref=f320e10]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f320e11]:
+        - paragraph [ref=f320e12]: PLATAFORMA
+        - link "Inicio" [ref=f320e13] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f320e18] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards" [ref=f320e23] [cursor=pointer]:
+          - /url: /admin/cards
+        - link "Informes En preparación" [ref=f320e28] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f320e32]: Informes
+          - generic "En preparación" [ref=f320e33]: ·
+        - link "Configuración En preparación" [ref=f320e34] [cursor=pointer]:
+          - /url: /admin/configuracion
+          - generic [ref=f320e38]: Configuración
+          - generic "En preparación" [ref=f320e39]: ·
+      - generic [ref=f320e40]:
+        - generic [ref=f320e45]:
+          - text: Área privada
+          - strong [ref=f320e46]: Acceso protegido
+        - link "Ver sitio público" [ref=f320e47] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f320e48]: ↗
+    - generic [ref=f320e49]:
+      - banner [ref=f320e50]:
+        - generic [ref=f320e51]:
+          - text: ALTARIA OS /
+          - strong [ref=f320e52]: Cards
+        - generic [ref=f320e53]:
+          - button "Buscar en Altaria OS" [ref=f320e54] [cursor=pointer]:
+            - generic [ref=f320e58]: ⌘ K
+          - generic "altarialights@gmail.com" [ref=f320e59]:
+            - generic [aria-hidden] [ref=f320e60]: A
+          - button "Cerrar y revocar esta sesión" [ref=f320e63] [cursor=pointer]: Salir
+      - main [ref=f320e64]:
+        - generic [ref=f320e65]:
+          - generic [ref=f320e66]:
+            - paragraph [ref=f320e67]: ALTARIA OS / CARDS
+            - heading "Cards y producción." [level=1] [ref=f320e68]
+            - paragraph [ref=f320e69]: Del pago confirmado a la entrega, con cada comprobación en su sitio.
+          - generic [ref=f320e70]: ENTORNO TEST
+        - generic [ref=f320e72]:
+          - generic [ref=f320e73]:
+            - paragraph [ref=f320e74]: OPERACIONES · SOLO TEST
+            - heading "Una vista clara para cada pedido." [level=2] [ref=f320e75]
+            - paragraph [ref=f320e76]: El estado de pago se conserva tal como llega de Stripe. La producción avanza por separado y deja constancia de cada acción humana.
+          - generic [aria-hidden] [ref=f320e77]:
+            - generic [ref=f320e78]: A
+            - generic [ref=f320e79]: CARDS
+        - generic "Resumen de pedidos visibles" [ref=f320e80]:
+          - generic [ref=f320e81]:
+            - generic [ref=f320e82]: Pedidos visibles
+            - strong [ref=f320e83]: "0"
+            - generic [ref=f320e84]: Según los filtros aplicados
+          - generic [ref=f320e85]:
+            - generic [ref=f320e86]: Pago confirmado
+            - strong [ref=f320e87]: "0"
+            - generic [ref=f320e88]: Stripe test
+          - generic [ref=f320e89]:
+            - generic [ref=f320e90]: En producción
+            - strong [ref=f320e91]: "0"
+            - generic [ref=f320e92]: Trabajo abierto
+          - generic [ref=f320e93]:
+            - generic [ref=f320e94]: Incidencias abiertas
+            - strong [ref=f320e95]: "0"
+            - generic [ref=f320e96]: En estos pedidos
+        - region [ref=f320e97]:
+          - generic [ref=f320e99]:
+            - paragraph [ref=f320e100]: PEDIDOS TEST
+            - heading "Bandeja de producción" [level=2] [ref=f320e101]
+            - paragraph [ref=f320e102]: Busca y filtra sin mezclar pedidos live.
+          - search [ref=f320e103]:
+            - generic [ref=f320e104]:
+              - text: Pedido o cliente
+              - searchbox "Pedido o cliente" [ref=f320e105]
+            - generic [ref=f320e106]:
+              - text: Producción
+              - combobox "Producción" [ref=f320e107]:
+                - option "Todas las etapas" [selected]
+                - option "Sin iniciar"
+                - option "Preparación"
+                - option "Producción"
+                - option "Verificación"
+                - option "Listo para envío"
+                - option "Enviado"
+                - option "Entregado"
+            - generic [ref=f320e108]:
+              - text: Prioridad
+              - combobox "Prioridad" [ref=f320e109]:
+                - option "Todas" [selected]
+                - option "Normal"
+                - option "Alta"
+                - option "Urgente"
+            - generic [ref=f320e110]:
+              - text: Desde
+              - textbox "Desde" [ref=f320e111]
+            - generic [ref=f320e112]:
+              - text: Hasta
+              - textbox "Hasta" [ref=f320e113]
+            - button "Aplicar filtros" [ref=f320e114] [cursor=pointer]
+          - generic [ref=f320e115]:
+            - generic [aria-hidden] [ref=f320e116]: A
+            - heading "Aún no hay pedidos en TEST." [level=3] [ref=f320e117]
+            - paragraph [ref=f320e118]: Los pedidos creados mediante checkout test aparecerán aquí. No se han importado pedidos reales.
+        - generic [ref=f320e119]:
+          - generic [ref=f320e120]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f320e121]: Entorno privado
+  - generic [ref=f320e124]:
+    - button [ref=f320e125]
+    - button [ref=f320e131]
+    - button [ref=f320e135]
+    - button [ref=f320e140]

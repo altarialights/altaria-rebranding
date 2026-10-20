@@ -1,0 +1,132 @@
+- generic [ref=f34e3]:
+  - generic [ref=f34e4]:
+    - link "Skip to main content" [ref=f34e5] [cursor=pointer]:
+      - /url: "#main-_R_35tamcnmlb_"
+    - banner [ref=f34e6]:
+      - generic [ref=f34e7]:
+        - 'button "Change project, current project: Altarialights''s Project" [ref=f34e9] [cursor=pointer]':
+          - generic [ref=f34e11]: Altarialights's Project
+        - button "Show suggestions" [ref=f34e18] [cursor=pointer]:
+          - generic [ref=f34e19]: Staging
+          - generic [ref=f34e23]: Staging
+      - generic [ref=f34e26]:
+        - generic [ref=f34e27]:
+          - button "Search" [ref=f34e29] [cursor=pointer]
+          - generic [ref=f34e32]:
+            - link "Docs" [ref=f34e34] [cursor=pointer]:
+              - /url: https://workos.com/docs
+            - link [ref=f34e37] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/notifications
+              - img "Notifications" [ref=f34e38]
+        - button "Your profile" [ref=f34e40] [cursor=pointer]
+    - navigation "app" [ref=f34e42]:
+      - generic [ref=f34e43]:
+        - link "Overview" [ref=f34e47] [cursor=pointer]:
+          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/get-started
+        - button [ref=f34e56] [cursor=pointer]
+      - generic [ref=f34e61]:
+        - generic [ref=f34e66]:
+          - generic [ref=f34e67]:
+            - link "Overview" [ref=f34e68] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/get-started
+            - link "Organizations" [ref=f34e74] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/organizations
+            - link "Users" [ref=f34e81] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/users
+            - link "Agents" [ref=f34e88] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/agents/agent-auth
+            - link "Applications" [ref=f34e95] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/applications
+          - generic [ref=f34e103]:
+            - generic [ref=f34e105]: Products
+            - link "Authentication" [ref=f34e107] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication
+            - link "Authorization" [ref=f34e113] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authorization
+            - link "Radar" [ref=f34e120] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/radar
+            - link "Audit Logs" [ref=f34e127] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/audit-logs
+            - link "Feature Flags" [ref=f34e135] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/flags
+            - link "Pipes" [ref=f34e142] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/pipes
+            - link "Connect" [ref=f34e148] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/connect
+            - link "Vault" [ref=f34e155] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/vault
+          - generic [ref=f34e163]:
+            - generic [ref=f34e165]: Developer
+            - link "Admin Portal" [ref=f34e167] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/admin-portal
+            - link "Domains" [ref=f34e173] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/domains
+            - link "API Keys" [ref=f34e179] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/api-keys
+            - link "IdP Attributes" [ref=f34e186] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/identity-provider-attributes
+            - link "Branding" [ref=f34e192] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/branding
+            - link "Emails" [ref=f34e199] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/emails/events
+            - link "Events" [ref=f34e205] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/events
+            - link "Actions" [ref=f34e211] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/actions/logs
+            - link "Webhooks" [ref=f34e217] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/webhooks
+            - link "Test SSO" [ref=f34e223] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/test-sso
+        - button "Altarialights's Team" [ref=f34e231] [cursor=pointer]:
+          - generic [aria-hidden] [ref=f34e233]: A
+    - navigation [ref=f34e238]:
+      - generic [ref=f34e241]:
+        - heading "Connect" [level=2] [ref=f34e243]
+        - list [ref=f34e246]:
+          - listitem [ref=f34e247]:
+            - link "Applications" [ref=f34e248] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/connect
+          - listitem [ref=f34e251]:
+            - link "Configuration" [ref=f34e252] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/connect/configuration
+    - main [ref=f34e257]:
+      - generic [ref=f34e258]:
+        - heading "Configuration" [level=2] [ref=f34e261]
+        - generic [ref=f34e262]:
+          - generic [ref=f34e263]:
+            - heading "MCP Auth" [level=3] [ref=f34e264]
+            - paragraph [ref=f34e265]: Allow MCP clients to authenticate using Dynamic Client Registration (DCR) or Client ID Metadata Document (CIMD).
+            - generic [ref=f34e266]:
+              - generic [ref=f34e267]:
+                - term [ref=f34e268]: ‍ Dynamic Client Registration
+                - definition [ref=f34e269]:
+                  - text: ‍
+                  - generic [ref=f34e270]: Disabled
+              - generic [ref=f34e275]:
+                - term [ref=f34e276]: ‍ Client ID Metadata Document
+                - definition [ref=f34e277]:
+                  - text: ‍
+                  - generic [ref=f34e278]: Disabled
+            - button "Enable" [ref=f34e283] [cursor=pointer]
+          - generic [ref=f34e284]:
+            - heading "MCP resource indicators" [level=3] [ref=f34e285]
+            - paragraph [ref=f34e286]: Define valid resource indicators (URIs) for your MCP servers.
+            - generic [ref=f34e288]:
+              - term [ref=f34e289]: ‍ Resource indicator
+              - definition [ref=f34e290]:
+                - text: ‍
+                - generic [ref=f34e291]: Not configured
+            - button "Edit MCP resources" [ref=f34e292] [cursor=pointer]
+          - generic [ref=f34e293]:
+            - heading "External Sign-in URI" [level=3] [ref=f34e294]
+            - paragraph [ref=f34e295]: An endpoint at your app that handles fully authenticating the user before redirecting back to AuthKit.
+            - generic [ref=f34e297]:
+              - term [ref=f34e298]: ‍ External Sign-in URI
+              - definition [ref=f34e299]:
+                - text: ‍
+                - generic [ref=f34e300]: Not configured
+            - button "Edit external sign-in URI" [ref=f34e301] [cursor=pointer]
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list

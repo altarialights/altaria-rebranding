@@ -1,0 +1,124 @@
+- generic [active] [ref=f128e1]:
+  - link "Saltar al contenido" [ref=f128e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f128e3]:
+    - complementary "Panel de navegación" [ref=f128e4]:
+      - generic [ref=f128e5]:
+        - link "Altaria OS, inicio" [ref=f128e6] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f128e7]
+          - generic [ref=f128e8]: OS
+        - paragraph [ref=f128e10]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f128e11]:
+        - paragraph [ref=f128e12]: PLATAFORMA
+        - link "Inicio" [ref=f128e13] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f128e18] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards En preparación" [ref=f128e23] [cursor=pointer]:
+          - /url: /admin/cards
+          - generic [ref=f128e27]: Cards
+          - generic "En preparación" [ref=f128e28]: ·
+        - link "Informes En preparación" [ref=f128e29] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f128e33]: Informes
+          - generic "En preparación" [ref=f128e34]: ·
+        - link "Configuración En preparación" [ref=f128e35] [cursor=pointer]:
+          - /url: /admin/configuracion
+          - generic [ref=f128e39]: Configuración
+          - generic "En preparación" [ref=f128e40]: ·
+      - generic [ref=f128e41]:
+        - generic [ref=f128e46]:
+          - text: Área privada
+          - strong [ref=f128e47]: Acceso protegido
+        - link "Ver sitio público" [ref=f128e48] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f128e49]: ↗
+    - generic [ref=f128e50]:
+      - banner [ref=f128e51]:
+        - generic [ref=f128e52]:
+          - text: ALTARIA OS /
+          - strong [ref=f128e53]: CRM
+        - generic [ref=f128e54]:
+          - button "Buscar en Altaria OS" [ref=f128e55] [cursor=pointer]:
+            - generic [ref=f128e59]: ⌘ K
+          - generic "altarialights@gmail.com" [ref=f128e60]:
+            - generic [aria-hidden] [ref=f128e61]: A
+          - button "Cerrar y revocar esta sesión" [ref=f128e64] [cursor=pointer]: Salir
+      - main [ref=f128e65]:
+        - generic [ref=f128e66]:
+          - generic [ref=f128e67]:
+            - paragraph [ref=f128e68]: CRM / PROPUESTAS
+            - heading "Propuestas." [level=1] [ref=f128e69]
+            - paragraph [ref=f128e70]: De la oportunidad a un documento claro, con versiones y seguimiento.
+          - generic [ref=f128e71]: TEST · CRM EN DESARROLLO
+        - navigation "Navegación del CRM" [ref=f128e73]:
+          - link "Resumen" [ref=f128e74] [cursor=pointer]:
+            - /url: /admin/crm
+          - link "Empresas" [ref=f128e75] [cursor=pointer]:
+            - /url: /admin/crm/empresas
+          - link "Oportunidades" [ref=f128e76] [cursor=pointer]:
+            - /url: /admin/crm/oportunidades
+          - link "Propuestas" [ref=f128e77] [cursor=pointer]:
+            - /url: /admin/crm/propuestas
+          - link "Tareas" [ref=f128e78] [cursor=pointer]:
+            - /url: /admin/crm/tareas
+        - generic [ref=f128e79]:
+          - generic [ref=f128e80]:
+            - paragraph [ref=f128e81]: ALTARIA LIGHTS · TEST
+            - heading "Propuestas que avanzan con cada conversación." [level=2] [ref=f128e82]
+            - paragraph [ref=f128e83]: Prepara alcance, inversión y condiciones. Cada guardado conserva una versión independiente.
+          - link "Elegir oportunidad" [ref=f128e84] [cursor=pointer]:
+            - /url: /admin/crm/empresas
+            - text: Elegir oportunidad
+            - generic [aria-hidden] [ref=f128e85]: ↗
+        - region [ref=f128e86]:
+          - generic [ref=f128e87]:
+            - generic [ref=f128e88]:
+              - heading "Propuestas comerciales" [level=2] [ref=f128e89]
+              - paragraph [ref=f128e90]: Estados reales de esta base TEST; ninguna propuesta equivale a una factura.
+            - generic [ref=f128e91]: "1"
+          - link "Empresa sintética QA · TEST · v1 Propuesta sintética QA Oportunidad sintética QA · 08 oct 2026, 21:18 Borrador 217,80 €" [ref=f128e93] [cursor=pointer]:
+            - /url: /admin/crm/propuestas/37dba03b-2890-4a4a-8759-f2827d456068
+            - generic [ref=f128e94]:
+              - generic [ref=f128e95]: Empresa sintética QA · TEST · v1
+              - strong [ref=f128e96]: Propuesta sintética QA
+              - generic [ref=f128e97]: Oportunidad sintética QA · 08 oct 2026, 21:18
+            - generic [ref=f128e98]:
+              - generic [ref=f128e99]: Borrador
+              - generic [ref=f128e100]: 217,80 €
+        - generic [ref=f128e101]:
+          - generic [ref=f128e102]:
+            - generic [ref=f128e104]:
+              - heading "Biblioteca comercial" [level=2] [ref=f128e105]
+              - paragraph [ref=f128e106]: Plantillas y partidas reutilizables, sin precios inventados.
+            - generic [ref=f128e107]:
+              - generic [ref=f128e108]: 0 plantillas
+              - generic [ref=f128e109]: 0 productos y servicios
+            - paragraph [ref=f128e110]: Crea una plantilla con alcance y condiciones habituales.
+            - group [ref=f128e111]:
+              - generic "+ Nueva plantilla" [ref=f128e112] [cursor=pointer]
+            - group [ref=f128e113]:
+              - generic "+ Producto o servicio" [ref=f128e114] [cursor=pointer]
+              - option "Servicio" [selected]
+              - option "Producto"
+          - generic [ref=f128e115]:
+            - generic [ref=f128e116]:
+              - generic [ref=f128e117]:
+                - heading "Gmail CRM" [level=2] [ref=f128e118]
+                - paragraph [ref=f128e119]: La conexión permanece separada del acceso Google al administrador.
+              - generic [ref=f128e120]: Pendiente
+            - paragraph [ref=f128e121]:
+              - text: Sólo se procesarán mensajes con la etiqueta
+              - strong [ref=f128e122]: ALTARIA/CRM
+              - text: ". Google concede acceso más amplio mediante `gmail.readonly`; la etiqueta no reduce el permiso OAuth."
+            - paragraph [ref=f128e123]: Conexión real pendiente de Google Cloud, consentimiento y aprobación de permisos restringidos. Los borradores locales no se envían.
+        - generic [ref=f128e124]:
+          - generic [ref=f128e125]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f128e126]: Entorno privado
+  - generic [ref=f128e129]:
+    - button [ref=f128e130]
+    - button [ref=f128e136]
+    - button [ref=f128e140]
+    - button [ref=f128e145]

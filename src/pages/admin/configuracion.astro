@@ -1,0 +1,33 @@
+---
+import AdminShell from '../../layouts/AdminShell.astro';
+import { createAdminCsrfToken } from '../../lib/admin/access';
+import { automationHealth } from '../../lib/admin/automation/settings';
+import '../../styles/admin-automation.css';
+export const prerender=false;
+const principal=Astro.locals.admin;
+if(!principal) return new Response('Acceso denegado.',{status:403});
+const health=await automationHealth(principal);
+const csrf=createAdminCsrfToken(principal.sessionHash,process.env.WORKOS_COOKIE_PASSWORD||'','automations');
+const counts=(items:typeof health.queue,status:string)=>Number(items.find(item=>item.status===status)?.n??0);
+const briefTime=String(health.rules.find(rule=>rule.rule_key==='daily.brief')?.local_time??'');
+const statusLabels:Record<string,string>={queued:'En cola',leased:'En ejecución',done:'Completado',dead:'Requiere revisión'};
+const labels:Record<string,string>={
+  'lead.review':'Nuevo lead · revisión','call.next':'Llamada · siguiente acción',
+  'opportunity.won':'Oportunidad ganada','opportunity.lost':'Oportunidad perdida',
+  'proposal.sent':'Propuesta enviada','proposal.responded':'Respuesta a propuesta',
+  'proposal.expired':'Propuesta caducada','cards.paid':'Pedido pagado',
+  'cards.incident':'Incidencia Cards','cards.link.alert':'Enlace pausado o retirado',
+  'cards.delivered':'Pedido entregado','daily.brief':'Resumen diario',
+  'telegram.simulated':'Telegram simulado',
+};
+---
+<AdminShell title="Automatizaciones" eyebrow="CONFIGURACIÓN / ALTARIA OS" description="Reglas predefinidas, estado de la cola y control del entorno TEST." active="/admin/configuracion" principal={principal}>
+  {Astro.url.searchParams.has('saved')&&<p class="os-notice" role="status">Configuración actualizada y auditada en TEST.</p>}
+  {principal.roles.includes('owner')&&<p class="os-notice"><a href="/admin/configuracion/mcp">Abrir acceso ChatGPT privado y aprobaciones MCP →</a></p>}
+  <section class="os-hero compact" aria-labelledby="settings-title"><div><p class="admin-eyebrow">CONTROL OPERATIVO</p><h2 id="settings-title">Automatizar con criterio.</h2><p>Los eventos crean trabajo verificable. Puedes pausar reglas y revisar cada ejecución. Telegram usa un adaptador simulado; no envía mensajes.</p></div></section>
+  <div class="os-summary-strip" aria-label="Salud de automatizaciones"><div><strong>{counts(health.queue,'queued')}</strong><span>Trabajos en cola</span></div><div><strong>{counts(health.queue,'leased')}</strong><span>En ejecución</span></div><div><strong>{counts(health.queue,'dead')}</strong><span>Requieren revisión</span></div><div><strong>{counts(health.notifications,'delivered')}</strong><span>Avisos simulados</span></div></div>
+  <div class="os-settings-grid"><section class="os-panel" aria-labelledby="rules-title"><div class="os-panel-head"><div><p class="admin-eyebrow">REGLAS</p><h2 id="rules-title">Eventos conectados</h2></div><form method="post" action="/api/admin/automations/run"><input type="hidden" name="csrf" value={csrf}/><button type="submit">Procesar pendientes</button></form></div><p class="os-muted">El trabajador local procesa la cola cada minuto mientras el servidor TEST está abierto. Una pausa conserva los trabajos pendientes.</p><ul class="os-rule-list">{health.rules.map(rule=><li><div><strong>{labels[String(rule.rule_key)]??String(rule.rule_key)}</strong><small>{String(rule.rule_key)} · {Number(rule.enabled)===1?'Activa':'Pausada'}</small></div><form method="post" action="/api/admin/automations/rule"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="key" value={String(rule.rule_key)}/><input type="hidden" name="localTime" value={String(rule.local_time??'')}/><input type="hidden" name="enabled" value={Number(rule.enabled)===1?'0':'1'}/><button class="os-secondary" type="submit">{Number(rule.enabled)===1?'Pausar':'Activar'}</button></form></li>)}</ul></section>
+  <div class="os-side-stack"><section class="os-panel" aria-labelledby="schedule-title"><div class="os-panel-head"><div><p class="admin-eyebrow">PROGRAMACIÓN</p><h2 id="schedule-title">Resumen de la mañana</h2></div></div><p class="os-muted">Zona horaria Europe/Madrid. {briefTime?`Programado a las ${briefTime}.`:'Elige una hora para activarlo.'} Una sola emisión por día.</p><form class="os-time-form" method="post" action="/api/admin/automations/rule"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="key" value="daily.brief"/><input type="hidden" name="enabled" value="1"/><label for="brief-time">Hora local<input id="brief-time" type="time" name="localTime" value={briefTime}/></label><button type="submit">Guardar horario</button></form><p class="os-muted">Telegram sigue simulado hasta una autorización independiente.</p></section>
+  <section class="os-panel" aria-labelledby="notifications-title"><div class="os-panel-head"><div><p class="admin-eyebrow">SALIDA</p><h2 id="notifications-title">Telegram TEST</h2></div></div><p>Adaptador simulado, sin bot ni chat conectados.</p><div class="os-brief-grid"><span><strong>{counts(health.notifications,'queued')}</strong> en cola</span><span><strong>{counts(health.notifications,'dead')}</strong> con error</span></div></section></div></div>
+  <section class="os-panel os-history" aria-labelledby="history-title"><div class="os-panel-head"><div><p class="admin-eyebrow">TRAZABILIDAD</p><h2 id="history-title">Últimas ejecuciones</h2></div></div>{health.history.length?<div class="os-history-table" role="region" aria-label="Historial desplazable" tabindex="0"><table><thead><tr><th>Regla</th><th>Estado</th><th>Intentos</th><th>Último error</th><th>Actualizado</th><th>Acción</th></tr></thead><tbody>{health.history.map(row=><tr><td>{labels[String(row.rule_key)]??String(row.rule_key)}</td><td>{statusLabels[String(row.status)]??String(row.status)}</td><td>{Number(row.attempts)}</td><td>{row.last_error_code?String(row.last_error_code):'—'}</td><td>{new Date(String(row.updated_at)).toLocaleString('es-ES',{timeZone:'Europe/Madrid'})}</td><td>{row.status==='dead'&&<form method="post" action="/api/admin/automations/retry-job"><input type="hidden" name="csrf" value={csrf}/><input type="hidden" name="id" value={String(row.id)}/><button class="os-secondary" type="submit">Reintentar</button></form>}</td></tr>)}</tbody></table></div>:<div class="os-empty compact"><h3>Aún no hay ejecuciones</h3><p>Los nuevos eventos aparecerán aquí tras procesarse.</p></div>}</section>
+</AdminShell>

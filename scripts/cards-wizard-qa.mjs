@@ -1,9 +1,11 @@
 import { chromium } from 'playwright';
+import { assertLocalQaUrl } from './lib/local-qa-url.mjs';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
 import sharp from 'sharp';
 const artworkFixture = await sharp({create:{width:1016,height:638,channels:3,background:'#016ffc'}}).png().toBuffer();
 const base = process.env.CARDS_QA_URL ?? 'http://127.0.0.1:4322';
+assertLocalQaUrl(base);
 if (!['127.0.0.1','localhost'].includes(new URL(base).hostname)) throw new Error('Solo QA local aislada.');
 const out = 'review/altaria-cards/whatsapp-catalog'; mkdirSync(out,{recursive:true});
 const report = {branches:[],layouts:[],checks:[],errors:[]};

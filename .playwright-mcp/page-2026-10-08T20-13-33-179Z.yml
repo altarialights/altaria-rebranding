@@ -1,0 +1,94 @@
+- generic [ref=f17e1]:
+  - region "console.cloud.google.com usa cookies de Google para brindar sus servicios, mejorar su calidad y analizar el tráfico." [ref=f17e2]:
+    - paragraph [ref=f17e3]:
+      - text: console.cloud.google.com usa cookies de Google para brindar sus servicios, mejorar su calidad y analizar el tráfico.
+      - link "Obtenga más información sobre cómo Google utiliza las cookies. Se abrirá en una nueva pestaña." [ref=f17e4] [cursor=pointer]:
+        - /url: https://policies.google.com/technologies/cookies
+        - text: Más información
+    - button "Entendido" [ref=f17e5] [cursor=pointer]
+  - generic [ref=f17e7]:
+    - generic [ref=f17e23]:
+      - complementary "Omitir vínculos" [ref=f17e593]:
+        - link "Ir al contenido principal" [ref=f17e594] [cursor=pointer]:
+          - /url: /welcome?pli=1&project=project-2170ef0c-fe34-4f35-af9
+        - button "Combinación de teclas para acceso directo" [ref=f17e595]
+        - link [ref=f17e596] [cursor=pointer]:
+          - /url: https://cloud.google.com/docs/accessibility?hl=es_419
+          - generic [ref=f17e30]:
+            - text: Ayuda sobre la accesibilidad
+            - generic "externo, se abre en una ventana nueva" [ref=f17e597]:
+              - img "externo, se abre en una ventana nueva" [ref=f17e598]
+        - link [ref=f17e599] [cursor=pointer]:
+          - /url: https://support.google.com/accessibility/contact/feedback?hl=es_419
+          - generic [ref=f17e36]:
+            - text: Comentarios sobre accesibilidad
+            - generic "externo, se abre en una ventana nueva" [ref=f17e600]:
+              - img "externo, se abre en una ventana nueva" [ref=f17e601]
+      - banner [ref=f17e42]:
+        - generic [ref=f17e43]:
+          - navigation [ref=f17e46]:
+            - button "Menú de navegación (.)" [ref=f17e602] [cursor=pointer]
+          - link "Google Cloud Platform - Página principal" [ref=f17e603] [cursor=pointer]:
+            - /url: /?project=project-2170ef0c-fe34-4f35-af9
+        - search "Google Cloud Platform" [ref=f17e604]:
+          - combobox [ref=f17e72]:
+            - searchbox "Ingresa una consulta para buscar recursos, documentos, productos y mucho más" [ref=f17e605]
+          - button "Ver todos los resultados de la búsqueda" [disabled]:
+            - generic: Buscar
+        - generic [ref=f17e74]:
+          - generic [ref=f17e75]:
+            - button "Abrir chat de Gemini AI (Alt G)" [ref=f17e607] [cursor=pointer]
+            - button "Activar Cloud Shell (G then S)" [ref=f17e611] [cursor=pointer]
+            - button "Abrir notificaciones" [ref=f17e612] [cursor=pointer]
+            - button "Configuración y utilidades" [ref=f17e613] [cursor=pointer]
+          - 'button "Cuenta: Altaria Lights (altarialights@gmail.com)" [ref=f17e614]'
+    - main [ref=f17e131]:
+      - generic [ref=f17e621]:
+        - heading "Proyecto nuevo" [level=1] [ref=f17e627]
+        - generic [ref=f17e632]:
+          - generic [ref=f17e634]:
+            - generic [ref=f17e636] [cursor=pointer]:
+              - generic [ref=f17e637]:
+                - text: Nombre del proyecto
+                - generic [aria-hidden] [ref=f17e638]: "*"
+              - textbox "Nombre del proyecto" [active] [ref=f17e640]: My Project 82535
+              - button "Help popup for project ID" [ref=f17e643]
+            - generic [ref=f17e649]:
+              - text: "ID del proyecto:"
+              - strong [ref=f17e650]: resonant-idea-511020-h9.
+              - strong [ref=f17e651]: No se puede cambiar más adelante.
+              - button "Editar el ID del proyecto" [ref=f17e652]:
+                - generic [ref=f17e653]: Editar
+          - generic [ref=f17e658]:
+            - generic [ref=f17e660] [cursor=pointer]:
+              - generic [ref=f17e661]:
+                - text: Cuenta de facturación
+                - generic [aria-hidden] [ref=f17e662]: "*"
+              - combobox "Cuenta de facturación" [ref=f17e664]
+            - generic [ref=f17e670]: Todos los cargos de este proyecto se realizarán a la cuenta que selecciones aquí.
+          - generic [ref=f17e676]:
+            - generic [ref=f17e678]:
+              - generic [ref=f17e680] [cursor=pointer]:
+                - generic [ref=f17e681]:
+                  - text: Organización
+                  - generic [aria-hidden] [ref=f17e682]: "*"
+                - combobox "Organización" [ref=f17e684]:
+                  - generic [ref=f17e685]: altarialights-org
+                - button "Help popup for selecting organization" [ref=f17e694]
+              - generic [ref=f17e698]: Selecciona una organización para vincularla a un proyecto. No podrás cambiar esta selección más adelante.
+            - generic [ref=f17e703]:
+              - generic [ref=f17e705] [cursor=pointer]:
+                - generic [ref=f17e706]:
+                  - text: Recurso superior
+                  - generic [aria-hidden] [ref=f17e707]: "*"
+                - textbox "Recurso superior" [ref=f17e715]: altarialights-org
+                - button "Explorar recurso superior" [ref=f17e718]:
+                  - generic [ref=f17e719]: Explorar
+              - generic [ref=f17e720]: Selecciona la organización o carpeta en la que se creará este recurso
+          - button "Crear" [ref=f17e724]
+          - button "Cancelar" [ref=f17e726]
+  - iframe [aria-hidden] [ref=f17e405]
+  - iframe [aria-hidden] [ref=f17e407]
+  - iframe [aria-hidden] [ref=f17e408]
+  - iframe [aria-hidden] [ref=f17e409]
+  - paragraph [ref=f17e729]: altarialights-org – Consola de Google Cloud

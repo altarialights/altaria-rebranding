@@ -21,10 +21,12 @@
  *         node scripts/diagnose-faces.mjs    (another)
  */
 import { chromium, firefox, webkit } from 'playwright';
+import { assertLocalQaUrl } from './lib/local-qa-url.mjs';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 
 const BASE = process.env.BASE_URL ?? 'http://localhost:4321';
+assertLocalQaUrl(BASE);
 const OUT = 'review/diagnose';
 /* BROWSER=chromium|firefox|webkit. WebKit is the one that matters most
    here: Safari has historically been the strictest about preserve-3d and

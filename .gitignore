@@ -7,4 +7,6 @@ review/
 *.log
 .env
 .env.local
+.env.test
 .env.*.local
+.altaria-content-test/

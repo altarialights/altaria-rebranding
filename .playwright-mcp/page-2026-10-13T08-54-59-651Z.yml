@@ -1,0 +1,176 @@
+- generic [ref=f27e1]:
+  - link "Saltar al contenido" [ref=f27e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f27e3]:
+    - complementary "Panel de navegación" [ref=f27e4]:
+      - button "Cerrar navegación" [ref=f27e5] [cursor=pointer]
+      - generic [ref=f27e8]:
+        - link "Altaria OS, inicio" [ref=f27e9] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f27e10]
+          - generic [ref=f27e11]: OS
+        - paragraph [ref=f27e13]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f27e14]:
+        - paragraph [ref=f27e15]: PLATAFORMA
+        - link "Inicio" [ref=f27e16] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f27e21] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards" [ref=f27e26] [cursor=pointer]:
+          - /url: /admin/cards
+        - link "Informes En preparación" [ref=f27e31] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f27e35]: Informes
+          - generic "En preparación" [ref=f27e36]: ·
+        - link "Configuración" [ref=f27e37] [cursor=pointer]:
+          - /url: /admin/configuracion
+      - generic [ref=f27e42]:
+        - generic [ref=f27e47]:
+          - text: Área privada
+          - strong [ref=f27e48]: Acceso protegido
+        - link "Ver sitio público" [ref=f27e49] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f27e50]: ↗
+    - generic [ref=f27e51]:
+      - banner [ref=f27e52]:
+        - button "Cerrar navegación" [expanded] [active] [ref=f27e201] [cursor=pointer]
+        - generic [ref=f27e56]:
+          - text: ALTARIA OS /
+          - strong [ref=f27e57]: Inicio
+        - generic [ref=f27e58]:
+          - button "Buscar en Altaria OS" [ref=f27e59] [cursor=pointer]
+          - button "Cerrar y revocar esta sesión" [ref=f27e63] [cursor=pointer]: Salir
+      - main [ref=f27e64]:
+        - generic [ref=f27e65]:
+          - generic [ref=f27e66]:
+            - paragraph [ref=f27e67]: INICIO / ALTARIA OS
+            - heading "Mi trabajo" [level=1] [ref=f27e68]
+            - paragraph [ref=f27e69]: Acciones con contexto, ordenadas para decidir qué hacer ahora.
+          - generic [ref=f27e70]: ENTORNO TEST
+        - region [ref=f27e72]:
+          - generic [ref=f27e73]:
+            - paragraph [ref=f27e74]: CENTRO DE TRABAJO · ENTORNO TEST
+            - heading "Lo importante, en un solo lugar." [level=2] [ref=f27e75]
+            - paragraph [ref=f27e76]: No hay acciones pendientes en tus áreas autorizadas.
+            - generic [ref=f27e77]:
+              - link "Ver mis acciones" [ref=f27e78] [cursor=pointer]:
+                - /url: "#os-inbox"
+                - text: Ver mis acciones ↗
+              - link "Abrir CRM" [ref=f27e79] [cursor=pointer]:
+                - /url: /admin/crm
+        - generic "Prioridades actuales" [ref=f27e80]:
+          - generic [ref=f27e81]:
+            - strong [ref=f27e82]: "0"
+            - text: Urgentes
+          - generic [ref=f27e83]:
+            - strong [ref=f27e84]: "0"
+            - text: Comerciales
+          - generic [ref=f27e85]:
+            - strong [ref=f27e86]: "0"
+            - text: Cards y producción
+          - generic [ref=f27e87]:
+            - strong [ref=f27e88]: "0"
+            - text: Aprobaciones
+        - generic [ref=f27e89]:
+          - region [ref=f27e90]:
+            - generic [ref=f27e91]:
+              - generic [ref=f27e92]:
+                - paragraph [ref=f27e93]: BANDEJA UNIFICADA
+                - heading "Acciones pendientes" [level=2] [ref=f27e94]
+              - generic [ref=f27e95]:
+                - generic [ref=f27e96]: Ordenar
+                - combobox "Ordenar" [ref=f27e97] [cursor=pointer]:
+                  - option "Prioridad" [selected]
+                  - option "Vencimiento"
+            - navigation "Filtrar acciones" [ref=f27e98]:
+              - link "Todo 0" [ref=f27e99] [cursor=pointer]:
+                - /url: "?tipo=todo&orden=prioridad#os-inbox"
+                - text: Todo
+                - generic [ref=f27e100]: "0"
+              - link "Comercial 0" [ref=f27e101] [cursor=pointer]:
+                - /url: "?tipo=crm&orden=prioridad#os-inbox"
+                - text: Comercial
+                - generic [ref=f27e102]: "0"
+              - link "Propuestas 0" [ref=f27e103] [cursor=pointer]:
+                - /url: "?tipo=proposal&orden=prioridad#os-inbox"
+                - text: Propuestas
+                - generic [ref=f27e104]: "0"
+              - link "Cards 0" [ref=f27e105] [cursor=pointer]:
+                - /url: "?tipo=cards&orden=prioridad#os-inbox"
+                - text: Cards
+                - generic [ref=f27e106]: "0"
+              - link "Incidencias 0" [ref=f27e107] [cursor=pointer]:
+                - /url: "?tipo=incident&orden=prioridad#os-inbox"
+                - text: Incidencias
+                - generic [ref=f27e108]: "0"
+              - link "Aprobaciones 0" [ref=f27e109] [cursor=pointer]:
+                - /url: "?tipo=approval&orden=prioridad#os-inbox"
+                - text: Aprobaciones
+                - generic [ref=f27e110]: "0"
+              - link "Alertas 0" [ref=f27e111] [cursor=pointer]:
+                - /url: "?tipo=alert&orden=prioridad#os-inbox"
+                - text: Alertas
+                - generic [ref=f27e112]: "0"
+            - generic [ref=f27e113]:
+              - heading "Todo al día en TEST." [level=3] [ref=f27e117]
+              - paragraph [ref=f27e118]: Las nuevas tareas aparecerán aquí cuando los módulos registren eventos verificables.
+          - complementary [ref=f27e119]:
+            - region [ref=f27e120]:
+              - generic [ref=f27e122]:
+                - paragraph [ref=f27e123]: EUROPE / MADRID
+                - heading "Resumen diario" [level=2] [ref=f27e124]
+              - paragraph [ref=f27e125]: 2026-10-13 · fuente compartida con el mensaje Telegram simulado
+              - generic [ref=f27e126]:
+                - generic [ref=f27e127]:
+                  - strong [ref=f27e128]: "0"
+                  - text: prioritarias
+                - generic [ref=f27e129]:
+                  - strong [ref=f27e130]: "0"
+                  - text: comerciales
+                - generic [ref=f27e131]:
+                  - strong [ref=f27e132]: "0"
+                  - text: propuestas
+                - generic [ref=f27e133]:
+                  - strong [ref=f27e134]: "0"
+                  - text: Cards
+                - generic [ref=f27e135]:
+                  - strong [ref=f27e136]: "0"
+                  - text: incidencias
+              - paragraph [ref=f27e137]: Sin acciones para este resumen.
+              - button "Preparar resumen de hoy" [ref=f27e139] [cursor=pointer]
+            - region [ref=f27e140]:
+              - generic [ref=f27e142]:
+                - paragraph [ref=f27e143]: CONTROL HUMANO
+                - heading "Aprobaciones" [level=2] [ref=f27e144]
+              - generic [ref=f27e145]:
+                - heading "Sin solicitudes pendientes" [level=3] [ref=f27e146]
+                - paragraph [ref=f27e147]: Las acciones que requieran revisión aparecerán aquí.
+        - region [ref=f27e148]:
+          - generic [ref=f27e150]:
+            - paragraph [ref=f27e151]: ESPACIOS CONECTADOS
+            - heading "Ir al contexto" [level=2] [ref=f27e152]
+          - generic [ref=f27e153]:
+            - link "CRM Empresas, oportunidades y conversaciones." [ref=f27e154] [cursor=pointer]:
+              - /url: /admin/crm
+              - strong [ref=f27e158]: CRM
+              - generic [ref=f27e159]: Empresas, oportunidades y conversaciones.
+              - generic [aria-hidden] [ref=f27e160]: ↗
+            - link "Altaria Cards Pedidos, producción y enlaces." [ref=f27e161] [cursor=pointer]:
+              - /url: /admin/cards
+              - strong [ref=f27e165]: Altaria Cards
+              - generic [ref=f27e166]: Pedidos, producción y enlaces.
+              - generic [aria-hidden] [ref=f27e167]: ↗
+            - link "Informes Análisis de fuentes verificadas." [ref=f27e168] [cursor=pointer]:
+              - /url: /admin/informes
+              - strong [ref=f27e172]: Informes
+              - generic [ref=f27e173]: Análisis de fuentes verificadas.
+              - generic [aria-hidden] [ref=f27e174]: ↗
+        - generic [ref=f27e175]:
+          - generic [ref=f27e176]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f27e177]: Entorno privado
+  - generic [ref=f27e180]:
+    - button [ref=f27e181]
+    - button [ref=f27e187]
+    - button [ref=f27e191]
+    - button [ref=f27e196]

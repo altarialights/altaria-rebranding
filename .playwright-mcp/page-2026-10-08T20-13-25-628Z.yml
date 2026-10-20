@@ -1,0 +1,194 @@
+- generic [ref=f17e1]:
+  - generic [ref=f17e7]:
+    - alertdialog [ref=f17e410]:
+      - generic [ref=f17e10]:
+        - generic [ref=f17e11]: "Estado de la prueba gratuita: quedan €257.47 de crédito y 56 días. Actualiza a una cuenta completa para obtener acceso ilimitado a todas las funciones de Google Cloud. Usa los créditos restantes y paga solo por lo que usas."
+        - generic [ref=f17e18]:
+          - button [ref=f17e411]:
+            - generic [ref=f17e20]: Descartar
+          - button [ref=f17e412]:
+            - generic [ref=f17e22]: Actualizar
+    - generic [ref=f17e23]:
+      - complementary [ref=f17e413]:
+        - link [ref=f17e414] [cursor=pointer]:
+          - /url: /welcome?pli=1&project=project-2170ef0c-fe34-4f35-af9
+          - generic [ref=f17e26]: Ir al contenido principal
+        - button [ref=f17e415]:
+          - generic [ref=f17e28]: Combinación de teclas para acceso directo
+        - link [ref=f17e416] [cursor=pointer]:
+          - /url: https://cloud.google.com/docs/accessibility?hl=es_419
+          - generic [ref=f17e30]: Ayuda sobre la accesibilidad
+        - link [ref=f17e419] [cursor=pointer]:
+          - /url: https://support.google.com/accessibility/contact/feedback?hl=es_419
+          - generic [ref=f17e36]: Comentarios sobre accesibilidad
+      - banner [ref=f17e42]:
+        - generic [ref=f17e43]:
+          - navigation [ref=f17e46]:
+            - button [ref=f17e422] [cursor=pointer]
+          - link [ref=f17e423] [cursor=pointer]:
+            - /url: /?project=project-2170ef0c-fe34-4f35-af9
+          - button [ref=f17e424]:
+            - generic [ref=f17e60]: My First Project
+        - search [ref=f17e425]:
+          - combobox [ref=f17e72]:
+            - searchbox [ref=f17e426]
+          - button [disabled]:
+            - generic: Buscar
+        - generic [ref=f17e74]:
+          - generic [ref=f17e75]:
+            - button [ref=f17e427] [cursor=pointer]
+            - button [ref=f17e428] [cursor=pointer]
+            - button [ref=f17e429] [cursor=pointer]
+            - button [ref=f17e430] [cursor=pointer]
+          - button [ref=f17e431]
+    - main [ref=f17e131]:
+      - generic [ref=f17e151]:
+        - generic [ref=f17e153]:
+          - generic [ref=f17e154]:
+            - heading [level=1] [ref=f17e432]: Te damos la bienvenida
+            - generic [ref=f17e159]:
+              - generic [ref=f17e160]:
+                - text: Estás trabajando en
+                - button [ref=f17e434]:
+                  - list [ref=f17e167]:
+                    - listitem [ref=f17e168]:
+                      - generic [ref=f17e169]: altarialights-org
+                    - listitem [ref=f17e177]:
+                      - generic [ref=f17e178]: My First Project
+              - generic [ref=f17e181]:
+                - generic [ref=f17e182]:
+                  - text: "Número de proyecto:"
+                  - generic [ref=f17e184]:
+                    - generic [ref=f17e185]: "500766664784"
+                    - button [ref=f17e435] [cursor=pointer]
+                - generic [ref=f17e190]:
+                  - text: "ID del proyecto:"
+                  - generic [ref=f17e192]:
+                    - generic [ref=f17e193]: project-2170ef0c-fe34-4f35-af9
+                    - button [ref=f17e436] [cursor=pointer]
+            - generic [ref=f17e200]:
+              - link [ref=f17e437] [cursor=pointer]:
+                - /url: /home/dashboard?project=project-2170ef0c-fe34-4f35-af9
+                - text: Panel
+              - link [ref=f17e438] [cursor=pointer]:
+                - /url: /cloud-hub/home?project=project-2170ef0c-fe34-4f35-af9
+                - text: Cloud Hub
+            - generic [ref=f17e205]:
+              - link [ref=f17e439] [cursor=pointer]:
+                - /url: /agent-platform/studio/settings/api-keys?project=project-2170ef0c-fe34-4f35-af9
+                - generic [ref=f17e210]: Crear clave de API de Gemini
+              - link [ref=f17e440] [cursor=pointer]:
+                - /url: /agent-platform/studio/agent-designer?project=project-2170ef0c-fe34-4f35-af9
+                - generic [ref=f17e215]: Crear un agente
+              - link [ref=f17e441] [cursor=pointer]:
+                - /url: /compute/instancesAdd?project=project-2170ef0c-fe34-4f35-af9
+                - generic [ref=f17e220]: Crea una VM
+              - link [ref=f17e442] [cursor=pointer]:
+                - /url: /bigquery?project=project-2170ef0c-fe34-4f35-af9
+                - generic [ref=f17e225]: Ejecuta una consulta en BigQuery
+              - link [ref=f17e443] [cursor=pointer]:
+                - /url: /run/overview?project=project-2170ef0c-fe34-4f35-af9
+                - generic [ref=f17e230]: Implementar una aplicación
+              - link [ref=f17e444] [cursor=pointer]:
+                - /url: /storage/create-bucket?project=project-2170ef0c-fe34-4f35-af9
+                - generic [ref=f17e235]: Crea un bucket de almacenamiento
+          - link [ref=f17e445] [cursor=pointer]:
+            - /url: http://developers.google.com/program/?utm_source=gcp&utm_medium=welcome-card&utm_campaign=FY25-global-gcp-onboarding-console-gdp-standard-premium&utm_content=gdp&utm_term=gdp
+            - generic [ref=f17e238]:
+              - generic [ref=f17e239]: Únete al Google Developer Program para aprender nuevas habilidades y herramientas para desarrolladores sin costo.
+              - generic [ref=f17e241]: Unirse hoy
+        - generic [ref=f17e247]:
+          - generic [ref=f17e248]:
+            - heading [level=2] [ref=f17e446]: Recomendaciones en función de tus actividades
+            - generic [ref=f17e260]:
+              - heading [level=3] [ref=f17e448]:
+                - generic [ref=f17e263]: Run your app on a fully managed platform with Cloud Run
+              - generic [ref=f17e265]: Deploy your code, function, or containers on top of Google's highly scalable infrastructure
+              - generic [ref=f17e269]:
+                - link [ref=f17e449] [cursor=pointer]:
+                  - /url: /run/create?pli=1&project=project-2170ef0c-fe34-4f35-af9
+                  - generic [ref=f17e272]: Deploy your app
+                - link [ref=f17e450] [cursor=pointer]:
+                  - /url: https://cloud.google.com/run/pricing
+                  - generic [ref=f17e276]: Learn about pricing
+          - generic [ref=f17e283]:
+            - heading [level=2] [ref=f17e452]: Acceso rápido
+            - generic [ref=f17e289]:
+              - link [ref=f17e453] [cursor=pointer]:
+                - /url: /apis?project=project-2170ef0c-fe34-4f35-af9
+                - generic [ref=f17e291]: APIs y servicios
+              - link [ref=f17e454] [cursor=pointer]:
+                - /url: /iam-admin?project=project-2170ef0c-fe34-4f35-af9
+                - generic [ref=f17e301]: IAM y administración
+              - link [ref=f17e455] [cursor=pointer]:
+                - /url: /billing?project=project-2170ef0c-fe34-4f35-af9
+                - generic [ref=f17e311]: Facturación
+              - link [ref=f17e456] [cursor=pointer]:
+                - /url: /compute?project=project-2170ef0c-fe34-4f35-af9
+                - generic [ref=f17e328]: Compute Engine
+              - link [ref=f17e457] [cursor=pointer]:
+                - /url: /storage?project=project-2170ef0c-fe34-4f35-af9
+                - generic [ref=f17e350]: Cloud Storage
+              - link [ref=f17e458] [cursor=pointer]:
+                - /url: /bigquery?project=project-2170ef0c-fe34-4f35-af9
+                - generic [ref=f17e360]: BigQuery
+              - link [ref=f17e459] [cursor=pointer]:
+                - /url: /networking?project=project-2170ef0c-fe34-4f35-af9
+                - generic [ref=f17e372]: Red de VPC
+              - link [ref=f17e460] [cursor=pointer]:
+                - /url: /kubernetes?project=project-2170ef0c-fe34-4f35-af9
+                - generic [ref=f17e384]: Kubernetes Engine
+          - link [ref=f17e461] [cursor=pointer]:
+            - /url: /products?project=project-2170ef0c-fe34-4f35-af9
+            - generic [ref=f17e403]: Ver todos los productos
+  - iframe [aria-hidden] [ref=f17e405]
+  - iframe [aria-hidden] [ref=f17e407]
+  - iframe [aria-hidden] [ref=f17e408]
+  - iframe [aria-hidden] [ref=f17e409]
+  - dialog "Selecciona un recurso" [ref=f17e465]:
+    - generic [ref=f17e468]:
+      - generic [ref=f17e469]:
+        - generic [ref=f17e472]:
+          - heading "Selecciona un recurso" [level=1] [ref=f17e475]
+          - generic [ref=f17e479]:
+            - button "Proyecto nuevo" [ref=f17e481]
+            - button "Más acciones Selecciona un recurso" [ref=f17e484] [cursor=pointer]
+        - generic [ref=f17e489]:
+          - button "Seleccionar del selector de organizaciones altarialights-org" [ref=f17e492]:
+            - generic [ref=f17e493]:
+              - generic [ref=f17e494]: Seleccionar del selector de organizaciones
+              - text: altarialights-org
+          - generic [ref=f17e501] [cursor=pointer]:
+            - generic: Buscar proyectos y carpetas
+            - textbox "Buscar proyectos y carpetas" [active] [ref=f17e508]
+        - generic [ref=f17e509]:
+          - tablist [ref=f17e512]:
+            - generic [ref=f17e513]:
+              - tab "Recientes" [selected] [ref=f17e514] [cursor=pointer]
+              - tab "Destacados" [ref=f17e517] [cursor=pointer]
+              - tab "Todos" [ref=f17e521] [cursor=pointer]
+          - generic [ref=f17e524]:
+            - tabpanel "Recientes" [ref=f17e525]:
+              - grid "Lista del selector de ámbitos , Navega por la tabla con las teclas de flecha. Ingresa la tecla para interactuar con la celda. Presiona Tab para navegar por la celda. Presiona Escape para salir de la celda." [ref=f17e536]:
+                - rowgroup [ref=f17e543]:
+                  - row [ref=f17e544] [cursor=pointer]:
+                    - columnheader "Recurso actual" [ref=f17e545]
+                    - columnheader "Nombre" [ref=f17e546]
+                    - columnheader "Tipo" [ref=f17e549]
+                    - columnheader "ID" [ref=f17e552]
+                    - columnheader "Estrella del recurso" [ref=f17e555]
+                - rowgroup [ref=f17e556]:
+                  - row [ref=f17e557] [cursor=pointer]:
+                    - gridcell "Actual" [ref=f17e558]
+                    - gridcell [ref=f17e563]:
+                      - generic [ref=f17e564]:
+                        - button "My First Project" [ref=f17e570]
+                        - button "Información de ascendencia de My First Project" [ref=f17e573]
+                    - gridcell "Proyecto" [ref=f17e577]
+                    - gridcell "project-2170ef0c-fe34-4f35-af9" [ref=f17e578]
+                    - gridcell [ref=f17e579]:
+                      - button "Agregar estrella a My First Project" [ref=f17e581]
+            - tabpanel [aria-hidden] [ref=f17e587]
+            - tabpanel [aria-hidden] [ref=f17e588]
+      - button "Cancelar" [ref=f17e590]
+  - paragraph

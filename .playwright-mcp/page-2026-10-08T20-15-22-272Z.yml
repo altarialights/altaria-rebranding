@@ -1,0 +1,47 @@
+- generic [active] [ref=f35e1]:
+  - region "console.cloud.google.com usa cookies de Google para brindar sus servicios, mejorar su calidad y analizar el tráfico." [ref=f35e2]:
+    - paragraph [ref=f35e3]:
+      - text: console.cloud.google.com usa cookies de Google para brindar sus servicios, mejorar su calidad y analizar el tráfico.
+      - link "Obtenga más información sobre cómo Google utiliza las cookies. Se abrirá en una nueva pestaña." [ref=f35e4] [cursor=pointer]:
+        - /url: https://policies.google.com/technologies/cookies
+        - text: Más información
+    - button "Entendido" [ref=f35e5] [cursor=pointer]
+  - generic [ref=f35e7]:
+    - generic [ref=f35e8]:
+      - complementary "Omitir vínculos" [ref=f35e9]:
+        - link "Ir al contenido principal" [ref=f35e10] [cursor=pointer]:
+          - /url: /billing/linkedaccount?project=altaria-os-gmail-test
+        - button "Combinación de teclas para acceso directo" [ref=f35e12]
+        - link [ref=f35e14] [cursor=pointer]:
+          - /url: https://cloud.google.com/docs/accessibility?hl=es_419
+          - generic [ref=f35e15]:
+            - text: Ayuda sobre la accesibilidad
+            - generic "externo, se abre en una ventana nueva" [ref=f35e16]:
+              - img "externo, se abre en una ventana nueva" [ref=f35e17]
+        - link [ref=f35e20] [cursor=pointer]:
+          - /url: https://support.google.com/accessibility/contact/feedback?hl=es_419
+          - generic [ref=f35e21]:
+            - text: Comentarios sobre accesibilidad
+            - generic "externo, se abre en una ventana nueva" [ref=f35e22]:
+              - img "externo, se abre en una ventana nueva" [ref=f35e23]
+      - banner [ref=f35e27]:
+        - generic [ref=f35e28]:
+          - navigation [ref=f35e31]:
+            - button "Menú de navegación (.)" [ref=f35e32] [cursor=pointer]
+          - link "Google Cloud Platform - Página principal" [ref=f35e36] [cursor=pointer]:
+            - /url: /?project=altaria-os-gmail-test
+        - search "Google Cloud Platform" [ref=f35e41]:
+          - combobox [ref=f35e42]:
+            - searchbox "Ingresa una consulta para buscar recursos, documentos, productos y mucho más" [ref=f35e43]
+          - button "Ver todos los resultados de la búsqueda" [disabled]:
+            - generic: Buscar
+        - generic [ref=f35e45]:
+          - button "Abrir chat de Gemini AI (Alt G)" [ref=f35e49] [cursor=pointer]
+          - button "Activar Cloud Shell (G then S)" [ref=f35e56] [cursor=pointer]
+          - button "1 notificaciones no leídas Abrir notificaciones" [ref=f35e63] [cursor=pointer]:
+            - generic [ref=f35e64]: "1"
+          - button "Configuración y utilidades" [ref=f35e71] [cursor=pointer]
+    - main [ref=f35e99]:
+      - progressbar [aria-hidden] [ref=f35e107]
+  - iframe [aria-hidden] [ref=f35e123]
+  - paragraph

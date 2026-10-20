@@ -16,3 +16,10 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+declare namespace App {
+  interface Locals {
+    admin?: import('./lib/admin/access').AdminPrincipal;
+    auth?: import('@workos/authkit-astro').AuthKitAuth;
+  }
+}

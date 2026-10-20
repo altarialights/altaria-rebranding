@@ -1,0 +1,200 @@
+- generic [active] [ref=f22e1]:
+  - link "Saltar al contenido" [ref=f22e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f22e3]:
+    - complementary "Panel de navegación" [ref=f22e4]:
+      - generic [ref=f22e5]:
+        - link "Altaria OS, inicio" [ref=f22e6] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f22e7]
+          - generic [ref=f22e8]: OS
+        - paragraph [ref=f22e10]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f22e11]:
+        - paragraph [ref=f22e12]: PLATAFORMA
+        - link "Inicio" [ref=f22e13] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f22e18] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards" [ref=f22e23] [cursor=pointer]:
+          - /url: /admin/cards
+        - link "Informes En preparación" [ref=f22e28] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f22e32]: Informes
+          - generic "En preparación" [ref=f22e33]: ·
+        - link "Configuración En preparación" [ref=f22e34] [cursor=pointer]:
+          - /url: /admin/configuracion
+          - generic [ref=f22e38]: Configuración
+          - generic "En preparación" [ref=f22e39]: ·
+      - generic [ref=f22e40]:
+        - generic [ref=f22e45]:
+          - text: Área privada
+          - strong [ref=f22e46]: Acceso protegido
+        - link "Ver sitio público" [ref=f22e47] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f22e48]: ↗
+    - generic [ref=f22e49]:
+      - banner [ref=f22e50]:
+        - generic [ref=f22e51]:
+          - text: ALTARIA OS /
+          - strong [ref=f22e52]: Configuración
+        - generic [ref=f22e53]:
+          - button "Buscar en Altaria OS" [ref=f22e54] [cursor=pointer]:
+            - generic [ref=f22e58]: ⌘ K
+          - generic "altarialights@gmail.com" [ref=f22e59]:
+            - generic [aria-hidden] [ref=f22e60]: A
+          - button "Cerrar y revocar esta sesión" [ref=f22e63] [cursor=pointer]: Salir
+      - main [ref=f22e64]:
+        - generic [ref=f22e65]:
+          - generic [ref=f22e66]:
+            - paragraph [ref=f22e67]: CONFIGURACIÓN / ALTARIA OS
+            - heading "Automatizaciones" [level=1] [ref=f22e68]
+            - paragraph [ref=f22e69]: Reglas predefinidas, estado de la cola y control del entorno TEST.
+          - generic [ref=f22e70]: ENTORNO TEST
+        - status [ref=f22e72]: Configuración actualizada y auditada en TEST.
+        - region [ref=f22e73]:
+          - generic [ref=f22e74]:
+            - paragraph [ref=f22e75]: CONTROL OPERATIVO
+            - heading "Automatizar con criterio." [level=2] [ref=f22e76]
+            - paragraph [ref=f22e77]: Los eventos crean trabajo verificable. Puedes pausar reglas y revisar cada ejecución. Telegram usa un adaptador simulado; no envía mensajes.
+        - generic "Salud de automatizaciones" [ref=f22e78]:
+          - generic [ref=f22e79]:
+            - strong [ref=f22e80]: "0"
+            - text: Trabajos en cola
+          - generic [ref=f22e81]:
+            - strong [ref=f22e82]: "0"
+            - text: En ejecución
+          - generic [ref=f22e83]:
+            - strong [ref=f22e84]: "0"
+            - text: Requieren revisión
+          - generic [ref=f22e85]:
+            - strong [ref=f22e86]: "1"
+            - text: Avisos simulados
+        - generic [ref=f22e87]:
+          - region [ref=f22e88]:
+            - generic [ref=f22e89]:
+              - generic [ref=f22e90]:
+                - paragraph [ref=f22e91]: REGLAS
+                - heading "Eventos conectados" [level=2] [ref=f22e92]
+              - button "Procesar pendientes" [ref=f22e94] [cursor=pointer]
+            - paragraph [ref=f22e95]: El trabajador local procesa la cola cada minuto mientras el servidor TEST está abierto. Una pausa conserva los trabajos pendientes.
+            - list [ref=f22e96]:
+              - listitem [ref=f22e97]:
+                - generic [ref=f22e98]:
+                  - strong [ref=f22e99]: Llamada · siguiente acción
+                  - text: call.next · Activa
+                - button "Pausar" [ref=f22e101] [cursor=pointer]
+              - listitem [ref=f22e102]:
+                - generic [ref=f22e103]:
+                  - strong [ref=f22e104]: Pedido entregado
+                  - text: cards.delivered · Activa
+                - button "Pausar" [ref=f22e106] [cursor=pointer]
+              - listitem [ref=f22e107]:
+                - generic [ref=f22e108]:
+                  - strong [ref=f22e109]: Incidencia Cards
+                  - text: cards.incident · Activa
+                - button "Pausar" [ref=f22e111] [cursor=pointer]
+              - listitem [ref=f22e112]:
+                - generic [ref=f22e113]:
+                  - strong [ref=f22e114]: Enlace pausado o retirado
+                  - text: cards.link.alert · Activa
+                - button "Pausar" [ref=f22e116] [cursor=pointer]
+              - listitem [ref=f22e117]:
+                - generic [ref=f22e118]:
+                  - strong [ref=f22e119]: Pedido pagado
+                  - text: cards.paid · Activa
+                - button "Pausar" [ref=f22e121] [cursor=pointer]
+              - listitem [ref=f22e122]:
+                - generic [ref=f22e123]:
+                  - strong [ref=f22e124]: Resumen diario
+                  - text: daily.brief · Activa
+                - button "Pausar" [ref=f22e126] [cursor=pointer]
+              - listitem [ref=f22e127]:
+                - generic [ref=f22e128]:
+                  - strong [ref=f22e129]: Nuevo lead · revisión
+                  - text: lead.review · Activa
+                - button "Pausar" [ref=f22e131] [cursor=pointer]
+              - listitem [ref=f22e132]:
+                - generic [ref=f22e133]:
+                  - strong [ref=f22e134]: Oportunidad perdida
+                  - text: opportunity.lost · Activa
+                - button "Pausar" [ref=f22e136] [cursor=pointer]
+              - listitem [ref=f22e137]:
+                - generic [ref=f22e138]:
+                  - strong [ref=f22e139]: Oportunidad ganada
+                  - text: opportunity.won · Activa
+                - button "Pausar" [ref=f22e141] [cursor=pointer]
+              - listitem [ref=f22e142]:
+                - generic [ref=f22e143]:
+                  - strong [ref=f22e144]: Propuesta caducada
+                  - text: proposal.expired · Activa
+                - button "Pausar" [ref=f22e146] [cursor=pointer]
+              - listitem [ref=f22e147]:
+                - generic [ref=f22e148]:
+                  - strong [ref=f22e149]: Respuesta a propuesta
+                  - text: proposal.responded · Activa
+                - button "Pausar" [ref=f22e151] [cursor=pointer]
+              - listitem [ref=f22e152]:
+                - generic [ref=f22e153]:
+                  - strong [ref=f22e154]: Propuesta enviada
+                  - text: proposal.sent · Activa
+                - button "Pausar" [ref=f22e156] [cursor=pointer]
+              - listitem [ref=f22e157]:
+                - generic [ref=f22e158]:
+                  - strong [ref=f22e159]: Telegram simulado
+                  - text: telegram.simulated · Activa
+                - button "Pausar" [ref=f22e161] [cursor=pointer]
+          - generic [ref=f22e162]:
+            - region [ref=f22e163]:
+              - generic [ref=f22e165]:
+                - paragraph [ref=f22e166]: PROGRAMACIÓN
+                - heading "Resumen de la mañana" [level=2] [ref=f22e167]
+              - paragraph [ref=f22e168]: Zona horaria Europe/Madrid. No hay hora fijada hasta que la elijas. Una sola emisión por día.
+              - generic [ref=f22e169]:
+                - generic [ref=f22e170]:
+                  - text: Hora local
+                  - textbox "Hora local" [ref=f22e171]: 08:30
+                - button "Guardar horario" [ref=f22e172] [cursor=pointer]
+              - paragraph [ref=f22e173]: Telegram sigue simulado hasta una autorización independiente.
+            - region [ref=f22e174]:
+              - generic [ref=f22e176]:
+                - paragraph [ref=f22e177]: SALIDA
+                - heading "Telegram TEST" [level=2] [ref=f22e178]
+              - paragraph [ref=f22e179]: Adaptador simulado, sin bot ni chat conectados.
+              - generic [ref=f22e180]:
+                - generic [ref=f22e181]:
+                  - strong [ref=f22e182]: "0"
+                  - text: en cola
+                - generic [ref=f22e183]:
+                  - strong [ref=f22e184]: "0"
+                  - text: con error
+        - region [ref=f22e185]:
+          - generic [ref=f22e187]:
+            - paragraph [ref=f22e188]: TRAZABILIDAD
+            - heading "Últimas ejecuciones" [level=2] [ref=f22e189]
+          - region "Historial desplazable" [ref=f22e190]:
+            - table [ref=f22e191]:
+              - rowgroup [ref=f22e192]:
+                - row [ref=f22e193]:
+                  - columnheader "Regla" [ref=f22e194]
+                  - columnheader "Estado" [ref=f22e195]
+                  - columnheader "Intentos" [ref=f22e196]
+                  - columnheader "Último error" [ref=f22e197]
+                  - columnheader "Actualizado" [ref=f22e198]
+                  - columnheader "Acción" [ref=f22e199]
+              - rowgroup [ref=f22e200]:
+                - row [ref=f22e201]:
+                  - cell "Pedido pagado" [ref=f22e202]
+                  - cell "done" [ref=f22e203]
+                  - cell "1" [ref=f22e204]
+                  - cell "—" [ref=f22e205]
+                  - cell "12/10/2026, 14:02:21" [ref=f22e206]
+                  - cell [ref=f22e207]
+        - generic [ref=f22e208]:
+          - generic [ref=f22e209]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f22e210]: Entorno privado
+  - generic [ref=f22e213]:
+    - button [ref=f22e214]
+    - button [ref=f22e220]
+    - button [ref=f22e224]
+    - button [ref=f22e229]

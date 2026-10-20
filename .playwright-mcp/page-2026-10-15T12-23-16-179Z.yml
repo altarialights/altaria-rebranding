@@ -1,0 +1,1439 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - link "Saltar al contenido" [ref=e5] [cursor=pointer]:
+      - /url: "#_R_3ndjqctdbntccgud5hl75_"
+    - generic [ref=e6]:
+      - complementary [ref=e7]:
+        - generic [ref=e11]:
+          - navigation "Navegación de la aplicación" [ref=e1234]:
+            - generic [ref=e13]:
+              - button "Inicio" [ref=e1235] [cursor=pointer]
+              - button "Espacio" [ref=e1236] [cursor=pointer]
+              - button "Tareas programadas" [ref=e1237] [cursor=pointer]
+              - button "Complementos" [ref=e1238] [cursor=pointer]
+              - button "Explorar" [ref=e1239] [cursor=pointer]
+              - button "Sitios" [ref=e1240] [cursor=pointer]
+            - button "Abrir menú de perfil" [expanded] [ref=e1241] [cursor=pointer]
+          - navigation "Personalizar" [ref=e1242]:
+            - generic [ref=e66]:
+              - generic [ref=e68]:
+                - heading "Personalizar" [level=1] [ref=e1243]
+                - generic [ref=e70]:
+                  - button "Buscar complementos instalados" [ref=e1244] [cursor=pointer]
+                  - button "Mostrar/ocultar barra lateral" [expanded] [ref=e1245] [cursor=pointer]
+              - generic [ref=e84]:
+                - generic [ref=e86]:
+                  - link "Complementos" [ref=e1246] [cursor=pointer]:
+                    - /url: /plugins
+                  - link "Habilidades" [ref=e1247] [cursor=pointer]:
+                    - /url: /skills
+                - generic [ref=e101]:
+                  - generic [ref=e102]: Instalados
+                  - generic [ref=e104]:
+                    - generic [ref=e105] [cursor=pointer]:
+                      - link "Codex Security Cloud" [ref=e1248]:
+                        - /url: /plugins/plugin_connector_1p_6317a32dbf5c81919acd66de6722daf5
+                      - generic:
+                        - generic:
+                          - button "Más acciones"
+                    - generic [ref=e110] [cursor=pointer]:
+                      - link "Remote Desktop Commander" [ref=e1249]:
+                        - /url: /plugins/plugin_asdk_app_6a057d268ebc81919918d37eec718425
+                      - generic:
+                        - generic:
+                          - button "Más acciones"
+                    - generic [ref=e115] [cursor=pointer]:
+                      - link "Google Drive" [ref=e1250]:
+                        - /url: /plugins/plugin_connector_1p_ab21a553bfbc81919ea8fd1858e3ffa7
+                      - generic:
+                        - generic:
+                          - button "Más acciones"
+                    - generic [ref=e120] [cursor=pointer]:
+                      - link "Google Contacts" [ref=e1251]:
+                        - /url: /plugins/plugin_connector_1p_c97194162860819190a6f840a61b9889
+                      - generic:
+                        - generic:
+                          - button "Más acciones"
+                    - generic [ref=e125] [cursor=pointer]:
+                      - link "Google Calendar" [ref=e1252]:
+                        - /url: /plugins/plugin_connector_1p_f8509de903288191b14a160c6c5d20b0
+                      - generic:
+                        - generic:
+                          - button "Más acciones"
+                    - generic [ref=e136] [cursor=pointer]:
+                      - link "Gmail" [ref=e1253]:
+                        - /url: /plugins/plugin_connector_1p_95d39881713c8191931482a62d6edff9
+                      - generic:
+                        - generic:
+                          - button "Más acciones"
+                    - generic [ref=e141] [cursor=pointer]:
+                      - link "LinkedIn" [ref=e1254]:
+                        - /url: /plugins/plugin_asdk_app_69949aa62bf48191be5e57a01202beca
+                      - generic:
+                        - generic:
+                          - button "Más acciones"
+                    - generic [ref=e146] [cursor=pointer]:
+                      - link "Metricool" [ref=e1255]:
+                        - /url: /plugins/plugin_asdk_app_69d73fc8aa5c8191bec1583760b130c7
+                      - generic:
+                        - generic:
+                          - button "Más acciones"
+                    - generic [ref=e151] [cursor=pointer]:
+                      - link "Higgsfield" [ref=e1256]:
+                        - /url: /plugins/plugin_asdk_app_6a3293e129088191abf0875820e839da
+                      - generic:
+                        - generic:
+                          - button "Más acciones"
+                    - generic [ref=e156] [cursor=pointer]:
+                      - link "GitHub" [ref=e1257]:
+                        - /url: /plugins/plugin_connector_1p_1a69035c238881919c4190932b2df699
+                      - generic:
+                        - generic:
+                          - button "Más acciones"
+        - generic:
+          - separator
+      - generic [ref=e162]:
+        - main [ref=e164]:
+          - generic [ref=e174]:
+            - generic [ref=e177]:
+              - heading "Complementos" [level=1] [ref=e180]
+              - generic [ref=e182]:
+                - generic [ref=e184]:
+                  - generic [ref=e189]: Buscar complementos
+                  - textbox "Buscar complementos" [ref=e190]
+                - generic [ref=e193]:
+                  - link "Administrar" [ref=e195] [cursor=pointer]:
+                    - /url: /settings/plugins-settings
+                  - button "Añadir" [ref=e230] [cursor=pointer]
+            - generic [ref=e202]: Conecta complementos para que ChatGPT pueda trabajar con tus herramientas
+            - tablist "Directorio de complementos" [ref=e206]:
+              - tab "Públicos" [selected] [ref=e208] [cursor=pointer]
+              - tab "Personales" [ref=e210] [cursor=pointer]
+            - generic [ref=e212]:
+              - generic [ref=e235]:
+                - heading [level=2] [ref=e237]:
+                  - link "Populares" [ref=e238] [cursor=pointer]:
+                    - /url: /plugins?category=featured
+                - generic [ref=e243]:
+                  - generic [ref=e244] [cursor=pointer]:
+                    - link "Gmail" [ref=e245]:
+                      - /url: /plugins/plugin_connector_1p_95d39881713c8191931482a62d6edff9
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Gmail"
+                      - generic:
+                        - generic:
+                          - generic: Gmail
+                          - generic: Read and manage Gmail
+                        - button "Más acciones" [ref=e1258]
+                  - generic [ref=e252] [cursor=pointer]:
+                    - link "Google Drive" [ref=e253]:
+                      - /url: /plugins/plugin_connector_1p_ab21a553bfbc81919ea8fd1858e3ffa7
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Google Drive"
+                      - generic:
+                        - generic:
+                          - generic: Google Drive
+                          - generic: Drive, Docs, Sheets or Slides
+                        - button "Más acciones" [ref=e1259]
+                  - generic [ref=e260] [cursor=pointer]:
+                    - link "GitHub" [ref=e261]:
+                      - /url: /plugins/plugin_connector_1p_1a69035c238881919c4190932b2df699
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "GitHub"
+                      - generic:
+                        - generic:
+                          - generic: GitHub
+                          - generic: Triage PRs, issues, CI, and publish flows
+                        - button "Más acciones" [ref=e1260]
+                  - generic [ref=e268] [cursor=pointer]:
+                    - link "Google Calendar" [ref=e269]:
+                      - /url: /plugins/plugin_connector_1p_f8509de903288191b14a160c6c5d20b0
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Google Calendar"
+                      - generic:
+                        - generic:
+                          - generic: Google Calendar
+                          - generic: Manage Google Calendar events
+                        - button "Más acciones" [ref=e1261]
+                  - generic [ref=e276] [cursor=pointer]:
+                    - link "Outlook Email" [ref=e277]:
+                      - /url: /plugins/plugin_connector_1p_6bcb5879c73c819196abc70016166099
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Outlook Email"
+                      - generic:
+                        - generic:
+                          - generic: Outlook Email
+                          - generic: Triage Outlook inboxes
+                        - button "Instalar Outlook Email" [ref=e1262]
+                  - generic [ref=e282] [cursor=pointer]:
+                    - link "Slack" [ref=e283]:
+                      - /url: /plugins/plugin_asdk_app_69a1d78e929881919bba0dbda1f6436d
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Slack"
+                      - generic:
+                        - generic:
+                          - generic: Slack
+                          - generic: Read and manage Slack
+                        - button "Instalar Slack" [ref=e1263]
+              - generic [ref=e288]:
+                - heading [level=2] [ref=e290]:
+                  - link "Nuevos y destacados" [ref=e291] [cursor=pointer]:
+                    - /url: /plugins?category=new-and-noteworthy
+                - generic [ref=e296]:
+                  - generic [ref=e297] [cursor=pointer]:
+                    - link "Magnific" [ref=e298]:
+                      - /url: /plugins/plugin_asdk_app_6a1f227d5a848191ae3317c66947b440
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Magnific"
+                      - generic:
+                        - generic:
+                          - generic: Magnific
+                          - generic: Create images, video, designs
+                        - button "Instalar Magnific" [ref=e1264]
+                  - generic [ref=e303] [cursor=pointer]:
+                    - link "Higgsfield" [ref=e304]:
+                      - /url: /plugins/plugin_asdk_app_6a3293e129088191abf0875820e839da
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Higgsfield"
+                      - generic:
+                        - generic:
+                          - generic: Higgsfield
+                          - generic: Every image and video model
+                        - button "Más acciones" [ref=e1265]
+                  - generic [ref=e311] [cursor=pointer]:
+                    - link "Sonos" [ref=e312]:
+                      - /url: /plugins/plugin_asdk_app_6aa1cd6835e48191b9ade73ac9fcd180
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Sonos"
+                      - generic:
+                        - generic:
+                          - generic: Sonos
+                          - generic: Control your Sonos system
+                        - button "Instalar Sonos" [ref=e1266]
+                  - generic [ref=e317] [cursor=pointer]:
+                    - link "Hevy" [ref=e318]:
+                      - /url: /plugins/plugin_asdk_app_6a47ca602a648191b777ecea734e4b9d
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Hevy"
+                      - generic:
+                        - generic:
+                          - generic: Hevy
+                          - generic: Interact with your Hevy data
+                        - button "Instalar Hevy" [ref=e1267]
+                  - generic [ref=e323] [cursor=pointer]:
+                    - link "Adobe" [ref=e324]:
+                      - /url: /plugins/plugin_asdk_app_69312da8e4dc81919370cb86fd172b6c
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Adobe"
+                      - generic:
+                        - generic:
+                          - generic: Adobe
+                          - generic: Design, combine, and edit
+                        - button "Instalar Adobe" [ref=e1268]
+                  - generic [ref=e329] [cursor=pointer]:
+                    - link "tldraw" [ref=e330]:
+                      - /url: /plugins/plugin_asdk_app_6ab242dbeb5c8191ba5277534ef0c570
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "tldraw"
+                      - generic:
+                        - generic:
+                          - generic: tldraw
+                          - generic: Draw and diagram with agents
+                        - button "Instalar tldraw" [ref=e1269]
+              - generic [ref=e335]:
+                - heading [level=2] [ref=e337]:
+                  - link "Pequeñas empresas" [ref=e338] [cursor=pointer]:
+                    - /url: /plugins?category=small-business
+                - generic [ref=e343]:
+                  - generic [ref=e344] [cursor=pointer]:
+                    - link "Dropbox" [ref=e345]:
+                      - /url: /plugins/plugin_asdk_app_69b31dc2110c8191b8b47dc98fe5a052
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Dropbox"
+                      - generic:
+                        - generic:
+                          - generic: Dropbox
+                          - generic: Find, create, and take action
+                        - button "Instalar Dropbox" [ref=e1270]
+                  - generic [ref=e350] [cursor=pointer]:
+                    - link "HubSpot" [ref=e351]:
+                      - /url: /plugins/plugin_asdk_app_697acb8e53d88191bf7a79e62012ae14
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "HubSpot"
+                      - generic:
+                        - generic:
+                          - generic: HubSpot
+                          - generic: Insights to action in HubSpot
+                        - button "Instalar HubSpot" [ref=e1271]
+                  - generic [ref=e356] [cursor=pointer]:
+                    - link "Stripe" [ref=e357]:
+                      - /url: /plugins/plugin_connector_690ab09fa43c8191bca40280e4563238
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Stripe"
+                      - generic:
+                        - generic:
+                          - generic: Stripe
+                          - generic: Accept payments. Grow revenue.
+                        - button "Instalar Stripe" [ref=e1272]
+                  - generic [ref=e362] [cursor=pointer]:
+                    - link "Canva" [ref=e363]:
+                      - /url: /plugins/plugin_connector_68df33b1a2d081918778431a9cfca8ba
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Canva"
+                      - generic:
+                        - generic:
+                          - generic: Canva
+                          - generic: Create, review, edit designs
+                        - button "Instalar Canva" [ref=e1273]
+                  - generic [ref=e368] [cursor=pointer]:
+                    - link "Gusto" [ref=e369]:
+                      - /url: /plugins/plugin_asdk_app_6941e1d349208191b984b93cb344be5b
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Gusto"
+                      - generic:
+                        - generic:
+                          - generic: Gusto
+                          - generic: People and payroll, made easy
+                        - button "Instalar Gusto" [ref=e1274]
+                  - generic [ref=e374] [cursor=pointer]:
+                    - link "Figma" [ref=e375]:
+                      - /url: /plugins/plugin_connector_68df038e0ba48191908c8434991bbac2
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Figma"
+                      - generic:
+                        - generic:
+                          - generic: Figma
+                          - generic: Create designs, ship to code
+                        - button "Instalar Figma" [ref=e1275]
+              - generic [ref=e380]:
+                - heading [level=2] [ref=e382]:
+                  - link "Productividad" [ref=e383] [cursor=pointer]:
+                    - /url: /plugins?category=productivity
+                - generic [ref=e388]:
+                  - generic [ref=e389] [cursor=pointer]:
+                    - link "Firecrawl" [ref=e390]:
+                      - /url: /plugins/plugin_asdk_app_6a314a73f8ac819195b0d55e36b9c609
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Firecrawl"
+                      - generic:
+                        - generic:
+                          - generic: Firecrawl
+                          - generic: Search and extract web data
+                        - button "Instalar Firecrawl" [ref=e1276]
+                  - generic [ref=e395] [cursor=pointer]:
+                    - link "Notion" [ref=e396]:
+                      - /url: /plugins/plugin_asdk_app_69c18c28f1188191bf5b8445c4ab0a2e
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Notion"
+                      - generic:
+                        - generic:
+                          - generic: Notion
+                          - generic: Create docs, tasks, databases
+                        - button "Instalar Notion" [ref=e1277]
+                  - generic [ref=e401] [cursor=pointer]:
+                    - link "Granola" [ref=e402]:
+                      - /url: /plugins/plugin_asdk_app_697761cab6f48191b5ed345919a3ce8b
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Granola"
+                      - generic:
+                        - generic:
+                          - generic: Granola
+                          - generic: Add your meeting context
+                        - button "Instalar Granola" [ref=e1278]
+                  - generic [ref=e407] [cursor=pointer]:
+                    - 'link "Todoist: To Do List & Calendar" [ref=e408]':
+                      - /url: /plugins/plugin_asdk_app_6943b73823548191a9f9216c6790c453
+                    - generic:
+                      - generic:
+                        - generic:
+                          - 'img "Todoist: To Do List & Calendar"'
+                      - generic:
+                        - generic:
+                          - generic: "Todoist: To Do List & Calendar"
+                          - generic: Planner & Reminders
+                        - 'button "Instalar Todoist: To Do List & Calendar" [ref=e1279]'
+                  - generic [ref=e413] [cursor=pointer]:
+                    - link "Outlook Calendar" [ref=e414]:
+                      - /url: /plugins/plugin_connector_1p_fd0f4f41caa88191a9456514bbffa06d
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Outlook Calendar"
+                      - generic:
+                        - generic:
+                          - generic: Outlook Calendar
+                          - generic: Manage Outlook schedules
+                        - button "Instalar Outlook Calendar" [ref=e1280]
+                  - generic [ref=e419] [cursor=pointer]:
+                    - link "Asana" [ref=e420]:
+                      - /url: /plugins/plugin_asdk_app_69616780bd208191b4fb44ba44f72b61
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Asana"
+                      - generic:
+                        - generic:
+                          - generic: Asana
+                          - generic: Turn chats into actions
+                        - button "Instalar Asana" [ref=e1281]
+              - generic [ref=e425]:
+                - heading [level=2] [ref=e427]:
+                  - link "Comunicación" [ref=e428] [cursor=pointer]:
+                    - /url: /plugins?category=communication
+                - generic [ref=e433]:
+                  - generic [ref=e434] [cursor=pointer]:
+                    - link "Teams" [ref=e435]:
+                      - /url: /plugins/plugin_connector_1p_eba8b52fe53881918408d4b46b957644
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Teams"
+                      - generic:
+                        - generic:
+                          - generic: Teams
+                          - generic: Summarize Teams and follow up
+                        - button "Instalar Teams" [ref=e1282]
+                  - generic [ref=e440] [cursor=pointer]:
+                    - link "Superhuman Mail" [ref=e441]:
+                      - /url: /plugins/plugin_asdk_app_69a21e4058dc8191a6220fa911310d7b
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Superhuman Mail"
+                      - generic:
+                        - generic:
+                          - generic: Superhuman Mail
+                          - generic: Best email+calendar assistant
+                        - button "Instalar Superhuman Mail" [ref=e1283]
+                  - generic [ref=e446] [cursor=pointer]:
+                    - link "Zoom" [ref=e447]:
+                      - /url: /plugins/plugin_asdk_app_69373a13116c819189d046aea1278836
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Zoom"
+                      - generic:
+                        - generic:
+                          - generic: Zoom
+                          - generic: Insights from Zoom
+                        - button "Instalar Zoom" [ref=e1284]
+                  - generic [ref=e452] [cursor=pointer]:
+                    - link "Hostinger Mail" [ref=e453]:
+                      - /url: /plugins/plugin_asdk_app_6a323a8a890c819190480c9044395170
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Hostinger Mail"
+                      - generic:
+                        - generic:
+                          - generic: Hostinger Mail
+                          - generic: Use Hostinger Mail
+                        - button "Instalar Hostinger Mail" [ref=e1285]
+                  - generic [ref=e458] [cursor=pointer]:
+                    - link "Mailopoly Inbox" [ref=e459]:
+                      - /url: /plugins/plugin_asdk_app_6a2e4ae9228881919b13aeb3f87ca03e
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Mailopoly Inbox"
+                      - generic:
+                        - generic:
+                          - generic: Mailopoly Inbox
+                          - generic: Search, send emails & messages
+                        - button "Instalar Mailopoly Inbox" [ref=e1286]
+                  - generic [ref=e464] [cursor=pointer]:
+                    - link "RingCentral Phone" [ref=e465]:
+                      - /url: /plugins/plugin_asdk_app_6a5163accce48191ab3fac53d63cb197
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "RingCentral Phone"
+                      - generic:
+                        - generic:
+                          - generic: RingCentral Phone
+                          - generic: Calls, SMS, and voicemail
+                        - button "Instalar RingCentral Phone" [ref=e1287]
+              - generic [ref=e470]:
+                - heading [level=2] [ref=e472]:
+                  - link "Creatividad" [ref=e473] [cursor=pointer]:
+                    - /url: /plugins?category=creativity
+                - generic [ref=e478]:
+                  - generic [ref=e479] [cursor=pointer]:
+                    - link "Higgsfield" [ref=e480]:
+                      - /url: /plugins/plugin_asdk_app_6a3293e129088191abf0875820e839da
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Higgsfield"
+                      - generic:
+                        - generic:
+                          - generic: Higgsfield
+                          - generic: Every image and video model
+                        - button "Más acciones" [ref=e1288]
+                  - generic [ref=e487] [cursor=pointer]:
+                    - link "Product Design" [ref=e488]:
+                      - /url: /plugins/Plugin_fa77aec24fc08191bc6e57f377126d76
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Product Design"
+                      - generic:
+                        - generic:
+                          - generic: Product Design
+                          - generic: Explore and prototype ideas
+                        - button "Instalar Product Design" [ref=e1289]
+                  - generic [ref=e493] [cursor=pointer]:
+                    - link "Figma" [ref=e494]:
+                      - /url: /plugins/plugin_connector_68df038e0ba48191908c8434991bbac2
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Figma"
+                      - generic:
+                        - generic:
+                          - generic: Figma
+                          - generic: Create designs, ship to code
+                        - button "Instalar Figma" [ref=e1290]
+                  - generic [ref=e499] [cursor=pointer]:
+                    - link "Canva" [ref=e500]:
+                      - /url: /plugins/plugin_connector_68df33b1a2d081918778431a9cfca8ba
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Canva"
+                      - generic:
+                        - generic:
+                          - generic: Canva
+                          - generic: Create, review, edit designs
+                        - button "Instalar Canva" [ref=e1291]
+                  - generic [ref=e505] [cursor=pointer]:
+                    - link "Magnific" [ref=e506]:
+                      - /url: /plugins/plugin_asdk_app_6a1f227d5a848191ae3317c66947b440
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Magnific"
+                      - generic:
+                        - generic:
+                          - generic: Magnific
+                          - generic: Create images, video, designs
+                        - button "Instalar Magnific" [ref=e1292]
+                  - generic [ref=e511] [cursor=pointer]:
+                    - link "Runway" [ref=e512]:
+                      - /url: /plugins/plugin_asdk_app_6a05e3b201788191be12b590b43e6ce3
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Runway"
+                      - generic:
+                        - generic:
+                          - generic: Runway
+                          - generic: Generate with every AI model
+                        - button "Instalar Runway" [ref=e1293]
+              - generic [ref=e517]:
+                - heading [level=2] [ref=e519]:
+                  - link "Herramientas para desarrolladores" [ref=e520] [cursor=pointer]:
+                    - /url: /plugins?category=developer-tools
+                - generic [ref=e525]:
+                  - generic [ref=e526] [cursor=pointer]:
+                    - link "Remote Desktop Commander" [ref=e527]:
+                      - /url: /plugins/plugin_asdk_app_6a057d268ebc81919918d37eec718425
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Remote Desktop Commander"
+                      - generic:
+                        - generic:
+                          - generic: Remote Desktop Commander
+                          - generic: Build and automate, anywhere
+                        - button "Más acciones" [ref=e1294]
+                  - generic [ref=e534] [cursor=pointer]:
+                    - link "Exa" [ref=e535]:
+                      - /url: /plugins/plugin_asdk_app_69ea4ed2cf7c8191b742ef3622479ddd
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Exa"
+                      - generic:
+                        - generic:
+                          - generic: Exa
+                          - generic: Web search for AI agents
+                        - button "Instalar Exa" [ref=e1295]
+                  - generic [ref=e540] [cursor=pointer]:
+                    - link "Supabase" [ref=e541]:
+                      - /url: /plugins/plugin_asdk_app_69d3e5ee6a708191baa733f7b8931995
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Supabase"
+                      - generic:
+                        - generic:
+                          - generic: Supabase
+                          - generic: Manage and query databases
+                        - button "Instalar Supabase" [ref=e1296]
+                  - generic [ref=e546] [cursor=pointer]:
+                    - link "Vercel" [ref=e547]:
+                      - /url: /plugins/plugin_connector_690a90ec05c881918afb6a55dc9bbaa1
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Vercel"
+                      - generic:
+                        - generic:
+                          - generic: Vercel
+                          - generic: Build and deploy apps
+                        - button "Instalar Vercel" [ref=e1297]
+                  - generic [ref=e552] [cursor=pointer]:
+                    - link "Railway" [ref=e553]:
+                      - /url: /plugins/plugin_asdk_app_6a502589384081919c5decf93496c9d1
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Railway"
+                      - generic:
+                        - generic:
+                          - generic: Railway
+                          - generic: Build and deploy apps
+                        - button "Instalar Railway" [ref=e1298]
+                  - generic [ref=e558] [cursor=pointer]:
+                    - link "Base44" [ref=e559]:
+                      - /url: /plugins/plugin_asdk_app_6952514760dc8191ab148f77c5794d46
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Base44"
+                      - generic:
+                        - generic:
+                          - generic: Base44
+                          - generic: Build Apps & Websites with AI
+                        - button "Instalar Base44" [ref=e1299]
+              - generic [ref=e564]:
+                - heading [level=2] [ref=e566]:
+                  - link "Salud" [ref=e567] [cursor=pointer]:
+                    - /url: /plugins?category=healthcare
+                - generic [ref=e572]:
+                  - generic [ref=e573] [cursor=pointer]:
+                    - link "Health" [ref=e574]:
+                      - /url: /plugins/plugin_connector_1p_e569f8b8dfd08191903c9bd2cd7da9ac
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Health"
+                      - generic:
+                        - generic:
+                          - generic: Health
+                          - generic: Explore your health data in ChatGPT
+                        - button "Instalar Health" [ref=e1300]
+                  - generic [ref=e579] [cursor=pointer]:
+                    - link "Fitness AI Connector" [ref=e580]:
+                      - /url: /plugins/plugin_asdk_app_69beacb8780c81919104bb111b56346b
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Fitness AI Connector"
+                      - generic:
+                        - generic:
+                          - generic: Fitness AI Connector
+                          - generic: AI coach for your Garmin data
+                        - button "Instalar Fitness AI Connector" [ref=e1301]
+                  - generic [ref=e585] [cursor=pointer]:
+                    - link "COROS" [ref=e586]:
+                      - /url: /plugins/plugin_asdk_app_6a0694cbb2608191bbefb74ba810ab68
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "COROS"
+                      - generic:
+                        - generic:
+                          - generic: COROS
+                          - generic: Training and health insights
+                        - button "Instalar COROS" [ref=e1302]
+                  - generic [ref=e591] [cursor=pointer]:
+                    - link "freddy" [ref=e592]:
+                      - /url: /plugins/plugin_asdk_app_6a322b52a82c8191b7fb653f9e9f7891
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "freddy"
+                      - generic:
+                        - generic:
+                          - generic: freddy
+                          - generic: Ask about your health data
+                        - button "Instalar freddy" [ref=e1303]
+                  - generic [ref=e597] [cursor=pointer]:
+                    - link "Tredict" [ref=e598]:
+                      - /url: /plugins/plugin_asdk_app_69aef5b699a0819184512d57743fc1cd
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Tredict"
+                      - generic:
+                        - generic:
+                          - generic: Tredict
+                          - generic: Analyze workouts, create plans
+                        - button "Instalar Tredict" [ref=e1304]
+                  - generic [ref=e603] [cursor=pointer]:
+                    - link "Calorie Tracker" [ref=e604]:
+                      - /url: /plugins/plugin_asdk_app_69b5c48a72348191b3ad5abf6ec5dbfb
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Calorie Tracker"
+                      - generic:
+                        - generic:
+                          - generic: Calorie Tracker
+                          - generic: Track your food and calories
+                        - button "Instalar Calorie Tracker" [ref=e1305]
+              - generic [ref=e609]:
+                - heading [level=2] [ref=e611]:
+                  - link "Finanzas" [ref=e612] [cursor=pointer]:
+                    - /url: /plugins?category=finance
+                - generic [ref=e617]:
+                  - generic [ref=e618] [cursor=pointer]:
+                    - link "Interactive Brokers (IBKR)" [ref=e619]:
+                      - /url: /plugins/plugin_asdk_app_69bc11db874881918718abaca20b68ce
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Interactive Brokers (IBKR)"
+                      - generic:
+                        - generic:
+                          - generic: Interactive Brokers (IBKR)
+                          - generic: Analyze global markets
+                        - button "Instalar Interactive Brokers (IBKR)" [ref=e1306]
+                  - generic [ref=e624] [cursor=pointer]:
+                    - link "Public Equity Investing" [ref=e625]:
+                      - /url: /plugins/Plugin_b31b1ece54648191a6760ea4580bba3e
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Public Equity Investing"
+                      - generic:
+                        - generic:
+                          - generic: Public Equity Investing
+                          - generic: Public equity research
+                        - button "Instalar Public Equity Investing" [ref=e1307]
+                  - generic [ref=e630] [cursor=pointer]:
+                    - link "Stripe" [ref=e631]:
+                      - /url: /plugins/plugin_connector_690ab09fa43c8191bca40280e4563238
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Stripe"
+                      - generic:
+                        - generic:
+                          - generic: Stripe
+                          - generic: Accept payments. Grow revenue.
+                        - button "Instalar Stripe" [ref=e1308]
+                  - generic [ref=e636] [cursor=pointer]:
+                    - link "Binance" [ref=e637]:
+                      - /url: /plugins/plugin_asdk_app_6965faefe2b081919a998e14aa25f738
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Binance"
+                      - generic:
+                        - generic:
+                          - generic: Binance
+                          - generic: Explore Binance market data
+                        - button "Instalar Binance" [ref=e1309]
+                  - generic [ref=e642] [cursor=pointer]:
+                    - link "Longbridge" [ref=e643]:
+                      - /url: /plugins/plugin_asdk_app_6a2baf2fad748191812393c3e00308ef
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Longbridge"
+                      - generic:
+                        - generic:
+                          - generic: Longbridge
+                          - generic: Stock quotes, financial data
+                        - button "Instalar Longbridge" [ref=e1310]
+                  - generic [ref=e648] [cursor=pointer]:
+                    - link "Bigdata.com" [ref=e649]:
+                      - /url: /plugins/plugin_asdk_app_69491eceef3c8191beb70788b7840429
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Bigdata.com"
+                      - generic:
+                        - generic:
+                          - generic: Bigdata.com
+                          - generic: Finance research, news & data
+                        - button "Instalar Bigdata.com" [ref=e1311]
+              - generic [ref=e654]:
+                - heading [level=2] [ref=e656]:
+                  - link "Viajes" [ref=e657] [cursor=pointer]:
+                    - /url: /plugins?category=travel
+                - generic [ref=e662]:
+                  - generic [ref=e663] [cursor=pointer]:
+                    - link "Booking.com" [ref=e664]:
+                      - /url: /plugins/plugin_asdk_app_69272cb413a081919685ec3c88d1744e
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Booking.com"
+                      - generic:
+                        - generic:
+                          - generic: Booking.com
+                          - generic: Find all best stays and more.
+                        - button "Instalar Booking.com" [ref=e1312]
+                  - generic [ref=e669] [cursor=pointer]:
+                    - link "Trip.com" [ref=e670]:
+                      - /url: /plugins/plugin_asdk_app_69c4d4163c8c819183a9bdcf6d2ac262
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Trip.com"
+                      - generic:
+                        - generic:
+                          - generic: Trip.com
+                          - generic: All-in-one Travel Companion
+                        - button "Instalar Trip.com" [ref=e1313]
+                  - generic [ref=e675] [cursor=pointer]:
+                    - link "Skyscanner" [ref=e676]:
+                      - /url: /plugins/plugin_asdk_app_694546cd042881919bb746a8dc300f38
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Skyscanner"
+                      - generic:
+                        - generic:
+                          - generic: Skyscanner
+                          - generic: Find cheap flights
+                        - button "Instalar Skyscanner" [ref=e1314]
+                  - generic [ref=e681] [cursor=pointer]:
+                    - link "Tripadvisor" [ref=e682]:
+                      - /url: /plugins/plugin_asdk_app_69050bf6de9c8191b3968f2cc08d33d6
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Tripadvisor"
+                      - generic:
+                        - generic:
+                          - generic: Tripadvisor
+                          - generic: Book top-rated hotels
+                        - button "Instalar Tripadvisor" [ref=e1315]
+                  - generic [ref=e687] [cursor=pointer]:
+                    - link "Flight Network" [ref=e688]:
+                      - /url: /plugins/plugin_asdk_app_69848e517d0c819191695bf9b23f0208
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Flight Network"
+                      - generic:
+                        - generic:
+                          - generic: Flight Network
+                          - generic: Search and book flights
+                        - button "Instalar Flight Network" [ref=e1316]
+                  - generic [ref=e693] [cursor=pointer]:
+                    - link "eDreams" [ref=e694]:
+                      - /url: /plugins/plugin_asdk_app_69a85fe44a188191a43c7dbc80186d70
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "eDreams"
+                      - generic:
+                        - generic:
+                          - generic: eDreams
+                          - generic: Find flights and hotels
+                        - button "Instalar eDreams" [ref=e1317]
+              - generic [ref=e699]:
+                - heading [level=2] [ref=e701]:
+                  - link "Entretenimiento" [ref=e702] [cursor=pointer]:
+                    - /url: /plugins?category=entertainment
+                - generic [ref=e707]:
+                  - generic [ref=e708] [cursor=pointer]:
+                    - link "Spotify" [ref=e709]:
+                      - /url: /plugins/plugin_asdk_app_68de829bf7648191acd70a907364c67c
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Spotify"
+                      - generic:
+                        - generic:
+                          - generic: Spotify
+                          - generic: Music and podcasts for you
+                        - button "Instalar Spotify" [ref=e1318]
+                  - generic [ref=e714] [cursor=pointer]:
+                    - link "Apple Music" [ref=e715]:
+                      - /url: /plugins/plugin_asdk_app_6938a94a61d881918ef32cb999ff937c
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Apple Music"
+                      - generic:
+                        - generic:
+                          - generic: Apple Music
+                          - generic: Build playlists and find music
+                        - button "Instalar Apple Music" [ref=e1319]
+                  - generic [ref=e720] [cursor=pointer]:
+                    - link "Shazam" [ref=e721]:
+                      - /url: /plugins/plugin_asdk_app_6944570636288191b7944d8c4a3fb857
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Shazam"
+                      - generic:
+                        - generic:
+                          - generic: Shazam
+                          - generic: Identify songs instantly
+                        - button "Instalar Shazam" [ref=e1320]
+                  - generic [ref=e726] [cursor=pointer]:
+                    - link "Chessy" [ref=e727]:
+                      - /url: /plugins/plugin_asdk_app_69a0e374670c819190761772d2092135
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Chessy"
+                      - generic:
+                        - generic:
+                          - generic: Chessy
+                          - generic: Play Chess Against ChatGPT
+                        - button "Instalar Chessy" [ref=e1321]
+                  - generic [ref=e732] [cursor=pointer]:
+                    - link "Ticketmaster" [ref=e733]:
+                      - /url: /plugins/plugin_asdk_app_69b1c539d7f8819184ba2653b9872f90
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Ticketmaster"
+                      - generic:
+                        - generic:
+                          - generic: Ticketmaster
+                          - generic: Search Ticketmaster For Events
+                        - button "Instalar Ticketmaster" [ref=e1322]
+                  - generic [ref=e738] [cursor=pointer]:
+                    - link "Background Music" [ref=e739]:
+                      - /url: /plugins/plugin_asdk_app_6a23043f0aa48191aaecfc90cc2d317e
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Background Music"
+                      - generic:
+                        - generic:
+                          - generic: Background Music
+                          - generic: Play any background music
+                        - button "Instalar Background Music" [ref=e1323]
+              - generic [ref=e744]:
+                - heading [level=2] [ref=e746]:
+                  - link "Educación" [ref=e747] [cursor=pointer]:
+                    - /url: /plugins?category=education-and-research
+                - generic [ref=e752]:
+                  - generic [ref=e753] [cursor=pointer]:
+                    - link "SciSpace" [ref=e754]:
+                      - /url: /plugins/plugin_asdk_app_69439d715a7c8191aed9e2f6649e105f
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "SciSpace"
+                      - generic:
+                        - generic:
+                          - generic: SciSpace
+                          - generic: For science and research
+                        - button "Instalar SciSpace" [ref=e1324]
+                  - generic [ref=e759] [cursor=pointer]:
+                    - link "Consensus" [ref=e760]:
+                      - /url: /plugins/plugin_asdk_app_6943e6f4a928819195962de16fb9ffe4
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Consensus"
+                      - generic:
+                        - generic:
+                          - generic: Consensus
+                          - generic: Explore scientific research
+                        - button "Instalar Consensus" [ref=e1325]
+                  - generic [ref=e765] [cursor=pointer]:
+                    - link "Zotero" [ref=e766]:
+                      - /url: /plugins/Plugin_a572ec6bf27481919ce6fa6e5651eb7b
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Zotero"
+                      - generic:
+                        - generic:
+                          - generic: Zotero
+                          - generic: Find papers and add citations from Zotero
+                        - button "Instalar Zotero" [ref=e1326]
+                  - generic [ref=e771] [cursor=pointer]:
+                    - link "Sider Scholar" [ref=e772]:
+                      - /url: /plugins/plugin_asdk_app_6948b485f5bc8191adb4df13f369cec7
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Sider Scholar"
+                      - generic:
+                        - generic:
+                          - generic: Sider Scholar
+                          - generic: Search 350M+ Paper. Save. Chat
+                        - button "Instalar Sider Scholar" [ref=e1327]
+                  - generic [ref=e777] [cursor=pointer]:
+                    - link "Acumen by Talarion" [ref=e778]:
+                      - /url: /plugins/plugin_asdk_app_6a0bcefe6dbc8191acf88ce22e2eef3a
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Acumen by Talarion"
+                      - generic:
+                        - generic:
+                          - generic: Acumen by Talarion
+                          - generic: Keep your AI up to date.
+                        - button "Instalar Acumen by Talarion" [ref=e1328]
+                  - generic [ref=e783] [cursor=pointer]:
+                    - link "Scite" [ref=e784]:
+                      - /url: /plugins/plugin_asdk_app_6952b3a3f1e881918951582d59483c78
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Scite"
+                      - generic:
+                        - generic:
+                          - generic: Scite
+                          - generic: Search scientific literature
+                        - button "Instalar Scite" [ref=e1329]
+              - generic [ref=e789]:
+                - heading [level=2] [ref=e791]:
+                  - link "Negocios y operaciones" [ref=e792] [cursor=pointer]:
+                    - /url: /plugins?category=business-and-operations
+                - generic [ref=e797]:
+                  - generic [ref=e798] [cursor=pointer]:
+                    - link "Shopify" [ref=e799]:
+                      - /url: /plugins/plugin_asdk_app_69e65c430b3081919aa4d962ab5d1698
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Shopify"
+                      - generic:
+                        - generic:
+                          - generic: Shopify
+                          - generic: Create and manage your store
+                        - button "Instalar Shopify" [ref=e1330]
+                  - generic [ref=e804] [cursor=pointer]:
+                    - link "HubSpot" [ref=e805]:
+                      - /url: /plugins/plugin_asdk_app_697acb8e53d88191bf7a79e62012ae14
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "HubSpot"
+                      - generic:
+                        - generic:
+                          - generic: HubSpot
+                          - generic: Insights to action in HubSpot
+                        - button "Instalar HubSpot" [ref=e1331]
+                  - generic [ref=e810] [cursor=pointer]:
+                    - link "Sales" [ref=e811]:
+                      - /url: /plugins/Plugin_af5b4b796b588191b3f2c610aa093799
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Sales"
+                      - generic:
+                        - generic:
+                          - generic: Sales
+                          - generic: Practical workflows for sales
+                        - button "Instalar Sales" [ref=e1332]
+                  - generic [ref=e816] [cursor=pointer]:
+                    - link "vidIQ" [ref=e817]:
+                      - /url: /plugins/plugin_asdk_app_69dd11f3e50c8191b1ca48d03cf7e2ad
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "vidIQ"
+                      - generic:
+                        - generic:
+                          - generic: vidIQ
+                          - generic: Grow on YouTube, IG & TikTok
+                        - button "Instalar vidIQ" [ref=e1333]
+                  - generic [ref=e822] [cursor=pointer]:
+                    - link "Wix" [ref=e823]:
+                      - /url: /plugins/plugin_asdk_app_6947eaa4edd081919561e4ee3a2e5dcc
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Wix"
+                      - generic:
+                        - generic:
+                          - generic: Wix
+                          - generic: Create your own website
+                        - button "Instalar Wix" [ref=e1334]
+                  - generic [ref=e828] [cursor=pointer]:
+                    - link "Windsor.ai" [ref=e829]:
+                      - /url: /plugins/plugin_asdk_app_694a52cfaa3c819192bea84eaa254968
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Windsor.ai"
+                      - generic:
+                        - generic:
+                          - generic: Windsor.ai
+                          - generic: Connect 350+ data sources
+                        - button "Instalar Windsor.ai" [ref=e1335]
+              - generic [ref=e834]:
+                - heading [level=2] [ref=e836]:
+                  - link "Datos y análisis" [ref=e837] [cursor=pointer]:
+                    - /url: /plugins?category=data-and-analytics
+                - generic [ref=e842]:
+                  - generic [ref=e843] [cursor=pointer]:
+                    - link "Data" [ref=e844]:
+                      - /url: /plugins/Plugin_fc9843a6fb34819195d6c7802398a8a7
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Data"
+                      - generic:
+                        - generic:
+                          - generic: Data
+                          - generic: Answer questions with data
+                        - button "Instalar Data" [ref=e1336]
+                  - generic [ref=e849] [cursor=pointer]:
+                    - link "PostHog" [ref=e850]:
+                      - /url: /plugins/plugin_asdk_app_699caef2d680819188727b0ddbb349dd
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "PostHog"
+                      - generic:
+                        - generic:
+                          - generic: PostHog
+                          - generic: Analyze your product data
+                        - button "Instalar PostHog" [ref=e1337]
+                  - generic [ref=e855] [cursor=pointer]:
+                    - link "Amplitude" [ref=e856]:
+                      - /url: /plugins/plugin_connector_690e2dabf430819196f8b3701ec838ec
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Amplitude"
+                      - generic:
+                        - generic:
+                          - generic: Amplitude
+                          - generic: Analyze your product data
+                        - button "Instalar Amplitude" [ref=e1338]
+                  - generic [ref=e861] [cursor=pointer]:
+                    - link "Mixpanel" [ref=e862]:
+                      - /url: /plugins/plugin_asdk_app_69b2e9aed45c8191b254b207dfcc2bb4
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Mixpanel"
+                      - generic:
+                        - generic:
+                          - generic: Mixpanel
+                          - generic: Query and analyze Mixpanel
+                        - button "Instalar Mixpanel" [ref=e1339]
+                  - generic [ref=e867] [cursor=pointer]:
+                    - link "Helium 10" [ref=e868]:
+                      - /url: /plugins/plugin_asdk_app_69b9f38bfa248191877ad584f5608b92
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Helium 10"
+                      - generic:
+                        - generic:
+                          - generic: Helium 10
+                          - generic: Access your Helium 10 data
+                        - button "Instalar Helium 10" [ref=e1340]
+                  - generic [ref=e873] [cursor=pointer]:
+                    - link "Blockscout Blockchain Data" [ref=e874]:
+                      - /url: /plugins/plugin_asdk_app_69a880b0d024819182db60f36cb48420
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Blockscout Blockchain Data"
+                      - generic:
+                        - generic:
+                          - generic: Blockscout Blockchain Data
+                          - generic: Find & analyze blockchain data
+                        - button "Instalar Blockscout Blockchain Data" [ref=e1341]
+              - generic [ref=e879]:
+                - heading [level=2] [ref=e881]:
+                  - link "Investigación científica" [ref=e882] [cursor=pointer]:
+                    - /url: /plugins?category=scientific-research
+                - generic [ref=e887]:
+                  - generic [ref=e888] [cursor=pointer]:
+                    - link "Undermind" [ref=e889]:
+                      - /url: /plugins/plugin_asdk_app_6a60df60877081919ad4a8109d27535d
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Undermind"
+                      - generic:
+                        - generic:
+                          - generic: Undermind
+                          - generic: Find and read research papers
+                        - button "Instalar Undermind" [ref=e1342]
+                  - generic [ref=e894] [cursor=pointer]:
+                    - link "Life Sciences Literature" [ref=e895]:
+                      - /url: /plugins/Plugin_3d180245a1a881918476af7b5061e1e4
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Life Sciences Literature"
+                      - generic:
+                        - generic:
+                          - generic: Life Sciences Literature
+                          - generic: Find biomedical papers, preprints, and open-access full text
+                        - button "Instalar Life Sciences Literature" [ref=e1343]
+                  - generic [ref=e900] [cursor=pointer]:
+                    - link "NGS Analysis Workbench" [ref=e901]:
+                      - /url: /plugins/Plugin_32edf73dc4f48191980d50e2cad2b3e4
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "NGS Analysis Workbench"
+                      - generic:
+                        - generic:
+                          - generic: NGS Analysis Workbench
+                          - generic: Analyze sequencing data
+                        - link "Abrir NGS Analysis Workbench (solo para ordenador)" [ref=e1344]:
+                          - /url: /plugins/Plugin_32edf73dc4f48191980d50e2cad2b3e4
+                  - generic [ref=e907] [cursor=pointer]:
+                    - link "Life Sciences Databases" [ref=e908]:
+                      - /url: /plugins/Plugin_054ff933a434819187c4f95db80afc7f
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Life Sciences Databases"
+                      - generic:
+                        - generic:
+                          - generic: Life Sciences Databases
+                          - generic: Query structured public life-science databases
+                        - button "Instalar Life Sciences Databases" [ref=e1345]
+                  - generic [ref=e913] [cursor=pointer]:
+                    - link "Molecular Structure Viewer" [ref=e914]:
+                      - /url: /plugins/Plugin_915f0ebef1348191bdb283c643ee98ec
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Molecular Structure Viewer"
+                      - generic:
+                        - generic:
+                          - generic: Molecular Structure Viewer
+                          - generic: Visualize and interact with molecular structures in Codex.
+                        - link "Abrir Molecular Structure Viewer (solo para ordenador)" [ref=e1346]:
+                          - /url: /plugins/Plugin_915f0ebef1348191bdb283c643ee98ec
+                  - generic [ref=e920] [cursor=pointer]:
+                    - link "Biological Sequence & Alignment Viewer" [ref=e921]:
+                      - /url: /plugins/Plugin_ff18fc908d98819197fb21beeb779684
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Biological Sequence & Alignment Viewer"
+                      - generic:
+                        - generic:
+                          - generic: Biological Sequence & Alignment Viewer
+                          - generic: Inspect, analyze, and compare biological sequences and alignments in Codex.
+                        - link "Abrir Biological Sequence & Alignment Viewer (solo para ordenador)" [ref=e1347]:
+                          - /url: /plugins/Plugin_ff18fc908d98819197fb21beeb779684
+              - generic [ref=e927]:
+                - heading [level=2] [ref=e929]:
+                  - link "Seguridad" [ref=e930] [cursor=pointer]:
+                    - /url: /plugins?category=security
+                - generic [ref=e935]:
+                  - generic [ref=e936] [cursor=pointer]:
+                    - link "Codex Security" [ref=e937]:
+                      - /url: /plugins/Plugin_1e648473be9c8191a91ac3947151af55
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Codex Security"
+                      - generic:
+                        - generic:
+                          - generic: Codex Security
+                          - generic: Security scanning for your codebase
+                        - link "Abrir Codex Security (solo para ordenador)" [ref=e1348]:
+                          - /url: /plugins/Plugin_1e648473be9c8191a91ac3947151af55
+                  - generic [ref=e943] [cursor=pointer]:
+                    - link "Codex Security Cloud" [ref=e944]:
+                      - /url: /plugins/plugin_connector_1p_6317a32dbf5c81919acd66de6722daf5
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Codex Security Cloud"
+                      - generic:
+                        - generic:
+                          - generic: Codex Security Cloud
+                          - generic: Find and fix vulnerabilities across your repositories
+                        - button "Más acciones" [ref=e1349]
+                  - generic [ref=e951] [cursor=pointer]:
+                    - link "Malwarebytes" [ref=e952]:
+                      - /url: /plugins/plugin_asdk_app_6943d1778c8c81918f4c9ddf4849ca41
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Malwarebytes"
+                      - generic:
+                        - generic:
+                          - generic: Malwarebytes
+                          - generic: Verify links, domains, phones.
+                        - button "Instalar Malwarebytes" [ref=e1350]
+                  - generic [ref=e957] [cursor=pointer]:
+                    - link "PrivacyHawk" [ref=e958]:
+                      - /url: /plugins/plugin_asdk_app_69ac8cc11bf48191816e305e37953f06
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "PrivacyHawk"
+                      - generic:
+                        - generic:
+                          - generic: PrivacyHawk
+                          - generic: Protect your personal data
+                        - button "Instalar PrivacyHawk" [ref=e1351]
+                  - generic [ref=e963] [cursor=pointer]:
+                    - link "AJAXX Data Scrubber" [ref=e964]:
+                      - /url: /plugins/plugin_asdk_app_698d2bdf0eb08191890a55606150ecc2
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "AJAXX Data Scrubber"
+                      - generic:
+                        - generic:
+                          - generic: AJAXX Data Scrubber
+                          - generic: Remove exposed personal data
+                        - button "Instalar AJAXX Data Scrubber" [ref=e1352]
+                  - generic [ref=e969] [cursor=pointer]:
+                    - link "Ansvar Gateway" [ref=e970]:
+                      - /url: /plugins/plugin_asdk_app_6a6109bb0d3081919f5cd03b3085e944
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Ansvar Gateway"
+                      - generic:
+                        - generic:
+                          - generic: Ansvar Gateway
+                          - generic: Laws, Security and Compliance
+                        - button "Instalar Ansvar Gateway" [ref=e1353]
+              - generic [ref=e975]:
+                - heading [level=2] [ref=e977]:
+                  - link "Otros" [ref=e978] [cursor=pointer]:
+                    - /url: /plugins?category=other
+                - generic [ref=e983]:
+                  - generic [ref=e984] [cursor=pointer]:
+                    - link "LinkedIn" [ref=e985]:
+                      - /url: /plugins/plugin_asdk_app_69949aa62bf48191be5e57a01202beca
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "LinkedIn"
+                      - generic:
+                        - generic:
+                          - generic: LinkedIn
+                          - generic: Find the right professional
+                        - button "Más acciones" [ref=e1354]
+                  - generic [ref=e992] [cursor=pointer]:
+                    - link "Etsy" [ref=e993]:
+                      - /url: /plugins/plugin_asdk_app_69dfa26ad60081919fb9e3a1a50e3e53
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Etsy"
+                      - generic:
+                        - generic:
+                          - generic: Etsy
+                          - generic: Shop Home, Style & More
+                        - button "Instalar Etsy" [ref=e1355]
+                  - generic [ref=e998] [cursor=pointer]:
+                    - link "Tarot" [ref=e999]:
+                      - /url: /plugins/plugin_asdk_app_6943a2c078b0819188de39e4fe168d9b
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Tarot"
+                      - generic:
+                        - generic:
+                          - generic: Tarot
+                          - generic: Tarot Reading & Divination
+                        - button "Instalar Tarot" [ref=e1356]
+                  - generic [ref=e1004] [cursor=pointer]:
+                    - link "Kleinanzeigen" [ref=e1005]:
+                      - /url: /plugins/plugin_asdk_app_694a63a053f081918b9a3738bd3640c9
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "Kleinanzeigen"
+                      - generic:
+                        - generic:
+                          - generic: Kleinanzeigen
+                          - generic: Echte Deals. Echte Menschen.
+                        - button "Instalar Kleinanzeigen" [ref=e1357]
+                  - generic [ref=e1010] [cursor=pointer]:
+                    - link "idealista" [ref=e1011]:
+                      - /url: /plugins/plugin_asdk_app_6996f481ed0c8191852f9c34c6a97d44
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "idealista"
+                      - generic:
+                        - generic:
+                          - generic: idealista
+                          - generic: Find properties to buy or rent
+                        - button "Instalar idealista" [ref=e1358]
+                  - generic [ref=e1016] [cursor=pointer]:
+                    - link "AllTrails" [ref=e1017]:
+                      - /url: /plugins/plugin_asdk_app_68f1afc5a6008191a701eaaab428816c
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img "AllTrails"
+                      - generic:
+                        - generic:
+                          - generic: AllTrails
+                          - generic: Discover your next hike
+                        - button "Instalar AllTrails" [ref=e1359]
+        - status [ref=e228]
+  - status [ref=e229]
+  - menu "Abrir menú de perfil" [active] [ref=e1363]:
+    - generic [ref=e1364]:
+      - menuitem "Altaria Lights Pro" [ref=e1365] [cursor=pointer]:
+        - generic [ref=e1369]:
+          - generic [ref=e1370]: Altaria Lights
+          - generic [ref=e1371]: Pro
+      - menuitem "Mejorar plan" [ref=e1376] [cursor=pointer]
+      - menuitem "Personalización" [ref=e1382] [cursor=pointer]
+      - menuitem "Perfil" [ref=e1388] [cursor=pointer]
+      - menuitem "Configuración" [ref=e1395] [cursor=pointer]
+      - menuitem "Ayuda" [ref=e1404] [cursor=pointer]
+      - menuitem "Cerrar sesión" [ref=e1412] [cursor=pointer]

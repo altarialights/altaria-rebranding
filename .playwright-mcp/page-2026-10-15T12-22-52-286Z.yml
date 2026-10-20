@@ -1,0 +1,1269 @@
+- generic:
+  - generic:
+    - generic:
+      - generic:
+        - link:
+          - /url: "#_R_3ndjqctdbntccgud5hl75_"
+          - text: Saltar al contenido
+      - generic:
+        - complementary [aria-hidden] [ref=e7]:
+          - generic [ref=e11]:
+            - navigation [ref=e1045]:
+              - generic [ref=e13]:
+                - button [ref=e1046] [cursor=pointer]:
+                  - generic [ref=e16]: Inicio
+                - button [ref=e1047] [cursor=pointer]:
+                  - generic [ref=e21]: Espacio
+                - button [ref=e1048] [cursor=pointer]:
+                  - generic [ref=e26]: Tareas programadas
+                - button [ref=e1049] [cursor=pointer]:
+                  - generic [ref=e31]: Complementos
+                - button [ref=e1050] [cursor=pointer]:
+                  - generic [ref=e36]: Explorar
+                - button [ref=e1051] [cursor=pointer]:
+                  - generic [ref=e47]: Sitios
+              - button [ref=e1052] [cursor=pointer]
+            - navigation [ref=e1053]:
+              - generic [ref=e66]:
+                - generic [ref=e68]:
+                  - heading [level=1] [ref=e1054]: Personalizar
+                  - generic [ref=e70]:
+                    - button [ref=e1055] [cursor=pointer]
+                    - button [expanded] [ref=e1056] [cursor=pointer]
+                - generic [ref=e84]:
+                  - generic [ref=e86]:
+                    - link [ref=e1057] [cursor=pointer]:
+                      - /url: /plugins
+                      - generic [ref=e88]: Complementos
+                    - link [ref=e1058] [cursor=pointer]:
+                      - /url: /skills
+                      - generic [ref=e95]: Habilidades
+                  - generic [ref=e101]:
+                    - generic [ref=e102]: Instalados
+                    - generic [ref=e104]:
+                      - generic [ref=e105] [cursor=pointer]:
+                        - link [ref=e1059]:
+                          - /url: /plugins/plugin_connector_1p_6317a32dbf5c81919acd66de6722daf5
+                          - generic [ref=e107]: Codex Security Cloud
+                        - button
+                      - generic [ref=e110] [cursor=pointer]:
+                        - link [ref=e1060]:
+                          - /url: /plugins/plugin_asdk_app_6a057d268ebc81919918d37eec718425
+                          - generic [ref=e112]: Remote Desktop Commander
+                        - button
+                      - generic [ref=e115] [cursor=pointer]:
+                        - link [ref=e1061]:
+                          - /url: /plugins/plugin_connector_1p_ab21a553bfbc81919ea8fd1858e3ffa7
+                          - generic [ref=e117]: Google Drive
+                        - button
+                      - generic [ref=e120] [cursor=pointer]:
+                        - link [ref=e1062]:
+                          - /url: /plugins/plugin_connector_1p_c97194162860819190a6f840a61b9889
+                          - generic [ref=e122]: Google Contacts
+                        - button
+                      - generic [ref=e125] [cursor=pointer]:
+                        - link [ref=e1063]:
+                          - /url: /plugins/plugin_connector_1p_f8509de903288191b14a160c6c5d20b0
+                          - generic [ref=e127]: Google Calendar
+                        - button
+                      - generic [ref=e136] [cursor=pointer]:
+                        - link [ref=e1064]:
+                          - /url: /plugins/plugin_connector_1p_95d39881713c8191931482a62d6edff9
+                          - generic [ref=e138]: Gmail
+                        - button
+                      - generic [ref=e141] [cursor=pointer]:
+                        - link [ref=e1065]:
+                          - /url: /plugins/plugin_asdk_app_69949aa62bf48191be5e57a01202beca
+                          - generic [ref=e143]: LinkedIn
+                        - button
+                      - generic [ref=e146] [cursor=pointer]:
+                        - link [ref=e1066]:
+                          - /url: /plugins/plugin_asdk_app_69d73fc8aa5c8191bec1583760b130c7
+                          - generic [ref=e148]: Metricool
+                        - button
+                      - generic [ref=e151] [cursor=pointer]:
+                        - link [ref=e1067]:
+                          - /url: /plugins/plugin_asdk_app_6a3293e129088191abf0875820e839da
+                          - generic [ref=e153]: Higgsfield
+                        - button
+                      - generic [ref=e156] [cursor=pointer]:
+                        - link [ref=e1068]:
+                          - /url: /plugins/plugin_connector_1p_1a69035c238881919c4190932b2df699
+                          - generic [ref=e158]: GitHub
+                        - button
+          - generic:
+            - separator
+        - generic:
+          - generic:
+            - generic [aria-hidden]:
+              - main:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - heading [level=1]: Complementos
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic: Buscar complementos
+                                                  - textbox:
+                                                    - /placeholder: Buscar complementos
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - link:
+                                                        - /url: /settings/plugins-settings
+                                                    - button:
+                                                      - generic: Añadir
+                                    - generic: Conecta complementos para que ChatGPT pueda trabajar con tus herramientas
+                                    - generic:
+                                      - tablist:
+                                        - generic:
+                                          - tab [selected]: Públicos
+                                        - generic:
+                                          - tab: Personales
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=featured
+                                                - text: Populares
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_1p_95d39881713c8191931482a62d6edff9
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Gmail
+                                                        - generic: Read and manage Gmail
+                                                      - button [ref=e1069] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_1p_ab21a553bfbc81919ea8fd1858e3ffa7
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Google Drive
+                                                        - generic: Drive, Docs, Sheets or Slides
+                                                      - button [ref=e1070] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_1p_1a69035c238881919c4190932b2df699
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: GitHub
+                                                        - generic: Triage PRs, issues, CI, and publish flows
+                                                      - button [ref=e1071] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_1p_f8509de903288191b14a160c6c5d20b0
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Google Calendar
+                                                        - generic: Manage Google Calendar events
+                                                      - button [ref=e1072] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_1p_6bcb5879c73c819196abc70016166099
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Outlook Email
+                                                        - generic: Triage Outlook inboxes
+                                                      - button [ref=e1073] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69a1d78e929881919bba0dbda1f6436d
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Slack
+                                                        - generic: Read and manage Slack
+                                                      - button [ref=e1074] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=new-and-noteworthy
+                                                - text: Nuevos y destacados
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a1f227d5a848191ae3317c66947b440
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Magnific
+                                                        - generic: Create images, video, designs
+                                                      - button [ref=e1075] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a3293e129088191abf0875820e839da
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Higgsfield
+                                                        - generic: Every image and video model
+                                                      - button [ref=e1076] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6aa1cd6835e48191b9ade73ac9fcd180
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Sonos
+                                                        - generic: Control your Sonos system
+                                                      - button [ref=e1077] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a47ca602a648191b777ecea734e4b9d
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Hevy
+                                                        - generic: Interact with your Hevy data
+                                                      - button [ref=e1078] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69312da8e4dc81919370cb86fd172b6c
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Adobe
+                                                        - generic: Design, combine, and edit
+                                                      - button [ref=e1079] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6ab242dbeb5c8191ba5277534ef0c570
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: tldraw
+                                                        - generic: Draw and diagram with agents
+                                                      - button [ref=e1080] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=small-business
+                                                - text: Pequeñas empresas
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69b31dc2110c8191b8b47dc98fe5a052
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Dropbox
+                                                        - generic: Find, create, and take action
+                                                      - button [ref=e1081] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_697acb8e53d88191bf7a79e62012ae14
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: HubSpot
+                                                        - generic: Insights to action in HubSpot
+                                                      - button [ref=e1082] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_690ab09fa43c8191bca40280e4563238
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Stripe
+                                                        - generic: Accept payments. Grow revenue.
+                                                      - button [ref=e1083] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_68df33b1a2d081918778431a9cfca8ba
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Canva
+                                                        - generic: Create, review, edit designs
+                                                      - button [ref=e1084] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6941e1d349208191b984b93cb344be5b
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Gusto
+                                                        - generic: People and payroll, made easy
+                                                      - button [ref=e1085] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_68df038e0ba48191908c8434991bbac2
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Figma
+                                                        - generic: Create designs, ship to code
+                                                      - button [ref=e1086] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=productivity
+                                                - text: Productividad
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a314a73f8ac819195b0d55e36b9c609
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Firecrawl
+                                                        - generic: Search and extract web data
+                                                      - button [ref=e1087] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69c18c28f1188191bf5b8445c4ab0a2e
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Notion
+                                                        - generic: Create docs, tasks, databases
+                                                      - button [ref=e1088] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_697761cab6f48191b5ed345919a3ce8b
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Granola
+                                                        - generic: Add your meeting context
+                                                      - button [ref=e1089] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6943b73823548191a9f9216c6790c453
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: "Todoist: To Do List & Calendar"
+                                                        - generic: Planner & Reminders
+                                                      - button [ref=e1090] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_1p_fd0f4f41caa88191a9456514bbffa06d
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Outlook Calendar
+                                                        - generic: Manage Outlook schedules
+                                                      - button [ref=e1091] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69616780bd208191b4fb44ba44f72b61
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Asana
+                                                        - generic: Turn chats into actions
+                                                      - button [ref=e1092] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=communication
+                                                - text: Comunicación
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_1p_eba8b52fe53881918408d4b46b957644
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Teams
+                                                        - generic: Summarize Teams and follow up
+                                                      - button [ref=e1093] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69a21e4058dc8191a6220fa911310d7b
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Superhuman Mail
+                                                        - generic: Best email+calendar assistant
+                                                      - button [ref=e1094] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69373a13116c819189d046aea1278836
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Zoom
+                                                        - generic: Insights from Zoom
+                                                      - button [ref=e1095] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a323a8a890c819190480c9044395170
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Hostinger Mail
+                                                        - generic: Use Hostinger Mail
+                                                      - button [ref=e1096] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a2e4ae9228881919b13aeb3f87ca03e
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Mailopoly Inbox
+                                                        - generic: Search, send emails & messages
+                                                      - button [ref=e1097] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a5163accce48191ab3fac53d63cb197
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: RingCentral Phone
+                                                        - generic: Calls, SMS, and voicemail
+                                                      - button [ref=e1098] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=creativity
+                                                - text: Creatividad
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a3293e129088191abf0875820e839da
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Higgsfield
+                                                        - generic: Every image and video model
+                                                      - button [ref=e1099] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/Plugin_fa77aec24fc08191bc6e57f377126d76
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Product Design
+                                                        - generic: Explore and prototype ideas
+                                                      - button [ref=e1100] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_68df038e0ba48191908c8434991bbac2
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Figma
+                                                        - generic: Create designs, ship to code
+                                                      - button [ref=e1101] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_68df33b1a2d081918778431a9cfca8ba
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Canva
+                                                        - generic: Create, review, edit designs
+                                                      - button [ref=e1102] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a1f227d5a848191ae3317c66947b440
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Magnific
+                                                        - generic: Create images, video, designs
+                                                      - button [ref=e1103] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a05e3b201788191be12b590b43e6ce3
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Runway
+                                                        - generic: Generate with every AI model
+                                                      - button [ref=e1104] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=developer-tools
+                                                - text: Herramientas para desarrolladores
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a057d268ebc81919918d37eec718425
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Remote Desktop Commander
+                                                        - generic: Build and automate, anywhere
+                                                      - button [ref=e1105] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69ea4ed2cf7c8191b742ef3622479ddd
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Exa
+                                                        - generic: Web search for AI agents
+                                                      - button [ref=e1106] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69d3e5ee6a708191baa733f7b8931995
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Supabase
+                                                        - generic: Manage and query databases
+                                                      - button [ref=e1107] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_690a90ec05c881918afb6a55dc9bbaa1
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Vercel
+                                                        - generic: Build and deploy apps
+                                                      - button [ref=e1108] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a502589384081919c5decf93496c9d1
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Railway
+                                                        - generic: Build and deploy apps
+                                                      - button [ref=e1109] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6952514760dc8191ab148f77c5794d46
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Base44
+                                                        - generic: Build Apps & Websites with AI
+                                                      - button [ref=e1110] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=healthcare
+                                                - text: Salud
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_1p_e569f8b8dfd08191903c9bd2cd7da9ac
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Health
+                                                        - generic: Explore your health data in ChatGPT
+                                                      - button [ref=e1111] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69beacb8780c81919104bb111b56346b
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Fitness AI Connector
+                                                        - generic: AI coach for your Garmin data
+                                                      - button [ref=e1112] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a0694cbb2608191bbefb74ba810ab68
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: COROS
+                                                        - generic: Training and health insights
+                                                      - button [ref=e1113] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a322b52a82c8191b7fb653f9e9f7891
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: freddy
+                                                        - generic: Ask about your health data
+                                                      - button [ref=e1114] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69aef5b699a0819184512d57743fc1cd
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Tredict
+                                                        - generic: Analyze workouts, create plans
+                                                      - button [ref=e1115] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69b5c48a72348191b3ad5abf6ec5dbfb
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Calorie Tracker
+                                                        - generic: Track your food and calories
+                                                      - button [ref=e1116] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=finance
+                                                - text: Finanzas
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69bc11db874881918718abaca20b68ce
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Interactive Brokers (IBKR)
+                                                        - generic: Analyze global markets
+                                                      - button [ref=e1117] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/Plugin_b31b1ece54648191a6760ea4580bba3e
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Public Equity Investing
+                                                        - generic: Public equity research
+                                                      - button [ref=e1118] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_690ab09fa43c8191bca40280e4563238
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Stripe
+                                                        - generic: Accept payments. Grow revenue.
+                                                      - button [ref=e1119] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6965faefe2b081919a998e14aa25f738
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Binance
+                                                        - generic: Explore Binance market data
+                                                      - button [ref=e1120] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a2baf2fad748191812393c3e00308ef
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Longbridge
+                                                        - generic: Stock quotes, financial data
+                                                      - button [ref=e1121] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69491eceef3c8191beb70788b7840429
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Bigdata.com
+                                                        - generic: Finance research, news & data
+                                                      - button [ref=e1122] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=travel
+                                                - text: Viajes
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69272cb413a081919685ec3c88d1744e
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Booking.com
+                                                        - generic: Find all best stays and more.
+                                                      - button [ref=e1123] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69c4d4163c8c819183a9bdcf6d2ac262
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Trip.com
+                                                        - generic: All-in-one Travel Companion
+                                                      - button [ref=e1124] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_694546cd042881919bb746a8dc300f38
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Skyscanner
+                                                        - generic: Find cheap flights
+                                                      - button [ref=e1125] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69050bf6de9c8191b3968f2cc08d33d6
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Tripadvisor
+                                                        - generic: Book top-rated hotels
+                                                      - button [ref=e1126] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69848e517d0c819191695bf9b23f0208
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Flight Network
+                                                        - generic: Search and book flights
+                                                      - button [ref=e1127] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69a85fe44a188191a43c7dbc80186d70
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: eDreams
+                                                        - generic: Find flights and hotels
+                                                      - button [ref=e1128] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=entertainment
+                                                - text: Entretenimiento
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_68de829bf7648191acd70a907364c67c
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Spotify
+                                                        - generic: Music and podcasts for you
+                                                      - button [ref=e1129] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6938a94a61d881918ef32cb999ff937c
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Apple Music
+                                                        - generic: Build playlists and find music
+                                                      - button [ref=e1130] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6944570636288191b7944d8c4a3fb857
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Shazam
+                                                        - generic: Identify songs instantly
+                                                      - button [ref=e1131] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69a0e374670c819190761772d2092135
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Chessy
+                                                        - generic: Play Chess Against ChatGPT
+                                                      - button [ref=e1132] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69b1c539d7f8819184ba2653b9872f90
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Ticketmaster
+                                                        - generic: Search Ticketmaster For Events
+                                                      - button [ref=e1133] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a23043f0aa48191aaecfc90cc2d317e
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Background Music
+                                                        - generic: Play any background music
+                                                      - button [ref=e1134] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=education-and-research
+                                                - text: Educación
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69439d715a7c8191aed9e2f6649e105f
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: SciSpace
+                                                        - generic: For science and research
+                                                      - button [ref=e1135] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6943e6f4a928819195962de16fb9ffe4
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Consensus
+                                                        - generic: Explore scientific research
+                                                      - button [ref=e1136] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/Plugin_a572ec6bf27481919ce6fa6e5651eb7b
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Zotero
+                                                        - generic: Find papers and add citations from Zotero
+                                                      - button [ref=e1137] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6948b485f5bc8191adb4df13f369cec7
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Sider Scholar
+                                                        - generic: Search 350M+ Paper. Save. Chat
+                                                      - button [ref=e1138] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a0bcefe6dbc8191acf88ce22e2eef3a
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Acumen by Talarion
+                                                        - generic: Keep your AI up to date.
+                                                      - button [ref=e1139] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6952b3a3f1e881918951582d59483c78
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Scite
+                                                        - generic: Search scientific literature
+                                                      - button [ref=e1140] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=business-and-operations
+                                                - text: Negocios y operaciones
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69e65c430b3081919aa4d962ab5d1698
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Shopify
+                                                        - generic: Create and manage your store
+                                                      - button [ref=e1141] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_697acb8e53d88191bf7a79e62012ae14
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: HubSpot
+                                                        - generic: Insights to action in HubSpot
+                                                      - button [ref=e1142] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/Plugin_af5b4b796b588191b3f2c610aa093799
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Sales
+                                                        - generic: Practical workflows for sales
+                                                      - button [ref=e1143] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69dd11f3e50c8191b1ca48d03cf7e2ad
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: vidIQ
+                                                        - generic: Grow on YouTube, IG & TikTok
+                                                      - button [ref=e1144] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6947eaa4edd081919561e4ee3a2e5dcc
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Wix
+                                                        - generic: Create your own website
+                                                      - button [ref=e1145] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_694a52cfaa3c819192bea84eaa254968
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Windsor.ai
+                                                        - generic: Connect 350+ data sources
+                                                      - button [ref=e1146] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=data-and-analytics
+                                                - text: Datos y análisis
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/Plugin_fc9843a6fb34819195d6c7802398a8a7
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Data
+                                                        - generic: Answer questions with data
+                                                      - button [ref=e1147] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_699caef2d680819188727b0ddbb349dd
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: PostHog
+                                                        - generic: Analyze your product data
+                                                      - button [ref=e1148] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_690e2dabf430819196f8b3701ec838ec
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Amplitude
+                                                        - generic: Analyze your product data
+                                                      - button [ref=e1149] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69b2e9aed45c8191b254b207dfcc2bb4
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Mixpanel
+                                                        - generic: Query and analyze Mixpanel
+                                                      - button [ref=e1150] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69b9f38bfa248191877ad584f5608b92
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Helium 10
+                                                        - generic: Access your Helium 10 data
+                                                      - button [ref=e1151] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69a880b0d024819182db60f36cb48420
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Blockscout Blockchain Data
+                                                        - generic: Find & analyze blockchain data
+                                                      - button [ref=e1152] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=scientific-research
+                                                - text: Investigación científica
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a60df60877081919ad4a8109d27535d
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Undermind
+                                                        - generic: Find and read research papers
+                                                      - button [ref=e1153] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/Plugin_3d180245a1a881918476af7b5061e1e4
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Life Sciences Literature
+                                                        - generic: Find biomedical papers, preprints, and open-access full text
+                                                      - button [ref=e1154] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/Plugin_32edf73dc4f48191980d50e2cad2b3e4
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: NGS Analysis Workbench
+                                                        - generic: Analyze sequencing data
+                                                      - link [ref=e1155] [cursor=pointer]:
+                                                        - /url: /plugins/Plugin_32edf73dc4f48191980d50e2cad2b3e4
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/Plugin_054ff933a434819187c4f95db80afc7f
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Life Sciences Databases
+                                                        - generic: Query structured public life-science databases
+                                                      - button [ref=e1156] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/Plugin_915f0ebef1348191bdb283c643ee98ec
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Molecular Structure Viewer
+                                                        - generic: Visualize and interact with molecular structures in Codex.
+                                                      - link [ref=e1157] [cursor=pointer]:
+                                                        - /url: /plugins/Plugin_915f0ebef1348191bdb283c643ee98ec
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/Plugin_ff18fc908d98819197fb21beeb779684
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Biological Sequence & Alignment Viewer
+                                                        - generic: Inspect, analyze, and compare biological sequences and alignments in Codex.
+                                                      - link [ref=e1158] [cursor=pointer]:
+                                                        - /url: /plugins/Plugin_ff18fc908d98819197fb21beeb779684
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=security
+                                                - text: Seguridad
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/Plugin_1e648473be9c8191a91ac3947151af55
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Codex Security
+                                                        - generic: Security scanning for your codebase
+                                                      - link [ref=e1159] [cursor=pointer]:
+                                                        - /url: /plugins/Plugin_1e648473be9c8191a91ac3947151af55
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_connector_1p_6317a32dbf5c81919acd66de6722daf5
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Codex Security Cloud
+                                                        - generic: Find and fix vulnerabilities across your repositories
+                                                      - button [ref=e1160] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6943d1778c8c81918f4c9ddf4849ca41
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Malwarebytes
+                                                        - generic: Verify links, domains, phones.
+                                                      - button [ref=e1161] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69ac8cc11bf48191816e305e37953f06
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: PrivacyHawk
+                                                        - generic: Protect your personal data
+                                                      - button [ref=e1162] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_698d2bdf0eb08191890a55606150ecc2
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: AJAXX Data Scrubber
+                                                        - generic: Remove exposed personal data
+                                                      - button [ref=e1163] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6a6109bb0d3081919f5cd03b3085e944
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Ansvar Gateway
+                                                        - generic: Laws, Security and Compliance
+                                                      - button [ref=e1164] [cursor=pointer]
+                                        - generic:
+                                          - generic:
+                                            - heading [level=2]:
+                                              - link:
+                                                - /url: /plugins?category=other
+                                                - text: Otros
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69949aa62bf48191be5e57a01202beca
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: LinkedIn
+                                                        - generic: Find the right professional
+                                                      - button [ref=e1165] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_69dfa26ad60081919fb9e3a1a50e3e53
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Etsy
+                                                        - generic: Shop Home, Style & More
+                                                      - button [ref=e1166] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6943a2c078b0819188de39e4fe168d9b
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Tarot
+                                                        - generic: Tarot Reading & Divination
+                                                      - button [ref=e1167] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_694a63a053f081918b9a3738bd3640c9
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Kleinanzeigen
+                                                        - generic: Echte Deals. Echte Menschen.
+                                                      - button [ref=e1168] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_6996f481ed0c8191852f9c34c6a97d44
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: idealista
+                                                        - generic: Find properties to buy or rent
+                                                      - button [ref=e1169] [cursor=pointer]
+                                                - generic:
+                                                  - link:
+                                                    - /url: /plugins/plugin_asdk_app_68f1afc5a6008191a701eaaab428816c
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: AllTrails
+                                                        - generic: Discover your next hike
+                                                      - button [ref=e1170] [cursor=pointer]
+            - status
+  - status
+  - dialog [ref=e1172]:
+    - generic [ref=e1173]:
+      - heading "Añadir servidor MCP personalizado" [level=2] [ref=e1175]
+      - generic [ref=e1177]:
+        - generic [ref=e1179]:
+          - button "Elegir icono" [ref=e1180] [cursor=pointer]
+          - generic [ref=e1183]:
+            - generic [ref=e1184]: Icono (opcional)
+            - generic [ref=e1185]: "Solo PNG. Para obtener mejores resultados, usa una imagen de 256 x 256 px o más. Tamaño máximo del archivo: 10 KB"
+          - generic [ref=e1186]:
+            - text: Nombre
+            - textbox "Nombre" [ref=e1187]:
+              - /placeholder: Herramienta personalizada
+          - generic [ref=e1188]:
+            - text: Descripción (opcional)
+            - textbox "Descripción (opcional)" [ref=e1189]:
+              - /placeholder: Explica en pocas palabras qué hace
+          - group "Conexión" [ref=e1190]:
+            - generic [ref=e1192]:
+              - generic [aria-hidden] [ref=e1193]: Conexión
+              - group "Conexión" [ref=e1194]:
+                - button "URL del servidor" [ref=e1195] [cursor=pointer]
+                - button "Túnel" [active] [pressed] [ref=e1196] [cursor=pointer]
+            - textbox "ID del túnel" [ref=e1233]:
+              - /placeholder: tunnel_...
+          - generic [ref=e1198]:
+            - text: Autenticación
+            - combobox "Autenticación" [ref=e1199]:
+              - option "OAuth" [selected]
+              - option "Sin autenticación"
+              - option "OAuth o sin autenticación"
+          - button "Ajustes avanzados de OAuth" [disabled] [ref=e1200]:
+            - generic [ref=e1201]:
+              - generic [ref=e1202]: Ajustes avanzados de OAuth
+              - generic [ref=e1203]: Revisa los ajustes de OAuth detectados o introdúcelos manualmente; después, elige un método de configuración del cliente y configura los ámbitos predeterminados
+          - generic [ref=e1206]:
+            - complementary [ref=e1207]:
+              - generic [ref=e1216]:
+                - text: Los servidores MCP personalizados conllevan riesgos.
+                - link "Más información" [ref=e1217] [cursor=pointer]:
+                  - /url: https://platform.openai.com/docs/mcp#risks-and-safety
+            - generic [ref=e1219]:
+              - checkbox "Lo entiendo y quiero continuar" [ref=e1220] [cursor=pointer]
+              - checkbox [aria-hidden]
+              - generic [ref=e1221]:
+                - generic [ref=e1222]: Lo entiendo y quiero continuar
+                - generic [ref=e1223]: Conéctate únicamente a servidores MCP en los que confíes. Un servidor que no sea de confianza puede acceder a la información que compartes cuando usas la aplicación o robarla, o también engañar a ChatGPT para que utilice herramientas de formas no previstas, como modificar o eliminar datos.
+        - generic [ref=e1225]:
+          - link "Leer la guía" [ref=e1226] [cursor=pointer]:
+            - /url: https://developers.openai.com/apps-sdk
+          - button "Cancelar" [ref=e1227] [cursor=pointer]
+          - button "Crear como complemento" [disabled] [ref=e1228]
+    - button "Cerrar diálogo" [ref=e1229] [cursor=pointer]

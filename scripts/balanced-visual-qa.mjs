@@ -7,11 +7,13 @@
  */
 
 import { chromium } from 'playwright';
+import { assertLocalQaUrl } from './lib/local-qa-url.mjs';
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 
 const BASE = process.env.BASE_URL ?? 'http://127.0.0.1:4334';
+assertLocalQaUrl(BASE);
 const TIER = process.env.TIER === 'lite' ? 'lite' : 'balanced';
 const OUT = path.resolve(process.env.OUT ?? `review/${TIER}-visual-iteration/final-qa`);
 const CAPTURES = path.join(OUT, 'screenshots');
@@ -63,7 +65,7 @@ async function ensurePreview() {
   const target = new URL(BASE);
   const child = spawn(
     process.execPath,
-    [path.resolve('node_modules/astro/astro.js'), 'preview', '--host', target.hostname, '--port', target.port],
+    [path.resolve('node_modules/astro/bin/astro.mjs'), 'preview', '--host', target.hostname, '--port', target.port],
     { cwd: process.cwd(), stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true }
   );
   let stderr = '';

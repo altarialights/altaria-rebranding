@@ -1,0 +1,39 @@
+- generic [active] [ref=e1]:
+  - region "Notifications alt+T"
+  - generic [ref=e2]:
+    - link "Skip to main content" [ref=e3] [cursor=pointer]:
+      - /url: "#main"
+    - generic [ref=e4]:
+      - link [ref=e5] [cursor=pointer]:
+        - /url: https://ngrok.com
+      - main [ref=e8]:
+        - generic [ref=e9]:
+          - generic [ref=e11]:
+            - generic [ref=e12]:
+              - link "Log in with GitHub" [ref=e14] [cursor=pointer]:
+                - /url: /oauth/login/github?grant_id=iamacs_3KjezIcTrOkzXn7nDyg8ApqgvFJ
+              - link "Log in with Google" [ref=e18] [cursor=pointer]:
+                - /url: /oauth/login/google?grant_id=iamacs_3KjezIcTrOkzXn7nDyg8ApqgvFJ
+              - link "Log in with SSO" [ref=e21] [cursor=pointer]:
+                - /url: /sso?grant_id=iamacs_3KjezIcTrOkzXn7nDyg8ApqgvFJ
+            - generic [ref=e24]: or
+            - generic [ref=e25]:
+              - generic [ref=e26]:
+                - generic [ref=e27] [cursor=pointer]: Email
+                - textbox "Email" [ref=e29]
+              - generic [ref=e30]:
+                - generic [ref=e31] [cursor=pointer]: Password
+                - textbox "Password" [ref=e32]
+                - button "Show value" [ref=e33] [cursor=pointer]
+                - link "Forgot password?" [ref=e36] [cursor=pointer]:
+                  - /url: /password/reset
+              - button "Log in" [ref=e37] [cursor=pointer]
+            - generic [ref=e38]:
+              - text: Don’t have an account?
+              - link "Sign up for free!" [ref=e39] [cursor=pointer]:
+                - /url: /signup?grant_id=iamacs_3KjezIcTrOkzXn7nDyg8ApqgvFJ
+          - link "Privacy preferences" [ref=e41] [cursor=pointer]:
+            - /url: https://ngrok.com/privacy-preferences
+    - contentinfo [ref=e42]:
+      - button "Change Theme" [ref=e43] [cursor=pointer]
+  - status [ref=e45]

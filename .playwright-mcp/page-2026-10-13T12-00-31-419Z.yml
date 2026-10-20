@@ -1,0 +1,831 @@
+- generic [active] [ref=f1e1]:
+  - alert [ref=f1e2]
+  - generic [ref=f1e3]:
+    - generic [ref=f1e6]:
+      - list [ref=f1e8]:
+        - listitem [ref=f1e9]:
+          - button "altarialights Free" [ref=f1e10]:
+            - generic [ref=f1e12]:
+              - generic [ref=f1e13]: altarialights
+              - generic [ref=f1e14]: Free
+      - generic [ref=f1e15]:
+        - generic [ref=f1e16]:
+          - button "Create Database" [ref=f1e17]
+          - button "Create Group" [ref=f1e18]
+        - generic [ref=f1e19]:
+          - generic [ref=f1e20]: Turso Cloud
+          - list [ref=f1e21]:
+            - listitem [ref=f1e22]:
+              - button "Databases" [expanded] [ref=f1e23]
+              - list [ref=f1e32]:
+                - listitem [ref=f1e33]:
+                  - link "default" [ref=f1e34] [cursor=pointer]:
+                    - /url: /altarialights?group=default
+                  - button [ref=f1e37]
+                - listitem [ref=f1e38]:
+                  - link "peluqueria" [ref=f1e39] [cursor=pointer]:
+                    - /url: /altarialights?group=peluqueria
+                  - button [ref=f1e42]
+                - listitem [ref=f1e43]:
+                  - link "propias" [ref=f1e44] [cursor=pointer]:
+                    - /url: /altarialights?group=propias
+                  - button [ref=f1e47]
+            - listitem [ref=f1e48]:
+              - link "Analytics" [ref=f1e49] [cursor=pointer]:
+                - /url: /altarialights/analytics
+            - listitem [ref=f1e53]:
+              - link "Audit Logs" [ref=f1e54] [cursor=pointer]:
+                - /url: /altarialights/audit-logs
+            - listitem [ref=f1e57]:
+              - link "Billing" [ref=f1e58] [cursor=pointer]:
+                - /url: /altarialights/billing
+            - listitem [ref=f1e62]:
+              - button "Settings" [ref=f1e63]
+            - listitem [ref=f1e70]:
+              - link "Support" [ref=f1e71] [cursor=pointer]:
+                - /url: /altarialights/support
+      - generic [ref=f1e76]:
+        - link "Upgrade" [ref=f1e77] [cursor=pointer]:
+          - /url: /altarialights/billing/change-plan
+        - generic [ref=f1e78]: Usage
+        - generic [ref=f1e85]:
+          - button "Open user menu" [ref=f1e89] [cursor=pointer]:
+            - img "Altaria Lights's logo" [ref=f1e92]
+          - button "Toggle theme" [ref=f1e94]
+      - button "Toggle Sidebar" [ref=f1e96]
+    - main [ref=f1e97]:
+      - generic [ref=f1e99]:
+        - button "Toggle Sidebar" [ref=f1e100]
+        - navigation "breadcrumb" [ref=f1e103]:
+          - list [ref=f1e104]:
+            - listitem [ref=f1e105]:
+              - link "Databases" [disabled] [ref=f1e106]
+      - generic [ref=f1e108]:
+        - generic [ref=f1e109]:
+          - link "Restore deleted databases" [ref=f1e110] [cursor=pointer]:
+            - /url: /altarialights/restore
+          - generic [ref=f1e112]:
+            - switch "Show branches" [checked] [ref=f1e113]
+            - generic [ref=f1e114]: Show branches
+        - generic [ref=f1e115]:
+          - table [ref=f1e118]:
+            - rowgroup [ref=f1e119]:
+              - row [ref=f1e120]:
+                - columnheader "Name" [ref=f1e121]
+                - columnheader "Type" [ref=f1e122]
+                - columnheader "Rows Read" [ref=f1e123]
+                - columnheader "Rows Written" [ref=f1e124]
+                - columnheader "Bytes Synced" [ref=f1e125]
+                - columnheader "Storage" [ref=f1e126]
+                - columnheader "Group" [ref=f1e127]
+                - columnheader "Status" [ref=f1e128]
+                - columnheader [ref=f1e129]
+            - rowgroup [ref=f1e130]:
+              - row [ref=f1e131]:
+                - cell [ref=f1e132]:
+                  - generic [ref=f1e133]:
+                    - button "SQLite database" [ref=f1e134]
+                    - link "altaria-digital-index" [ref=f1e139] [cursor=pointer]:
+                      - /url: /altarialights/databases/altaria-digital-index
+                - cell "Database" [ref=f1e140]
+                - cell "7002" [ref=f1e142]
+                - cell "106" [ref=f1e143]
+                - cell "0 B" [ref=f1e144]
+                - cell "3.88 MB" [ref=f1e145]
+                - cell "propias" [ref=f1e146]
+                - cell "Active" [ref=f1e150]
+                - cell [ref=f1e152]:
+                  - generic [ref=f1e153]:
+                    - link [ref=f1e154] [cursor=pointer]:
+                      - /url: /altarialights/databases/altaria-digital-index/data
+                      - button "Edit Data" [ref=f1e155]
+                    - button [ref=f1e157]
+              - row [ref=f1e158]:
+                - cell [ref=f1e159]:
+                  - generic [ref=f1e160]:
+                    - button "SQLite database" [ref=f1e161]
+                    - link "altaria-os-test" [ref=f1e166] [cursor=pointer]:
+                      - /url: /altarialights/databases/altaria-os-test
+                - cell "Database" [ref=f1e167]
+                - cell "135.989" [ref=f1e169]
+                - cell "23.896" [ref=f1e170]
+                - cell "0 B" [ref=f1e171]
+                - cell "1.67 MB" [ref=f1e172]
+                - cell "default" [ref=f1e173]
+                - cell "Active" [ref=f1e177]
+                - cell [ref=f1e179]:
+                  - generic [ref=f1e180]:
+                    - link [ref=f1e181] [cursor=pointer]:
+                      - /url: /altarialights/databases/altaria-os-test/data
+                      - button "Edit Data" [ref=f1e182]
+                    - button [ref=f1e184]
+              - row [ref=f1e185]:
+                - cell [ref=f1e186]:
+                  - generic [ref=f1e187]:
+                    - button "SQLite database" [ref=f1e188]
+                    - link "crm" [ref=f1e193] [cursor=pointer]:
+                      - /url: /altarialights/databases/crm
+                - cell "Database" [ref=f1e194]
+                - cell "0" [ref=f1e196]
+                - cell "0" [ref=f1e197]
+                - cell "0 B" [ref=f1e198]
+                - cell "0 B" [ref=f1e199]
+                - cell "propias" [ref=f1e200]
+                - cell "Active" [ref=f1e204]
+                - cell [ref=f1e206]:
+                  - generic [ref=f1e207]:
+                    - link [ref=f1e208] [cursor=pointer]:
+                      - /url: /altarialights/databases/crm/data
+                      - button "Edit Data" [ref=f1e209]
+                    - button [ref=f1e211]
+              - row [ref=f1e212]:
+                - cell [ref=f1e213]:
+                  - generic [ref=f1e214]:
+                    - button "SQLite database" [ref=f1e215]
+                    - link "de-zamorano" [ref=f1e220] [cursor=pointer]:
+                      - /url: /altarialights/databases/de-zamorano
+                - cell "Database" [ref=f1e221]
+                - cell "79.303" [ref=f1e223]
+                - cell "1180" [ref=f1e224]
+                - cell "0 B" [ref=f1e225]
+                - cell "966.66 KB" [ref=f1e226]
+                - cell "default" [ref=f1e227]
+                - cell "Active" [ref=f1e231]
+                - cell [ref=f1e233]:
+                  - generic [ref=f1e234]:
+                    - link [ref=f1e235] [cursor=pointer]:
+                      - /url: /altarialights/databases/de-zamorano/data
+                      - button "Edit Data" [ref=f1e236]
+                    - button [ref=f1e238]
+              - row [ref=f1e239]:
+                - cell [ref=f1e240]:
+                  - generic [ref=f1e241]:
+                    - button "SQLite database" [ref=f1e242]
+                    - link "mana-peluqueros" [ref=f1e247] [cursor=pointer]:
+                      - /url: /altarialights/databases/mana-peluqueros
+                - cell "Database" [ref=f1e248]
+                - cell "7.313.178" [ref=f1e250]
+                - cell "24.294" [ref=f1e251]
+                - cell "0 B" [ref=f1e252]
+                - cell "15.43 MB" [ref=f1e253]
+                - cell "peluqueria" [ref=f1e254]
+                - cell "Active" [ref=f1e258]
+                - cell [ref=f1e260]:
+                  - generic [ref=f1e261]:
+                    - link [ref=f1e262] [cursor=pointer]:
+                      - /url: /altarialights/databases/mana-peluqueros/data
+                      - button "Edit Data" [ref=f1e263]
+                    - button [ref=f1e265]
+              - row [ref=f1e266]:
+                - cell [ref=f1e267]:
+                  - generic [ref=f1e268]:
+                    - button "SQLite database" [ref=f1e269]
+                    - link "original-sneakers-admin" [ref=f1e274] [cursor=pointer]:
+                      - /url: /altarialights/databases/original-sneakers-admin
+                - cell "Database" [ref=f1e275]
+                - cell "304.494" [ref=f1e277]
+                - cell "2213" [ref=f1e278]
+                - cell "0 B" [ref=f1e279]
+                - cell "1.16 MB" [ref=f1e280]
+                - cell "default" [ref=f1e281]
+                - cell "Active" [ref=f1e285]
+                - cell [ref=f1e287]:
+                  - generic [ref=f1e288]:
+                    - link [ref=f1e289] [cursor=pointer]:
+                      - /url: /altarialights/databases/original-sneakers-admin/data
+                      - button "Edit Data" [ref=f1e290]
+                    - button [ref=f1e292]
+              - row [ref=f1e293]:
+                - cell [ref=f1e294]:
+                  - generic [ref=f1e295]:
+                    - button "SQLite database" [ref=f1e296]
+                    - link "tpv-067f5a84-a720-4b8d-ae7b-97f1e5098994" [ref=f1e301] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-067f5a84-a720-4b8d-ae7b-97f1e5098994
+                - cell "Database" [ref=f1e302]
+                - cell "9354" [ref=f1e304]
+                - cell "863" [ref=f1e305]
+                - cell "0 B" [ref=f1e306]
+                - cell "925.7 KB" [ref=f1e307]
+                - cell "default" [ref=f1e308]
+                - cell "Active" [ref=f1e312]
+                - cell [ref=f1e314]:
+                  - generic [ref=f1e315]:
+                    - link [ref=f1e316] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-067f5a84-a720-4b8d-ae7b-97f1e5098994/data
+                      - button "Edit Data" [ref=f1e317]
+                    - button [ref=f1e319]
+              - row [ref=f1e320]:
+                - cell [ref=f1e321]:
+                  - generic [ref=f1e322]:
+                    - button "SQLite database" [ref=f1e323]
+                    - link "tpv-0be22ea8-d459-4a47-a1e8-7bdebbd0002b" [ref=f1e328] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-0be22ea8-d459-4a47-a1e8-7bdebbd0002b
+                - cell "Database" [ref=f1e329]
+                - cell "0" [ref=f1e331]
+                - cell "0" [ref=f1e332]
+                - cell "0 B" [ref=f1e333]
+                - cell "1.06 MB" [ref=f1e334]
+                - cell "default" [ref=f1e335]
+                - cell "Active" [ref=f1e339]
+                - cell [ref=f1e341]:
+                  - generic [ref=f1e342]:
+                    - link [ref=f1e343] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-0be22ea8-d459-4a47-a1e8-7bdebbd0002b/data
+                      - button "Edit Data" [ref=f1e344]
+                    - button [ref=f1e346]
+              - row [ref=f1e347]:
+                - cell [ref=f1e348]:
+                  - generic [ref=f1e349]:
+                    - button "SQLite database" [ref=f1e350]
+                    - link "tpv-1638529f-523a-4ef1-9541-74616aafb1f8" [ref=f1e355] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-1638529f-523a-4ef1-9541-74616aafb1f8
+                - cell "Database" [ref=f1e356]
+                - cell "799" [ref=f1e358]
+                - cell "768" [ref=f1e359]
+                - cell "0 B" [ref=f1e360]
+                - cell "901.12 KB" [ref=f1e361]
+                - cell "default" [ref=f1e362]
+                - cell "Active" [ref=f1e366]
+                - cell [ref=f1e368]:
+                  - generic [ref=f1e369]:
+                    - link [ref=f1e370] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-1638529f-523a-4ef1-9541-74616aafb1f8/data
+                      - button "Edit Data" [ref=f1e371]
+                    - button [ref=f1e373]
+              - row [ref=f1e374]:
+                - cell [ref=f1e375]:
+                  - generic [ref=f1e376]:
+                    - button "SQLite database" [ref=f1e377]
+                    - link "tpv-294c16b6-33e4-4b7d-a110-7287417b4697" [ref=f1e382] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-294c16b6-33e4-4b7d-a110-7287417b4697
+                - cell "Database" [ref=f1e383]
+                - cell "0" [ref=f1e385]
+                - cell "0" [ref=f1e386]
+                - cell "0 B" [ref=f1e387]
+                - cell "811.01 KB" [ref=f1e388]
+                - cell "default" [ref=f1e389]
+                - cell "Active" [ref=f1e393]
+                - cell [ref=f1e395]:
+                  - generic [ref=f1e396]:
+                    - link [ref=f1e397] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-294c16b6-33e4-4b7d-a110-7287417b4697/data
+                      - button "Edit Data" [ref=f1e398]
+                    - button [ref=f1e400]
+              - row [ref=f1e401]:
+                - cell [ref=f1e402]:
+                  - generic [ref=f1e403]:
+                    - button "SQLite database" [ref=f1e404]
+                    - link "tpv-32597d40-37ac-4bac-9da1-c71d8209fe64" [ref=f1e409] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-32597d40-37ac-4bac-9da1-c71d8209fe64
+                - cell "Database" [ref=f1e410]
+                - cell "0" [ref=f1e412]
+                - cell "0" [ref=f1e413]
+                - cell "0 B" [ref=f1e414]
+                - cell "856.06 KB" [ref=f1e415]
+                - cell "default" [ref=f1e416]
+                - cell "Active" [ref=f1e420]
+                - cell [ref=f1e422]:
+                  - generic [ref=f1e423]:
+                    - link [ref=f1e424] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-32597d40-37ac-4bac-9da1-c71d8209fe64/data
+                      - button "Edit Data" [ref=f1e425]
+                    - button [ref=f1e427]
+              - row [ref=f1e428]:
+                - cell [ref=f1e429]:
+                  - generic [ref=f1e430]:
+                    - button "SQLite database" [ref=f1e431]
+                    - link "tpv-59122455-c6fa-4da6-b25f-91fc89369f1e" [ref=f1e436] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-59122455-c6fa-4da6-b25f-91fc89369f1e
+                - cell "Database" [ref=f1e437]
+                - cell "1337" [ref=f1e439]
+                - cell "687" [ref=f1e440]
+                - cell "0 B" [ref=f1e441]
+                - cell "892.93 KB" [ref=f1e442]
+                - cell "default" [ref=f1e443]
+                - cell "Active" [ref=f1e447]
+                - cell [ref=f1e449]:
+                  - generic [ref=f1e450]:
+                    - link [ref=f1e451] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-59122455-c6fa-4da6-b25f-91fc89369f1e/data
+                      - button "Edit Data" [ref=f1e452]
+                    - button [ref=f1e454]
+              - row [ref=f1e455]:
+                - cell [ref=f1e456]:
+                  - generic [ref=f1e457]:
+                    - button "SQLite database" [ref=f1e458]
+                    - link "tpv-70143d05-3443-409c-8d87-1fabf830125a" [ref=f1e463] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-70143d05-3443-409c-8d87-1fabf830125a
+                - cell "Database" [ref=f1e464]
+                - cell "192" [ref=f1e466]
+                - cell "14" [ref=f1e467]
+                - cell "0 B" [ref=f1e468]
+                - cell "815.1 KB" [ref=f1e469]
+                - cell "default" [ref=f1e470]
+                - cell "Active" [ref=f1e474]
+                - cell [ref=f1e476]:
+                  - generic [ref=f1e477]:
+                    - link [ref=f1e478] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-70143d05-3443-409c-8d87-1fabf830125a/data
+                      - button "Edit Data" [ref=f1e479]
+                    - button [ref=f1e481]
+              - row [ref=f1e482]:
+                - cell [ref=f1e483]:
+                  - generic [ref=f1e484]:
+                    - button "SQLite database" [ref=f1e485]
+                    - link "tpv-7f15a4bf-904c-4bba-ad01-bff18c31fc2f" [ref=f1e490] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-7f15a4bf-904c-4bba-ad01-bff18c31fc2f
+                - cell "Database" [ref=f1e491]
+                - cell "63" [ref=f1e493]
+                - cell "0" [ref=f1e494]
+                - cell "0 B" [ref=f1e495]
+                - cell "839.68 KB" [ref=f1e496]
+                - cell "default" [ref=f1e497]
+                - cell "Active" [ref=f1e501]
+                - cell [ref=f1e503]:
+                  - generic [ref=f1e504]:
+                    - link [ref=f1e505] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-7f15a4bf-904c-4bba-ad01-bff18c31fc2f/data
+                      - button "Edit Data" [ref=f1e506]
+                    - button [ref=f1e508]
+              - row [ref=f1e509]:
+                - cell [ref=f1e510]:
+                  - generic [ref=f1e511]:
+                    - button "SQLite database" [ref=f1e512]
+                    - link "tpv-96c61b30-cc54-40a1-9932-778f6d9c347c" [ref=f1e517] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-96c61b30-cc54-40a1-9932-778f6d9c347c
+                - cell "Database" [ref=f1e518]
+                - cell "804" [ref=f1e520]
+                - cell "768" [ref=f1e521]
+                - cell "0 B" [ref=f1e522]
+                - cell "901.12 KB" [ref=f1e523]
+                - cell "default" [ref=f1e524]
+                - cell "Active" [ref=f1e528]
+                - cell [ref=f1e530]:
+                  - generic [ref=f1e531]:
+                    - link [ref=f1e532] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-96c61b30-cc54-40a1-9932-778f6d9c347c/data
+                      - button "Edit Data" [ref=f1e533]
+                    - button [ref=f1e535]
+              - row [ref=f1e536]:
+                - cell [ref=f1e537]:
+                  - generic [ref=f1e538]:
+                    - button "SQLite database" [ref=f1e539]
+                    - link "tpv-be69848b-bbf8-427b-abf5-11f3c5b863a6" [ref=f1e544] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-be69848b-bbf8-427b-abf5-11f3c5b863a6
+                - cell "Database" [ref=f1e545]
+                - cell "0" [ref=f1e547]
+                - cell "0" [ref=f1e548]
+                - cell "0 B" [ref=f1e549]
+                - cell "856.06 KB" [ref=f1e550]
+                - cell "default" [ref=f1e551]
+                - cell "Active" [ref=f1e555]
+                - cell [ref=f1e557]:
+                  - generic [ref=f1e558]:
+                    - link [ref=f1e559] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-be69848b-bbf8-427b-abf5-11f3c5b863a6/data
+                      - button "Edit Data" [ref=f1e560]
+                    - button [ref=f1e562]
+              - row [ref=f1e563]:
+                - cell [ref=f1e564]:
+                  - generic [ref=f1e565]:
+                    - button "SQLite database" [ref=f1e566]
+                    - link "tpv-d0ae381c-6164-42b7-9a8a-d3ca258ecafe" [ref=f1e571] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-d0ae381c-6164-42b7-9a8a-d3ca258ecafe
+                - cell "Database" [ref=f1e572]
+                - cell "0" [ref=f1e574]
+                - cell "0" [ref=f1e575]
+                - cell "0 B" [ref=f1e576]
+                - cell "651.26 KB" [ref=f1e577]
+                - cell "default" [ref=f1e578]
+                - cell "Active" [ref=f1e582]
+                - cell [ref=f1e584]:
+                  - generic [ref=f1e585]:
+                    - link [ref=f1e586] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-d0ae381c-6164-42b7-9a8a-d3ca258ecafe/data
+                      - button "Edit Data" [ref=f1e587]
+                    - button [ref=f1e589]
+              - row [ref=f1e590]:
+                - cell [ref=f1e591]:
+                  - generic [ref=f1e592]:
+                    - button "SQLite database" [ref=f1e593]
+                    - link "tpv-d95c0949-cc18-445d-adb1-f195012988d0" [ref=f1e598] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-d95c0949-cc18-445d-adb1-f195012988d0
+                - cell "Database" [ref=f1e599]
+                - cell "0" [ref=f1e601]
+                - cell "0" [ref=f1e602]
+                - cell "0 B" [ref=f1e603]
+                - cell "638.98 KB" [ref=f1e604]
+                - cell "default" [ref=f1e605]
+                - cell "Active" [ref=f1e609]
+                - cell [ref=f1e611]:
+                  - generic [ref=f1e612]:
+                    - link [ref=f1e613] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-d95c0949-cc18-445d-adb1-f195012988d0/data
+                      - button "Edit Data" [ref=f1e614]
+                    - button [ref=f1e616]
+              - row [ref=f1e617]:
+                - cell [ref=f1e618]:
+                  - generic [ref=f1e619]:
+                    - button "SQLite database" [ref=f1e620]
+                    - link "tpv-d97ddcef-cf5d-4c6f-980d-8f052efb786c" [ref=f1e625] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-d97ddcef-cf5d-4c6f-980d-8f052efb786c
+                - cell "Database" [ref=f1e626]
+                - cell "0" [ref=f1e628]
+                - cell "0" [ref=f1e629]
+                - cell "0 B" [ref=f1e630]
+                - cell "651.26 KB" [ref=f1e631]
+                - cell "default" [ref=f1e632]
+                - cell "Active" [ref=f1e636]
+                - cell [ref=f1e638]:
+                  - generic [ref=f1e639]:
+                    - link [ref=f1e640] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-d97ddcef-cf5d-4c6f-980d-8f052efb786c/data
+                      - button "Edit Data" [ref=f1e641]
+                    - button [ref=f1e643]
+              - row [ref=f1e644]:
+                - cell [ref=f1e645]:
+                  - generic [ref=f1e646]:
+                    - button "SQLite database" [ref=f1e647]
+                    - link "tpv-ddadf53c-e849-41f0-956c-ad63314115e5" [ref=f1e652] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-ddadf53c-e849-41f0-956c-ad63314115e5
+                - cell "Database" [ref=f1e653]
+                - cell "0" [ref=f1e655]
+                - cell "0" [ref=f1e656]
+                - cell "0 B" [ref=f1e657]
+                - cell "638.98 KB" [ref=f1e658]
+                - cell "default" [ref=f1e659]
+                - cell "Active" [ref=f1e663]
+                - cell [ref=f1e665]:
+                  - generic [ref=f1e666]:
+                    - link [ref=f1e667] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-ddadf53c-e849-41f0-956c-ad63314115e5/data
+                      - button "Edit Data" [ref=f1e668]
+                    - button [ref=f1e670]
+              - row [ref=f1e671]:
+                - cell [ref=f1e672]:
+                  - generic [ref=f1e673]:
+                    - button "SQLite database" [ref=f1e674]
+                    - link "tpv-ddbafe7b-43ff-4b8a-8782-fc2ab9718d6b" [ref=f1e679] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-ddbafe7b-43ff-4b8a-8782-fc2ab9718d6b
+                - cell "Database" [ref=f1e680]
+                - cell "0" [ref=f1e682]
+                - cell "0" [ref=f1e683]
+                - cell "0 B" [ref=f1e684]
+                - cell "856.06 KB" [ref=f1e685]
+                - cell "default" [ref=f1e686]
+                - cell "Active" [ref=f1e690]
+                - cell [ref=f1e692]:
+                  - generic [ref=f1e693]:
+                    - link [ref=f1e694] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-ddbafe7b-43ff-4b8a-8782-fc2ab9718d6b/data
+                      - button "Edit Data" [ref=f1e695]
+                    - button [ref=f1e697]
+              - row [ref=f1e698]:
+                - cell [ref=f1e699]:
+                  - generic [ref=f1e700]:
+                    - button "SQLite database" [ref=f1e701]
+                    - link "tpv-de6d6754-fadc-40ac-90cf-fd82171e12bb" [ref=f1e706] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-de6d6754-fadc-40ac-90cf-fd82171e12bb
+                - cell "Database" [ref=f1e707]
+                - cell "0" [ref=f1e709]
+                - cell "0" [ref=f1e710]
+                - cell "0 B" [ref=f1e711]
+                - cell "860.16 KB" [ref=f1e712]
+                - cell "default" [ref=f1e713]
+                - cell "Active" [ref=f1e717]
+                - cell [ref=f1e719]:
+                  - generic [ref=f1e720]:
+                    - link [ref=f1e721] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-de6d6754-fadc-40ac-90cf-fd82171e12bb/data
+                      - button "Edit Data" [ref=f1e722]
+                    - button [ref=f1e724]
+              - row [ref=f1e725]:
+                - cell [ref=f1e726]:
+                  - generic [ref=f1e727]:
+                    - button "SQLite database" [ref=f1e728]
+                    - link "tpv-de98bdae-821d-42ba-bcb7-67c831845645" [ref=f1e733] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-de98bdae-821d-42ba-bcb7-67c831845645
+                - cell "Database" [ref=f1e734]
+                - cell "0" [ref=f1e736]
+                - cell "0" [ref=f1e737]
+                - cell "0 B" [ref=f1e738]
+                - cell "851.97 KB" [ref=f1e739]
+                - cell "default" [ref=f1e740]
+                - cell "Active" [ref=f1e744]
+                - cell [ref=f1e746]:
+                  - generic [ref=f1e747]:
+                    - link [ref=f1e748] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-de98bdae-821d-42ba-bcb7-67c831845645/data
+                      - button "Edit Data" [ref=f1e749]
+                    - button [ref=f1e751]
+              - row [ref=f1e752]:
+                - cell [ref=f1e753]:
+                  - generic [ref=f1e754]:
+                    - button "SQLite database" [ref=f1e755]
+                    - link "tpv-dfd3a97e-2cf6-4f4d-b125-6df1f7bafad1" [ref=f1e760] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-dfd3a97e-2cf6-4f4d-b125-6df1f7bafad1
+                - cell "Database" [ref=f1e761]
+                - cell "0" [ref=f1e763]
+                - cell "0" [ref=f1e764]
+                - cell "0 B" [ref=f1e765]
+                - cell "794.62 KB" [ref=f1e766]
+                - cell "default" [ref=f1e767]
+                - cell "Active" [ref=f1e771]
+                - cell [ref=f1e773]:
+                  - generic [ref=f1e774]:
+                    - link [ref=f1e775] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-dfd3a97e-2cf6-4f4d-b125-6df1f7bafad1/data
+                      - button "Edit Data" [ref=f1e776]
+                    - button [ref=f1e778]
+              - row [ref=f1e779]:
+                - cell [ref=f1e780]:
+                  - generic [ref=f1e781]:
+                    - button "SQLite database" [ref=f1e782]
+                    - link "tpv-e1a98fe4-2ba2-4590-98d1-7afa7c0dd68a" [ref=f1e787] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-e1a98fe4-2ba2-4590-98d1-7afa7c0dd68a
+                - cell "Database" [ref=f1e788]
+                - cell "0" [ref=f1e790]
+                - cell "0" [ref=f1e791]
+                - cell "0 B" [ref=f1e792]
+                - cell "651.26 KB" [ref=f1e793]
+                - cell "default" [ref=f1e794]
+                - cell "Active" [ref=f1e798]
+                - cell [ref=f1e800]:
+                  - generic [ref=f1e801]:
+                    - link [ref=f1e802] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-e1a98fe4-2ba2-4590-98d1-7afa7c0dd68a/data
+                      - button "Edit Data" [ref=f1e803]
+                    - button [ref=f1e805]
+              - row [ref=f1e806]:
+                - cell [ref=f1e807]:
+                  - generic [ref=f1e808]:
+                    - button "SQLite database" [ref=f1e809]
+                    - link "tpv-e3e94279-1d72-49ec-bec1-57101168d203" [ref=f1e814] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-e3e94279-1d72-49ec-bec1-57101168d203
+                - cell "Database" [ref=f1e815]
+                - cell "0" [ref=f1e817]
+                - cell "0" [ref=f1e818]
+                - cell "0 B" [ref=f1e819]
+                - cell "638.98 KB" [ref=f1e820]
+                - cell "default" [ref=f1e821]
+                - cell "Active" [ref=f1e825]
+                - cell [ref=f1e827]:
+                  - generic [ref=f1e828]:
+                    - link [ref=f1e829] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-e3e94279-1d72-49ec-bec1-57101168d203/data
+                      - button "Edit Data" [ref=f1e830]
+                    - button [ref=f1e832]
+              - row [ref=f1e833]:
+                - cell [ref=f1e834]:
+                  - generic [ref=f1e835]:
+                    - button "SQLite database" [ref=f1e836]
+                    - link "tpv-e4e8351a-b2d0-4892-b9e1-f357d836af34" [ref=f1e841] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-e4e8351a-b2d0-4892-b9e1-f357d836af34
+                - cell "Database" [ref=f1e842]
+                - cell "0" [ref=f1e844]
+                - cell "0" [ref=f1e845]
+                - cell "0 B" [ref=f1e846]
+                - cell "638.98 KB" [ref=f1e847]
+                - cell "default" [ref=f1e848]
+                - cell "Active" [ref=f1e852]
+                - cell [ref=f1e854]:
+                  - generic [ref=f1e855]:
+                    - link [ref=f1e856] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-e4e8351a-b2d0-4892-b9e1-f357d836af34/data
+                      - button "Edit Data" [ref=f1e857]
+                    - button [ref=f1e859]
+              - row [ref=f1e860]:
+                - cell [ref=f1e861]:
+                  - generic [ref=f1e862]:
+                    - button "SQLite database" [ref=f1e863]
+                    - link "tpv-e7be13e4-1092-4749-97bb-054f997ea8af" [ref=f1e868] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-e7be13e4-1092-4749-97bb-054f997ea8af
+                - cell "Database" [ref=f1e869]
+                - cell "0" [ref=f1e871]
+                - cell "0" [ref=f1e872]
+                - cell "0 B" [ref=f1e873]
+                - cell "651.26 KB" [ref=f1e874]
+                - cell "default" [ref=f1e875]
+                - cell "Active" [ref=f1e879]
+                - cell [ref=f1e881]:
+                  - generic [ref=f1e882]:
+                    - link [ref=f1e883] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-e7be13e4-1092-4749-97bb-054f997ea8af/data
+                      - button "Edit Data" [ref=f1e884]
+                    - button [ref=f1e886]
+              - row [ref=f1e887]:
+                - cell [ref=f1e888]:
+                  - generic [ref=f1e889]:
+                    - button "SQLite database" [ref=f1e890]
+                    - link "tpv-e8f204c3-eb93-4ce7-be07-052e03d317c1" [ref=f1e895] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-e8f204c3-eb93-4ce7-be07-052e03d317c1
+                - cell "Database" [ref=f1e896]
+                - cell "0" [ref=f1e898]
+                - cell "0" [ref=f1e899]
+                - cell "0 B" [ref=f1e900]
+                - cell "0 B" [ref=f1e901]
+                - cell "default" [ref=f1e902]
+                - cell "Active" [ref=f1e906]
+                - cell [ref=f1e908]:
+                  - generic [ref=f1e909]:
+                    - link [ref=f1e910] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-e8f204c3-eb93-4ce7-be07-052e03d317c1/data
+                      - button "Edit Data" [ref=f1e911]
+                    - button [ref=f1e913]
+              - row [ref=f1e914]:
+                - cell [ref=f1e915]:
+                  - generic [ref=f1e916]:
+                    - button "SQLite database" [ref=f1e917]
+                    - link "tpv-e92f1138-2755-4cfa-80ff-af946a7f1e01" [ref=f1e922] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-e92f1138-2755-4cfa-80ff-af946a7f1e01
+                - cell "Database" [ref=f1e923]
+                - cell "0" [ref=f1e925]
+                - cell "0" [ref=f1e926]
+                - cell "0 B" [ref=f1e927]
+                - cell "659.46 KB" [ref=f1e928]
+                - cell "default" [ref=f1e929]
+                - cell "Active" [ref=f1e933]
+                - cell [ref=f1e935]:
+                  - generic [ref=f1e936]:
+                    - link [ref=f1e937] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-e92f1138-2755-4cfa-80ff-af946a7f1e01/data
+                      - button "Edit Data" [ref=f1e938]
+                    - button [ref=f1e940]
+              - row [ref=f1e941]:
+                - cell [ref=f1e942]:
+                  - generic [ref=f1e943]:
+                    - button "SQLite database" [ref=f1e944]
+                    - link "tpv-f18ed450-4f79-4d6c-bfb1-44ebff98ac64" [ref=f1e949] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-f18ed450-4f79-4d6c-bfb1-44ebff98ac64
+                - cell "Database" [ref=f1e950]
+                - cell "0" [ref=f1e952]
+                - cell "0" [ref=f1e953]
+                - cell "0 B" [ref=f1e954]
+                - cell "651.26 KB" [ref=f1e955]
+                - cell "default" [ref=f1e956]
+                - cell "Active" [ref=f1e960]
+                - cell [ref=f1e962]:
+                  - generic [ref=f1e963]:
+                    - link [ref=f1e964] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-f18ed450-4f79-4d6c-bfb1-44ebff98ac64/data
+                      - button "Edit Data" [ref=f1e965]
+                    - button [ref=f1e967]
+              - row [ref=f1e968]:
+                - cell [ref=f1e969]:
+                  - generic [ref=f1e970]:
+                    - button "SQLite database" [ref=f1e971]
+                    - link "tpv-f1c63ccd-7b95-4c95-b4b7-6c608b46dfaa" [ref=f1e976] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-f1c63ccd-7b95-4c95-b4b7-6c608b46dfaa
+                - cell "Database" [ref=f1e977]
+                - cell "0" [ref=f1e979]
+                - cell "0" [ref=f1e980]
+                - cell "0 B" [ref=f1e981]
+                - cell "638.98 KB" [ref=f1e982]
+                - cell "default" [ref=f1e983]
+                - cell "Active" [ref=f1e987]
+                - cell [ref=f1e989]:
+                  - generic [ref=f1e990]:
+                    - link [ref=f1e991] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-f1c63ccd-7b95-4c95-b4b7-6c608b46dfaa/data
+                      - button "Edit Data" [ref=f1e992]
+                    - button [ref=f1e994]
+              - row [ref=f1e995]:
+                - cell [ref=f1e996]:
+                  - generic [ref=f1e997]:
+                    - button "SQLite database" [ref=f1e998]
+                    - link "tpv-f241179d-1d85-4ad6-b790-878bbc3da68a" [ref=f1e1003] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-f241179d-1d85-4ad6-b790-878bbc3da68a
+                - cell "Database" [ref=f1e1004]
+                - cell "0" [ref=f1e1006]
+                - cell "0" [ref=f1e1007]
+                - cell "0 B" [ref=f1e1008]
+                - cell "659.46 KB" [ref=f1e1009]
+                - cell "default" [ref=f1e1010]
+                - cell "Active" [ref=f1e1014]
+                - cell [ref=f1e1016]:
+                  - generic [ref=f1e1017]:
+                    - link [ref=f1e1018] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-f241179d-1d85-4ad6-b790-878bbc3da68a/data
+                      - button "Edit Data" [ref=f1e1019]
+                    - button [ref=f1e1021]
+              - row [ref=f1e1022]:
+                - cell [ref=f1e1023]:
+                  - generic [ref=f1e1024]:
+                    - button "SQLite database" [ref=f1e1025]
+                    - link "tpv-f25fa572-3537-487b-afad-7f151d4ca40f" [ref=f1e1030] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-f25fa572-3537-487b-afad-7f151d4ca40f
+                - cell "Database" [ref=f1e1031]
+                - cell "793" [ref=f1e1033]
+                - cell "0" [ref=f1e1034]
+                - cell "0 B" [ref=f1e1035]
+                - cell "860.16 KB" [ref=f1e1036]
+                - cell "default" [ref=f1e1037]
+                - cell "Active" [ref=f1e1041]
+                - cell [ref=f1e1043]:
+                  - generic [ref=f1e1044]:
+                    - link [ref=f1e1045] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-f25fa572-3537-487b-afad-7f151d4ca40f/data
+                      - button "Edit Data" [ref=f1e1046]
+                    - button [ref=f1e1048]
+              - row [ref=f1e1049]:
+                - cell [ref=f1e1050]:
+                  - generic [ref=f1e1051]:
+                    - button "SQLite database" [ref=f1e1052]
+                    - link "tpv-f5834085-ce93-481e-8fdd-a13411b39248" [ref=f1e1057] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-f5834085-ce93-481e-8fdd-a13411b39248
+                - cell "Database" [ref=f1e1058]
+                - cell "0" [ref=f1e1060]
+                - cell "0" [ref=f1e1061]
+                - cell "0 B" [ref=f1e1062]
+                - cell "0 B" [ref=f1e1063]
+                - cell "default" [ref=f1e1064]
+                - cell "Active" [ref=f1e1068]
+                - cell [ref=f1e1070]:
+                  - generic [ref=f1e1071]:
+                    - link [ref=f1e1072] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-f5834085-ce93-481e-8fdd-a13411b39248/data
+                      - button "Edit Data" [ref=f1e1073]
+                    - button [ref=f1e1075]
+              - row [ref=f1e1076]:
+                - cell [ref=f1e1077]:
+                  - generic [ref=f1e1078]:
+                    - button "SQLite database" [ref=f1e1079]
+                    - link "tpv-f9575078-7345-4eed-bd8d-86969703134d" [ref=f1e1084] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-f9575078-7345-4eed-bd8d-86969703134d
+                - cell "Database" [ref=f1e1085]
+                - cell "0" [ref=f1e1087]
+                - cell "0" [ref=f1e1088]
+                - cell "0 B" [ref=f1e1089]
+                - cell "651.26 KB" [ref=f1e1090]
+                - cell "default" [ref=f1e1091]
+                - cell "Active" [ref=f1e1095]
+                - cell [ref=f1e1097]:
+                  - generic [ref=f1e1098]:
+                    - link [ref=f1e1099] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-f9575078-7345-4eed-bd8d-86969703134d/data
+                      - button "Edit Data" [ref=f1e1100]
+                    - button [ref=f1e1102]
+              - row [ref=f1e1103]:
+                - cell [ref=f1e1104]:
+                  - generic [ref=f1e1105]:
+                    - button "SQLite database" [ref=f1e1106]
+                    - link "tpv-fb5e8df6-a728-43a9-835c-b983d0ac01c1" [ref=f1e1111] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-fb5e8df6-a728-43a9-835c-b983d0ac01c1
+                - cell "Database" [ref=f1e1112]
+                - cell "0" [ref=f1e1114]
+                - cell "0" [ref=f1e1115]
+                - cell "0 B" [ref=f1e1116]
+                - cell "638.98 KB" [ref=f1e1117]
+                - cell "default" [ref=f1e1118]
+                - cell "Active" [ref=f1e1122]
+                - cell [ref=f1e1124]:
+                  - generic [ref=f1e1125]:
+                    - link [ref=f1e1126] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-fb5e8df6-a728-43a9-835c-b983d0ac01c1/data
+                      - button "Edit Data" [ref=f1e1127]
+                    - button [ref=f1e1129]
+              - row [ref=f1e1130]:
+                - cell [ref=f1e1131]:
+                  - generic [ref=f1e1132]:
+                    - button "SQLite database" [ref=f1e1133]
+                    - link "tpv-fdd40659-9ee1-4eb5-ac7e-c1e54782912a" [ref=f1e1138] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-fdd40659-9ee1-4eb5-ac7e-c1e54782912a
+                - cell "Database" [ref=f1e1139]
+                - cell "0" [ref=f1e1141]
+                - cell "0" [ref=f1e1142]
+                - cell "0 B" [ref=f1e1143]
+                - cell "856.06 KB" [ref=f1e1144]
+                - cell "default" [ref=f1e1145]
+                - cell "Active" [ref=f1e1149]
+                - cell [ref=f1e1151]:
+                  - generic [ref=f1e1152]:
+                    - link [ref=f1e1153] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpv-fdd40659-9ee1-4eb5-ac7e-c1e54782912a/data
+                      - button "Edit Data" [ref=f1e1154]
+                    - button [ref=f1e1156]
+              - row [ref=f1e1157]:
+                - cell [ref=f1e1158]:
+                  - generic [ref=f1e1159]:
+                    - button "SQLite database" [ref=f1e1160]
+                    - link "tpvcontrol" [ref=f1e1165] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpvcontrol
+                - cell "Database" [ref=f1e1166]
+                - cell "48.033" [ref=f1e1168]
+                - cell "7011" [ref=f1e1169]
+                - cell "0 B" [ref=f1e1170]
+                - cell "1.2 MB" [ref=f1e1171]
+                - cell "default" [ref=f1e1172]
+                - cell "Active" [ref=f1e1176]
+                - cell [ref=f1e1178]:
+                  - generic [ref=f1e1179]:
+                    - link [ref=f1e1180] [cursor=pointer]:
+                      - /url: /altarialights/databases/tpvcontrol/data
+                      - button "Edit Data" [ref=f1e1181]
+                    - button [ref=f1e1183]
+          - generic [ref=f1e1185]:
+            - generic [ref=f1e1186]: Showing 50 databases per page
+            - generic [ref=f1e1187]:
+              - combobox [ref=f1e1188]:
+                - generic: 50 per page
+              - navigation [ref=f1e1189]:
+                - button "Next page" [disabled]: Next

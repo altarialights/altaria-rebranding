@@ -1,0 +1,118 @@
+- generic [active] [ref=f119e1]:
+  - link "Saltar al contenido" [ref=f119e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f119e3]:
+    - complementary "Panel de navegación" [ref=f119e4]:
+      - generic [ref=f119e5]:
+        - link "Altaria OS, inicio" [ref=f119e6] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f119e7]
+          - generic [ref=f119e8]: OS
+        - paragraph [ref=f119e10]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f119e11]:
+        - paragraph [ref=f119e12]: PLATAFORMA
+        - link "Inicio" [ref=f119e13] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f119e18] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards En preparación" [ref=f119e23] [cursor=pointer]:
+          - /url: /admin/cards
+          - generic [ref=f119e27]: Cards
+          - generic "En preparación" [ref=f119e28]: ·
+        - link "Informes En preparación" [ref=f119e29] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f119e33]: Informes
+          - generic "En preparación" [ref=f119e34]: ·
+        - link "Configuración En preparación" [ref=f119e35] [cursor=pointer]:
+          - /url: /admin/configuracion
+          - generic [ref=f119e39]: Configuración
+          - generic "En preparación" [ref=f119e40]: ·
+      - generic [ref=f119e41]:
+        - generic [ref=f119e46]:
+          - text: Área privada
+          - strong [ref=f119e47]: Acceso protegido
+        - link "Ver sitio público" [ref=f119e48] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f119e49]: ↗
+    - generic [ref=f119e50]:
+      - banner [ref=f119e51]:
+        - button "Abrir navegación" [ref=f119e52] [cursor=pointer]
+        - generic [ref=f119e55]:
+          - text: ALTARIA OS /
+          - strong [ref=f119e56]: CRM
+        - generic [ref=f119e57]:
+          - button "Buscar en Altaria OS" [ref=f119e58] [cursor=pointer]
+          - button "Cerrar y revocar esta sesión" [ref=f119e62] [cursor=pointer]: Salir
+      - main [ref=f119e63]:
+        - generic [ref=f119e64]:
+          - generic [ref=f119e65]:
+            - paragraph [ref=f119e66]: CRM / PROPUESTAS
+            - heading "Propuestas." [level=1] [ref=f119e67]
+            - paragraph [ref=f119e68]: De la oportunidad a un documento claro, con versiones y seguimiento.
+          - generic [ref=f119e69]: TEST · CRM EN DESARROLLO
+        - navigation "Navegación del CRM" [ref=f119e71]:
+          - link "Resumen" [ref=f119e72] [cursor=pointer]:
+            - /url: /admin/crm
+          - link "Empresas" [ref=f119e73] [cursor=pointer]:
+            - /url: /admin/crm/empresas
+          - link "Oportunidades" [ref=f119e74] [cursor=pointer]:
+            - /url: /admin/crm/oportunidades
+          - link "Propuestas" [ref=f119e75] [cursor=pointer]:
+            - /url: /admin/crm/propuestas
+          - link "Tareas" [ref=f119e76] [cursor=pointer]:
+            - /url: /admin/crm/tareas
+        - generic [ref=f119e77]:
+          - generic [ref=f119e78]:
+            - paragraph [ref=f119e79]: ALTARIA LIGHTS · TEST
+            - heading "Propuestas que avanzan con cada conversación." [level=2] [ref=f119e80]
+            - paragraph [ref=f119e81]: Prepara alcance, inversión y condiciones. Cada guardado conserva una versión independiente.
+          - link "Elegir oportunidad" [ref=f119e82] [cursor=pointer]:
+            - /url: /admin/crm/empresas
+            - text: Elegir oportunidad
+            - generic [aria-hidden] [ref=f119e83]: ↗
+        - region [ref=f119e84]:
+          - generic [ref=f119e85]:
+            - generic [ref=f119e86]:
+              - heading "Propuestas comerciales" [level=2] [ref=f119e87]
+              - paragraph [ref=f119e88]: Estados reales de esta base TEST; ninguna propuesta equivale a una factura.
+            - generic [ref=f119e89]: "0"
+          - generic [ref=f119e90]:
+            - strong [ref=f119e91]: Aún no hay propuestas.
+            - paragraph [ref=f119e92]: Abre una empresa y crea una propuesta desde una oportunidad activa. El catálogo empieza vacío hasta que registres tus servicios reales.
+            - link "Ver empresas" [ref=f119e93] [cursor=pointer]:
+              - /url: /admin/crm/empresas
+        - generic [ref=f119e94]:
+          - generic [ref=f119e95]:
+            - generic [ref=f119e97]:
+              - heading "Biblioteca comercial" [level=2] [ref=f119e98]
+              - paragraph [ref=f119e99]: Plantillas y partidas reutilizables, sin precios inventados.
+            - generic [ref=f119e100]:
+              - generic [ref=f119e101]: 0 plantillas
+              - generic [ref=f119e102]: 0 productos y servicios
+            - paragraph [ref=f119e103]: Crea una plantilla con alcance y condiciones habituales.
+            - group [ref=f119e104]:
+              - generic "+ Nueva plantilla" [ref=f119e105] [cursor=pointer]
+            - group [ref=f119e106]:
+              - generic "+ Producto o servicio" [ref=f119e107] [cursor=pointer]
+              - option "Servicio" [selected]
+              - option "Producto"
+          - generic [ref=f119e108]:
+            - generic [ref=f119e109]:
+              - generic [ref=f119e110]:
+                - heading "Gmail CRM" [level=2] [ref=f119e111]
+                - paragraph [ref=f119e112]: La conexión permanece separada del acceso Google al administrador.
+              - generic [ref=f119e113]: Pendiente
+            - paragraph [ref=f119e114]:
+              - text: Sólo se procesarán mensajes con la etiqueta
+              - strong [ref=f119e115]: ALTARIA/CRM
+              - text: ". Google concede acceso más amplio mediante `gmail.readonly`; la etiqueta no reduce el permiso OAuth."
+            - paragraph [ref=f119e116]: Conexión real pendiente de Google Cloud, consentimiento y aprobación de permisos restringidos. Los borradores locales no se envían.
+        - generic [ref=f119e117]:
+          - generic [ref=f119e118]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f119e119]: Entorno privado
+  - generic [ref=f119e122]:
+    - button [ref=f119e123]
+    - button [ref=f119e129]
+    - button [ref=f119e133]
+    - button [ref=f119e141]

@@ -1,0 +1,176 @@
+- generic [active] [ref=f317e1]:
+  - link "Saltar al contenido" [ref=f317e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f317e3]:
+    - complementary "Panel de navegación" [ref=f317e4]:
+      - generic [ref=f317e5]:
+        - link "Altaria OS, inicio" [ref=f317e6] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f317e7]
+          - generic [ref=f317e8]: OS
+        - paragraph [ref=f317e10]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f317e11]:
+        - paragraph [ref=f317e12]: PLATAFORMA
+        - link "Inicio" [ref=f317e13] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f317e18] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards" [ref=f317e23] [cursor=pointer]:
+          - /url: /admin/cards
+        - link "Informes En preparación" [ref=f317e28] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f317e32]: Informes
+          - generic "En preparación" [ref=f317e33]: ·
+        - link "Configuración En preparación" [ref=f317e34] [cursor=pointer]:
+          - /url: /admin/configuracion
+          - generic [ref=f317e38]: Configuración
+          - generic "En preparación" [ref=f317e39]: ·
+      - generic [ref=f317e40]:
+        - generic [ref=f317e45]:
+          - text: Área privada
+          - strong [ref=f317e46]: Acceso protegido
+        - link "Ver sitio público" [ref=f317e47] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f317e48]: ↗
+    - generic [ref=f317e49]:
+      - banner [ref=f317e50]:
+        - generic [ref=f317e51]:
+          - text: ALTARIA OS /
+          - strong [ref=f317e52]: Cards
+        - generic [ref=f317e53]:
+          - button "Buscar en Altaria OS" [ref=f317e54] [cursor=pointer]:
+            - generic [ref=f317e58]: ⌘ K
+          - generic "altarialights@gmail.com" [ref=f317e59]:
+            - generic [aria-hidden] [ref=f317e60]: A
+          - button "Cerrar y revocar esta sesión" [ref=f317e63] [cursor=pointer]: Salir
+      - main [ref=f317e64]:
+        - generic [ref=f317e65]:
+          - generic [ref=f317e66]:
+            - paragraph [ref=f317e67]: CARDS / FICHA OPERATIVA
+            - heading "Pedido QA-SINTETICO-226C24DF" [level=1] [ref=f317e68]
+            - paragraph [ref=f317e69]: Diseño, lotes, verificaciones e historial en una sola ficha.
+          - generic [ref=f317e70]: ENTORNO TEST
+        - generic [ref=f317e72]:
+          - link "← Volver a pedidos" [ref=f317e73] [cursor=pointer]:
+            - /url: /admin/cards
+          - generic [ref=f317e74]: TEST · QA-SINTETICO-226C24DF
+        - generic [ref=f317e75]:
+          - generic [ref=f317e76]:
+            - paragraph [ref=f317e77]: Tarjetas de prueba · 4 unidades
+            - heading "NEGOCIO SINTÉTICO · NO ENVIAR" [level=2] [ref=f317e78]
+            - paragraph [ref=f317e79]: Cliente de prueba · cliente@example.test
+          - generic [ref=f317e80]:
+            - generic [ref=f317e81]: Pendiente de pago
+            - generic [ref=f317e82]: Producción sin iniciar
+        - navigation "Secciones del pedido" [ref=f317e83]:
+          - link "Resumen" [ref=f317e84] [cursor=pointer]:
+            - /url: "#resumen"
+          - link "Producción" [ref=f317e85] [cursor=pointer]:
+            - /url: "#produccion"
+          - link "Lotes" [ref=f317e86] [cursor=pointer]:
+            - /url: "#lotes"
+          - link "Incidencias" [ref=f317e87] [cursor=pointer]:
+            - /url: "#incidencias"
+          - link "Historial" [ref=f317e88] [cursor=pointer]:
+            - /url: "#historial"
+        - generic [ref=f317e89]:
+          - generic [ref=f317e90]:
+            - region [ref=f317e91]:
+              - generic [ref=f317e92]:
+                - generic [ref=f317e93]:
+                  - paragraph [ref=f317e94]: CONTEXTO
+                  - heading "Pedido y cliente" [level=2] [ref=f317e95]
+                - strong [ref=f317e96]: 40,00 €
+              - generic [ref=f317e97]:
+                - generic [ref=f317e98]:
+                  - term [ref=f317e99]: Pedido
+                  - definition [ref=f317e100]: QA-SINTETICO-226C24DF
+                - generic [ref=f317e101]:
+                  - term [ref=f317e102]: Creado
+                  - definition [ref=f317e103]: 8 oct 2026, 23:13
+                - generic [ref=f317e104]:
+                  - term [ref=f317e105]: Pago confirmado
+                  - definition [ref=f317e106]: —
+                - generic [ref=f317e107]:
+                  - term [ref=f317e108]: Producto
+                  - definition [ref=f317e109]: Tarjetas de prueba
+                - generic [ref=f317e110]:
+                  - term [ref=f317e111]: Cantidad
+                  - definition [ref=f317e112]: 4 unidades
+                - generic [ref=f317e113]:
+                  - term [ref=f317e114]: Entrega
+                  - definition [ref=f317e115]: Madrid, Madrid
+                - generic [ref=f317e116]:
+                  - term [ref=f317e117]: Empresa CRM
+                  - definition [ref=f317e118]: Sin vincular
+                - generic [ref=f317e119]:
+                  - term [ref=f317e120]: Referencia envío
+                  - definition [ref=f317e121]: —
+              - generic [ref=f317e122]:
+                - heading "Vincular con una empresa" [level=3] [ref=f317e123]
+                - paragraph [ref=f317e124]: Revisa la identidad de la empresa antes de vincular. El enlace es único y queda auditado.
+                - paragraph [ref=f317e125]: No hay empresas CRM para vincular.
+            - region [ref=f317e126]:
+              - generic [ref=f317e128]:
+                - paragraph [ref=f317e129]: DISEÑO Y PERSONALIZACIÓN
+                - heading "Material de trabajo" [level=2] [ref=f317e130]
+              - generic [ref=f317e131]:
+                - generic [ref=f317e132]:
+                  - strong [ref=f317e133]: Sin diseño original adjunto
+                  - paragraph [ref=f317e134]: Revisa las instrucciones de personalización antes de registrar la comprobación.
+                - text: "0"
+              - generic [ref=f317e135]:
+                - generic [ref=f317e136]:
+                  - term [ref=f317e137]: Tipo de diseño
+                  - definition [ref=f317e138]: Sin especificar
+                - generic [ref=f317e139]:
+                  - term [ref=f317e140]: Destino solicitado
+                  - definition [ref=f317e141]: Sin especificar
+            - region [ref=f317e142]:
+              - generic [ref=f317e144]:
+                - paragraph [ref=f317e145]: FLUJO DE TALLER
+                - heading "Producción" [level=2] [ref=f317e146]
+                - paragraph [ref=f317e147]: Las comprobaciones físicas solo se registran mediante una acción humana.
+              - generic [ref=f317e148]:
+                - heading "Pendiente de pago test." [level=3] [ref=f317e149]
+                - paragraph [ref=f317e150]: No se puede iniciar producción hasta que Stripe test confirme el pago.
+            - region [ref=f317e151]:
+              - generic [ref=f317e153]:
+                - paragraph [ref=f317e154]: TRAZABILIDAD
+                - heading "Lotes y unidades" [level=2] [ref=f317e155]
+                - paragraph [ref=f317e156]: 0 de 4 unidades asignadas.
+              - paragraph [ref=f317e157]: Aún no se ha creado ningún lote.
+          - complementary "Control del pedido" [ref=f317e158]:
+            - region [ref=f317e159]:
+              - generic [ref=f317e161]:
+                - paragraph [ref=f317e162]: CONTROL
+                - heading "Prioridad" [level=2] [ref=f317e163]
+              - paragraph [ref=f317e164]: Organiza el taller sin cambiar el pago ni la etapa.
+              - strong [ref=f317e165]: Normal
+            - region [ref=f317e166]:
+              - generic [ref=f317e167]:
+                - generic [ref=f317e168]:
+                  - paragraph [ref=f317e169]: CALIDAD
+                  - heading "Incidencias" [level=2] [ref=f317e170]
+                - generic [ref=f317e171]: "0"
+              - paragraph [ref=f317e172]: Sin incidencias registradas.
+        - region [ref=f317e173]:
+          - generic [ref=f317e175]:
+            - paragraph [ref=f317e176]: TRAZABILIDAD
+            - heading "Historial del pedido" [level=2] [ref=f317e177]
+          - generic [ref=f317e178]:
+            - generic [ref=f317e179]:
+              - heading "Producción" [level=3] [ref=f317e180]
+              - paragraph [ref=f317e181]: Sin acciones de producción.
+            - generic [ref=f317e182]:
+              - heading "Pedido y pago" [level=3] [ref=f317e183]
+              - paragraph [ref=f317e184]: Sin eventos de pedido.
+        - generic [ref=f317e185]:
+          - generic [ref=f317e186]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f317e187]: Entorno privado
+  - generic [ref=f317e190]:
+    - button [ref=f317e191]
+    - button [ref=f317e197]
+    - button [ref=f317e201]
+    - button [ref=f317e206]

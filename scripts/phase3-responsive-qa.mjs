@@ -16,6 +16,7 @@
  */
 
 import { chromium } from 'playwright';
+import { assertLocalQaUrl } from './lib/local-qa-url.mjs';
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
@@ -28,6 +29,7 @@ const arg = (name, fallback) => {
 };
 
 const BASE = arg('base', process.env.BASE_URL ?? 'http://127.0.0.1:4327');
+assertLocalQaUrl(BASE);
 const OUT = path.resolve(arg('out', process.env.OUT ?? 'review/phase3-responsive-qa'));
 const SETTLE_MS = Number(arg('settle', process.env.QA_SETTLE_MS ?? 180));
 const SOFT_EXIT = process.argv.includes('--soft');
@@ -140,7 +142,7 @@ async function ensurePreview() {
   }
 
   const target = new URL(BASE);
-  const astroBin = path.resolve('node_modules/astro/astro.js');
+  const astroBin = path.resolve('node_modules/astro/bin/astro.mjs');
   const child = spawn(
     process.execPath,
     [astroBin, 'preview', '--host', target.hostname, '--port', target.port || '80'],

@@ -12,9 +12,11 @@
  *   node scripts/shoot.mjs devices|beats|faces|variants
  */
 import { chromium } from 'playwright';
+import { assertLocalQaUrl } from './lib/local-qa-url.mjs';
 import { mkdirSync } from 'node:fs';
 
 const BASE = process.env.BASE_URL ?? 'http://localhost:4321';
+assertLocalQaUrl(BASE);
 const OUT = 'review';
 const only = process.argv[2] ?? 'all';
 

@@ -1,0 +1,221 @@
+- generic [active] [ref=f49e1]:
+  - link "Saltar al contenido" [ref=f49e2] [cursor=pointer]:
+    - /url: "#admin-content"
+  - generic [ref=f49e3]:
+    - complementary "Panel de navegación" [ref=f49e4]:
+      - button "Cerrar navegación" [ref=f49e5] [cursor=pointer]
+      - generic [ref=f49e8]:
+        - link "Altaria OS, inicio" [ref=f49e9] [cursor=pointer]:
+          - /url: /admin
+          - img "Altaria Lights" [ref=f49e10]
+          - generic [ref=f49e11]: OS
+        - paragraph [ref=f49e13]: ESPACIO PRIVADO · ALTARIA LIGHTS
+      - navigation "Principal" [ref=f49e14]:
+        - paragraph [ref=f49e15]: PLATAFORMA
+        - link "Inicio" [ref=f49e16] [cursor=pointer]:
+          - /url: /admin
+        - link "CRM" [ref=f49e21] [cursor=pointer]:
+          - /url: /admin/crm
+        - link "Cards" [ref=f49e26] [cursor=pointer]:
+          - /url: /admin/cards
+        - link "Informes En preparación" [ref=f49e31] [cursor=pointer]:
+          - /url: /admin/informes
+          - generic [ref=f49e35]: Informes
+          - generic "En preparación" [ref=f49e36]: ·
+        - link "Configuración" [ref=f49e37] [cursor=pointer]:
+          - /url: /admin/configuracion
+      - generic [ref=f49e42]:
+        - generic [ref=f49e47]:
+          - text: Área privada
+          - strong [ref=f49e48]: Acceso protegido
+        - link "Ver sitio público" [ref=f49e49] [cursor=pointer]:
+          - /url: /
+          - text: Ver sitio público
+          - generic [aria-hidden] [ref=f49e50]: ↗
+    - generic [ref=f49e51]:
+      - banner [ref=f49e52]:
+        - button "Abrir navegación" [ref=f49e53] [cursor=pointer]
+        - generic [ref=f49e56]:
+          - text: ALTARIA OS /
+          - strong [ref=f49e57]: CRM
+        - generic [ref=f49e58]:
+          - button "Buscar en Altaria OS" [ref=f49e59] [cursor=pointer]
+          - button "Cerrar y revocar esta sesión" [ref=f49e63] [cursor=pointer]: Salir
+      - main [ref=f49e64]:
+        - generic [ref=f49e65]:
+          - generic [ref=f49e66]:
+            - paragraph [ref=f49e67]: CRM / FICHA DE EMPRESA
+            - heading "Ficha de empresa." [level=1] [ref=f49e68]
+            - paragraph [ref=f49e69]: Un lugar para cuidar la relación comercial y mantener el siguiente paso claro.
+          - generic [ref=f49e70]: ENTORNO TEST
+        - navigation "Navegación del CRM" [ref=f49e72]:
+          - link "Resumen" [ref=f49e73] [cursor=pointer]:
+            - /url: /admin/crm
+          - link "Empresas" [ref=f49e74] [cursor=pointer]:
+            - /url: /admin/crm/empresas
+          - link "Oportunidades" [ref=f49e75] [cursor=pointer]:
+            - /url: /admin/crm/oportunidades
+          - link "Propuestas" [ref=f49e76] [cursor=pointer]:
+            - /url: /admin/crm/propuestas
+          - link "Tareas" [ref=f49e77] [cursor=pointer]:
+            - /url: /admin/crm/tareas
+          - link "Guía comercial" [ref=f49e78] [cursor=pointer]:
+            - /url: /admin/crm/guia-comercial
+        - generic [ref=f49e79]:
+          - link "← Todas las empresas" [ref=f49e80] [cursor=pointer]:
+            - /url: /admin/crm/empresas
+          - generic [ref=f49e81]: TEST · FICHA COMERCIAL
+        - status [ref=f49e82]: Ficha guardada.
+        - generic [ref=f49e83]:
+          - generic [ref=f49e84]:
+            - heading "Empresa DEMO TEST Sales OS" [level=2] [ref=f49e85]
+            - paragraph [ref=f49e86]: Restauración · Ciudad sintética
+          - link "Añadir actividad" [ref=f49e87] [cursor=pointer]:
+            - /url: "#quick-actions"
+            - text: Añadir actividad
+            - generic [aria-hidden] [ref=f49e88]: ↓
+        - region "Guía comercial contextual" [ref=f49e89]:
+          - generic [ref=f49e90]:
+            - generic [ref=f49e91]:
+              - heading "Preparar la conversación" [level=2] [ref=f49e92]
+              - paragraph [ref=f49e93]: Guiones, objeciones y siguientes pasos con los datos verificados de esta empresa.
+            - link "Abrir guía comercial" [ref=f49e94] [cursor=pointer]:
+              - /url: /admin/crm/guia-comercial?empresa=19c72710-e8f6-4d49-9c93-00b2e1d65e3d
+        - generic [ref=f49e95]:
+          - generic [ref=f49e96]:
+            - region [ref=f49e97]:
+              - generic [ref=f49e98]:
+                - generic [ref=f49e99]:
+                  - heading "Información general" [level=2] [ref=f49e100]
+                  - paragraph [ref=f49e101]: Contexto esencial y responsable de la relación.
+                - generic [ref=f49e102]: Alta manual
+              - generic [ref=f49e103]:
+                - generic [ref=f49e104]:
+                  - term [ref=f49e105]: Sector
+                  - definition [ref=f49e106]: Restauración
+                - generic [ref=f49e107]:
+                  - term [ref=f49e108]: Ubicación
+                  - definition [ref=f49e109]: Ciudad sintética, ES
+                - generic [ref=f49e110]:
+                  - term [ref=f49e111]: Responsable
+                  - definition [ref=f49e112]: altarialights@gmail.com
+                - generic [ref=f49e113]:
+                  - term [ref=f49e114]: Sitio web
+                  - definition [ref=f49e115]: Sin añadir
+              - group [ref=f49e116]:
+                - generic "Editar datos de empresa" [ref=f49e117] [cursor=pointer]
+                - option "Alta manual" [selected]
+                - option "Diagnóstico digital"
+                - option "Consulta Cards"
+                - option "Pedido Cards"
+                - option "Otro origen"
+                - option "altarialights@gmail.com" [selected]
+            - region [ref=f49e118]:
+              - generic [ref=f49e119]:
+                - generic [ref=f49e120]:
+                  - heading "Personas de contacto" [level=2] [ref=f49e121]
+                  - paragraph [ref=f49e122]: Personas vinculadas a esta empresa.
+                - generic [ref=f49e123]: "0"
+              - generic [ref=f49e124]:
+                - strong [ref=f49e125]: Aún no hay contactos.
+                - paragraph [ref=f49e126]: Añade a la persona que lleva la conversación.
+              - group [ref=f49e127]:
+                - generic "+ Añadir contacto" [ref=f49e128] [cursor=pointer]
+            - region [ref=f49e129]:
+              - generic [ref=f49e130]:
+                - generic [ref=f49e131]:
+                  - heading "Oportunidades" [level=2] [ref=f49e132]
+                  - paragraph [ref=f49e133]: Varias conversaciones pueden avanzar en paralelo.
+                - link "Ver pipeline" [ref=f49e134] [cursor=pointer]:
+                  - /url: /admin/crm/oportunidades
+              - generic [ref=f49e135]:
+                - strong [ref=f49e136]: Sin oportunidades todavía.
+                - paragraph [ref=f49e137]: Registra la primera conversación cuando exista una posibilidad comercial concreta.
+              - group [ref=f49e138]:
+                - generic "+ Crear oportunidad" [ref=f49e139] [cursor=pointer]
+                - option "Yo" [selected]
+                - option "altarialights@gmail.com"
+            - region [ref=f49e140]:
+              - generic [ref=f49e141]:
+                - generic [ref=f49e142]:
+                  - heading "Propuestas" [level=2] [ref=f49e143]
+                  - paragraph [ref=f49e144]: Documentos comerciales y decisiones vinculados a esta empresa.
+                - link "Ver todas" [ref=f49e145] [cursor=pointer]:
+                  - /url: /admin/crm/propuestas
+              - generic [ref=f49e146]:
+                - strong [ref=f49e147]: Aún no hay propuestas.
+                - paragraph [ref=f49e148]: Crea una desde una oportunidad activa de esta empresa.
+            - region [ref=f49e149]:
+              - generic [ref=f49e150]:
+                - generic [ref=f49e151]:
+                  - heading "Conversaciones y respuestas" [level=2] [ref=f49e152]
+                  - paragraph [ref=f49e153]: Sólo hilos etiquetados ALTARIA/CRM y borradores locales pendientes de revisión.
+                - generic [ref=f49e154]: 0 hilos
+              - generic [ref=f49e155]:
+                - strong [ref=f49e156]: Sin conversaciones sincronizadas.
+                - paragraph [ref=f49e157]: Gmail permanece pendiente de configuración externa. Los borradores se pueden preparar aquí sin enviar.
+            - region [ref=f49e158]:
+              - generic [ref=f49e159]:
+                - generic [ref=f49e160]:
+                  - heading "Actividad" [level=2] [ref=f49e161]
+                  - paragraph [ref=f49e162]: Llamadas, visitas, reuniones y notas en contexto.
+                - generic [ref=f49e163]: "0"
+              - generic [ref=f49e164]:
+                - strong [ref=f49e165]: Aún no hay actividades.
+                - paragraph [ref=f49e166]: Una nota breve basta para que el equipo conozca el último contacto.
+              - group [ref=f49e167]:
+                - generic "+ Registrar actividad" [ref=f49e168] [cursor=pointer]
+                - option "Llamada" [selected]
+                - option "Visita"
+                - option "Reunión"
+                - option "Nota"
+                - option "General de la empresa" [selected]
+                - option "Sin contacto concreto" [selected]
+            - region [ref=f49e169]:
+              - generic [ref=f49e170]:
+                - generic [ref=f49e171]:
+                  - heading "Tareas y seguimientos" [level=2] [ref=f49e172]
+                  - paragraph [ref=f49e173]: La próxima acción queda siempre visible.
+                - link "Ver tareas" [ref=f49e174] [cursor=pointer]:
+                  - /url: /admin/crm/tareas
+              - generic [ref=f49e175]:
+                - strong [ref=f49e176]: Sin tareas para esta empresa.
+                - paragraph [ref=f49e177]: Crea una tarea o genera un seguimiento desde una actividad.
+              - group [ref=f49e178]:
+                - generic "+ Crear tarea" [ref=f49e179] [cursor=pointer]
+                - option "General" [selected]
+                - option "Sin contacto" [selected]
+                - option "Yo" [selected]
+                - option "altarialights@gmail.com"
+            - region [ref=f49e180]:
+              - generic [ref=f49e182]:
+                - heading "Pedidos y fuentes" [level=2] [ref=f49e183]
+                - paragraph [ref=f49e184]: Vínculos verificados con registros históricos de TEST, sin alterar su contenido.
+              - generic [ref=f49e185]:
+                - strong [ref=f49e186]: Sin fuentes vinculadas.
+                - paragraph [ref=f49e187]: Los registros existentes se asociarán tras revisar su identidad y procedencia.
+              - group [ref=f49e188]:
+                - generic "Vincular registro TEST" [ref=f49e189] [cursor=pointer]
+                - option "Diagnóstico digital" [selected]
+                - option "Consulta Cards"
+                - option "Pedido Cards"
+          - complementary "Seguimiento de empresa" [ref=f49e190]:
+            - generic [ref=f49e191]:
+              - generic [ref=f49e193]:
+                - heading "Próxima acción" [level=2] [ref=f49e194]
+                - paragraph [ref=f49e195]: El siguiente paso del equipo.
+              - generic [ref=f49e196]:
+                - strong [ref=f49e197]: Sin próxima acción.
+                - paragraph [ref=f49e198]: Añade una tarea para dar continuidad a la relación.
+            - generic [ref=f49e199]:
+              - generic [ref=f49e201]:
+                - heading "Historia de la relación" [level=2] [ref=f49e202]
+                - paragraph [ref=f49e203]: Cambios y decisiones con autor y fecha.
+              - list [ref=f49e204]:
+                - listitem [ref=f49e205]:
+                  - strong [ref=f49e206]: Empresa creada
+                  - time [ref=f49e207]: 13 oct 2026, 12:26
+                  - generic [ref=f49e208]: altarialights@gmail.com
+        - generic [ref=f49e209]:
+          - generic [ref=f49e210]: ALTARIA OS / Diseñado para trabajar con claridad.
+          - generic [ref=f49e211]: Entorno privado

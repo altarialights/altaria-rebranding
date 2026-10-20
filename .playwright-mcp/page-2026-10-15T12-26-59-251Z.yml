@@ -1,0 +1,192 @@
+- generic [ref=f25e3]:
+  - generic [ref=f25e4]:
+    - link "Skip to main content" [ref=f25e5] [cursor=pointer]:
+      - /url: "#main-_R_35tamcnmlb_"
+    - banner [ref=f25e6]:
+      - generic [ref=f25e7]:
+        - 'button "Change project, current project: Altarialights''s Project" [ref=f25e9] [cursor=pointer]':
+          - generic [ref=f25e11]: Altarialights's Project
+        - button "Show suggestions" [ref=f25e18] [cursor=pointer]:
+          - generic [ref=f25e19]: Staging
+          - generic [ref=f25e23]: Staging
+      - generic [ref=f25e26]:
+        - generic [ref=f25e27]:
+          - button "Search" [ref=f25e29] [cursor=pointer]
+          - generic [ref=f25e32]:
+            - link "Docs" [ref=f25e34] [cursor=pointer]:
+              - /url: https://workos.com/docs
+            - link [ref=f25e37] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/notifications
+              - img "Notifications" [ref=f25e38]
+        - button "Your profile" [ref=f25e40] [cursor=pointer]
+    - navigation "app" [ref=f25e42]:
+      - generic [ref=f25e43]:
+        - link "Overview" [ref=f25e47] [cursor=pointer]:
+          - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/get-started
+        - button [ref=f25e56] [cursor=pointer]
+      - generic [ref=f25e61]:
+        - generic [ref=f25e66]:
+          - generic [ref=f25e67]:
+            - link "Overview" [ref=f25e68] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/get-started
+            - link "Organizations" [ref=f25e74] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/organizations
+            - link "Users" [ref=f25e81] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/users
+            - link "Agents" [ref=f25e88] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/agents/agent-auth
+            - link "Applications" [ref=f25e95] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/applications
+          - generic [ref=f25e103]:
+            - generic [ref=f25e105]: Products
+            - link "Authentication" [ref=f25e107] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication
+            - link "Authorization" [ref=f25e113] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authorization
+            - link "Radar" [ref=f25e120] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/radar
+            - link "Audit Logs" [ref=f25e127] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/audit-logs
+            - link "Feature Flags" [ref=f25e135] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/flags
+            - link "Pipes" [ref=f25e142] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/pipes
+            - link "Connect" [ref=f25e148] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/connect
+            - link "Vault" [ref=f25e155] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/vault
+          - generic [ref=f25e163]:
+            - generic [ref=f25e165]: Developer
+            - link "Admin Portal" [ref=f25e167] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/admin-portal
+            - link "Domains" [ref=f25e173] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/domains
+            - link "API Keys" [ref=f25e179] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/api-keys
+            - link "IdP Attributes" [ref=f25e186] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/identity-provider-attributes
+            - link "Branding" [ref=f25e192] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/branding
+            - link "Emails" [ref=f25e199] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/emails/events
+            - link "Events" [ref=f25e205] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/events
+            - link "Actions" [ref=f25e211] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/actions/logs
+            - link "Webhooks" [ref=f25e217] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/webhooks
+            - link "Test SSO" [ref=f25e223] [cursor=pointer]:
+              - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/test-sso
+        - button "Altarialights's Team" [ref=f25e231] [cursor=pointer]:
+          - generic [aria-hidden] [ref=f25e233]: A
+    - navigation [ref=f25e238]:
+      - generic [ref=f25e241]:
+        - heading "Authentication" [level=2] [ref=f25e243]
+        - generic [ref=f25e244]:
+          - list [ref=f25e246]:
+            - listitem [ref=f25e247]:
+              - link "Analytics" [ref=f25e248] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/analytics
+            - listitem [ref=f25e251]:
+              - link "Methods" [ref=f25e252] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/methods
+            - listitem [ref=f25e255]:
+              - link "Providers" [ref=f25e256] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/oauth-providers
+            - listitem [ref=f25e259]:
+              - link "Features" [ref=f25e260] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/features
+            - listitem [ref=f25e263]:
+              - link "Add-ons" [ref=f25e264] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/integrations
+          - generic [ref=f25e267]:
+            - heading "Related" [level=3] [ref=f25e269]
+            - list [ref=f25e270]:
+              - listitem [ref=f25e271]:
+                - link "Authorization" [ref=f25e272] [cursor=pointer]:
+                  - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authorization
+              - listitem [ref=f25e277]:
+                - link "Branding" [ref=f25e278] [cursor=pointer]:
+                  - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/branding
+              - listitem [ref=f25e283]:
+                - link "Domains" [ref=f25e284] [cursor=pointer]:
+                  - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/domains
+              - listitem [ref=f25e289]:
+                - link "Admin Portal" [ref=f25e290] [cursor=pointer]:
+                  - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/admin-portal
+    - main [ref=f25e297]:
+      - generic [ref=f25e298]:
+        - heading "Features" [level=2] [ref=f25e301]
+        - generic [ref=f25e302]:
+          - article [ref=f25e303]:
+            - generic [ref=f25e304]:
+              - generic [ref=f25e306]:
+                - heading "Hosted UI" [level=3] [ref=f25e307]
+                - paragraph [ref=f25e308]: Users sign in to your app using a customizable hosted authentication UI.
+              - generic [ref=f25e309]: Enabled
+              - generic [ref=f25e315]:
+                - button "Manage" [ref=f25e316] [cursor=pointer]
+                - generic [ref=f25e317]:
+                  - link "zippy-luminance-62-staging.authkit.app" [ref=f25e318] [cursor=pointer]:
+                    - /url: https://zippy-luminance-62-staging.authkit.app
+                  - generic [ref=f25e321]: Staging
+          - article [ref=f25e322]:
+            - generic [ref=f25e323]:
+              - generic [ref=f25e325]:
+                - heading "Sign-up" [level=3] [ref=f25e326]
+                - paragraph [ref=f25e327]: Allow users to sign up for your app and create their own user accounts.
+              - generic [ref=f25e328]: Disabled
+              - button "Enable" [ref=f25e335] [cursor=pointer]
+          - article [ref=f25e336]:
+            - generic [ref=f25e337]:
+              - generic [ref=f25e339]:
+                - heading "Invitations" [level=3] [ref=f25e340]
+                - paragraph [ref=f25e341]: Configure the expiration period for user invitations to join an organization.
+              - generic [ref=f25e342]:
+                - generic [ref=f25e344]:
+                  - term [ref=f25e345]: ‍ Default invitation expiry
+                  - definition [ref=f25e346]: ‍ 7 days
+                - button "Manage" [ref=f25e348] [cursor=pointer]
+          - article [ref=f25e349]:
+            - generic [ref=f25e350]:
+              - generic [ref=f25e352]:
+                - heading "Waitlist" [level=3] [ref=f25e353]
+                - paragraph [ref=f25e354]: Manage access by allowing users to join a waitlist before they can sign up.
+              - generic [ref=f25e355]: Disabled
+              - button "Enable" [ref=f25e362] [cursor=pointer]
+          - article [ref=f25e363]:
+            - generic [ref=f25e364]:
+              - generic [ref=f25e366]:
+                - heading "Multi-factor auth" [level=3] [ref=f25e367]
+                - paragraph [ref=f25e368]: Require non-SSO users to set up multi-factor authentication to sign in.
+              - generic [ref=f25e369]: Required
+              - button "Manage" [ref=f25e376] [cursor=pointer]
+          - article [ref=f25e377]:
+            - generic [ref=f25e378]:
+              - generic [ref=f25e380]:
+                - heading "Localization" [level=3] [ref=f25e381]
+                - paragraph [ref=f25e382]: Automatically display AuthKit’s hosted UI and authentication emails sent by WorkOS in the user’s browser language.
+              - generic [ref=f25e383]: Enabled
+              - generic [ref=f25e388]:
+                - generic [ref=f25e390]:
+                  - term [ref=f25e391]: ‍ Fallback language
+                  - definition [ref=f25e392]: ‍ English (US)
+                - button "Manage" [ref=f25e394] [cursor=pointer]
+          - article [ref=f25e395]:
+            - generic [ref=f25e396]:
+              - generic [ref=f25e398]:
+                - heading "User impersonation" [level=3] [ref=f25e399]
+                - paragraph [ref=f25e400]: Allow team members in the dashboard to sign in as any user of your app.
+              - generic [ref=f25e401]: Disabled
+              - button "Enable" [ref=f25e408] [cursor=pointer]
+          - article [ref=f25e409]:
+            - generic [ref=f25e410]:
+              - generic [ref=f25e412]:
+                - heading "JWT template" [level=3] [ref=f25e413]
+                - paragraph [ref=f25e414]: Augment your session tokens by adding custom metadata.
+              - link "Manage" [ref=f25e417] [cursor=pointer]:
+                - /url: /environment_01M4E26K04FE46CCARC08K8Z4A/authentication/edit-jwt-template
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
