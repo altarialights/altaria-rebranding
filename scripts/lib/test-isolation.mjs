@@ -83,21 +83,6 @@ export function assertTestStripe({ mode, secretKey, webhookSecret, productionEnv
   }
 }
 
-export function assertStagingWorkOS({ clientId, apiKey, redirectUri, cookiePassword, productionEnv = null }) {
-  if (!/^client_[A-Za-z0-9]+$/.test(clientId ?? '')
-    || !apiKey?.startsWith('sk_test_') || apiKey.includes('REPLACE')
-    || redirectUri !== 'http://127.0.0.1:4321/auth/altaria/callback'
-    || !cookiePassword || cookiePassword.length < 32) {
-    throw new Error('WorkOS local requiere credenciales staging y callback loopback exacto.');
-  }
-  if (productionEnv?.WORKOS_API_KEY && apiKey === productionEnv.WORKOS_API_KEY) {
-    throw new Error('WorkOS staging reutiliza una clave de producción.');
-  }
-  if (productionEnv?.WORKOS_CLIENT_ID && clientId === productionEnv.WORKOS_CLIENT_ID) {
-    throw new Error('WorkOS staging reutiliza el Client ID de producción.');
-  }
-}
-
 export function assertTestMarkerFormat(expectedMarker) {
   if (!/^[a-f0-9]{64}$/.test(expectedMarker ?? '')) {
     throw new Error('Falta el marcador aleatorio de 32 bytes de la base TEST.');

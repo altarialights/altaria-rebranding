@@ -21,7 +21,7 @@ const failure = (
   reason: NotificationFailureReason,
   timestamp: string,
   notificationType: NotificationType = NEW_ASSESSMENT_NOTIFICATION,
-): NotificationDeliveryResult => ({
+): Extract<NotificationDeliveryResult, { status: 'failed' }> => ({
   status: 'failed',
   provider: 'telegram',
   notificationType,
@@ -45,7 +45,7 @@ export const sendTelegramMessage = async (
         '[notifications] Telegram no está configurado; se omite la notificación.',
       );
     }
-    return failure('missing_configuration', timestamp, notificationType);
+    return { ...failure('missing_configuration', timestamp, notificationType), retrySafe: true };
   }
 
   const controller = new AbortController();
@@ -69,12 +69,19 @@ export const sendTelegramMessage = async (
           text,
           parse_mode: 'HTML',
           disable_web_page_preview: true,
+          ...(options.inlineKeyboard ? { reply_markup: { inline_keyboard: options.inlineKeyboard } } : {}),
         }),
         signal: controller.signal,
       },
     );
 
-    if (!response.ok) return failure('http_error', timestamp, notificationType);
+    if (!response.ok) {
+      // Only an explicit rejection is safe to retry. A timeout/5xx may follow delivery.
+      let rejected = false;
+      try { rejected = (await response.json()).ok === false; } catch { /* ambiguous */ }
+      return { ...failure('http_error', timestamp, notificationType),
+        retrySafe: rejected && response.status >= 400 && response.status < 500 && response.status !== 408 };
+    }
 
     const payload: unknown = await response.json();
     if (

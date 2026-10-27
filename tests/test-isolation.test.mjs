@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { assertRemoteTestMarker, assertStagingWorkOS, assertTestDatabase, assertTestMarkerFormat, assertTestStripe, tursoHost } from '../scripts/lib/test-isolation.mjs';
+import { assertRemoteTestMarker, assertTestDatabase, assertTestMarkerFormat, assertTestStripe, tursoHost } from '../scripts/lib/test-isolation.mjs';
 import { assertLocalQaUrl } from '../scripts/lib/local-qa-url.mjs';
 
 const production = {
@@ -59,23 +59,6 @@ describe('Stripe TEST preflight', () => {
     { productionEnv: null },
   ])('rejects live, reused, placeholder or ambiguous credentials', (change) => {
     expect(() => assertTestStripe({ ...stripe, ...change })).toThrow();
-  });
-});
-
-describe('WorkOS staging preflight', () => {
-  const staging = {
-    clientId: 'client_SYNTHETIC123', apiKey: 'sk_test_synthetic',
-    redirectUri: 'http://127.0.0.1:4321/auth/altaria/callback',
-    cookiePassword: 'synthetic-cookie-password-longer-than-32-characters',
-    productionEnv: { WORKOS_CLIENT_ID: 'client_PRODUCTION123', WORKOS_API_KEY: 'sk_live_synthetic' },
-  };
-  it('accepts only synthetic staging credentials', () => expect(() => assertStagingWorkOS(staging)).not.toThrow());
-  it.each([
-    { apiKey: 'sk_live_synthetic' }, { apiKey: 'sk_test_REPLACE' },
-    { clientId: 'client_PRODUCTION123' }, { redirectUri: 'https://altarialights.com/callback' },
-    { cookiePassword: 'short' },
-  ])('rejects live, reused or ambiguous configuration', (change) => {
-    expect(() => assertStagingWorkOS({ ...staging, ...change })).toThrow();
   });
 });
 

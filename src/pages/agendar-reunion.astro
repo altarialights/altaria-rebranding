@@ -1,0 +1,91 @@
+---
+import Base from '../layouts/Base.astro';
+import FloatingHeader from '../components/hero/FloatingHeader.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
+import { createWhatsAppUrl, createGmailUrl } from '../lib/contact/service-interests';
+import '../styles/meeting-booking.css';
+const whatsapp = createWhatsAppUrl([]);
+const email = createGmailUrl([]);
+---
+<Base title="Agenda una reunión | Altaria Lights" description="Un primer encuentro para hablar de tu negocio, resolver dudas y encontrar el siguiente paso. Elige un hueco para reunirnos online." canonical="/agendar-reunion">
+  <FloatingHeader alwaysVisible brandHref="/" nav={[{label:'Servicios',href:'/servicios'},{label:'Caso real',href:'/proyectos/de-zamorano'},{label:'Contacto',href:'/contacto'}]} cta={{label:'Hablemos',href:whatsapp}} />
+  <main class="meeting-page">
+    <div class="meeting-sun" aria-hidden="true"></div>
+    <header class="meeting-intro">
+      <div><p class="meeting-kicker">Un primer paso, juntos</p><h1>Tu idea merece<br />una conversación.</h1><p>Dedica un momento a contarnos qué necesita tu negocio.<br class="meeting-desktop" /> Te escuchamos y vemos cómo podemos ayudarte.</p></div>
+      <img src="/media/contacto/optimized/chat-180.webp" width="180" height="180" alt="" decoding="async" />
+    </header>
+    <section class="meeting-shell" id="agenda" aria-labelledby="booking-title" data-meeting-booking>
+      <aside class="meeting-about">
+        <span class="meeting-brand">ALTARIA LIGHTS <span aria-hidden="true">↗</span></span>
+        <h2 id="booking-title">Hablemos<br />de tu proyecto.</h2>
+        <p>Una reunión para conocernos, entender tus objetivos y orientar los siguientes pasos.</p>
+        <ul class="meeting-facts">
+          <li><span aria-hidden="true">◷</span><span data-duration>Duración según disponibilidad</span></li>
+          <li><span aria-hidden="true">↗</span>Videollamada por Google Meet</li>
+          <li><span aria-hidden="true">✓</span>Sin compromiso</li>
+        </ul>
+        <div class="meeting-note"><strong>Una conversación de persona a persona.</strong><p>Al completar la reserva, el hueco será tuyo. Después te escribiremos por WhatsApp para confirmar tu asistencia.</p></div>
+        <a href="/contacto" class="meeting-text-link">¿Prefieres otra forma de contacto? →</a>
+      </aside>
+      <div class="meeting-workspace ph-no-capture" data-ph-capture-attribute-private="true">
+        <ol class="meeting-progress" aria-label="Pasos de la reserva"><li aria-current="step" data-progress="0"><span>1</span> Día y hora</li><li data-progress="1"><span>2</span> Tus datos</li><li data-progress="2"><span>3</span> Revisar</li></ol>
+        <p class="meeting-live" role="status" aria-live="polite" data-live>Cargando la agenda…</p>
+        <div class="meeting-error" role="alert" tabindex="-1" data-error hidden></div>
+        <section data-step="schedule" aria-labelledby="schedule-title">
+          <h3 id="schedule-title" tabindex="-1">Encuentra tu momento</h3>
+          <p class="meeting-subtitle" data-zone>Consultamos los huecos disponibles antes de mostrarlos.</p>
+          <div class="meeting-empty" data-unavailable hidden><strong>No podemos mostrarte la agenda ahora mismo.</strong><p>Puedes escribirnos y buscaremos un momento contigo.</p><a href={whatsapp} target="_blank" rel="noopener noreferrer">Hablar por WhatsApp ↗</a><a href={email} target="_blank" rel="noopener noreferrer">Escribir por email ↗</a><button type="button" class="meeting-secondary" data-reload>Volver a consultar</button></div>
+          <div data-calendar-area hidden>
+            <div class="meeting-calendar-layout">
+              <div class="meeting-calendar">
+                <div class="meeting-month"><button type="button" aria-label="Mes anterior" data-prev>←</button><h4 data-month aria-live="polite"></h4><button type="button" aria-label="Mes siguiente" data-next>→</button></div>
+                <div class="meeting-weekdays" aria-hidden="true"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+                <div class="meeting-days" data-days role="group" aria-label="Días disponibles"></div>
+              </div>
+              <div class="meeting-times"><h4 data-day-title>Elige un día</h4><div data-times role="group" aria-label="Horas disponibles"></div></div>
+            </div>
+            <p class="meeting-selection" data-selection>Selecciona una hora para continuar.</p>
+            <button class="meeting-primary" type="button" data-to-form disabled>Continuar <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+        <section data-step="details" hidden aria-labelledby="details-title">
+          <button type="button" class="meeting-back" data-back-calendar>← Cambiar día u hora</button>
+          <h3 id="details-title" tabindex="-1">Cuéntanos quién eres</h3><p class="meeting-subtitle" data-chosen></p>
+          <form data-form novalidate>
+            <div class="meeting-fields">
+              <label>Tu nombre<input name="name" autocomplete="name" required minlength="2" maxlength="100" aria-describedby="error-name" /><small id="error-name" data-field-error="name"></small></label>
+              <label>Nombre del negocio<input name="business" autocomplete="organization" required minlength="2" maxlength="120" aria-describedby="error-business" /><small id="error-business" data-field-error="business"></small></label>
+              <label>Correo electrónico<input name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="error-email" /><small id="error-email" data-field-error="email"></small></label>
+              <label>Teléfono con prefijo internacional<input name="phone" type="tel" autocomplete="tel" required maxlength="40" placeholder="+34 612 345 678" aria-describedby="phone-help error-phone" /><span id="phone-help" class="meeting-help">Incluye + y el prefijo de tu país.</span><small id="error-phone" data-field-error="phone"></small></label>
+              <label class="meeting-wide">¿En qué podemos ayudarte? <span class="meeting-optional">Opcional</span><textarea name="comment" rows="3" maxlength="600" placeholder="Cuéntanos un poco sobre tu idea…" aria-describedby="comment-help"></textarea><span id="comment-help" class="meeting-help">Máximo 600 caracteres. Evita incluir información sensible.</span></label>
+            </div>
+            <div class="meeting-trap" aria-hidden="true"><label>Sitio web<input name="website" tabindex="-1" autocomplete="off" /></label></div>
+            <label class="meeting-privacy"><input type="checkbox" name="privacy" required aria-describedby="error-privacy" /><span>He leído la <a href="/privacidad" target="_blank" rel="noopener">política de privacidad</a>. Mis datos se usarán para gestionar esta reunión y contactar conmigo sobre ella.</span></label><small id="error-privacy" data-field-error="privacy"></small>
+            <button type="submit" class="meeting-primary">Revisar mi reserva <span aria-hidden="true">→</span></button>
+          </form>
+        </section>
+        <section data-step="review" hidden aria-labelledby="review-title">
+          <button type="button" class="meeting-back" data-back-form>← Editar mis datos</button><h3 id="review-title" tabindex="-1">Todo listo para hablar</h3><p class="meeting-subtitle">Comprueba los datos antes de reservar.</p>
+          <dl class="meeting-review" data-review></dl>
+          <p class="meeting-help">Al reservar bloquearemos el hueco y prepararemos tu enlace de Google Meet. La confirmación de asistencia por WhatsApp llegará después.</p>
+          <button type="button" class="meeting-primary" data-submit>Confirmar reserva <span aria-hidden="true">→</span></button>
+        </section>
+        <section data-step="result" hidden aria-labelledby="result-title">
+          <div class="meeting-result-icon" aria-hidden="true" data-result-icon>◷</div>
+          <h3 id="result-title" tabindex="-1" data-result-title>Estamos preparando tu reunión</h3>
+          <p class="meeting-subtitle" data-result-copy>El hueco está retenido mientras generamos el enlace. Todavía no está confirmada. No necesitas reservar de nuevo.</p>
+          <dl class="meeting-review" data-result-details></dl>
+          <a class="meeting-primary" data-meet hidden target="_blank" rel="noopener noreferrer">Abrir Google Meet ↗</a>
+          <button type="button" class="meeting-secondary" data-status>Consultar estado</button>
+          <button type="button" class="meeting-secondary" data-restart hidden>Elegir otro hueco</button>
+          <p class="meeting-help">Si necesitas ayuda o cambiar la cita, <a href={whatsapp} target="_blank" rel="noopener noreferrer">escríbenos por WhatsApp</a> con tu referencia.</p>
+        </section>
+        <noscript><p class="meeting-empty">Activa JavaScript para consultar la agenda o <a href="/contacto">contacta directamente con nosotros</a>.</p></noscript>
+      </div>
+    </section>
+    <p class="meeting-bottom">Una buena conversación puede ser el comienzo de algo grande.</p>
+  </main>
+  <SiteFooter anchorPrefix="/" />
+</Base>
+<script>import '../scripts/meeting-booking';</script>

@@ -6,7 +6,7 @@ import type {
 
 export const NEW_ASSESSMENT_NOTIFICATION = 'new_assessment' as const;
 export const PAID_CARD_ORDER_NOTIFICATION = 'paid_card_order' as const;
-export type NotificationType = typeof NEW_ASSESSMENT_NOTIFICATION | typeof PAID_CARD_ORDER_NOTIFICATION;
+export type NotificationType = typeof NEW_ASSESSMENT_NOTIFICATION | typeof PAID_CARD_ORDER_NOTIFICATION | 'meeting_booked';
 
 export interface NewAssessmentNotificationInput {
   lead: LeadInput;
@@ -38,6 +38,7 @@ export type NotificationDeliveryResult =
   | (NotificationDeliveryBase & {
       status: 'failed';
       reason: NotificationFailureReason;
+      retrySafe?: boolean;
     });
 
 export interface TelegramEnvironment {
@@ -52,4 +53,5 @@ export interface TelegramServiceOptions {
   development?: boolean;
   warn?: (message: string) => void;
   notificationType?: NotificationType;
+  inlineKeyboard?: ({ text: string; url: string } | { text: string; callback_data: string })[][];
 }

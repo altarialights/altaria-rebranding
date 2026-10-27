@@ -16,13 +16,14 @@ const sitemapPaths = new Set([
   '/branding',
   '/tarjetas-nfc-personalizadas',
   '/contacto',
+  '/agendar-reunion',
   '/medir-nivel-digital',
   '/proyectos/de-zamorano',
 ]);
 
 export default defineConfig({
   site: 'https://altarialights.com',
-  vite: vercelProduction ? {} : { envDir: resolve('review/altaria-os/empty-env') },
+  vite: vercelProduction ? {} : { envDir: resolve('review/empty-env') },
   trailingSlash: 'never',
   integrations: [
     sitemap({
@@ -40,7 +41,7 @@ export default defineConfig({
   ],
   // Vercel only handles routes that explicitly opt out of prerendering.
   // The rest of the site keeps Astro's default static output.
-  adapter: vercel(),
+  adapter: vercel({ maxDuration: 60 }),
   server: { port: 4321, host: true },
   build: { inlineStylesheets: 'auto' },
 });

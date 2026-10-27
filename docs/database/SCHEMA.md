@@ -1,12 +1,33 @@
 # Esquema de datos — Altaria Lights
 
+## Gestión de reuniones desde Telegram (024)
+
+**Producción actualizada el 27/10/2026:** 023 y 024 aplicadas juntas en una transacción `immediate` a `altaria-digital-index-altarialights.aws-eu-west-1.turso.io`, a petición del propietario. Hashes registrados en `meeting_schema_migrations`; esquema previo conservado y `PRAGMA quick_check` correcto. Copia lógica consistente previa (incluidos adjuntos) en el directorio privado ignorado por Git: `review/migrations-production/meetings-before-1793102645124.json`, SHA-256 `94dd0d4fa6e1364b13e461b1dbf057a3692342da0c96c48f4f5104704d062ee1`. No se copiaron datos TEST ni se aplicaron migraciones del CRM. El despliegue del código sigue pendiente. Las referencias posteriores a producción pendiente describen entregas anteriores.
+
+Migración append-only `024_meeting_management.sql` sobre `meeting_bookings`, sin modificar 023 ni las tablas históricas. Añade `calendar_url` (enlace oficial), `cancel_requested_at` (intención durable), `cancelled_at` (cancelación confirmada) y `telegram_edit_pending` (0/1, actualización idempotente del aviso). Las canceladas conservan su fila y pasan a status `failed` para liberar el intervalo mediante los triggers existentes; la API distingue `cancelled` mediante `cancelled_at`. Las ediciones de fechas en Calendar actualizan `starts_at`, `ends_at` y `blocked_until`, conservando margen y restricciones de solapamiento. El lease existente protege conciliación y cancelación. Aplicada en Turso TEST el 27/10/2026; producción pendiente.
+
 ## Objetivo
 
 La base Turso conserva el resultado canónico de cada evaluación, sus respuestas versionadas, la atribución de campaña y el lead profesional que desbloqueó el informe. Ningún dato personal se escribe antes del envío voluntario del último formulario. Las URL públicas usan un token aleatorio; la base solo conserva su SHA-256.
 
 El código usa el SDK remoto actual `@tursodatabase/serverless`, SQL explícito y parámetros posicionales. No existe ORM. `src/lib/db/persistence.service.ts` activa `foreign_keys` y ejecuta todas las inserciones en un único batch `immediate`, que Turso trata como transacción atómica.
 
+## Estado actual
+
+El panel privado y sus servicios se retiraron de la web. Se conserva intacto el esquema público de diagnósticos, pedidos, diseños, pagos y avisos Telegram. No se ha ejecutado ninguna modificación remota. Las migraciones 007–022 se conservan únicamente como historial del experimento en TEST; no deben aplicarse para instalar la web pública. Las secciones Altaria OS que siguen son documentación histórica, no funcionalidades disponibles.
+
 ## Tablas
+
+### Reservas públicas de reuniones (023)
+
+`023_meeting_bookings.sql` es independiente de las migraciones 007–022 y no cambia ninguna tabla existente. Añade `meeting_bookings` y `meeting_rate_limits`. El aplicador TEST registra su SHA-256 en `meeting_schema_migrations` en la misma transacción. Aplicada el 27 de octubre de 2026 en `altaria-os-test`, después de renovar el token y verificar URL y marcador remoto. Se comprobaron concurrencia, leases, restricciones de estado y contadores directamente en Turso; las filas sintéticas se eliminaron al terminar. Producción no modificada.
+
+- `meeting_bookings`: contacto, consentimiento informativo, inicio/fin UTC, zona IANA, fin del bloqueo con margen, estado (`pending`, `confirmed`, `cancelling`, `failed`), ID de calendario, ID de evento determinista, intento de creación, estado/URL Meet, plazo de recuperación, lease, reintentos y resultado de Telegram. Clave de idempotencia única; se guarda solo el SHA-256 del token de consulta y la huella de los datos. La API pública de disponibilidad no devuelve contactos ni IDs de eventos.
+- Los triggers `meeting_no_overlap_insert/update` rechazan intervalos solapados, incluido el margen, en todas las reservas no fallidas. La serialización de escrituras de Turso/SQLite hace efectiva la exclusión incluso ante dos solicitudes simultáneas. El estado confirmado requiere Meet listo y URL persistida. Un hold no se libera por un timeout: primero se concilia/cancela el evento externo.
+- `meeting_rate_limits`: contadores atómicos por HMAC y ventana temporal, con caducidad. Nunca almacena IP ni email en claro. Su limpieza forma parte de la recuperación autenticada.
+- SQL variable parametrizado. No hay panel ni login. El endpoint de recuperación requiere `CRON_SECRET`; las operaciones del visitante requieren origen válido y token privado. La aplicación sigue usando exclusivamente Turso; SQLite en memoria se usa solo para verificar la migración y el repositorio en pruebas sin red.
+
+Configuración, operación y límites de consistencia: [reuniones](../meetings/README.md).
 
 ### Altaria OS Fase 7 — MCP privado (022, solo TEST)
 

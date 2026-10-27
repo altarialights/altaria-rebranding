@@ -8,13 +8,13 @@
     "node": ">=22.12.0 <23"
   },
   "scripts": {
-    "dev": "node scripts/altaria-os-test-dev.mjs",
+    "dev": "node scripts/dev.mjs",
     "build": "astro build",
-    "build:isolated": "node scripts/altaria-os-isolated-build.mjs",
+    "build:isolated": "node scripts/isolated-build.mjs",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "node scripts/altaria-os-unit-test.mjs",
-    "stripe:test:listen": "node scripts/altaria-os-stripe-test-listen.mjs",
+    "test": "node scripts/unit-test.mjs",
+    "stripe:test:listen": "node scripts/stripe-test-listen.mjs",
     "seo:images": "node scripts/generate-seo-images.mjs",
     "shoot": "node scripts/shoot.mjs",
     "shoot:video": "node scripts/preview-video.mjs",
@@ -23,17 +23,12 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
     "@astrojs/vercel": "^11.0.9",
-    "@modelcontextprotocol/server": "^2.3.1",
     "@tursodatabase/serverless": "^1.4.0",
-    "@workos-inc/node": "^10.14.0",
-    "@workos/authkit-astro": "^0.2.1",
     "astro": "^7.2.10",
     "geist": "^1.7.2",
     "gsap": "^3.15.0",
-    "jose": "^6.2.12",
-    "pdf-lib": "^1.17.1",
+    "libphonenumber-js": "^1.13.15",
     "posthog-js": "^1.422.5",
-    "qrcode": "^1.5.4",
     "sharp": "^0.35.4",
     "stripe": "^22.6.1",
     "zod": "^4.6.7"
@@ -41,7 +36,6 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@axe-core/playwright": "^4.13.0",
-    "@types/qrcode": "^1.5.6",
     "playwright": "^1.62.1",
     "typescript": "^5.9.3",
     "vitest": "^4.1.11"

@@ -89,6 +89,9 @@ import LegalPage from '../layouts/LegalPage.astro';
         <li>preparar propuestas o información sobre servicios;</li>
         <li>gestionar una posible relación profesional.</li>
       </ul>
+      <h3>Reservas de reuniones</h3>
+      <p>Si reservas desde /agendar-reunion, tratamos tu nombre, negocio, correo, teléfono internacional, comentario opcional, fecha y zona horaria para organizar la reunión y comunicarnos contigo sobre ella. Turso conserva la reserva; Google Calendar y Google Meet permiten crear el evento, la invitación y la videollamada cuando la conexión está habilitada. Telegram recibe el aviso interno y un mensaje que el equipo revisa antes de enviarlo manualmente por WhatsApp. No se envía WhatsApp automáticamente ni se exige aceptar marketing.</p>
+      <p>La pestaña conserva en sessionStorage una referencia y un token privado para recuperar el estado de la reserva, sin guardar el formulario. Para limitar abusos usamos identificadores derivados de la dirección de red o del correo mediante HMAC y ventanas temporales; no guardamos la dirección de red original en la tabla de límites. Los contadores caducados se eliminan en el proceso de mantenimiento. Las reservas se conservan para gestionar la cita y las consultas relacionadas; puedes solicitar su eliminación por las vías de contacto de esta política, atendiendo a las obligaciones aplicables.</p>
       <h3>Comunicaciones opcionales</h3>
       <p>Enviar contenidos y recursos de Altaria Lights únicamente cuando se haya marcado el consentimiento específico de marketing.</p>
       <h3>Diseños aportados</h3>
@@ -206,7 +209,7 @@ import LegalPage from '../layouts/LegalPage.astro';
       </div>
       <div class="legal-callout">
         <h3>Telegram</h3>
-        <p>Telegram recibe notificaciones internas sobre diagnósticos y pedidos pagados con los datos necesarios para atender el lead o preparar la entrega. Esta comunicación no se utiliza para publicidad de terceros.</p>
+        <p>Telegram recibe notificaciones internas sobre diagnósticos, pedidos pagados y reservas de reuniones con los datos necesarios para atender la solicitud, preparar la entrega o coordinar la cita. Esta comunicación no se utiliza para publicidad de terceros.</p>
       </div>
       <div class="legal-callout">
         <h3>PostHog</h3>

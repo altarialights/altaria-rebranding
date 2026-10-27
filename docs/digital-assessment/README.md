@@ -62,12 +62,8 @@ El proyecto usa Astro 7.2.10 con `@astrojs/vercel@11.0.9`. No se activó `output
 
 `trackAssessmentEvent()` emite: `assessment_started`, `assessment_section_completed`, `assessment_completed`, `report_gate_viewed`, `report_unlocked`, `review_requested`, `result_viewed`. Respeta el consentimiento existente de PostHog. Los hitos vinculados a un lead también se escriben en `digital_lead_events`.
 
-## CRM futuro
-
-`digital_leads.crm_status` ya admite `NEW`, `REVIEWED`, `CONTACTED`, `CONVERSATION`, `MEETING`, `PROPOSAL`, `WON`, `LOST`, `NURTURE`. Una futura `/admin/leads` debería usar autenticación, autorización, paginación y un repositorio separado; no debe consultar SQL desde componentes.
-
 ## Roadmap
 
-- V2: emails por categoría, alertas de alto valor con proveedor aprobado, dashboard admin, estados/notas CRM y n8n.
+- V2: emails por categoría, alertas de alto valor con proveedor aprobado.
 - V3: PDF, repetir evaluación, evolución temporal y benchmarking.
 - V4: benchmarking por tamaño/sector exclusivamente con datos reales anonimizados, informes agregados y contenido propio.
