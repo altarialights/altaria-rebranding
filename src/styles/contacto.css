@@ -10,4 +10,59 @@
 .contact-services-cta{display:grid;min-height:190px;padding:24px 38px;grid-template-columns:140px minmax(0,1fr) auto;align-items:center;gap:28px;overflow:hidden}.contact-services-cta>img{width:130px;height:130px;object-fit:contain}.contact-services-cta h2{font-size:clamp(25px,2.1vw,38px)}
 @media(max-width:1019px){.contact-hero{min-height:max(1120px,100vh);padding:116px 28px 95px}.contact-hero__inner{display:flex;min-height:0;flex-direction:column;align-items:center}.contact-hero__cloud{width:min(840px,109vw);flex:0 0 auto}.contact-hero__cloud>svg{transform:translateX(clamp(-28px,-2.5vw,-18px))}.contact-hero__copy{width:64%;transform:translate(-48%,-41%)}.contact-hero__copy h1{font-size:clamp(42px,6.2vw,56px)}.contact-hero__visual{width:min(650px,78vw);margin:-66px auto 0}.contact-content{width:min(100% - 28px,920px);margin-top:-28px}.contact-reasons__grid{grid-template-columns:repeat(2,minmax(0,1fr))}.contact-idea__grid{grid-template-columns:minmax(0,1fr) minmax(320px,.9fr);gap:18px}.contact-steps li{padding:14px;grid-template-columns:70px minmax(0,1fr);gap:13px}.contact-steps picture{width:68px}.contact-whatsapp-card{padding:25px 20px}.contact-services-cta{grid-template-columns:110px minmax(0,1fr) auto}.contact-services-cta>img{width:105px;height:105px}}
 @media(max-width:699px){.contact-eyebrow{font-size:9px}.contact-button{width:100%;min-height:50px;padding-inline:17px;font-size:11px}.contact-hero{min-height:max(940px,100vh);padding:96px 13px 70px}.contact-sky__sun{top:9%;right:3%;width:70px}.contact-hero__cloud{width:143vw}.contact-hero__cloud>svg{transform:none}.contact-hero__copy{width:56%;transform:translate(-48%,-40%)}.contact-hero__copy h1{margin-top:8px;font-size:clamp(30px,8.2vw,36px)}.contact-hero__copy>p:last-of-type{margin-top:14px;font-size:12px;line-height:1.45}.contact-hero__copy .contact-button{margin-top:17px}.contact-hero__actions{margin-top:17px;align-items:stretch;flex-direction:column;gap:8px}.contact-hero__copy .contact-hero__actions .contact-button{margin-top:0}.contact-button--email img{width:29px;height:29px;flex-basis:29px}.contact-hero__visual{width:94vw;margin-top:-8px}.contact-content{width:calc(100% - 16px);margin-top:-20px;padding-bottom:54px;gap:16px}.contact-panel,.contact-services-cta{border-radius:26px}.contact-panel{padding:25px 14px}.contact-heading{margin-bottom:22px}.contact-heading h2{font-size:27px}.contact-heading>p:last-child{font-size:12px}.contact-reasons__grid{gap:9px}.contact-reasons article{padding:16px 9px;border-radius:18px}.contact-reasons picture{width:62px;margin-bottom:8px}.contact-reasons h3{font-size:10.5px}.contact-reasons article p{font-size:10px}.contact-idea__grid{grid-template-columns:1fr;gap:14px}.contact-steps li{min-height:112px;padding:13px 11px;grid-template-columns:64px minmax(0,1fr);gap:11px;border-radius:18px}.contact-steps picture{width:62px}.contact-steps h3{font-size:11px}.contact-steps li p{margin-top:7px;font-size:10.5px}.contact-whatsapp-card{padding:27px 18px;border-radius:24px}.contact-whatsapp-card picture{width:116px}.contact-whatsapp-card h2{font-size:28px}.contact-whatsapp-card>p:not(.contact-eyebrow){font-size:12px}.contact-email{align-items:flex-start;flex-direction:column;gap:5px;font-size:11px}.contact-services-cta{min-height:0;padding:26px 18px;grid-template-columns:1fr;gap:15px;text-align:center}.contact-services-cta>img{display:none}.contact-services-cta h2{font-size:27px}}
+.contact-meeting {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 76px);
+  background: radial-gradient(ellipse at top left, #fff 15%, transparent 70%), #e4f2fc;
+}
+.contact-meeting__copy h2 {
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3.3vw, 56px);
+  font-weight: 900;
+  line-height: 1;
+  color: #0b3268;
+  text-transform: uppercase;
+}
+.contact-meeting__copy > p:not(.contact-eyebrow) {
+  max-width: 48ch;
+  margin-top: 20px;
+  color: #527597;
+  line-height: 1.65;
+}
+.contact-meeting__copy .contact-button { margin-top: 26px; }
+.contact-meeting__copy small { display: block; margin-top: 12px; color: #527597; font-size: 11px; line-height: 1.5; }
+.contact-meeting .contact-button:focus-visible { outline: 3px solid #1371c9; outline-offset: 5px; }
+.contact-meeting__details {
+  min-width: 0;
+  padding: clamp(24px, 3vw, 40px);
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 26px;
+  color: #fff;
+  background: linear-gradient(145deg, #1d6eb5, #0b3268);
+  box-shadow: 0 24px 40px -30px rgba(11, 50, 104, .65);
+}
+.contact-meeting__intro { display: flex; align-items: center; gap: 16px; }
+.contact-meeting__icon { display: grid; place-items: center; width: 58px; height: 58px; flex: 0 0 58px; border: 1px solid #ffffff40; border-radius: 18px; background: #ffffff12; }
+.contact-meeting__icon svg { width: 32px; height: 32px; }
+.contact-meeting__intro p { font-size: 14px; line-height: 1.6; color: #d9edff; }
+.contact-meeting__intro strong { color: #fff; }
+.contact-meeting__details ul { display: grid; gap: 20px; margin: 26px 0 0; padding: 24px 0 0; border-top: 1px solid #ffffff30; list-style: none; }
+.contact-meeting__details li { display: flex; align-items: baseline; gap: 16px; }
+.contact-meeting__details li > span { flex: 0 0 22px; color: #a8d8ff; font-size: 10px; font-weight: 800; letter-spacing: .08em; }
+.contact-meeting__details li strong { font-size: 13px; }
+.contact-meeting__details li p { margin-top: 5px; color: #d9edff; font-size: 12px; line-height: 1.5; }
+@media (max-width: 699px) {
+  .contact-meeting { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .contact-meeting__copy { padding: 4px 4px 0; }
+  .contact-meeting__copy h2 { font-size: clamp(30px, 8vw, 40px); }
+  .contact-meeting__copy > p:not(.contact-eyebrow) { margin-top: 16px; font-size: 13px; }
+  .contact-meeting__copy .contact-button { margin-top: 22px; }
+  .contact-meeting__details { padding: 24px 20px; border-radius: 20px; }
+  .contact-meeting__intro { gap: 12px; }
+  .contact-meeting__intro p { font-size: 12px; }
+  .contact-meeting__icon { width: 48px; height: 48px; flex-basis: 48px; border-radius: 14px; }
+}
 @media(prefers-reduced-motion:no-preference){.contact-hero__cloud,.contact-hero__visual{animation:contact-rise 700ms cubic-bezier(.2,.8,.2,1) both}.contact-hero__visual{animation-delay:90ms}}@keyframes contact-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}

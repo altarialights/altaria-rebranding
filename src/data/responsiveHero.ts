@@ -10,6 +10,8 @@ export type ResponsiveServiceIcon =
 
 export interface ResponsiveService {
   id: string;
+  href: string;
+  linkLabel: string;
   eyebrow: string;
   title: readonly string[];
   description: string;
@@ -33,6 +35,8 @@ const optimized = '/media/hero-responsive/optimized';
 export const responsiveServices: ResponsiveService[] = [
   {
     id: 'contenido',
+    href: '/marketing',
+    linkLabel: 'Saber más sobre marketing digital',
     eyebrow: 'Contenido',
     title: socialBeat.title,
     description: socialBeat.sub,
@@ -47,6 +51,8 @@ export const responsiveServices: ResponsiveService[] = [
   },
   {
     id: 'web',
+    href: '/desarrollo-web',
+    linkLabel: 'Saber más sobre desarrollo web',
     eyebrow: 'Web',
     title: webBeat.title,
     description: webBeat.sub,
@@ -61,6 +67,8 @@ export const responsiveServices: ResponsiveService[] = [
   },
   {
     id: 'software',
+    href: '/software',
+    linkLabel: 'Saber más sobre software a medida',
     eyebrow: 'Software',
     title: softwareBeat.title,
     description: softwareBeat.sub,
@@ -75,6 +83,8 @@ export const responsiveServices: ResponsiveService[] = [
   },
   {
     id: 'marca',
+    href: '/branding',
+    linkLabel: 'Saber más sobre branding',
     eyebrow: 'Marca',
     title: brandBeat.title,
     description: brandBeat.sub,
@@ -89,6 +99,8 @@ export const responsiveServices: ResponsiveService[] = [
   },
   {
     id: 'nfc',
+    href: '/tarjetas-nfc-personalizadas',
+    linkLabel: 'Ver tarjetas NFC y QR',
     eyebrow: 'Producto',
     title: ['Tarjetas', 'NFC + QR'],
     description: 'Reseñas, redes, WhatsApp, reservas y mucho más.',
@@ -103,6 +115,8 @@ export const responsiveServices: ResponsiveService[] = [
   },
   {
     id: 'conectado',
+    href: '/servicios',
+    linkLabel: 'Ver todos nuestros servicios',
     eyebrow: 'Conectado',
     title: growthBeat.title,
     description: growthBeat.sub,

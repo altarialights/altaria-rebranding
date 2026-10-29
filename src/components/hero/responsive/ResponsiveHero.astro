@@ -181,17 +181,13 @@ const responsiveMenuDescriptions = [
                   <p class="rh-service__eyebrow">{service.eyebrow}</p>
                   <h3>{service.title.join(' ')}</h3>
                   <p class="rh-service__description">{service.description}</p>
-                  {service.id === 'contenido' || service.id === 'web' || service.id === 'nfc' ? (
                     <a
                       class="rh-service__decorative-arrow"
-                      href={service.id === 'contenido' ? '/marketing' : service.id === 'web' ? '/desarrollo-web' : '/tarjetas-nfc-personalizadas'}
-                      aria-label={service.id === 'contenido' ? 'Saber más sobre marketing digital' : service.id === 'web' ? 'Saber más sobre desarrollo web' : 'Ver tarjetas NFC y QR'}
+                      href={service.href}
+                      aria-label={service.linkLabel}
                     >
                       →
                     </a>
-                  ) : (
-                    <span class="rh-service__decorative-arrow" aria-hidden="true">→</span>
-                  )}
                 </div>
               </article>
             ))
